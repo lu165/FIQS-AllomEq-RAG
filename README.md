@@ -1,5 +1,7 @@
 # FIQS / AllomEq-RAG
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23205773.svg)](https://doi.org/10.5281/zenodo.23205773)
+
 A reproducible retrieval framework for forestry allometric equation question answering.
 
 ## Overview
@@ -37,3 +39,22 @@ Expected output: SMOKE_TEST_PASS
 ## Notes
 
 Development artifacts preserve historical provenance. Public execution does not require private filesystem paths.
+## Code Availability
+
+The source code is publicly available at:
+
+https://github.com/lu165/FIQS-AllomEq-RAG
+
+The archived release is permanently preserved in Zenodo:
+
+https://doi.org/10.5281/zenodo.23205773
+## Citation
+
+If you use FIQS / AllomEq-RAG, please cite:
+
+Lu et al. (2026).  
+FIQS / AllomEq-RAG v1.1.2:  
+A reproducible retrieval framework for forestry allometric equation question answering.
+
+Zenodo.  
+https://doi.org/10.5281/zenodo.23205773
