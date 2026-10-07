@@ -1,0 +1,315 @@
+======================================================================
+ACCEPTABLE EQUATION SET PROVENANCE AUDIT
+======================================================================
+
+========== 1. HISTORICAL build_gold_set ==========
+869-
+870-print('\n[\u521d\u59cb\u5316] \u52a0\u8f7d Qwen \u6a21\u578b...', flush=True)
+871-_tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH, trust_remote_code=True)
+872-_model     = AutoModelForCausalLM.from_pretrained(MODEL_PATH, trust_remote_code=True,
+873-              torch_dtype=torch.float16, device_map='auto')
+874-_model.eval()
+875-print('  \u5b8c\u6210\n', flush=True)
+876-
+877-print('[\u521d\u59cb\u5316] \u52a0\u8f7d Embedding \u6a21\u578b...', flush=True)
+878-emb = SentenceTransformer(EMB_PATH)
+879-all_texts = ([r.get('location','') for r in db]+[r.get('tree_type','') for r in db]+[r.get('component','') for r in db])
+880-all_vecs  = emb.encode(all_texts, batch_size=256, show_progress_bar=True, normalize_embeddings=True)
+881-n=len(db); loc_vecs=all_vecs[0:n]; sp_vecs=all_vecs[n:2*n]; comp_vecs=all_vecs[2*n:3*n]
+882-print('  \u5b8c\u6210\n', flush=True)
+883-
+884:def build_gold_set(case, eq_override=None):
+885-    sp=re.sub(r'\s+','',case.get('tree_type','') or '')
+886-    loc=re.sub(r'\s+','',case.get('location','') or '')
+887-    comp_raw=case.get('component','') or ''; comp_std=COMP_TO_STD.get(comp_raw,comp_raw)
+888-    eq_src=eq_override or str(case.get('equation','') or ''); primary=normalize_eq(eq_src)
+889-    if not primary: return set(),''
+890-    gold_set={primary}
+891-    if sp and loc and comp_std:
+892-        for r in db:
+893-            if (re.sub(r'\s+','',r.get('tree_type',''))==sp and
+894-                loc_match_score(loc,re.sub(r'\s+','',r.get('location','')))>=3 and
+895-                r.get('component','')==comp_std):
+896-                gold_set.add(normalize_eq(r.get('equation','')))
+897-    return gold_set, primary
+898-
+899-def run_eval(branch_name, cases, eq_override_field=None, is_gen=False):
+900-    print('\n'+'='*60+'\n['+branch_name+'] '+str(len(cases))+'\u6761\n'+'='*60)
+901-    hit1=hit3=hit5=hit_any=skipped=errors=0
+902-    intent_stats={k:{'total':0,'hit1':0} for k in ('single','multi_sp','multi_comp','reasoning','quality_ctrl')}
+903-    for i,case in enumerate(cases):
+904-        tid=case.get('test_id','#'+str(i+1)); label=case.get('group',tid); q=case['question']
+905-        eq_override=(str(case.get(eq_override_field,'') or '').strip() if eq_override_field else None)
+906-        gold_set,primary=build_gold_set(case,eq_override=eq_override)
+907-        if not primary:
+908-            skipped+=1; print('['+str(i+1).zfill(3)+'] skip '+tid,flush=True); continue
+909-        try:
+910-            result=process_question(q,is_gen_branch=is_gen)
+911-            intent=result.get('intent','single'); rejected=result.get('rejected',False)
+912-            if rejected:
+913-                reason=result.get('reject_reason','')
+914-                print('['+str(i+1).zfill(3)+'] \u274c ['+intent+'] '+tid+' | '+label+' [\u62d2:'+reason+']',flush=True)
+915-                intent_stats.get(intent,intent_stats['single'])['total']+=1; continue
+916-            all_eqs=[normalize_eq(e) for e in result.get('equations',[]) if e]
+917-            if not all_eqs: all_eqs=[normalize_eq(result.get('top1',''))]
+918-            h1=bool(all_eqs) and all_eqs[0] in gold_set
+919-            h3=any(e in gold_set for e in all_eqs[:3])
+920-            h5=any(e in gold_set for e in all_eqs[:5])
+921-            h_any=any(e in gold_set for e in all_eqs)
+922-            if h1:   hit1+=1
+923-            if h3:   hit3+=1
+924-            if h5:   hit5+=1
+925-            if h_any: hit_any+=1
+926-            base=intent if intent in intent_stats else 'single'
+927-            intent_stats[base]['total']+=1
+928-            if h1: intent_stats[base]['hit1']+=1
+929-            mark='\u2705' if h1 else ('\U0001f536' if h_any else '\u274c')
+930-            warn_tag=' [\u57fa\u5f84]' if result.get('warn_message') else ''
+931-            print('['+str(i+1).zfill(3)+'] '+mark+' ['+intent+'] '+tid+' | '+label+warn_tag,flush=True)
+932-        except Exception as e:
+933-            errors+=1; print('['+str(i+1).zfill(3)+'] \U0001f4a5 '+tid+' | '+str(e),flush=True)
+934-    n_valid=len(cases)-skipped
+935-    def pct(x): return str(100*x//(n_valid or 1))+'%'
+936-    print('\n[\u7ed3\u679c '+branch_name+']\n  \u6709\u6548:'+str(n_valid)+'  \u8df3\u8fc7:'+str(skipped)+'  \u5f02\u5e38:'+str(errors))
+937-    print('  Hit@1:'+str(hit1)+'/'+str(n_valid)+'('+pct(hit1)+')'
+938-          '  Hit@3:'+str(hit3)+'/'+str(n_valid)+'('+pct(hit3)+')'
+939-          '  Hit@5:'+str(hit5)+'/'+str(n_valid)+'('+pct(hit5)+')'
+940-          '  Hit@any:'+str(hit_any)+'/'+str(n_valid)+'('+pct(hit_any)+')')
+941-    print('  \u5206\u652f:',end='')
+942-    for intent,stat in intent_stats.items():
+943-        if stat['total']==0: continue
+944-        print(' '+intent+'='+str(stat['hit1'])+'/'+str(stat['total'])+'('+str(100*stat['hit1']//(stat['total'] or 1))+'%)',end='')
+945-    print()
+946-    return hit1,hit3,hit5,hit_any,n_valid
+947-
+948-def run_neg_eval(cases):
+949-    print('\n'+'='*60+'\n[\u8d1f\u6837\u672c\u8bc4\u4f30] '+str(len(cases))+'\u6761\n'+'='*60)
+950-    rejected_n=0; type_stats={}; fail_cases=[]
+951-    for i,case in enumerate(cases):
+952-        tid=case.get('test_id','NEG_'+str(i)); q=case.get('question',''); group=case.get('group','\u672a\u77e5')
+953-        slots=extract_slots(q); slots=_rescue_slots(q,slots)
+954-        hard_rej,hard_reason=stage0_hard_reject(q,slots)
+955-        if hard_rej:
+956-            rejected_n+=1
+957-            type_stats.setdefault(group,{'total':0,'rejected':0})
+958-            type_stats[group]['total']+=1; type_stats[group]['rejected']+=1
+959-            print('['+str(i+1).zfill(3)+'] \u2705 '+tid.ljust(22)+' code_reject('+hard_reason+')',flush=True); continue
+960-        scored=retrieve(slots,top_k=5,return_scores=True)
+961-        top1_score=scored[0][1] if scored else 0.0
+962-        top1_rec=scored[0][0] if scored else None
+963-        diam_check=check_diameter_type(q,slots,[r for r,_ in scored] if scored else [])
+964-        if diam_check and diam_check.get('warn'):
+
+========== 2. GOLD / ACCEPTABLE RELATED LOGIC IN V24 ==========
+2:biomass_expert_v21.py  —  基于v20的三处精准修复（全程无新增硬编码）
+399:      source          = reference（参考文献）
+422:        'source':           '参考文献',       # = reference
+884:def build_gold_set(case, eq_override=None):
+890:    gold_set={primary}
+896:                gold_set.add(normalize_eq(r.get('equation','')))
+897:    return gold_set, primary
+901:    hit1=hit3=hit5=hit_any=skipped=errors=0
+902:    intent_stats={k:{'total':0,'hit1':0} for k in ('single','multi_sp','multi_comp','reasoning','quality_ctrl')}
+906:        gold_set,primary=build_gold_set(case,eq_override=eq_override)
+918:            h1=bool(all_eqs) and all_eqs[0] in gold_set
+919:            h3=any(e in gold_set for e in all_eqs[:3])
+920:            h5=any(e in gold_set for e in all_eqs[:5])
+921:            h_any=any(e in gold_set for e in all_eqs)
+922:            if h1:   hit1+=1
+923:            if h3:   hit3+=1
+924:            if h5:   hit5+=1
+925:            if h_any: hit_any+=1
+928:            if h1: intent_stats[base]['hit1']+=1
+937:    print('  Hit@1:'+str(hit1)+'/'+str(n_valid)+'('+pct(hit1)+')'
+938:          '  Hit@3:'+str(hit3)+'/'+str(n_valid)+'('+pct(hit3)+')'
+939:          '  Hit@5:'+str(hit5)+'/'+str(n_valid)+'('+pct(hit5)+')'
+940:          '  Hit@any:'+str(hit_any)+'/'+str(n_valid)+'('+pct(hit_any)+')')
+944:        print(' '+intent+'='+str(stat['hit1'])+'/'+str(stat['total'])+'('+str(100*stat['hit1']//(stat['total'] or 1))+'%)',end='')
+946:    return hit1,hit3,hit5,hit_any,n_valid
+1043:print('  v23指标: Hit@1=77% / 负样本拒绝率=65.6%')
+
+========== 3. BENCHMARK FIELD SCHEMA ==========
+TOTAL = 522
+APPLICABLE = 434
+INAPPLICABLE = 88
+
+FIELDS:
+_calc_params: 335
+_geo_inject_note: 8
+_legacy_equation: 5
+_legacy_expected_result: 5
+_loc_inject_note: 84
+component: 495
+derived_from: 18
+difficulty: 495
+equation: 522
+eval_type: 5
+expected_result: 440
+gen_type: 369
+gen_type_tags: 126
+group: 396
+key_points: 369
+location: 495
+original_question: 18
+question: 522
+rejection_reason: 33
+requires_rejection: 88
+scene: 126
+source: 495
+subtype: 27
+template_region: 4
+template_species: 4
+test_id: 522
+tree_type: 495
+turns: 5
+unit: 369
+
+POTENTIAL_GOLD_FIELDS:
+_legacy_equation: 5
+_legacy_expected_result: 5
+equation: 522
+expected_result: 440
+
+========== 4. APPLICABLE CASE GOLD-FIELD EXAMPLES ==========
+
+CASE = None
+tree_type = '思茅松'
+location = '云南普洱景谷县'
+component = '干'
+equation = 'W=0.022 * D^2.495 * H^0.357'
+expected_result = 45.9238
+
+CASE = None
+tree_type = '思茅松'
+location = '云南普洱景谷县'
+component = '枝'
+equation = 'W=0.005 * D^4.026 * H^(-1.23)'
+expected_result = 2.3861
+
+CASE = None
+tree_type = '思茅松'
+location = '云南普洱景谷县'
+component = '叶'
+equation = 'W=0.007 * D^3.712'
+expected_result = 472.6301
+
+CASE = None
+tree_type = '思茅松'
+location = '云南普洱景谷县'
+component = '根'
+equation = 'W=0.003 * D^3.478 * H^(-0.894)'
+expected_result = 2.1703
+
+CASE = None
+tree_type = '思茅松'
+location = '云南普洱景谷县'
+component = '整株'
+equation = 'W=0.041 * D^2.969 * H^(-0.222)'
+expected_result = 121.6879
+
+CASE = None
+tree_type = '华山松'
+location = '小秦岭'
+component = '干'
+equation = 'W=exp(1.02363 * log(D^2 * H) - 4.49970)'
+expected_result = 0.217
+
+CASE = None
+tree_type = '华山松'
+location = '小秦岭'
+component = '枝'
+equation = 'W=exp(2.57551 * log(D) - 4.08452)'
+expected_result = 0.348
+
+CASE = None
+tree_type = '华山松'
+location = '小秦岭'
+component = '叶'
+equation = 'W=exp(2.75687 * log(D) - 5.75891)'
+expected_result = 0.0618
+
+CASE = None
+tree_type = '油松'
+location = '小秦岭'
+component = '干'
+equation = 'W=exp(1.04086 * log(D^2 * H) - 4.63143)'
+expected_result = 0.3763
+
+CASE = None
+tree_type = '蒙古栎'
+location = '小秦岭'
+component = '枝'
+equation = 'W=0.005014 * (D^2 * H)^3.005'
+expected_result = 1777067.5636
+
+CASE = None
+tree_type = '白桦'
+location = '小秦岭'
+component = '叶'
+equation = 'W=0.0109 * (D^2 * H)^0.6472'
+expected_result = 0.5129
+
+CASE = None
+tree_type = '水曲柳'
+location = '小秦岭'
+component = '干'
+equation = 'W=0.02511 * (D^2 * H)^0.9271'
+expected_result = 19.2994
+
+========== 5. HISTORICAL EVALUATOR GOLD LOGIC ==========
+88-    eq = eq.replace('\uff08','(').replace('\uff09',')')
+89-    for pat, repl in [
+90-        (r'^ln\(W\)=(.+)$',  lambda m: 'W=exp('+m.group(1)+')'),
+91-        (r'^lnW=(.+)$',      lambda m: 'W=exp('+m.group(1)+')'),
+92-        (r'^log\(W\)=(.+)$', lambda m: 'W=exp(2.303*('+m.group(1)+'))'),
+93-        (r'^logW=(.+)$',     lambda m: 'W=exp(2.303*('+m.group(1)+'))'),
+94-    ]:
+95-        m = re.match(pat, eq)
+96-        if m: eq = repl(m)
+97-    eq = re.sub(r'(\.\d*[1-9])0+\b',r'\1',eq)
+98-    eq = re.sub(r'\.0+\b','',eq)
+99-    return eq
+100-
+101-def is_wrong_prem(c):
+102-    return ('\u9519\u8bef\u524d\u63d0' in (c.get('gen_type_tags') or []) or
+103-            c.get('test_id','').startswith('GEN_\u9519\u8bef'))
+104-
+105-def is_valid_equation(eq_str):
+106-    return bool(re.search(r'[=^*/]', str(eq_str)))
+107-
+108:def build_gold_set(case, eq_override=None):
+109-    sp=re.sub(r'\s+','',case.get('tree_type','') or '')
+110-    loc=re.sub(r'\s+','',case.get('location','') or '')
+111-    comp_raw=case.get('component','') or ''; comp_std=COMP_TO_STD.get(comp_raw,comp_raw)
+112-    eq_src=eq_override or str(case.get('equation','') or ''); primary=normalize_eq(eq_src)
+113-    if not primary: return set(),''
+114-    gold_set={primary}
+115-    if sp and loc and comp_std:
+116-        for r in db:
+117-            if (re.sub(r'\s+','',r.get('tree_type',''))==sp and
+118-                loc_match_score(loc,re.sub(r'\s+','',r.get('location','')))>=3 and
+119-                r.get('component','')==comp_std):
+120-                gold_set.add(normalize_eq(r.get('equation','')))
+121-    return gold_set, primary
+
+========== 6. GOLD EQUIVALENCE REPORT KEY RESULTS ==========
+HISTORICAL V24 EVALUATOR — FIXED EXTRACTION EQUIVALENCE
+BENCHMARK_COUNT = 522
+[EQUIVALENCE]
+NORMALIZE_EQ_MISMATCH = 0
+LOC_CANON_MISMATCH = 0
+LOC_MATCH_SCORE_MISMATCH = 0
+GOLD_CASES_TESTED = 522
+GOLD_MISMATCH = 0
+HIST_GOLD_SIZE_DISTRIBUTION = [(0, 87), (1, 150), (2, 68), (3, 32), (4, 28), (5, 28), (6, 27), (7, 3), (8, 12), (9, 7), (10, 7), (11, 1), (12, 9), (13, 7), (14, 6), (15, 2), (16, 4), (17, 1), (18, 4), (19, 1), (20, 6), (21, 4), (22, 3), (29, 6), (30, 1), (32, 1), (36, 1), (37, 2), (41, 2), (54, 6), (55, 5), (75, 1)]
+NEW_GOLD_SIZE_DISTRIBUTION = [(0, 87), (1, 150), (2, 68), (3, 32), (4, 28), (5, 28), (6, 27), (7, 3), (8, 12), (9, 7), (10, 7), (11, 1), (12, 9), (13, 7), (14, 6), (15, 2), (16, 4), (17, 1), (18, 4), (19, 1), (20, 6), (21, 4), (22, 3), (29, 6), (30, 1), (32, 1), (36, 1), (37, 2), (41, 2), (54, 6), (55, 5), (75, 1)]
+PRIMITIVE_EQUIVALENCE = True
+GOLD_SET_522_EQUIVALENCE = True
+FINAL_STATUS = PASS
+
+========== 7. HASH INTEGRITY ==========
+a64340999066bb75eae0075537891a81b13c6df9a703cf976322d3d37b8dbcfd  github_release/code/evaluation/manuscript_522_v2.py
+e33928e223700d05795fd3f2ad7e7a21bdf65dbc23d7c25b273ecd606717de4c  github_release/code/evaluation/historical_v24_evaluator.py
+ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990  <PRIVATE_ROOT>/biomass_expert_v24.py
+
+AUDIT_COMPLETE

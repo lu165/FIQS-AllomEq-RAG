@@ -1,0 +1,476 @@
+==============================================================================
+REAL DATA SCHEMA / COVERAGE AUDIT
+==============================================================================
+
+[FILES]
+FEDB      : <PRIVATE_ROOT>/林业方程_标准化.json
+Benchmark : <PRIVATE_ROOT>/最新生物量测试集构建_v7_with_neg_原始_20260503_131441.json
+FEDB SHA256      : 2b2ace233067fd4b4ee04a093bde3346fbf8a7aa94e9b63ebe87e23c49b60dab
+Benchmark SHA256 : c40c5dfe1362f19e13a1963661e3472e973b386fdcd5038715403e5e464ce073
+
+[COUNTS]
+FEDB records      : 7394
+Benchmark records : 522
+
+[FEDB FIELD OCCURRENCE]
+authors                         7394/7394 (100.00%)
+component                       7394/7394 (100.00%)
+component_original              7394/7394 (100.00%)
+data_quality                    7394/7394 (100.00%)
+equation                        7394/7394 (100.00%)
+equation_chain                  7394/7394 (100.00%)
+id                              7394/7394 (100.00%)
+location                        7394/7394 (100.00%)
+parameters                      7394/7394 (100.00%)
+quality_score                   7394/7394 (100.00%)
+size_class                      7394/7394 (100.00%)
+source                          7394/7394 (100.00%)
+source_dataset                  7394/7394 (100.00%)
+tags                            7394/7394 (100.00%)
+tree_type                       7394/7394 (100.00%)
+variables                       7394/7394 (100.00%)
+altitude                        6633/7394 ( 89.71%)
+forest_type                     6633/7394 ( 89.71%)
+mean_annual_precipitation       6633/7394 ( 89.71%)
+mean_annual_temperature         6633/7394 ( 89.71%)
+stand_origin                    6633/7394 ( 89.71%)
+dominant_species                5625/7394 ( 76.08%)
+r_squared                       5625/7394 ( 76.08%)
+sample_size                     5625/7394 ( 76.08%)
+stand_age                       5625/7394 ( 76.08%)
+equation_id                      761/7394 ( 10.29%)
+equation_name                    761/7394 ( 10.29%)
+publication_year                 761/7394 ( 10.29%)
+
+[FEDB FIVE-CONSTRAINT FIELD COVERAGE]
+tree_type           :  7394/7394 (100.00%)
+component           :  7394/7394 (100.00%)
+variables           :  7394/7394 (100.00%)
+location            :  7391/7394 ( 99.96%)
+size_class          :  7221/7394 ( 97.66%)
+
+[FEDB VARIABLES: TOP 30 FORMS]
+ 3744  LIST:D,H
+ 2706  LIST:D
+  232  LIST:D_{轮},H,D_{围}
+  160  LIST:V
+  102  LIST:D0,H
+   95  LIST:D0
+   77  LIST:D_{轮},H
+   52  LIST:D_{轮},D_{围}
+   34  LIST:D_{围},H
+   28  LIST:B
+   26  LIST:V,A
+   23  LIST:A
+   20  LIST:H
+   13  LIST:D_{1.3},H,D_{0}
+   12  LIST:DBH
+    7  LIST:V_total
+    7  LIST:B_total
+    5  LIST:W_T
+    5  LIST:D0.2
+    5  LIST:D0.3
+    5  LIST:D0.3,H
+    5  LIST:D_{轮}
+    5  LIST:D_{0}
+    5  LIST:D_{围},H,D
+    4  LIST:W_aboveground
+    3  LIST:W_干,W_枝,W_叶
+    2  LIST:V,Cc
+    2  LIST:H,D_{1.3},D_{0}
+    2  LIST:D_{轮},V,H,D_{围}
+    2  LIST:D,H,V
+
+[FEDB SIZE_CLASS AUDIT]
+Present   : 7221
+Parseable : 279 (3.86% of present)
+
+Parseable examples:
+   '林龄5-26年, 胸径范围：4.5-24.63cm' => (5.0, 26.0)
+   '林龄5-26年, 胸径范围：4.5-24.63cm' => (5.0, 26.0)
+   '林龄5-26年, 胸径范围：4.5-24.63cm' => (5.0, 26.0)
+   '林龄5-26年, 胸径范围：4.5-24.63cm' => (5.0, 26.0)
+   '林龄5-26年, 胸径范围：4.5-24.63cm' => (5.0, 26.0)
+   '林龄5-26年, 胸径范围：4.5-24.63cm' => (5.0, 26.0)
+   '林龄5-26年, 胸径范围：4.5-24.63cm' => (5.0, 26.0)
+   '小树(胸径1-10cm)' => (1.0, 10.0)
+   '小树(胸径1-10cm)' => (1.0, 10.0)
+   '小树(胸径1-10cm)' => (1.0, 10.0)
+   '小树(胸径1-10cm)' => (1.0, 10.0)
+   '小树(胸径1-10cm)' => (1.0, 10.0)
+   '中树(胸径10-20cm)' => (10.0, 20.0)
+   '中树(胸径10-20cm)' => (10.0, 20.0)
+   '中树(胸径10-20cm)' => (10.0, 20.0)
+   '中树(胸径10-20cm)' => (10.0, 20.0)
+   '中树(胸径10-20cm)' => (10.0, 20.0)
+   '中树(胸径10-20cm)' => (10.0, 20.0)
+   '林分类型: 人工林(银中杨、小黑杨、樟子松、落叶松、红松)或天然次生林(山杨、白桦、蒙古栎); 林龄: 中龄林以上(17~53年)' => (17.0, 53.0)
+   '林分类型: 人工林(银中杨、小黑杨、樟子松、落叶松、红松)或天然次生林(山杨、白桦、蒙古栎); 林龄: 中龄林以上(17~53年)' => (17.0, 53.0)
+
+Unparseable examples:
+   '未指定'
+   '未指定'
+   '未指定'
+   '未指定'
+   '未指定'
+   '未指定'
+   '未指定'
+   '未指定'
+   '未指定'
+   '未指定'
+   '未指定'
+   '未指定'
+   '未指定'
+   '未指定'
+   '未指定'
+   '未指定'
+   '未指定'
+   '未指定'
+   '未指定'
+   '未指定'
+   '1055株立木'
+   '1055株立木'
+   '1055株立木'
+   '1055株立木'
+   '1055株立木'
+   '1055株立木'
+   '1055株立木'
+   '大树(胸径≥20cm)'
+   '大树(胸径≥20cm)'
+   '大树(胸径≥20cm)'
+   '大树(胸径≥20cm)'
+   '大树(胸径≥20cm)'
+   '大树(胸径≥20cm)'
+   '林分类型: 天然次生林(山杨、油松、辽东栎)和人工林(侧柏); 林龄: 幼龄林至过熟林'
+   '林分类型: 天然次生林(山杨、油松、辽东栎)和人工林(侧柏); 林龄: 幼龄林至过熟林'
+   '林分类型: 天然次生林(山杨、油松、辽东栎)和人工林(侧柏); 林龄: 幼龄林至过熟林'
+   '林分类型: 天然次生林(山杨、油松、辽东栎)和人工林(侧柏); 林龄: 幼龄林至过熟林'
+   '林分类型: 天然次生林(山杨、油松、辽东栎)和人工林(侧柏); 林龄: 幼龄林至过熟林'
+   '林分类型: 天然次生林(山杨、油松、辽东栎)和人工林(侧柏); 林龄: 幼龄林至过熟林'
+   '林分类型: 天然次生林(山杨、油松、辽东栎)和人工林(侧柏); 林龄: 幼龄林至过熟林'
+
+[BENCHMARK FIELD OCCURRENCE]
+equation                        522/522 (100.00%)
+question                        522/522 (100.00%)
+test_id                         522/522 (100.00%)
+component                       495/522 ( 94.83%)
+difficulty                      495/522 ( 94.83%)
+location                        495/522 ( 94.83%)
+source                          495/522 ( 94.83%)
+tree_type                       495/522 ( 94.83%)
+expected_result                 440/522 ( 84.29%)
+group                           396/522 ( 75.86%)
+gen_type                        369/522 ( 70.69%)
+key_points                      369/522 ( 70.69%)
+unit                            369/522 ( 70.69%)
+_calc_params                    335/522 ( 64.18%)
+gen_type_tags                   126/522 ( 24.14%)
+scene                           126/522 ( 24.14%)
+requires_rejection               88/522 ( 16.86%)
+_loc_inject_note                 84/522 ( 16.09%)
+rejection_reason                 33/522 (  6.32%)
+subtype                          27/522 (  5.17%)
+derived_from                     18/522 (  3.45%)
+original_question                18/522 (  3.45%)
+_geo_inject_note                  8/522 (  1.53%)
+_legacy_equation                  5/522 (  0.96%)
+_legacy_expected_result           5/522 (  0.96%)
+eval_type                         5/522 (  0.96%)
+turns                             5/522 (  0.96%)
+template_region                   4/522 (  0.77%)
+template_species                  4/522 (  0.77%)
+
+[BENCHMARK IMPORTANT FIELD COVERAGE]
+test_id             :  522/522 (100.00%)
+question            :  522/522 (100.00%)
+tree_type           :  495/522 ( 94.83%)
+component           :  495/522 ( 94.83%)
+location            :  495/522 ( 94.83%)
+equation            :  435/522 ( 83.33%)
+expected_result     :  328/522 ( 62.84%)
+unit                :  328/522 ( 62.84%)
+_calc_params        :  257/522 ( 49.23%)
+gen_type            :  369/522 ( 70.69%)
+group               :  396/522 ( 75.86%)
+
+[BENCHMARK POSSIBLE LABEL FIELDS]
+
+FIELD = expected_result
+   194  None
+    25  需纠错
+     1  45.9238
+     1  2.3861
+     1  472.6301
+     1  2.1703
+     1  121.6879
+     1  0.217
+     1  0.348
+     1  0.0618
+     1  0.3763
+     1  1777067.5636
+     1  0.5129
+     1  19.2994
+     1  0.0824
+     1  4.5823
+     1  60.6619
+     1  133.3859
+     1  1.8304
+     1  44.3122
+     1  6.4908
+     1  27.9508
+     1  52.4906
+     1  16.1753
+     1  23.1437
+     1  147.7568
+     1  129.9146
+     1  100.6916
+     1  101.0614
+     1  71.7301
+
+FIELD = gen_type
+   347  原有
+   153  None
+     8  地区泛化
+     8  意图理解
+     6  树种泛化
+
+FIELD = group
+   126  None
+    13  负样本_参数异常
+    10  负样本_跨区域
+    10  负样本_信息严重不足
+     8  内蒙古_森林异速生长
+     7  负样本_范围外
+     6  黑龙江省_碳汇树种
+     6  山西省_森林生态系统
+     5  思茅松_云南普洱
+     5  亚热带常绿阔叶林_粗根
+     5  正样本_基础匹配
+     4  小秦岭_松类
+     4  小秦岭_阔叶树
+     4  紫椴_吉林蛟河
+     4  内蒙古_兴安落叶松
+     4  负样本_参数超范围
+     4  负样本_超出知识边界
+     3  荒漠植被_乌兰布和
+     3  山西_华北落叶松
+     3  甘肃_华山松
+     3  湖南_杉木
+     2  全国通用方程_松杉类
+     2  大兴安岭_兴安落叶松
+     2  云南省_碳储量转换
+     2  东北地区_幼苗
+     2  湖北_日本落叶松
+     2  湖北_杉木
+     2  北京_栓皮栎
+     2  浙江_青冈
+     2  浙江_石栎
+
+FIELD = source
+   126  自动生成_真实场景_deepseek
+    33  
+    27  None
+    14  林业方程_统一格式.json
+    13  《Chen, Q.C.: Study on the Primary Productivity of an Evergreen Broadleaved Forest Ecosystem》
+     9  《广西主要树种(组)异速生长模型及森林生物量特征》
+     8  《小秦岭国家级自然保护区乔木生物量随地形因子变化格局》
+     8  《内蒙古森林异速生长分析》
+     7  《森林生态系统内灌草植被生物量估测方法的研究》
+     7  《基于生长生物量模型法的福建森林碳汇估算研究》
+     6  《黑龙江省主要碳汇树种生物量异速生长方程研究》
+     6  《山西森林生态系统碳密度分配格局及碳储量研究》
+     5  《思茅松人工林根系特征与生物量分配》
+     5  《亚热带常绿阔叶林8个常见树种粗根生物量》
+     5  《Cheng, T.R., Ma, Q.Y., Feng, Z.K., and Luo, X.: Study on forest biomass in Xiaolong Mountains, Gansu Province》
+     4  《紫椴生物量分配格局及异速生长方程》
+     4  《秦岭典型群落木本植物生物量影响因素研究》
+     4  biomass_0927
+     4  biomass_0981
+     4  biomass_1876-1880
+     3  《乌兰布和沙漠东北缘荒漠-绿洲过渡带植被地上生物量估算》
+     3  《云南省森林碳储量现状与动态分析》
+     3  《永康市森林碳储量估算研究》
+     3  《河南伏牛山区典型森林植被乔木层生物量研究》
+     3  《东北地区主要造林树种幼苗期生物量分配特征与异速生长模型》
+     3  《Bao, X.C., Chen, L.Z., Chen, Q.L., Ren, J.K., Hu, Y.H., and Li, Y.: The biomass of planted oriental oak (Quercus variabilis) forest》
+     3  《Chen, C.G.: Biomass equations of Korean pine plantation》
+     3  《Chen, C.G.: Biomass and productivity of tree layers in Pinus armandii forests, Qinling Mountains》
+     3  《Chen, C.G., and Peng, H.: Standing crops and productivity of the major forest types at Huoditang Forest Region of Qinling Mountains》
+     3  biomass_1009
+
+[BENCHMARK _calc_params]
+dict records: 335
+D                   :  213/335
+H                   :  190/335
+V                   :    9/335
+Do                  :    9/335
+A                   :    6/335
+B                   :    5/335
+换算关系                :    5/335
+原参数                 :    5/335
+user_result         :    5/335
+换算后参数               :    4/335
+user_equation       :    4/335
+原胸径系数               :    3/335
+树高指数                :    3/335
+原系数                 :    3/335
+note                :    3/335
+换算后方程               :    3/335
+W_above             :    2/335
+W_T                 :    2/335
+换算说明                :    2/335
+换算后系数               :    2/335
+original_coefficient:    2/335
+original_exponent   :    2/335
+胸径指数                :    2/335
+树围换算关系              :    2/335
+代入后方程               :    2/335
+树围换算说明              :    2/335
+W_sum               :    1/335
+原胸径指数               :    1/335
+换算后指数               :    1/335
+建议公式                :    1/335
+树围转D_轮系数            :    1/335
+树围转D_轮常数            :    1/335
+材积系数                :    1/335
+D_轮指数               :    1/335
+树高常数1               :    1/335
+树高常数2               :    1/335
+树高常数3               :    1/335
+胸径与树围关系             :    1/335
+推导说明                :    1/335
+circumference_to_diameter_ratio:    1/335
+converted_coefficient:    1/335
+converted_exponent  :    1/335
+原参数说明               :    1/335
+代入换算后的方程            :    1/335
+circumference_to_D_conversion:    1/335
+原胸径D单位              :    1/335
+树围C与胸径D关系           :    1/335
+换算后建议公式             :    1/335
+换算后关键参数解释           :    1/335
+circumference_cm    :    1/335
+height_m            :    1/335
+circumference_to_diameter_note:    1/335
+converted_equation  :    1/335
+D_围_to_D_轮          :    1/335
+原胸径D与树围C关系          :    1/335
+代入原方程               :    1/335
+展开对数                :    1/335
+进一步整理               :    1/335
+计算常数项               :    1/335
+简化后参数值              :    1/335
+代入推导                :    1/335
+新参数                 :    1/335
+常数计算                :    1/335
+最终公式                :    1/335
+建议新方程               :    1/335
+树围转胸径换算             :    1/335
+代入示例                :    1/335
+单位提示                :    1/335
+intercept           :    1/335
+slope               :    1/335
+converted_note      :    1/335
+原指数                 :    1/335
+周长换算系数              :    1/335
+新系数提示               :    1/335
+改写后系数               :    1/335
+改写后树围指数             :    1/335
+新方程                 :    1/335
+原公式说明               :    1/335
+使用建议                :    1/335
+化简后参数               :    1/335
+最终可用形式              :    1/335
+user_formula        :    1/335
+D_围                 :    1/335
+H_实测                :    1/335
+V_错误计算              :    1/335
+user_step           :    1/335
+error_type          :    1/335
+error_detail        :    1/335
+
+[BENCHMARK equation FIELD TYPES]
+str 522
+
+[FIRST FIVE BENCHMARK RECORD SUMMARIES]
+
+--- RECORD 1 ---
+keys: ['_calc_params', 'component', 'difficulty', 'equation', 'expected_result', 'gen_type', 'group', 'key_points', 'location', 'question', 'source', 'test_id', 'tree_type', 'unit']
+test_id: 'Q0001'
+source: '《思茅松人工林根系特征与生物量分配》'
+group: '思茅松_云南普洱'
+gen_type: '原有'
+tree_type: '思茅松'
+component: '干'
+location: '云南普洱景谷县'
+question: '我们在普洱种了一片思茅松，现在想做树干生物量调查，有一棵树的胸径大概是15厘米，树高12米左右，能帮我们算一下它的树干有多重吗？'
+equation: 'W=0.022 * D^2.495 * H^0.357'
+expected_result: 45.9238
+_calc_params: {'D': 15.0, 'H': 12.0}
+
+--- RECORD 2 ---
+keys: ['_calc_params', 'component', 'difficulty', 'equation', 'expected_result', 'gen_type', 'group', 'key_points', 'location', 'question', 'source', 'test_id', 'tree_type', 'unit']
+test_id: 'Q0002'
+source: '《思茅松人工林根系特征与生物量分配》'
+group: '思茅松_云南普洱'
+gen_type: '原有'
+tree_type: '思茅松'
+component: '枝'
+location: '云南普洱景谷县'
+question: '在景谷县，我想估算一下思茅松的树枝生物量，有一棵胸径8厘米、树高6米，应该用哪个公式？'
+equation: 'W=0.005 * D^4.026 * H^(-1.23)'
+expected_result: 2.3861
+_calc_params: {'D': 8.0, 'H': 6.0}
+
+--- RECORD 3 ---
+keys: ['_calc_params', '_loc_inject_note', 'component', 'difficulty', 'equation', 'expected_result', 'gen_type', 'group', 'key_points', 'location', 'question', 'source', 'test_id', 'tree_type', 'unit']
+test_id: 'Q0003'
+source: '《思茅松人工林根系特征与生物量分配》'
+group: '思茅松_云南普洱'
+gen_type: '原有'
+tree_type: '思茅松'
+component: '叶'
+location: '云南普洱景谷县'
+question: '听说思茅松的叶子也能算生物量，我在云南普洱景谷县，我有棵胸径20厘米的树，没量树高，能算出来吗？'
+equation: 'W=0.007 * D^3.712'
+expected_result: 472.6301
+_calc_params: {'D': 20.0, 'H': None}
+
+--- RECORD 4 ---
+keys: ['_calc_params', '_loc_inject_note', 'component', 'difficulty', 'equation', 'expected_result', 'gen_type', 'group', 'key_points', 'location', 'question', 'source', 'test_id', 'tree_type', 'unit']
+test_id: 'Q0004'
+source: '《思茅松人工林根系特征与生物量分配》'
+group: '思茅松_云南普洱'
+gen_type: '原有'
+tree_type: '思茅松'
+component: '根'
+location: '云南普洱景谷县'
+question: '我们想测思茅松的根系生物量，我在云南普洱景谷县，有一棵胸径12厘米、树高10米的树，查资料发现有的公式是算根的，有的算总根，到底用哪个？'
+equation: 'W=0.003 * D^3.478 * H^(-0.894)'
+expected_result: 2.1703
+_calc_params: {'D': 12.0, 'H': 10.0}
+
+--- RECORD 5 ---
+keys: ['_calc_params', '_loc_inject_note', 'component', 'difficulty', 'equation', 'expected_result', 'gen_type', 'group', 'key_points', 'location', 'question', 'source', 'test_id', 'tree_type', 'unit']
+test_id: 'Q0005'
+source: '《思茅松人工林根系特征与生物量分配》'
+group: '思茅松_云南普洱'
+gen_type: '原有'
+tree_type: '思茅松'
+component: '整株'
+location: '云南普洱景谷县'
+question: '一棵思茅松，胸径18厘米，树高14米，整棵树大概多重？（位于云南普洱景谷县）'
+equation: 'W=0.041 * D^2.969 * H^(-0.222)'
+expected_result: 121.6879
+_calc_params: {'D': 18.0, 'H': 14.0}
+
+[TEST ID CHECK]
+IDs present : 522
+Unique IDs  : 522
+Duplicates  : 0
+
+[ASSERTIONS]
+PASS: FEDB count = 7394
+PASS: benchmark count = 522
+
+AUDIT COMPLETE -- NO SOURCE DATA MODIFIED

@@ -1,0 +1,579 @@
+============================================================
+RETRIEVAL CORE AUDIT
+============================================================
+
+========== CONFIG 1-110 ==========
+from pathlib import Path
+import os
+"""
+biomass_expert_v21.py  —  基于v20的三处精准修复（全程无新增硬编码）
+=========================================================
+v20存在的问题：
+  问题1: 意图分类漂移 — 槽位+意图合并为一次LLM输出，Qwen-7B不稳定
+         large量single题被错误分类为reasoning（52条vs正常21条）
+         导致14条正样本回退
+  问题2: 负样本拒绝率 51.6%→34.4% — judge跳过阈值0.85太高
+         大量0.86-0.97分的负样本被直接放行，完全不过judge
+  问题3: judge误拒正样本(Q0274等) — judge看到"径级稍超+地区不同"就拒绝
+         缺少树种完全匹配时的豁免逻辑
+
+修复方式（不加硬编码，改进LLM使用方式）：
+
+  Fix-①: 意图分类改为Chain-of-Thought两步推理
+    - 第一步LLM调用：仅做槽位提取（保持稳定）
+    - 第二步：基于槽位结果用规则+LLM联合判断意图
+      规则层：若有精确树种+地区+组分槽位→倾向single
+              若含"哪个/推荐/更好/比较"→倾向reasoning
+              若含"R²/样本量/精度/置信"→倾向quality_ctrl
+      LLM层：仅在规则层不确定时才调用LLM判断意图
+      这样LLM只需回答"single/reasoning/quality_ctrl"一个字，大幅降低漂移
+
+  Fix-②: judge跳过阈值 0.85→0.70，同时传入"软信号"给judge
+    - 扩大judge覆盖范围，更多case过judge
+    - 把_detect_soft_signals()的结果作为额外上下文传给judge
+      如"用户表达了跨区域使用意图"、"胸径超出径级范围"
+      这是提示，不是硬规则——judge做最终判断
+    - judge prompt加few-shot示例（跨区域应拒/广布种可采）
+
+  Fix-③: judge prompt加正样本豁免few-shot
+    - 树种完全匹配时，径级稍超不应拒绝（Q0274类）
+    - 广布种跨省、通用方程跨省的具体示例
+"""
+
+import json, sys, re, torch, math
+# Historical server-only sys.path injection removed in the public release.
+# Public modules are resolved from the repository/package environment.
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from sentence_transformers import SentenceTransformer
+import numpy as np
+
+# Public-release configuration.
+#
+# Large model/checkpoint assets and the formal benchmark are not bundled
+# with the lightweight synthetic smoke-test package. Paths may be supplied
+# through environment variables. Relative defaults are repository-local.
+_RELEASE_ROOT = Path(__file__).resolve().parents[1]
+
+MODEL_PATH = os.environ.get(
+    "FIQS_MODEL_PATH",
+    "Qwen/Qwen1.5-7B-Chat",
+)
+
+EQ_PATH = os.environ.get(
+    "FIQS_EQ_PATH",
+    str(
+        _RELEASE_ROOT
+        / "data_public"
+        / "synthetic_example"
+        / "dummy_fedb_20.json"
+    ),
+)
+
+TEST_PATH = os.environ.get(
+    "FIQS_TEST_PATH",
+    str(
+        _RELEASE_ROOT
+        / "data_public"
+        / "benchmark_522.json"
+    ),
+)
+
+EMB_PATH = os.environ.get(
+    "FIQS_EMB_PATH",
+    "BAAI/bge-large-zh-v1.5",
+)
+
+# ══════════════════════════════════════════════════════════════
+# LLM Prompts
+# ══════════════════════════════════════════════════════════════
+
+# Fix-①-A: 槽位提取单独一个prompt，不再混入intent
+SLOT_SYSTEM = """你是林业生物量方程检索助手。从用户问题中提取以下槽位，输出JSON。
+
+字段说明：
+  tree_species: 树种名（如华山松、落叶松），没有填null
+  region: 地区名（如黑龙江、小秦岭），没有填null
+  component: 组分（干/枝/叶/根/整株/地上/地下/材积/碳储量/果实），没有填null
+  D: 胸径数值(cm)，没有填null
+  H: 树高数值(m)，没有填null
+  D0: 地径/基径数值(cm)，没有填null
+  diameter_type: 直径类型，只能是"胸径"/"基径"/"未知"
+
+只输出JSON，不要任何其他文字。示例：
+{"tree_species":"华山松","region":"小秦岭","component":"整株","D":15.5,"H":null,"D0":null,"diameter_type":"胸径"}"""
+
+# Fix-①-B: 意图分类单独prompt（仅在规则层不确定时调用）
+INTENT_SYSTEM = """你是林业方程检索意图分类助手。根据用户问题，判断意图类型。
+
+意图类型说明：
+  single       — 查找一个具体方程，有明确树种/地区/组分
+  multi_sp     — 需要给多个树种分别找方程（含混交林、多树种并列）
+  multi_comp   — 需要给多个组分分别找方程（如同时要干+枝+叶）
+  quality_ctrl — 比较方程统计质量，含R²/样本量/精度/置信区间评估
+  reasoning    — 需要推荐/比较/选择，含"哪个更好/应该用/推荐/更合适"
+
+示例：
+
+========== RETRIEVE 560-690 ==========
+
+def param_score(eq_str, slots):
+    s = 0
+    if slots.get('H') is not None and has_var(eq_str,'H'):   s += 2
+    if slots.get('D0') is not None and has_var(eq_str,'D0'): s += 2
+    if slots.get('V') is not None and has_var(eq_str,'V'):   s += 3
+    if slots.get('A') is not None and has_var(eq_str,'A'):   s += 3
+    return s
+
+def parse_d_range(sc):
+    """v23增强：支持真实数据中的多种size_class格式"""
+    if not sc: return None
+    sc_str = str(sc)
+    for pat in [
+        # 格式1：胸径X-Ycm
+        r'\u80f8\u5f84[\u8303\u56f4\uff1a:为]*\s*(\d+\.?\d*)\s*[-\u2013~\uff5e]\s*(\d+\.?\d*)\s*(?:cm|\u5398\u7c73)',
+        # 格式2：胸径X, Ycm（逗号分隔）
+        r'\u80f8\u5f84[\u8303\u56f4\uff1a:为]*\s*(\d+\.?\d*)\s*,\s*(\d+\.?\d*)\s*(?:cm|\u5398\u7c73)',
+        # 格式3：D=X-Ycm
+        r'D\s*[=:\uff1a]\s*(\d+\.?\d*)\s*[-\u2013~\uff5e]\s*(\d+\.?\d*)\s*(?:cm|\u5398\u7c73)',
+        # 格式4：径级X-Y
+        r'\u5f84\u7ea7\s*(\d+\.?\d*)\s*[-\u2013~\uff5e]\s*(\d+\.?\d*)',
+        # 格式5：纯数字X-Ycm
+        r'(\d+\.?\d*)\s*[-\u2013~\uff5e]\s*(\d+\.?\d*)\s*cm',
+        # 格式6：胸径 X Y cm（空格分隔）
+        r'\u80f8\u5f84\s+(\d+\.?\d*)\s+(\d+\.?\d*)\s*(?:cm|\u5398\u7c73)',
+    ]:
+        m = re.search(pat, sc_str, re.IGNORECASE)
+        if m:
+            try:
+                lo, hi = float(m.group(1)), float(m.group(2))
+                # 自动纠正顺序颠倒
+                if lo > hi: lo, hi = hi, lo
+                if lo < hi: return lo, hi
+            except:
+                continue
+    return None
+
+def d_range_score(sc, D):
+    if D is None: return 0
+    dr = parse_d_range(sc)
+    if not dr: return 0
+    if dr[0] <= D <= dr[1]: return 2
+    if D <= dr[1]*1.3: return 0
+    if D > dr[1]*1.5: return -3
+    return 0
+
+def retrieve(slots, top_k=5, return_scores=False):
+    sp       = re.sub(r'\s+','', slots.get('tree_species','') or '')
+    loc      = re.sub(r'\s+','', slots.get('region','') or '')
+    comp_raw = slots.get('component','') or ''
+    comp_std = COMP_TO_STD.get(comp_raw, comp_raw)
+    D  = slots.get('D');  H  = slots.get('H')
+    D0 = slots.get('D0'); V  = slots.get('V'); A = slots.get('A')
+    struct_scored = []
+    for i, r in enumerate(db):
+        eq_sp   = re.sub(r'\s+','',r.get('tree_type',''))
+        eq_loc  = re.sub(r'\s+','',r.get('location',''))
+        eq_comp = r.get('component','')
+        sc      = r.get('size_class','') or ''
+        s = 0
+        loc_s = loc_match_score(loc, eq_loc) if loc else 0
+        s += loc_s
+        sp_exact = (sp == eq_sp)
+        if sp_exact: s += 5
+        elif sp in eq_sp: s += 3
+        elif eq_sp in sp: s += 2
+        cm = 1.5 if (sp_exact and loc_s >= 3) else 1.0
+        if comp_std:
+            if comp_std == eq_comp:   s += int(6*cm)
+            elif comp_std in eq_comp: s += int(3*cm)
+            elif eq_comp in comp_std: s += int(2*cm)
+        s += d_range_score(sc, D)
+        s += param_score(r.get('equation',''), {'D':D,'H':H,'D0':D0,'V':V,'A':A})
+        if comp_std not in ('\u6750\u79ef','\u5355\u4f4d\u9762\u79ef\u751f\u7269\u91cf','') and eq_comp == '\u6750\u79ef': s -= 20
+        if s > 0: struct_scored.append((i, s))
+    struct_scored.sort(key=lambda x: -x[1])
+    if not struct_scored:
+        if not sp: return []
+        q_vec = emb.encode([sp], normalize_embeddings=True)[0]
+        sims  = np.dot(sp_vecs, q_vec)
+        ranked = sorted(enumerate(sims.tolist()), key=lambda x: -x[1])
+        if return_scores: return [(db[i], float(s)) for i,s in ranked[:top_k]]
+        return [db[i] for i,_ in ranked[:top_k]]
+    
+    # 修复C：若检索结果偏少，追加上位类/林分通用方程
+    # 松科树种 → 追加"松类"/"松杉类"通用方程
+    # 询问林分 → 追加tree_type="林分"/"各树种"的方程
+    _SUPERCLASS_MAP = {
+        '华山松':'松类','油松':'松类','马尾松':'松类','红松':'松类',
+        '落叶松':'松类','云杉':'松类','冷杉':'松类','樟子松':'松类',
+        '杉木':'杉类','柳杉':'杉类','水杉':'杉类','池杉':'杉类',
+    }
+    if len(struct_scored) < 15 and sp:
+        superclass = _SUPERCLASS_MAP.get(sp)
+        if superclass:
+            seen = {i for i,_ in struct_scored}
+            for i, r in enumerate(db):
+                if i not in seen and r.get('tree_type','') in (superclass, '松杉类', '全树种'):
+                    eq_loc = re.sub(r'\s+','',r.get('location',''))
+                    loc_s = loc_match_score(loc, eq_loc) if loc else 0
+                    if loc_s >= 1:  # 至少地区前缀匹配
+                        struct_scored.append((i, 3))  # 低分追加
+    cand_idx  = [i for i,_ in struct_scored[:80]]
+    cand_recs = [db[i] for i in cand_idx]
+    struct_arr  = np.array([s for _,s in struct_scored[:80]], dtype=float)
+    struct_norm = struct_arr / (struct_arr.max()+1e-9)
+    q_text    = (sp or '') + ' ' + (loc or '') + ' ' + (comp_std or '')
+    q_vec     = emb.encode([q_text.strip()], normalize_embeddings=True)[0]
+    cand_texts= [r.get('tree_type','')+' '+r.get('location','') for r in cand_recs]
+    cand_vecs = emb.encode(cand_texts, normalize_embeddings=True)
+    sims      = np.dot(cand_vecs, q_vec)
+    final_scores = 0.30 * struct_norm + 0.70 * sims
+    ranked = sorted(zip(cand_idx, final_scores.tolist()), key=lambda x: -x[1])
+    if return_scores: return [(db[i], float(s)) for i,s in ranked[:top_k]]
+    return [db[i] for i,_ in ranked[:top_k]]
+
+# ══════════════════════════════════════════════════════════════
+# stage0：物理不可能值校验
+# ══════════════════════════════════════════════════════════════
+
+def stage0_hard_reject(question, slots):
+    slots = _rescue_slots(question, slots)
+    D = slots.get('D'); H = slots.get('H')
+    if D is not None and D < 0:
+        return True, '\u80f8\u5f84\u4e3a\u8d1f\u503c('+str(D)+'cm)\uff0c\u53c2\u6570\u65e0\u6548'
+    if D is not None and D > 300:
+        return True, '\u80f8\u5f84'+str(D)+'cm\u8d85\u51fa\u7269\u79cd\u5408\u7406\u4e0a\u9650(>300cm)'
+    if H is not None and H < 0:
+        return True, '\u6811\u9ad8\u4e3a\u8d1f\u503c('+str(H)+'m)\uff0c\u53c2\u6570\u65e0\u6548'
+    if H is not None and H > 200:
+
+========== REASONING 740-860 ==========
+    ], max_tokens=60)
+    if answer.strip().startswith('\u62d2\u7edd'):
+        return True, 'llm_judge('+answer.strip()+')'
+    return False, ''
+
+# ══════════════════════════════════════════════════════════════
+# 业务处理函数
+# ══════════════════════════════════════════════════════════════
+
+def quality_ctrl_by_llm(question, candidates):
+    """v23: 按quality_score预排序，让LLM在有序列表中选最优"""
+    if not candidates: return '', ''
+    # quality_score 100%填充，按此预排序
+    def _qs(eq):
+        try: return float(eq.get('quality_score', 0.75))
+        except: return 0.75
+    sorted_cands = sorted(candidates, key=_qs, reverse=True)
+    cand_text = '\n'.join([build_rich_eq_context(r, idx=i+1) for i, r in enumerate(sorted_cands[:5])])
+    answer = _llm_call([
+        {'role':'system','content':QUALITY_SYSTEM},
+        {'role':'user','content':'\u7528\u6237\u95ee\u9898\uff1a'+question+'\n\n\u5019\u9009\u65b9\u7a0b\uff1a\n'+cand_text}
+    ], max_tokens=120)
+    m = re.search(r'\u63a8\u8350\u65b9\u7a0b[：:]\s*(.+?)(?:\n|\u63a8\u8350\u7406\u7531|$)', answer, re.DOTALL)
+    if m:
+        raw_norm = normalize_eq(m.group(1).strip().strip('[]'))
+        for cand in candidates:
+            if normalize_eq(cand.get('equation','')) == raw_norm: return cand.get('equation',''), answer
+        for cand in candidates:
+            if raw_norm in normalize_eq(cand.get('equation','')) or normalize_eq(cand.get('equation','')) in raw_norm:
+                return cand.get('equation',''), answer
+    return candidates[0].get('equation','') if candidates else '', answer
+
+def handle_single(question, slots, is_gen_branch=False):
+    scored = retrieve(slots, top_k=5, return_scores=True)
+    if not scored: return {'intent':'single','equations':[],'top1':'','rejected':False}
+    top1_rec, top1_score = scored[0]
+    diam_check = check_diameter_type(question, slots, [r for r,_ in scored])
+    warn_msg   = diam_check['message'] if diam_check and diam_check.get('warn') else None
+    rejected, reason = llm_judge_with_context(question, slots, top1_rec, top1_score, is_gen_branch)
+    if rejected:
+        return {'intent':'single','equations':[],'top1':'','rejected':True,'reject_reason':reason}
+    results = [r for r,_ in scored]
+    return {'intent':'single','equations':[r.get('equation','') for r in results],
+            'top1':results[0].get('equation','') if results else '','rejected':False,'warn_message':warn_msg}
+
+def handle_multi_sp(question, slots):
+    raw = _llm_call([
+        {'role':'system','content':'\u4ece\u95ee\u9898\u4e2d\u63d0\u53d6\u6240\u6709\u6811\u79cd\u540d\uff0c\u6bcf\u884c\u4e00\u4e2a\uff0c\u53ea\u8f93\u51fa\u6811\u79cd\u540d\uff0c\u4e0d\u8981\u7f16\u53f7'},
+        {'role':'user','content':question}
+    ], max_tokens=60)
+    species_list = [s.strip() for s in raw.strip().split('\n') if s.strip()]
+    if not species_list: return handle_single(question, slots)
+    results={}; all_eqs=[]
+    for sp in species_list[:4]:
+        sp_slots = dict(slots); sp_slots['tree_species'] = sp
+        top = retrieve(sp_slots, top_k=3)
+        if top:
+            results[sp] = top[0].get('equation','')
+            all_eqs.extend([r.get('equation','') for r in top])
+    return {'intent':'multi_sp','species_results':results,'equations':all_eqs,
+            'top1':list(results.values())[0] if results else '','rejected':False}
+
+def handle_multi_comp(question, slots):
+    comp_raw  = slots.get('component','') or ''
+    comp_std  = COMP_TO_STD.get(comp_raw, comp_raw)
+    sub_comps = MULTI_COMP_MAP.get(comp_std, [])
+    if not sub_comps:
+        raw = _llm_call([
+            {'role':'system','content':'\u4ece\u95ee\u9898\u4e2d\u63d0\u53d6\u9700\u8981\u8ba1\u7b97\u7684\u751f\u7269\u91cf\u7ec4\u5206\uff0c\u6bcf\u884c\u4e00\u4e2a\uff08\u53ea\u5199\uff1a\u5e72/\u679d/\u53f6/\u6839/\u76ae\uff09'},
+            {'role':'user','content':question}
+        ], max_tokens=40)
+        sub_comps = [s.strip() for s in raw.strip().split('\n') if s.strip()]
+    if not sub_comps: return handle_single(question, slots)
+    results={}; all_eqs=[]
+    for comp in sub_comps[:5]:
+        comp_slots = dict(slots); comp_slots['component'] = comp
+        top = retrieve(comp_slots, top_k=3)
+        if top:
+            results[comp] = top[0].get('equation','')
+            all_eqs.extend([r.get('equation','') for r in top])
+    return {'intent':'multi_comp','comp_results':results,'equations':all_eqs,
+            'top1':list(results.values())[0] if results else '','rejected':False}
+
+def handle_reasoning(question, slots, is_quality_ctrl=False):
+    candidates = retrieve(slots, top_k=5)
+    if not candidates:
+        return {'intent':'reasoning','answer':'\u672a\u627e\u5230\u76f8\u5173\u65b9\u7a0b','equations':[],'top1':'','rejected':False}
+    if is_quality_ctrl:
+        recommended, answer = quality_ctrl_by_llm(question, candidates)
+    else:
+        cand_text = '\n'.join([build_rich_eq_context(r, idx=i+1) for i, r in enumerate(candidates[:5])])
+        answer = _llm_call([
+            {'role':'system','content':REASONING_SYSTEM},
+            {'role':'user','content':'\u95ee\u9898\uff1a'+question+'\n\n\u5019\u9009\u65b9\u7a0b\uff1a\n'+cand_text}
+        ], max_tokens=120)
+        recommended = ''
+        m = re.search(r'\u63a8\u8350\u65b9\u7a0b[：:]\s*(.+?)(?:\n|\u63a8\u8350\u7406\u7531|$)', answer, re.DOTALL)
+        if m:
+            raw_norm = normalize_eq(m.group(1).strip().strip('[]'))
+            for cand in candidates:
+                if normalize_eq(cand.get('equation','')) == raw_norm:
+                    recommended = cand.get('equation',''); break
+            if not recommended:
+                for cand in candidates:
+                    if raw_norm in normalize_eq(cand.get('equation','')) or normalize_eq(cand.get('equation','')) in raw_norm:
+                        recommended = cand.get('equation',''); break
+        if not recommended: recommended = candidates[0].get('equation','') if candidates else ''
+    all_eqs = [recommended]+[r.get('equation','') for r in candidates if r.get('equation','')!=recommended]
+    return {'intent':'reasoning','candidates':[r.get('equation','') for r in candidates],
+            'equations':all_eqs,'answer':answer,'top1':recommended,'rejected':False}
+
+def process_question(question, is_gen_branch=False):
+    # Fix-①: 槽位提取 + 意图分类分两步
+    slots  = extract_slots(question)
+    intent = classify_intent(question, slots)
+    hard_rej, hard_reason = stage0_hard_reject(question, slots)
+    if hard_rej:
+        return {'intent':intent,'equations':[],'top1':'','rejected':True,
+                'reject_reason':'code_reject('+hard_reason+')'}
+    if   intent == 'multi_sp':    return handle_multi_sp(question, slots)
+    elif intent == 'multi_comp':  return handle_multi_comp(question, slots)
+
+========== INIT 890-930 ==========
+    if not has_group:
+        if is_wrong_prem(c): bucket_rejection.append(c)
+        elif eq_str: bucket_gen.append(c)
+        continue
+    if not eq_str:
+        if is_neg: bucket_rejection.append(c)
+        elif legacy_eq: bucket_legacy.append(c)
+        continue
+    if is_neg: bucket_rejection.append(c)
+    elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+    else: bucket_no_db.append(c)
+print('  \u4e3b\u8bc4\u4f30: '+str(len(bucket_main))+'\u6761  GEN\u5206\u652f: '+str(len(bucket_gen))+'\u6761  legacy_eq: '+str(len(bucket_legacy))+'\u6761')
+print('  \u8d1f\u6837\u672c: '+str(len(bucket_neg))+'\u6761  \u8df3\u8fc7: '+str(len(bucket_rejection)+len(bucket_no_db))+'\u6761  \u5408\u8ba1: '+str(len(all_cases))+'\u6761')
+
+print('\n[\u521d\u59cb\u5316] \u52a0\u8f7d Qwen \u6a21\u578b...', flush=True)
+_tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH, trust_remote_code=True)
+_model     = AutoModelForCausalLM.from_pretrained(MODEL_PATH, trust_remote_code=True,
+              torch_dtype=torch.float16, device_map='auto')
+_model.eval()
+print('  \u5b8c\u6210\n', flush=True)
+
+print('[\u521d\u59cb\u5316] \u52a0\u8f7d Embedding \u6a21\u578b...', flush=True)
+emb = SentenceTransformer(EMB_PATH)
+all_texts = ([r.get('location','') for r in db]+[r.get('tree_type','') for r in db]+[r.get('component','') for r in db])
+all_vecs  = emb.encode(all_texts, batch_size=256, show_progress_bar=True, normalize_embeddings=True)
+n=len(db); loc_vecs=all_vecs[0:n]; sp_vecs=all_vecs[n:2*n]; comp_vecs=all_vecs[2*n:3*n]
+print('  \u5b8c\u6210\n', flush=True)
+
+def build_gold_set(case, eq_override=None):
+    sp=re.sub(r'\s+','',case.get('tree_type','') or '')
+    loc=re.sub(r'\s+','',case.get('location','') or '')
+    comp_raw=case.get('component','') or ''; comp_std=COMP_TO_STD.get(comp_raw,comp_raw)
+    eq_src=eq_override or str(case.get('equation','') or ''); primary=normalize_eq(eq_src)
+    if not primary: return set(),''
+    gold_set={primary}
+    if sp and loc and comp_std:
+        for r in db:
+            if (re.sub(r'\s+','',r.get('tree_type',''))==sp and
+                loc_match_score(loc,re.sub(r'\s+','',r.get('location','')))>=3 and
+                r.get('component','')==comp_std):
+                gold_set.add(normalize_eq(r.get('equation','')))
+
+========== SCORE EXPRESSIONS ==========
+26:  Fix-②: judge跳过阈值 0.85→0.70，同时传入"软信号"给judge
+205:def loc_match_score(u, e):
+434:      r_squared       = R²（仅22.5%填充，空时用quality_score代替）
+435:      quality_score   = 综合质量分（100%填充，0.7-0.85）
+453:        'quality_score':    '综合质量分',
+488:        elif key == 'quality_score':
+539:    if user_loc and eq_loc and loc_match_score(user_loc, eq_loc) == 0 and not is_universal:
+561:def param_score(eq_str, slots):
+598:def d_range_score(sc, D):
+607:def retrieve(slots, top_k=5, return_scores=False):
+614:    struct_scored = []
+621:        loc_s = loc_match_score(loc, eq_loc) if loc else 0
+632:        s += d_range_score(sc, D)
+633:        s += param_score(r.get('equation',''), {'D':D,'H':H,'D0':D0,'V':V,'A':A})
+635:        if s > 0: struct_scored.append((i, s))
+636:    struct_scored.sort(key=lambda x: -x[1])
+637:    if not struct_scored:
+640:        sims  = np.dot(sp_vecs, q_vec)
+641:        ranked = sorted(enumerate(sims.tolist()), key=lambda x: -x[1])
+642:        if return_scores: return [(db[i], float(s)) for i,s in ranked[:top_k]]
+653:    if len(struct_scored) < 15 and sp:
+656:            seen = {i for i,_ in struct_scored}
+660:                    loc_s = loc_match_score(loc, eq_loc) if loc else 0
+662:                        struct_scored.append((i, 3))  # 低分追加
+663:    cand_idx  = [i for i,_ in struct_scored[:80]]
+665:    struct_arr  = np.array([s for _,s in struct_scored[:80]], dtype=float)
+666:    struct_norm = struct_arr / (struct_arr.max()+1e-9)
+671:    sims      = np.dot(cand_vecs, q_vec)
+672:    final_scores = 0.30 * struct_norm + 0.70 * sims
+673:    ranked = sorted(zip(cand_idx, final_scores.tolist()), key=lambda x: -x[1])
+674:    if return_scores: return [(db[i], float(s)) for i,s in ranked[:top_k]]
+713:# Fix-②+③: judge拿到软信号+完整元数据，阈值降低到0.70
+717:def llm_judge_with_context(question, slots, top1_rec, top1_score, is_gen_branch=False):
+726:    # 有异常信号 → 送judge（不受score阈值约束，充分利用LLM判断力）''
+750:    """v23: 按quality_score预排序，让LLM在有序列表中选最优"""
+752:    # quality_score 100%填充，按此预排序
+754:        try: return float(eq.get('quality_score', 0.75))
+755:        except: return 0.75
+773:    scored = retrieve(slots, top_k=5, return_scores=True)
+774:    if not scored: return {'intent':'single','equations':[],'top1':'','rejected':False}
+775:    top1_rec, top1_score = scored[0]
+776:    diam_check = check_diameter_type(question, slots, [r for r,_ in scored])
+778:    rejected, reason = llm_judge_with_context(question, slots, top1_rec, top1_score, is_gen_branch)
+781:    results = [r for r,_ in scored]
+928:                loc_match_score(loc,re.sub(r'\s+','',r.get('location','')))>=3 and
+994:        scored=retrieve(slots,top_k=5,return_scores=True)
+995:        top1_score=scored[0][1] if scored else 0.0
+996:        top1_rec=scored[0][0] if scored else None
+997:        diam_check=check_diameter_type(q,slots,[r for r,_ in scored] if scored else [])
+1005:        if not scored: nat_signals.append('empty_results')
+1006:        if top1_score<=0.20: nat_signals.append('low_score('+str(round(top1_score,3))+')')
+1010:            llm_rej,llm_reason=llm_judge_with_context(q,slots,top1_rec,top1_score,is_gen_branch=False)
+1018:        print('['+str(i+1).zfill(3)+'] '+flag+' '+tid.ljust(22)+' score='+str(round(top1_score,3))+'  '+sig,flush=True)
+1062:print('  Fix-\u2461: judge\u8df3\u8fc7\u9608\u503c 0.85\u21920.70 + \u8f6f\u4fe1\u53f7\u4f20\u5165judge')
+1063:print('     \u89e3\u51b3v20\u8d1f\u6837\u672c\u62d2\u7edd\u7387 51.6%\u21920.34.4%\u7684\u56de\u9000')
+1069:print('     location=适用地区, source=参考文献, quality_score=综合质量分(100%填充)')
+1070:print('     r_squared仅22.5%填充，缺失时LLM用quality_score代替')  
+1072:print('  3. quality_ctrl_by_llm(): 按quality_score预排序候选方程')
+
+========== MANUSCRIPT SCORING ==========
+"""
+AllomEq-RAG score normalization and fusion.
+
+Manuscript specification
+------------------------
+Structural score:
+    raw range: 0--1000
+    S_struct_norm = S_struct / 1000
+
+Dense score:
+    cosine similarity range: -1--1
+    S_dense_norm = (cosine_similarity + 1) / 2
+
+Fusion:
+    S_fuse =
+        alpha * S_struct_norm
+        + (1 - alpha) * S_dense_norm
+
+Default:
+    alpha = 0.3
+"""
+
+from typing import Union
+
+Number = Union[int, float]
+
+
+def normalize_structural_score(score: Number) -> float:
+    """Map the structural score from [0, 1000] to [0, 1]."""
+    score = float(score)
+
+    if not 0.0 <= score <= 1000.0:
+        raise ValueError(
+            f"structural score must be in [0, 1000], got {score}"
+        )
+
+    return score / 1000.0
+
+
+def normalize_dense_score(cosine_similarity: Number) -> float:
+    """Map cosine similarity from [-1, 1] to [0, 1]."""
+    cosine_similarity = float(cosine_similarity)
+
+    if not -1.0 <= cosine_similarity <= 1.0:
+        raise ValueError(
+            "cosine similarity must be in [-1, 1], "
+            f"got {cosine_similarity}"
+        )
+
+    return (cosine_similarity + 1.0) / 2.0
+
+
+def fuse_scores(
+    structural_score: Number,
+    cosine_similarity: Number,
+    alpha: float = 0.3,
+) -> float:
+    """Return the manuscript-defined normalized fusion score."""
+    alpha = float(alpha)
+
+    if not 0.0 <= alpha <= 1.0:
+        raise ValueError(f"alpha must be in [0, 1], got {alpha}")
+
+    s_struct_norm = normalize_structural_score(structural_score)
+    s_dense_norm = normalize_dense_score(cosine_similarity)
+
+    return (
+        alpha * s_struct_norm
+        + (1.0 - alpha) * s_dense_norm
+    )
+
+
+if __name__ == "__main__":
+
+    # Structural normalization
+    assert normalize_structural_score(0) == 0.0
+    assert normalize_structural_score(1000) == 1.0
+    assert normalize_structural_score(500) == 0.5
+
+    # Dense normalization
+    assert normalize_dense_score(-1) == 0.0
+    assert normalize_dense_score(0) == 0.5
+    assert normalize_dense_score(1) == 1.0
+
+    # Fusion sanity checks
+    assert abs(fuse_scores(1000, 1.0, 0.3) - 1.0) < 1e-12
+
+    # struct=1000 -> 1.0
+    # cos=-1 -> 0.0
+    # result = 0.3
+    assert abs(fuse_scores(1000, -1.0, 0.3) - 0.3) < 1e-12
+
+    # struct=0 -> 0.0
+    # cos=1 -> 1.0
+    # result = 0.7
+    assert abs(fuse_scores(0, 1.0, 0.3) - 0.7) < 1e-12
+
+    print("PASS: manuscript-defined AllomEq-RAG scoring")
+
+========== HASH ==========
+bec014634c0a63f602f73e89c79999dda2973e953c2a8eca06aefa5fd85dfad5  github_release/code/biomass_expert_manuscript.py
+de600fd2b3960882d36aaae9554111f8420046072177761a5067cbc16f2489b3  github_release/code/allomeq_rag/scoring.py
+ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990  <PRIVATE_ROOT>/biomass_expert_v24.py

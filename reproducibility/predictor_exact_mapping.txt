@@ -1,0 +1,622 @@
+==============================================================================
+A. ALL EXACT FEDB VARIABLES VALUES
+==============================================================================
+UNIQUE = 36
+ 3744	('D', 'H')
+ 2706	('D',)
+  232	('D_{轮}', 'H', 'D_{围}')
+  160	('V',)
+  102	('D0', 'H')
+   95	('D0',)
+   77	('D_{轮}', 'H')
+   52	('D_{轮}', 'D_{围}')
+   34	('D_{围}', 'H')
+   28	('B',)
+   26	('V', 'A')
+   23	('A',)
+   20	('H',)
+   13	('D_{1.3}', 'H', 'D_{0}')
+   12	('DBH',)
+    7	('V_total',)
+    7	('B_total',)
+    5	('W_T',)
+    5	('D0.2',)
+    5	('D0.3',)
+    5	('D0.3', 'H')
+    5	('D_{轮}',)
+    5	('D_{0}',)
+    5	('D_{围}', 'H', 'D')
+    4	('W_aboveground',)
+    3	('W_干', 'W_枝', 'W_叶')
+    2	('V', 'Cc')
+    2	('H', 'D_{1.3}', 'D_{0}')
+    2	('D_{轮}', 'V', 'H', 'D_{围}')
+    2	('D', 'H', 'V')
+    1	('D', 'H', 'O')
+    1	('H', 'D')
+    1	('D_{0}', 'D_{0)-0.0048*(1.5369+0.7152*D_{0}')
+    1	('D_{0}', 'D_{0)-0.00104*(2.1791+0.6986*D_{0}')
+    1	('D_{0}', 'D_{0)-0.005617419*(2.2840+0.6975*D_{0}')
+    1	('D_{0}', 'D_{0)-0.01439*(1.1196+0.74*D_{0}')
+
+==============================================================================
+B. ONE EQUATION EXAMPLE PER VARIABLES VALUE
+==============================================================================
+
+VARIABLES = ('D', 'H')
+COUNT = 3744
+ID = 'rag_0001'
+EQUATION = 'W=0.022*D^2.495*H^0.357'
+PARAMETERS = {'a': 0.022, 'b': 2.495, 'c': 0.357}
+SIZE_CLASS = '林龄5-26年, 胸径范围：4.5-24.63cm'
+
+VARIABLES = ('D',)
+COUNT = 2706
+ID = 'rag_0003'
+EQUATION = 'W=0.007*D^3.712'
+PARAMETERS = {'a': 0.007, 'b': 3.712}
+SIZE_CLASS = '林龄5-26年, 胸径范围：4.5-24.63cm'
+
+VARIABLES = ('DBH',)
+COUNT = 12
+ID = 'rag_0102'
+EQUATION = 'W=0.308*DBH^2.11'
+PARAMETERS = {'a': 0.308, 'b': 2.11}
+SIZE_CLASS = '树种类型: 白骨壤(Avicennia marina)'
+
+VARIABLES = ('D0', 'H')
+COUNT = 102
+ID = 'rag_0141'
+EQUATION = 'W=1.054*exp(5.480 + 2.136*log(D0) + 0.764*log(H))'
+PARAMETERS = {'a': 1.054, 'b': 5.48, 'c': 2.136, 'd': 0.764}
+SIZE_CLASS = '幼树(地径<5cm)'
+
+VARIABLES = ('W_干', 'W_枝', 'W_叶')
+COUNT = 3
+ID = 'rag_0216'
+EQUATION = 'W=0.2048*(W_干 + W_枝 + W_叶)'
+PARAMETERS = {'ratio': 0.2048}
+SIZE_CLASS = '人工林; 说明: 基于地上生物量比例计算'
+
+VARIABLES = ('V',)
+COUNT = 160
+ID = 'rag_0222'
+EQUATION = 'W=0.4652*V + 19.1410'
+PARAMETERS = {'a': 0.4652, 'b': 19.141}
+SIZE_CLASS = '乔木林; 说明: V为单位面积蓄积量(m³/hm²), B为单位面积生物量(t/hm²)'
+
+VARIABLES = ('A',)
+COUNT = 23
+ID = 'rag_0227'
+EQUATION = 'W=23.7*A'
+PARAMETERS = {'unit_biomass': 23.7}
+SIZE_CLASS = '经济林; 说明: A为林地面积(×10⁴ hm²), B_总为总生物量(×10⁴ t), 固定单位生物量'
+
+VARIABLES = ('V_total',)
+COUNT = 7
+ID = 'rag_0231'
+EQUATION = 'W=0.8873*V_total + 4.5539'
+PARAMETERS = {'a': 0.8873, 'b': 4.5539}
+SIZE_CLASS = '说明: B_total为树种组总生物量(10⁴t), V_total为树种组总蓄积量(m³)'
+
+VARIABLES = ('B_total',)
+COUNT = 7
+ID = 'rag_0238'
+EQUATION = 'W=B_total*0.5253'
+PARAMETERS = {'carbon_coefficient': 0.5253}
+SIZE_CLASS = '说明: C_t为碳储量(10⁴t), 含碳系数0.5253'
+
+VARIABLES = ('V', 'A')
+COUNT = 26
+ID = 'rag_0382'
+EQUATION = 'B = 0.7560*V + 8.3100*A'
+PARAMETERS = {'a': 0.756, 'b': 8.31}
+SIZE_CLASS = '未指定'
+
+VARIABLES = ('B',)
+COUNT = 28
+ID = 'rag_0408'
+EQUATION = 'C = B ×0.4999'
+PARAMETERS = {'coefficient': 0.4999}
+SIZE_CLASS = '未指定'
+
+VARIABLES = ('H',)
+COUNT = 20
+ID = 'rag_0453'
+EQUATION = 'ln(W) = -0.55*ln(D) + 2.35*ln(H) -0.59'
+PARAMETERS = {'a': -0.55, 'b': 2.35, 'c': -0.59}
+SIZE_CLASS = '说明: W为生物量(kg), H为树高(m); 落叶阔叶林(DBF,白桦除外); 胸径范围：5.6-26.6cm, 树高范围：5.0-14.3m, 样本数8(树根挖掘困难)'
+
+VARIABLES = ('W_aboveground',)
+COUNT = 4
+ID = 'rag_0595'
+EQUATION = 'W_underground = 0.2155 * W_aboveground'
+PARAMETERS = {'ratio': 0.2155}
+SIZE_CLASS = '说明: W_underground为地下生物量(kg), W_aboveground为地上生物量(kg); 适用范围胸径≥5cm'
+
+VARIABLES = ('W_T',)
+COUNT = 5
+ID = 'rag_0604'
+EQUATION = 'W_R = W_T / 4.28'
+PARAMETERS = {'ratio': 4.28}
+SIZE_CLASS = '说明: W_R为地下生物量(kg), W_T为地上生物量(kg)'
+
+VARIABLES = ('V', 'Cc')
+COUNT = 2
+ID = 'rag_0698'
+EQUATION = 'C = (39.5757 + 1.14637*V)*0.42'
+PARAMETERS = {'a': 39.5757, 'b': 1.14637}
+SIZE_CLASS = '说明: C为碳储量(kg), V为蓄积量(m³), Cc为含碳率系数(刺槐0.42/杨树0.51); 区域参数'
+
+VARIABLES = ('D0',)
+COUNT = 95
+ID = 'biomass_0330'
+EQUATION = 'W=-0.58315+0.2004315*D0^2'
+PARAMETERS = {'a': -0.58315, 'b': 0.2004315}
+SIZE_CLASS = '林龄15年, 胸径范围：2.0, 6.0cm'
+
+VARIABLES = ('D0.2',)
+COUNT = 5
+ID = 'biomass_4567'
+EQUATION = 'W=0.178*D0.2^1.101'
+PARAMETERS = {'a': 0.178, 'b': 1.101}
+SIZE_CLASS = '胸径范围：3.0, 15.0cm'
+
+VARIABLES = ('D0.3',)
+COUNT = 5
+ID = 'biomass_5802'
+EQUATION = 'W=0.0204*D0.3^2.8678'
+PARAMETERS = {'a': 0.0204, 'b': 2.8678}
+SIZE_CLASS = '胸径范围：1.0, 7.0cm'
+
+VARIABLES = ('D0.3', 'H')
+COUNT = 5
+ID = 'biomass_5807'
+EQUATION = 'W=0.0216*(D0.3^2*H)^0.9329'
+PARAMETERS = {'a': 0.0216, 'b': 0.9329}
+SIZE_CLASS = '胸径范围：1.0, 7.0cm, 树高范围：1.0, 5.0m'
+
+VARIABLES = ('D', 'H', 'O')
+COUNT = 1
+ID = 'volume_0033'
+EQUATION = 'V=0.000051577714*D^1.985218*HO.92035096'
+PARAMETERS = {'a': 5.1577714e-05, 'b': 1.985218}
+SIZE_CLASS = 'D≤76cm, H≤40m'
+
+VARIABLES = ('D_{轮}', 'H')
+COUNT = 77
+ID = 'volume_0063'
+EQUATION = 'V=0.000065678245*D_{轮}^1.9410626*H^0.84929086\n'
+PARAMETERS = {'a': 6.5678245e-05, 'c': 0.84929086}
+SIZE_CLASS = 'D≤33cm'
+
+VARIABLES = ('D_{轮}',)
+COUNT = 5
+ID = 'volume_0069'
+EQUATION = 'V=0.00001613403*D_{轮}^{2.31284}'
+PARAMETERS = {'a': 1.613403e-05}
+SIZE_CLASS = 'D≤34cm'
+
+VARIABLES = ('H', 'D')
+COUNT = 1
+ID = 'volume_0079'
+EQUATION = 'V=0.0000267（H+3）D^2'
+PARAMETERS = {'b': 2.0}
+SIZE_CLASS = 'D≤44cm, H≤28m'
+
+VARIABLES = ('D_{0}',)
+COUNT = 5
+ID = 'volume_0124'
+EQUATION = 'V=0.00018*D_{0}^2.30572'
+PARAMETERS = {'a': 0.00018}
+SIZE_CLASS = 'D≤40cm'
+
+VARIABLES = ('D_{0}', 'D_{0)-0.0048*(1.5369+0.7152*D_{0}')
+COUNT = 1
+ID = 'volume_0201'
+EQUATION = 'V=0.000065671*(1.5369+0.7152*D_{0})^1.76941[8.2928+0.6359（1.5369+0.7152*D_{0)-0.0048*(1.5369+0.7152*D_{0})^2]^1.069769'
+PARAMETERS = {'a': 6.5671e-05}
+SIZE_CLASS = 'D≤50cm'
+
+VARIABLES = ('D_{0}', 'D_{0)-0.00104*(2.1791+0.6986*D_{0}')
+COUNT = 1
+ID = 'volume_0202'
+EQUATION = 'V=0.000065671*(2.1791+0.6986*D_{0})^1.76941[11.89585+0.2446318（2.1791+0.6986*D_{0)-0.00104*(2.1791+0.6986*D_{0})^2]^1.069770'
+PARAMETERS = {'a': 6.5671e-05}
+SIZE_CLASS = 'D≤54cm'
+
+VARIABLES = ('D_{0}', 'D_{0)-0.005617419*(2.2840+0.6975*D_{0}')
+COUNT = 1
+ID = 'volume_0203'
+EQUATION = 'V=0.000065671*(2.2840+0.6975*D_{0})^1.76941[3.53751+0.7740451（2.2840+0.6975*D_{0)-0.005617419*(2.2840+0.6975*D_{0})^2]^1.069771'
+PARAMETERS = {'a': 6.5671e-05}
+SIZE_CLASS = 'D≤60cm'
+
+VARIABLES = ('D_{0}', 'D_{0)-0.01439*(1.1196+0.74*D_{0}')
+COUNT = 1
+ID = 'volume_0204'
+EQUATION = 'V=0.000065671*(1.1196+0.74*D_{0})^1.76941[1.652516+1.033066（1.1196+0.74*D_{0)-0.01439*(1.1196+0.74*D_{0})^2]^1.069772'
+PARAMETERS = {'a': 6.5671e-05}
+SIZE_CLASS = 'D≤42cm'
+
+VARIABLES = ('D_{轮}', 'H', 'D_{围}')
+COUNT = 232
+ID = 'volume_0316'
+EQUATION = 'V=0.000066492455*D_{轮}^1.8655617*H^0.93768879\nH=1.68988+0.49360*D_{轮}-0.00521*D_{轮}^2\n\nD_{轮}=-0.100+0.967*D_{围}'
+PARAMETERS = {'a': 6.6492455e-05, 'c': 0.93768879}
+SIZE_CLASS = 'D≤38cm'
+
+VARIABLES = ('D_{轮}', 'D_{围}')
+COUNT = 52
+ID = 'volume_0599'
+EQUATION = 'V=0.00010339412*D_{轮}^{2.5550714}\n\n\nD_{轮}=-0.005162178+0.975389083*D_{围}'
+PARAMETERS = {'a': 0.00010339412}
+SIZE_CLASS = 'D≤97cm'
+
+VARIABLES = ('D_{1.3}', 'H', 'D_{0}')
+COUNT = 13
+ID = 'volume_0723'
+EQUATION = 'V=0.00005806186*D_{1.3}^{1.9553351} H^{0.89403304}\n\nD_{1.3}=0.98845e^((-0.086460493+1.0174224*lnD_{0}))-0.30765\nH = 104.19628-17792.457/(D_{1.3}+172)\n'
+PARAMETERS = {'a': 5.806186e-05}
+SIZE_CLASS = 'D≤100cm'
+
+VARIABLES = ('H', 'D_{1.3}', 'D_{0}')
+COUNT = 2
+ID = 'volume_0729'
+EQUATION = 'V=0.00005806186^{1.9553351} H^{0.89403304}\n\nD_{1.3}=0.98845/(0.0000900616+1.026556095/D_{0})-0.30765\nH =59.481482-4952.3338/(D_{1.3}+84)\n'
+PARAMETERS = {}
+SIZE_CLASS = 'D≤100cm'
+
+VARIABLES = ('D_{围}', 'H', 'D')
+COUNT = 5
+ID = 'volume_0762'
+EQUATION = 'V=0.000058777042*(-0.0533+0.97174 D_{围} )^1.9699831*H0.89646157\nD₁.₃=0.7685502*Dr^0.9923581'
+PARAMETERS = {'a': 5.8777042e-05}
+SIZE_CLASS = 'D≤60cm, H≤34m'
+
+VARIABLES = ('D_{轮}', 'V', 'H', 'D_{围}')
+COUNT = 2
+ID = 'volume_0790'
+EQUATION = '\nD_{围}=(D_{轮}+0.25500680)/0.99234336\nV=0.0000571736*D_{轮}^1.881331*H^0.99568845\nH=21.09867-320.36347/(D_{围}+14)'
+PARAMETERS = {'c': 0.99568845}
+SIZE_CLASS = 'D≤39cm'
+
+VARIABLES = ('D', 'H', 'V')
+COUNT = 2
+ID = 'volume_0792'
+EQUATION = 'x=1.663800058+0.009429976*(D+10*H)\nV=0.0000571736*D^xH^y\ny=0.969340486-0.029203083*(D+2.5*H)'
+PARAMETERS = {}
+SIZE_CLASS = 'D≤40cm, H≤22m'
+
+VARIABLES = ('D_{围}', 'H')
+COUNT = 34
+ID = 'volume_0844'
+EQUATION = '\nV=0.00005829012*(0.97*D_{围})^1.979634*H^0.907152\nH=57.279-2916.293/(0.97*D_{围}+51)'
+PARAMETERS = {'a': 5.829012e-05, 'c': 0.907152}
+SIZE_CLASS = ''
+
+==============================================================================
+C. HISTORICAL FUNCTIONS USING VARIABLES
+==============================================================================
+
+------------------------------------------------------------------------------
+FILE = <PRIVATE_ROOT>/abl_full.py
+FUNCTION = build_rich_eq_context
+LINES = 416 - 502
+------------------------------------------------------------------------------
+def build_rich_eq_context(eq, idx=None):
+    """
+    v23核心改动：智能过滤全字段传入LLM。
+    策略：去掉null值 + 去掉纯技术字段（parameters/equation_chain/id等）
+    其余所有有值字段全部保留，让LLM自己判断哪些有用。
+    
+    字段映射说明（数据库真实字段）：
+      location        = applicable_region（适用地区）
+      source          = reference（参考文献）
+      r_squared       = R²（仅22.5%填充，空时用quality_score代替）
+      quality_score   = 综合质量分（100%填充，0.7-0.85）
+      size_class      = 适用范围（含径级/林龄/说明文字，97.7%填充）
+    """
+    # 纯技术字段：对LLM适用性判断无意义，过滤掉
+    SKIP_FIELDS = {'id', 'source_dataset', 'parameters', 'equation_chain',
+                   'variables'}  # variables可从equation推断
+
+    parts = []
+    if idx is not None:
+        parts.append(f'[候选方程{idx}]')
+
+    # 字段中文别名映射（让LLM更容易理解字段含义）
+    FIELD_ALIAS = {
+        'tree_type':        '树种',
+        'component':        '组分',
+        'equation':         '公式',
+        'location':         '适用地区',      # = applicable_region
+        'size_class':       '适用范围',       # 含径级/林龄
+        'quality_score':    '综合质量分',
+        'r_squared':        'R²',
+        'sample_size':      '样本量n',
+        'source':           '参考文献',       # = reference
+        'authors':          '作者',
+        'data_quality':     '数据质量',
+        'tags':             '标签',
+        'component_original': '原始组分描述',
+        'stand_age':        '林龄',
+        'forest_type':      '林分类型',
+        'stand_origin':     '林分起源',
+        'dominant_species': '优势种学名',
+        'altitude':         '海拔',
+        'equation_id':      '方程编号',
+        'equation_name':    '方程名称',
+        'publication_year': '发表年份',
+    }
+
+    for key, val in eq.items():
+        if key in SKIP_FIELDS:
+            continue
+        # 过滤空值：None / 空字符串 / 空列表 / 0值样本量
+        if val is None or val == '' or val == []:
+            continue
+        if key == 'sample_size' and (val == 0 or str(val) == '0'):
+            continue
+        # r_squared 有时是空字符串
+        if key == 'r_squared' and str(val).strip() == '':
+            continue
+
+        label = FIELD_ALIAS.get(key, key)
+
+        # 特殊格式化
+        if key == 'tags' and isinstance(val, list):
+            parts.append(f'{label}: {", ".join(str(t) for t in val)}')
+        elif key == 'quality_score':
+            try:
+                parts.append(f'{label}: {round(float(val), 3)}（0-1分，越高越好）')
+            except:
+                parts.append(f'{label}: {val}')
+        elif key == 'parameters':
+            pass  # 已在SKIP_FIELDS中过滤
+        else:
+            val_str = str(val)
+            # 过长文本截断
+            if len(val_str) > 150:
+                val_str = val_str[:147] + '...'
+            parts.append(f'{label}: {val_str}')
+
+    # [消融开关] Ablation-2: 切除完整元数据，只传基础4字段
+    if not ENABLE_FULL_META:
+        basic = []
+        if idx is not None: basic.append(f'[方程{idx}]')
+        basic.append(f'公式: {eq.get("equation","")}')
+        basic.append(f'树种: {eq.get("tree_type","")}')
+        basic.append(f'地区: {eq.get("location","")}')
+        basic.append(f'组分: {eq.get("component","")}')
+        return ' | '.join(basic)
+    return ' | '.join(parts)
+
+------------------------------------------------------------------------------
+FILE = <PRIVATE_ROOT>/biomass_expert_v24.py
+FUNCTION = build_rich_eq_context
+LINES = 391 - 468
+------------------------------------------------------------------------------
+def build_rich_eq_context(eq, idx=None):
+    """
+    v23核心改动：智能过滤全字段传入LLM。
+    策略：去掉null值 + 去掉纯技术字段（parameters/equation_chain/id等）
+    其余所有有值字段全部保留，让LLM自己判断哪些有用。
+    
+    字段映射说明（数据库真实字段）：
+      location        = applicable_region（适用地区）
+      source          = reference（参考文献）
+      r_squared       = R²（仅22.5%填充，空时用quality_score代替）
+      quality_score   = 综合质量分（100%填充，0.7-0.85）
+      size_class      = 适用范围（含径级/林龄/说明文字，97.7%填充）
+    """
+    # 纯技术字段：对LLM适用性判断无意义，过滤掉
+    SKIP_FIELDS = {'id', 'source_dataset', 'parameters', 'equation_chain',
+                   'variables'}  # variables可从equation推断
+
+    parts = []
+    if idx is not None:
+        parts.append(f'[候选方程{idx}]')
+
+    # 字段中文别名映射（让LLM更容易理解字段含义）
+    FIELD_ALIAS = {
+        'tree_type':        '树种',
+        'component':        '组分',
+        'equation':         '公式',
+        'location':         '适用地区',      # = applicable_region
+        'size_class':       '适用范围',       # 含径级/林龄
+        'quality_score':    '综合质量分',
+        'r_squared':        'R²',
+        'sample_size':      '样本量n',
+        'source':           '参考文献',       # = reference
+        'authors':          '作者',
+        'data_quality':     '数据质量',
+        'tags':             '标签',
+        'component_original': '原始组分描述',
+        'stand_age':        '林龄',
+        'forest_type':      '林分类型',
+        'stand_origin':     '林分起源',
+        'dominant_species': '优势种学名',
+        'altitude':         '海拔',
+        'equation_id':      '方程编号',
+        'equation_name':    '方程名称',
+        'publication_year': '发表年份',
+    }
+
+    for key, val in eq.items():
+        if key in SKIP_FIELDS:
+            continue
+        # 过滤空值：None / 空字符串 / 空列表 / 0值样本量
+        if val is None or val == '' or val == []:
+            continue
+        if key == 'sample_size' and (val == 0 or str(val) == '0'):
+            continue
+        # r_squared 有时是空字符串
+        if key == 'r_squared' and str(val).strip() == '':
+            continue
+
+        label = FIELD_ALIAS.get(key, key)
+
+        # 特殊格式化
+        if key == 'tags' and isinstance(val, list):
+            parts.append(f'{label}: {", ".join(str(t) for t in val)}')
+        elif key == 'quality_score':
+            try:
+                parts.append(f'{label}: {round(float(val), 3)}（0-1分，越高越好）')
+            except:
+                parts.append(f'{label}: {val}')
+        elif key == 'parameters':
+            pass  # 已在SKIP_FIELDS中过滤
+        else:
+            val_str = str(val)
+            # 过长文本截断
+            if len(val_str) > 150:
+                val_str = val_str[:147] + '...'
+            parts.append(f'{label}: {val_str}')
+
+    return ' | '.join(parts)
+
+------------------------------------------------------------------------------
+FILE = <PRIVATE_ROOT>/biomass_expert_v17.py
+FUNCTION = check_diameter_type
+LINES = 326 - 365
+------------------------------------------------------------------------------
+def check_diameter_type(slots: dict, top_candidates: list) -> dict | None:
+    """
+    若用户提供的是基径(D0)，但候选 Top1 方程只使用胸径(DBH/D)，
+    返回拒绝信号字典；否则返回 None（不拒绝）。
+
+    判断逻辑：
+      1. diameter_type == "基径"
+      2. 方程的 variables/equation/tags 里不含 D0/d0/基径/地径
+      3. → 返回提示信息
+    """
+    if not slots or not top_candidates:
+        return None
+    dtype = slots.get('diameter_type', '未知')
+    if dtype != '基径':
+        return None
+
+    top_eq   = top_candidates[0]
+    eq_str   = str(top_eq.get('equation',  '') or '').lower()
+    var_str  = str(top_eq.get('variables', '') or '').lower()
+    tags_str = str(top_eq.get('tags',      '') or '').lower()
+    comp_str = str(top_eq.get('component_original', '') or '').lower()
+
+    # 方程本身就用 D0/d0/基径 → 匹配，不拒绝
+    basal_indicators = ['d0', 'd_0', '基径', '地径', '根径']
+    if any(ind in eq_str or ind in var_str or ind in tags_str or ind in comp_str
+           for ind in basal_indicators):
+        return None
+
+    # 方程只用 D（胸径）但用户给的是基径 → 提示
+    eq_display = top_eq.get('equation', '')[:50]
+    return {
+        'intent': 'diameter_mismatch',
+        'reason': 'diameter_mismatch',
+        'message': (
+            f"您提供的是基径（地面处直径），"
+            f"但该方程（{eq_display}）需要的是胸径（DBH，1.3m处直径）。"
+            f"两者通常相差15~30%，直接代入会产生较大误差。"
+            f"建议重新测量胸径后再计算，或查找使用基径的方程。"
+        )
+    }
+
+------------------------------------------------------------------------------
+FILE = <PRIVATE_ROOT>/llm_compare_v3.py
+FUNCTION = calculate_with_chain
+LINES = 417 - 501
+------------------------------------------------------------------------------
+def calculate_with_chain(
+    formula: str,
+    extracted: ExtractedParams,
+    matcher: EnhancedEquationMatcher,
+    match_info: Dict,
+    verbose: bool = False
+) -> Optional[float]:
+    is_chain, required_components = detect_chain_equation(formula)
+    
+    if not is_chain:
+        return calc_equation_single(formula, extracted)
+    
+    if verbose:
+        print(f"  🔗 检测到推理链式方程")
+        print(f"     需要先计算组分: {', '.join(required_components)}")
+    
+    component_values = {}
+    
+    for component in required_components:
+        if verbose:
+            print(f"\n  [子任务] 计算 {component} 组分生物量...")
+        
+        component_params = ExtractedParams(
+            species=extracted.species,
+            genus=extracted.genus,
+            region=extracted.region,
+            province=extracted.province,
+            macro_region=extracted.macro_region,
+            component=component,
+            D=extracted.D,
+            H=extracted.H,
+            D0=extracted.D0,
+            V=extracted.V,
+            CW=extracted.CW,
+            age=extracted.age
+        )
+        
+        candidates = []
+        for eq in matcher.equations:
+            eq_component = normalize_component(get_field(eq.raw_data, 'Component', ''))
+            if eq_component == component:
+                candidates.append(eq)
+        
+        if not candidates:
+            if verbose:
+                print(f"    ⚠️  未找到 {component} 组分的方程，跳过")
+            continue
+        
+        scored_eqs = []
+        for eq in candidates[:100]:
+            score = matcher.calculate_score_with_match_info(eq.raw_data, match_info, component_params)
+            scored_eqs.append((score, eq))
+        
+        scored_eqs.sort(key=lambda x: x[0], reverse=True)
+        
+        if scored_eqs:
+            best_score, best_eq = scored_eqs[0]
+            best_formula = get_field(best_eq.raw_data, 'Formula', '')
+            
+            if verbose:
+                print(f"    ✅ 选择方程: {best_formula[:60]}... (评分={best_score:.1f})")
+            
+            component_result = calc_equation_single(best_formula, component_params)
+            
+            if component_result is not None:
+                component_values[f'W_{component}'] = component_result
+                if verbose:
+                    print(f"    ✅ {component} 组分 = {component_result:.4f} kg")
+            else:
+                if verbose:
+                    print(f"    ❌ {component} 组分计算失败")
+    
+    if verbose:
+        print(f"\n  [最终计算] 使用组分值计算总量...")
+        print(f"     组分值: {component_values}")
+    
+    final_result = calc_equation_single(
+        formula,
+        extracted,
+        W_gan=component_values.get('W_干'),
+        W_zhi=component_values.get('W_枝'),
+        W_ye=component_values.get('W_叶')
+    )
+    
+    return final_result
+
+==============================================================================
+D. ORIGINAL V24
+==============================================================================
+SHA256 = ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990
+UNCHANGED = True
+
+AUDIT_COMPLETE

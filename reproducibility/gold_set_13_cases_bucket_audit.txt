@@ -1,0 +1,1444 @@
+==========================================================================================
+A. SOURCE INTEGRITY
+==========================================================================================
+V24 = ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990
+EXPECTED = ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990
+PASS: original v24 unchanged
+
+==========================================================================================
+B. EXACT 13 CASE RECORDS
+==========================================================================================
+
+------------------------------------------------------------------------------------------
+test_id = 'Q0018'
+source = '《亚热带常绿阔叶林8个常见树种粗根生物量》'
+group = '亚热带常绿阔叶林_粗根'
+gen_type = '原有'
+tree_type = '木荷'
+component = '粗根'
+location = '浙江'
+difficulty = '高级'
+question = '木荷这种树，胸径20厘米，想算粗根生物量，但我不确定它属于哪个林型，只知道是南方的常绿阔叶林，能用吗？（位于浙江）'
+equation = 'W=0.0627 * D^2.19'
+expected_result = 44.3122
+_calc_params = {'D': 20.0, 'H': None}
+
+------------------------------------------------------------------------------------------
+test_id = 'Q0019'
+source = '《亚热带常绿阔叶林8个常见树种粗根生物量》'
+group = '亚热带常绿阔叶林_粗根'
+gen_type = '原有'
+tree_type = '马尾松'
+component = '粗根'
+location = '浙江'
+difficulty = '中等'
+question = '马尾松的粗根生物量，胸径12厘米，有公式吗？（位于浙江）'
+equation = 'W=0.0099 * D^2.61'
+expected_result = 6.4908
+_calc_params = {'D': 12.0, 'H': None}
+
+------------------------------------------------------------------------------------------
+test_id = 'Q0020'
+source = '《亚热带常绿阔叶林8个常见树种粗根生物量》'
+group = '亚热带常绿阔叶林_粗根'
+gen_type = '原有'
+tree_type = '檫木'
+component = '粗根'
+location = '浙江'
+difficulty = '高级'
+question = '檫木的根重怎么算？胸径18厘米。（位于浙江）'
+equation = 'W=0.0083 * D^2.81'
+expected_result = 27.9508
+_calc_params = {'D': 18.0, 'H': None}
+
+------------------------------------------------------------------------------------------
+test_id = 'Q0023'
+source = '《亚热带常绿阔叶林8个常见树种粗根生物量》'
+group = '亚热带常绿阔叶林_粗根'
+gen_type = '原有'
+tree_type = '马尾松'
+component = '根系'
+location = '浙江'
+difficulty = '中等'
+question = '我们在南方一片常绿阔叶林里做调查，我在浙江，有一棵马尾松，想测它的粗根生物量，胸径大概12厘米，有公式吗？'
+equation = 'W=0.0657 * D^2.36'
+expected_result = 23.1437
+_calc_params = {'D': 12.0}
+
+------------------------------------------------------------------------------------------
+test_id = 'Q0024'
+source = '《亚热带常绿阔叶林8个常见树种粗根生物量》'
+group = '亚热带常绿阔叶林_粗根'
+gen_type = '原有'
+tree_type = '杉木'
+component = '根系'
+location = '浙江'
+difficulty = '中等'
+question = '杉木的粗根生物量怎么算？我在浙江，有一棵胸径15厘米的，只用胸径够不够？'
+equation = 'W=0.1070 * D^2.67'
+expected_result = 147.7568
+_calc_params = {'D': 15.0}
+
+------------------------------------------------------------------------------------------
+test_id = 'Q0104'
+source = '《喀斯特森林优势树种罗伞生物量研究》'
+group = '喀斯特森林_罗伞'
+gen_type = '原有'
+tree_type = '罗伞'
+component = '树干'
+location = '贵州'
+difficulty = '高级'
+question = '喀斯特森林的罗伞，胸径10厘米，树高8米，树干生物量怎么算？公式看起来挺复杂。（位于贵州）'
+equation = 'W = -1664.8000 * (D^2 * H)^2 + 299.6300 * (D^2 * H) - 1.2765'
+expected_result = -1065232297.2765
+_calc_params = {'D': 10.0, 'H': 8.0}
+
+------------------------------------------------------------------------------------------
+test_id = 'Q0132'
+source = '《喀斯特森林优势树种黄樟生物量研究》'
+group = '喀斯特森林_黄樟'
+gen_type = '原有'
+tree_type = '黄樟'
+component = '干材'
+location = '贵州'
+difficulty = '高级'
+question = '喀斯特森林的黄樟，胸径8厘米，树高6米，树干生物量怎么算？公式看起来挺复杂。（位于贵州）'
+equation = 'W = -0.000003 * (D^2 * H)^2 + 0.0173 * (D^2 * H) + 0.7715'
+expected_result = 6.9723
+_calc_params = {'D': 8.0, 'H': 6.0}
+
+------------------------------------------------------------------------------------------
+test_id = 'Q0235'
+source = 'multiple'
+group = '综合场景_混交林'
+gen_type = '原有'
+tree_type = '混交林'
+component = '林分生物量'
+location = '湖南'
+difficulty = '高级'
+question = '湖南混交林，包含杉木（胸径25cm）和阔叶树（胸径18cm），需要计算总生物量'
+equation = '需要分别使用不同树种的方程'
+expected_result = '杉木使用杉木专用方程，阔叶树使用湖南通用方程，分别计算后相加得到总生物量'
+
+------------------------------------------------------------------------------------------
+test_id = 'Q0260'
+source = 'biomass_1015, biomass_1027, biomass_1039'
+group = '复杂样本_同地多树种'
+gen_type = '原有'
+tree_type = '浙江阔叶混交林'
+component = '地上部分总量'
+location = '浙江'
+difficulty = '高级'
+question = '浙江西北部次生常绿阔叶林,包括甜槠(D=15cm)、青冈(D=10cm)、石栎(D=18cm),计算地上总生物量'
+equation = '分别使用各树种方程'
+expected_result = '甜槠用 lg(W)=-0.77107+2.15336*lg(D),青冈用 lg(W)=-0.58154+2.13469*lg(D),石栎用 lg(W)=-0.74957+2.23288*lg(D),分别计算后相加'
+
+------------------------------------------------------------------------------------------
+test_id = 'Q0270'
+source = 'biomass_1090-1094'
+group = '应用场景_防护林'
+gen_type = '原有'
+tree_type = '小黑杨'
+component = '地上部分总量'
+location = '山西'
+difficulty = '中级'
+question = '山西沙地防护林,小黑杨胸径25cm,评估生态效益需要计算地上生物量(干+枝+叶)'
+equation = '需要分别计算各组分'
+expected_result = '分别计算：干材 W=0.025*D^2.655,干皮 W=0.004*D^2.584,枝 W=0.000119*D^3.8569,叶 W=0.001*D^2.709,相加得地上总量'
+
+------------------------------------------------------------------------------------------
+test_id = 'Q0278'
+source = 'biomass_1068-1072'
+group = '应用场景_组分占比'
+gen_type = '原有'
+tree_type = '长白落叶松'
+component = '各组分占比'
+location = '黑龙江'
+difficulty = '高级'
+question = '黑龙江长白落叶松,胸径15cm,树高15m,想知道干材、枝、叶各占地上生物量的比例'
+equation = '需要分别计算各组分'
+expected_result = '分别计算：干 W=0.0159*(D^2*H)^1.0242,枝 W=0.0135*(D^2*H)^0.8839,叶 W=0.0016*(D^2*H)^0.9658,然后计算各自占比'
+
+------------------------------------------------------------------------------------------
+test_id = 'Q0326'
+source = 'biomass_1927-1934'
+group = '复杂场景_特殊组分'
+gen_type = '原有'
+tree_type = '杉木'
+component = '1年生叶+叶总量'
+location = '江西'
+difficulty = '高级'
+question = '江西杉木，胸径10cm，树高12m，如何区分1年生叶和叶总量？两个方程有什么关系？'
+equation = '1年生叶: W=0.33803+0.00053*(D^2*H); 叶总量: W=0.95167+0.00125*(D^2*H)'
+expected_result = '1年生叶方程用于估算年生长量或新叶；叶总量方程用于估算树冠全部叶量。此例中叶总量(1440cm²)约为1年生叶(608cm²)的2.4倍'
+
+------------------------------------------------------------------------------------------
+test_id = 'Q0338'
+source = 'biomass_1881-1888 (n=5) vs biomass_1889-1896 (n=54)'
+group = '质量评估_样本量影响'
+gen_type = '原有'
+tree_type = '火炬松vs马尾松'
+component = '干材'
+location = '浙江'
+difficulty = '高级'
+question = '同样是浙江松树方程，火炬松n=5，马尾松n=54，样本量差异对方程可靠性有多大影响？'
+equation = '火炬松: lg(W)=-1.2991+0.8338*lg(D^2*H); 马尾松: lg(W)=-1.9556+1.0919*lg(D^2*H)'
+expected_result = '马尾松方程更可靠：样本量54远大于火炬松的5，统计可靠性高得多，标准误差更小，推广性更强'
+
+==========================================================================================
+C. FIELD / NORMALIZED-EQUATION DIAGNOSTICS
+==========================================================================================
+
+TEST_ID = Q0018
+TREE = '木荷'
+COMPONENT = '粗根'
+LOCATION = '浙江'
+EQUATION_RAW = 'W=0.0627 * D^2.19'
+EQUATION_NORMALIZED = 'W=0.0627*D^2.19'
+NORMALIZED_EQ_IN_FEDB = False
+LEGACY_RAW = ''
+LEGACY_NORMALIZED = ''
+LEGACY_IN_FEDB = False
+
+TEST_ID = Q0019
+TREE = '马尾松'
+COMPONENT = '粗根'
+LOCATION = '浙江'
+EQUATION_RAW = 'W=0.0099 * D^2.61'
+EQUATION_NORMALIZED = 'W=0.0099*D^2.61'
+NORMALIZED_EQ_IN_FEDB = False
+LEGACY_RAW = ''
+LEGACY_NORMALIZED = ''
+LEGACY_IN_FEDB = False
+
+TEST_ID = Q0020
+TREE = '檫木'
+COMPONENT = '粗根'
+LOCATION = '浙江'
+EQUATION_RAW = 'W=0.0083 * D^2.81'
+EQUATION_NORMALIZED = 'W=0.0083*D^2.81'
+NORMALIZED_EQ_IN_FEDB = False
+LEGACY_RAW = ''
+LEGACY_NORMALIZED = ''
+LEGACY_IN_FEDB = False
+
+TEST_ID = Q0023
+TREE = '马尾松'
+COMPONENT = '根系'
+LOCATION = '浙江'
+EQUATION_RAW = 'W=0.0657 * D^2.36'
+EQUATION_NORMALIZED = 'W=0.0657*D^2.36'
+NORMALIZED_EQ_IN_FEDB = False
+LEGACY_RAW = ''
+LEGACY_NORMALIZED = ''
+LEGACY_IN_FEDB = False
+
+TEST_ID = Q0024
+TREE = '杉木'
+COMPONENT = '根系'
+LOCATION = '浙江'
+EQUATION_RAW = 'W=0.1070 * D^2.67'
+EQUATION_NORMALIZED = 'W=0.107*D^2.67'
+NORMALIZED_EQ_IN_FEDB = False
+LEGACY_RAW = ''
+LEGACY_NORMALIZED = ''
+LEGACY_IN_FEDB = False
+
+TEST_ID = Q0104
+TREE = '罗伞'
+COMPONENT = '树干'
+LOCATION = '贵州'
+EQUATION_RAW = 'W = -1664.8000 * (D^2 * H)^2 + 299.6300 * (D^2 * H) - 1.2765'
+EQUATION_NORMALIZED = 'W=-1664.8*(D^2*H)^2+299.63*(D^2*H)-1.2765'
+NORMALIZED_EQ_IN_FEDB = False
+LEGACY_RAW = ''
+LEGACY_NORMALIZED = ''
+LEGACY_IN_FEDB = False
+
+TEST_ID = Q0132
+TREE = '黄樟'
+COMPONENT = '干材'
+LOCATION = '贵州'
+EQUATION_RAW = 'W = -0.000003 * (D^2 * H)^2 + 0.0173 * (D^2 * H) + 0.7715'
+EQUATION_NORMALIZED = 'W=-0.000003*(D^2*H)^2+0.0173*(D^2*H)+0.7715'
+NORMALIZED_EQ_IN_FEDB = False
+LEGACY_RAW = ''
+LEGACY_NORMALIZED = ''
+LEGACY_IN_FEDB = False
+
+TEST_ID = Q0235
+TREE = '混交林'
+COMPONENT = '林分生物量'
+LOCATION = '湖南'
+EQUATION_RAW = '需要分别使用不同树种的方程'
+EQUATION_NORMALIZED = '需要分别使用不同树种的方程'
+NORMALIZED_EQ_IN_FEDB = False
+LEGACY_RAW = ''
+LEGACY_NORMALIZED = ''
+LEGACY_IN_FEDB = False
+
+TEST_ID = Q0260
+TREE = '浙江阔叶混交林'
+COMPONENT = '地上部分总量'
+LOCATION = '浙江'
+EQUATION_RAW = '分别使用各树种方程'
+EQUATION_NORMALIZED = '分别使用各树种方程'
+NORMALIZED_EQ_IN_FEDB = False
+LEGACY_RAW = ''
+LEGACY_NORMALIZED = ''
+LEGACY_IN_FEDB = False
+
+TEST_ID = Q0270
+TREE = '小黑杨'
+COMPONENT = '地上部分总量'
+LOCATION = '山西'
+EQUATION_RAW = '需要分别计算各组分'
+EQUATION_NORMALIZED = '需要分别计算各组分'
+NORMALIZED_EQ_IN_FEDB = False
+LEGACY_RAW = ''
+LEGACY_NORMALIZED = ''
+LEGACY_IN_FEDB = False
+
+TEST_ID = Q0278
+TREE = '长白落叶松'
+COMPONENT = '各组分占比'
+LOCATION = '黑龙江'
+EQUATION_RAW = '需要分别计算各组分'
+EQUATION_NORMALIZED = '需要分别计算各组分'
+NORMALIZED_EQ_IN_FEDB = False
+LEGACY_RAW = ''
+LEGACY_NORMALIZED = ''
+LEGACY_IN_FEDB = False
+
+TEST_ID = Q0326
+TREE = '杉木'
+COMPONENT = '1年生叶+叶总量'
+LOCATION = '江西'
+EQUATION_RAW = '1年生叶: W=0.33803+0.00053*(D^2*H); 叶总量: W=0.95167+0.00125*(D^2*H)'
+EQUATION_NORMALIZED = '1年生叶:W=0.33803+0.00053*(D^2*H);叶总量:W=0.95167+0.00125*(D^2*H)'
+NORMALIZED_EQ_IN_FEDB = False
+LEGACY_RAW = ''
+LEGACY_NORMALIZED = ''
+LEGACY_IN_FEDB = False
+
+TEST_ID = Q0338
+TREE = '火炬松vs马尾松'
+COMPONENT = '干材'
+LOCATION = '浙江'
+EQUATION_RAW = '火炬松: lg(W)=-1.2991+0.8338*lg(D^2*H); 马尾松: lg(W)=-1.9556+1.0919*lg(D^2*H)'
+EQUATION_NORMALIZED = '火炬松:lg(W)=-1.2991+0.8338*lg(D^2*H);马尾松:lg(W)=-1.9556+1.0919*lg(D^2*H)'
+NORMALIZED_EQ_IN_FEDB = False
+LEGACY_RAW = ''
+LEGACY_NORMALIZED = ''
+LEGACY_IN_FEDB = False
+
+==========================================================================================
+D. STRUCTURAL FEDB MATCH COUNTS FOR 13 CASES
+==========================================================================================
+
+TEST_ID = Q0018
+same_species = 40
+same_species_component_raw = 0
+same_species_location_raw = 16
+exact_species_component_location_raw = 0
+
+TEST_ID = Q0019
+same_species = 403
+same_species_component_raw = 0
+same_species_location_raw = 16
+exact_species_component_location_raw = 0
+
+TEST_ID = Q0020
+same_species = 6
+same_species_component_raw = 0
+same_species_location_raw = 0
+exact_species_component_location_raw = 0
+
+TEST_ID = Q0023
+same_species = 403
+same_species_component_raw = 0
+same_species_location_raw = 16
+exact_species_component_location_raw = 0
+
+TEST_ID = Q0024
+same_species = 746
+same_species_component_raw = 0
+same_species_location_raw = 32
+exact_species_component_location_raw = 0
+
+TEST_ID = Q0104
+same_species = 0
+same_species_component_raw = 0
+same_species_location_raw = 0
+exact_species_component_location_raw = 0
+
+TEST_ID = Q0132
+same_species = 0
+same_species_component_raw = 0
+same_species_location_raw = 0
+exact_species_component_location_raw = 0
+
+TEST_ID = Q0235
+same_species = 0
+same_species_component_raw = 0
+same_species_location_raw = 0
+exact_species_component_location_raw = 0
+
+TEST_ID = Q0260
+same_species = 0
+same_species_component_raw = 0
+same_species_location_raw = 0
+exact_species_component_location_raw = 0
+
+TEST_ID = Q0270
+same_species = 30
+same_species_component_raw = 0
+same_species_location_raw = 28
+exact_species_component_location_raw = 0
+
+TEST_ID = Q0278
+same_species = 44
+same_species_component_raw = 0
+same_species_location_raw = 22
+exact_species_component_location_raw = 0
+
+TEST_ID = Q0326
+same_species = 746
+same_species_component_raw = 0
+same_species_location_raw = 90
+exact_species_component_location_raw = 0
+
+TEST_ID = Q0338
+same_species = 0
+same_species_component_raw = 0
+same_species_location_raw = 0
+exact_species_component_location_raw = 0
+
+==========================================================================================
+E. HISTORICAL BUCKET / GOLD CODE IN V24
+==========================================================================================
+HIT_LINES = [845, 846, 847, 851, 852, 855, 857, 858, 861, 862, 864, 865, 866, 867, 868, 884, 906, 996, 997, 998]
+
+CONTEXT 833-870
+------------------------------------------------------------------------------------------
+00833: # ══════════════════════════════════════════════════════════════
+00834: 
+00835: def is_wrong_prem(c):
+00836:     return ('\u9519\u8bef\u524d\u63d0' in (c.get('gen_type_tags') or []) or
+00837:             c.get('test_id','').startswith('GEN_\u9519\u8bef'))
+00838: 
+00839: def is_valid_equation(eq_str):
+00840:     return bool(re.search(r'[=^*/]', str(eq_str)))
+00841: 
+00842: print('\n'+'='*60+'\n\u3010v21 \u6570\u636e\u5206\u6d41\u3011\n'+'='*60)
+00843: all_cases = json.load(open(TEST_PATH, encoding='utf-8'))['test_cases']
+00844: db        = json.load(open(EQ_PATH,   encoding='utf-8'))
+00845: db_eq_set = {normalize_eq(r.get('equation','')) for r in db}
+00846: bucket_main=[]; bucket_gen=[]; bucket_legacy=[]
+00847: bucket_neg=[]; bucket_rejection=[]; bucket_no_db=[]
+00848: for c in all_cases:
+00849:     has_group='group' in c; group=c.get('group','')
+00850:     eq_str=str(c.get('equation','') or '').strip()
+00851:     legacy_eq=str(c.get('_legacy_equation','') or '').strip()
+00852:     if c.get('requires_rejection',False) and '\u8d1f\u6837\u672c' in group:
+00853:         bucket_neg.append(c); continue
+00854:     is_neg='\u8d1f\u6837\u672c' in group or is_wrong_prem(c)
+00855:     if eq_str and not is_valid_equation(eq_str): bucket_rejection.append(c); continue
+00856:     if not has_group:
+00857:         if is_wrong_prem(c): bucket_rejection.append(c)
+00858:         elif eq_str: bucket_gen.append(c)
+00859:         continue
+00860:     if not eq_str:
+00861:         if is_neg: bucket_rejection.append(c)
+00862:         elif legacy_eq: bucket_legacy.append(c)
+00863:         continue
+00864:     if is_neg: bucket_rejection.append(c)
+00865:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00866:     else: bucket_no_db.append(c)
+00867: print('  \u4e3b\u8bc4\u4f30: '+str(len(bucket_main))+'\u6761  GEN\u5206\u652f: '+str(len(bucket_gen))+'\u6761  legacy_eq: '+str(len(bucket_legacy))+'\u6761')
+00868: print('  \u8d1f\u6837\u672c: '+str(len(bucket_neg))+'\u6761  \u8df3\u8fc7: '+str(len(bucket_rejection)+len(bucket_no_db))+'\u6761  \u5408\u8ba1: '+str(len(all_cases))+'\u6761')
+00869: 
+00870: print('\n[\u521d\u59cb\u5316] \u52a0\u8f7d Qwen \u6a21\u578b...', flush=True)
+
+CONTEXT 849-886
+------------------------------------------------------------------------------------------
+00849:     has_group='group' in c; group=c.get('group','')
+00850:     eq_str=str(c.get('equation','') or '').strip()
+00851:     legacy_eq=str(c.get('_legacy_equation','') or '').strip()
+00852:     if c.get('requires_rejection',False) and '\u8d1f\u6837\u672c' in group:
+00853:         bucket_neg.append(c); continue
+00854:     is_neg='\u8d1f\u6837\u672c' in group or is_wrong_prem(c)
+00855:     if eq_str and not is_valid_equation(eq_str): bucket_rejection.append(c); continue
+00856:     if not has_group:
+00857:         if is_wrong_prem(c): bucket_rejection.append(c)
+00858:         elif eq_str: bucket_gen.append(c)
+00859:         continue
+00860:     if not eq_str:
+00861:         if is_neg: bucket_rejection.append(c)
+00862:         elif legacy_eq: bucket_legacy.append(c)
+00863:         continue
+00864:     if is_neg: bucket_rejection.append(c)
+00865:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00866:     else: bucket_no_db.append(c)
+00867: print('  \u4e3b\u8bc4\u4f30: '+str(len(bucket_main))+'\u6761  GEN\u5206\u652f: '+str(len(bucket_gen))+'\u6761  legacy_eq: '+str(len(bucket_legacy))+'\u6761')
+00868: print('  \u8d1f\u6837\u672c: '+str(len(bucket_neg))+'\u6761  \u8df3\u8fc7: '+str(len(bucket_rejection)+len(bucket_no_db))+'\u6761  \u5408\u8ba1: '+str(len(all_cases))+'\u6761')
+00869: 
+00870: print('\n[\u521d\u59cb\u5316] \u52a0\u8f7d Qwen \u6a21\u578b...', flush=True)
+00871: _tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH, trust_remote_code=True)
+00872: _model     = AutoModelForCausalLM.from_pretrained(MODEL_PATH, trust_remote_code=True,
+00873:               torch_dtype=torch.float16, device_map='auto')
+00874: _model.eval()
+00875: print('  \u5b8c\u6210\n', flush=True)
+00876: 
+00877: print('[\u521d\u59cb\u5316] \u52a0\u8f7d Embedding \u6a21\u578b...', flush=True)
+00878: emb = SentenceTransformer(EMB_PATH)
+00879: all_texts = ([r.get('location','') for r in db]+[r.get('tree_type','') for r in db]+[r.get('component','') for r in db])
+00880: all_vecs  = emb.encode(all_texts, batch_size=256, show_progress_bar=True, normalize_embeddings=True)
+00881: n=len(db); loc_vecs=all_vecs[0:n]; sp_vecs=all_vecs[n:2*n]; comp_vecs=all_vecs[2*n:3*n]
+00882: print('  \u5b8c\u6210\n', flush=True)
+00883: 
+00884: def build_gold_set(case, eq_override=None):
+00885:     sp=re.sub(r'\s+','',case.get('tree_type','') or '')
+00886:     loc=re.sub(r'\s+','',case.get('location','') or '')
+
+CONTEXT 872-909
+------------------------------------------------------------------------------------------
+00872: _model     = AutoModelForCausalLM.from_pretrained(MODEL_PATH, trust_remote_code=True,
+00873:               torch_dtype=torch.float16, device_map='auto')
+00874: _model.eval()
+00875: print('  \u5b8c\u6210\n', flush=True)
+00876: 
+00877: print('[\u521d\u59cb\u5316] \u52a0\u8f7d Embedding \u6a21\u578b...', flush=True)
+00878: emb = SentenceTransformer(EMB_PATH)
+00879: all_texts = ([r.get('location','') for r in db]+[r.get('tree_type','') for r in db]+[r.get('component','') for r in db])
+00880: all_vecs  = emb.encode(all_texts, batch_size=256, show_progress_bar=True, normalize_embeddings=True)
+00881: n=len(db); loc_vecs=all_vecs[0:n]; sp_vecs=all_vecs[n:2*n]; comp_vecs=all_vecs[2*n:3*n]
+00882: print('  \u5b8c\u6210\n', flush=True)
+00883: 
+00884: def build_gold_set(case, eq_override=None):
+00885:     sp=re.sub(r'\s+','',case.get('tree_type','') or '')
+00886:     loc=re.sub(r'\s+','',case.get('location','') or '')
+00887:     comp_raw=case.get('component','') or ''; comp_std=COMP_TO_STD.get(comp_raw,comp_raw)
+00888:     eq_src=eq_override or str(case.get('equation','') or ''); primary=normalize_eq(eq_src)
+00889:     if not primary: return set(),''
+00890:     gold_set={primary}
+00891:     if sp and loc and comp_std:
+00892:         for r in db:
+00893:             if (re.sub(r'\s+','',r.get('tree_type',''))==sp and
+00894:                 loc_match_score(loc,re.sub(r'\s+','',r.get('location','')))>=3 and
+00895:                 r.get('component','')==comp_std):
+00896:                 gold_set.add(normalize_eq(r.get('equation','')))
+00897:     return gold_set, primary
+00898: 
+00899: def run_eval(branch_name, cases, eq_override_field=None, is_gen=False):
+00900:     print('\n'+'='*60+'\n['+branch_name+'] '+str(len(cases))+'\u6761\n'+'='*60)
+00901:     hit1=hit3=hit5=hit_any=skipped=errors=0
+00902:     intent_stats={k:{'total':0,'hit1':0} for k in ('single','multi_sp','multi_comp','reasoning','quality_ctrl')}
+00903:     for i,case in enumerate(cases):
+00904:         tid=case.get('test_id','#'+str(i+1)); label=case.get('group',tid); q=case['question']
+00905:         eq_override=(str(case.get(eq_override_field,'') or '').strip() if eq_override_field else None)
+00906:         gold_set,primary=build_gold_set(case,eq_override=eq_override)
+00907:         if not primary:
+00908:             skipped+=1; print('['+str(i+1).zfill(3)+'] skip '+tid,flush=True); continue
+00909:         try:
+
+CONTEXT 894-931
+------------------------------------------------------------------------------------------
+00894:                 loc_match_score(loc,re.sub(r'\s+','',r.get('location','')))>=3 and
+00895:                 r.get('component','')==comp_std):
+00896:                 gold_set.add(normalize_eq(r.get('equation','')))
+00897:     return gold_set, primary
+00898: 
+00899: def run_eval(branch_name, cases, eq_override_field=None, is_gen=False):
+00900:     print('\n'+'='*60+'\n['+branch_name+'] '+str(len(cases))+'\u6761\n'+'='*60)
+00901:     hit1=hit3=hit5=hit_any=skipped=errors=0
+00902:     intent_stats={k:{'total':0,'hit1':0} for k in ('single','multi_sp','multi_comp','reasoning','quality_ctrl')}
+00903:     for i,case in enumerate(cases):
+00904:         tid=case.get('test_id','#'+str(i+1)); label=case.get('group',tid); q=case['question']
+00905:         eq_override=(str(case.get(eq_override_field,'') or '').strip() if eq_override_field else None)
+00906:         gold_set,primary=build_gold_set(case,eq_override=eq_override)
+00907:         if not primary:
+00908:             skipped+=1; print('['+str(i+1).zfill(3)+'] skip '+tid,flush=True); continue
+00909:         try:
+00910:             result=process_question(q,is_gen_branch=is_gen)
+00911:             intent=result.get('intent','single'); rejected=result.get('rejected',False)
+00912:             if rejected:
+00913:                 reason=result.get('reject_reason','')
+00914:                 print('['+str(i+1).zfill(3)+'] \u274c ['+intent+'] '+tid+' | '+label+' [\u62d2:'+reason+']',flush=True)
+00915:                 intent_stats.get(intent,intent_stats['single'])['total']+=1; continue
+00916:             all_eqs=[normalize_eq(e) for e in result.get('equations',[]) if e]
+00917:             if not all_eqs: all_eqs=[normalize_eq(result.get('top1',''))]
+00918:             h1=bool(all_eqs) and all_eqs[0] in gold_set
+00919:             h3=any(e in gold_set for e in all_eqs[:3])
+00920:             h5=any(e in gold_set for e in all_eqs[:5])
+00921:             h_any=any(e in gold_set for e in all_eqs)
+00922:             if h1:   hit1+=1
+00923:             if h3:   hit3+=1
+00924:             if h5:   hit5+=1
+00925:             if h_any: hit_any+=1
+00926:             base=intent if intent in intent_stats else 'single'
+00927:             intent_stats[base]['total']+=1
+00928:             if h1: intent_stats[base]['hit1']+=1
+00929:             mark='\u2705' if h1 else ('\U0001f536' if h_any else '\u274c')
+00930:             warn_tag=' [\u57fa\u5f84]' if result.get('warn_message') else ''
+00931:             print('['+str(i+1).zfill(3)+'] '+mark+' ['+intent+'] '+tid+' | '+label+warn_tag,flush=True)
+
+CONTEXT 984-1021
+------------------------------------------------------------------------------------------
+00984:         print('['+str(i+1).zfill(3)+'] '+flag+' '+tid.ljust(22)+' score='+str(round(top1_score,3))+'  '+sig,flush=True)
+00985:         if not naturally_rejected: fail_cases.append({'test_id':tid,'group':group,'question':q})
+00986:     n_total=len(cases); rate=rejected_n/n_total*100 if n_total else 0
+00987:     print('\n[\u8d1f\u6837\u672c\u7ed3\u679c]  \u62d2\u7edd:'+str(rejected_n)+'/'+str(n_total)+'  \u62d2\u7edd\u7387:'+str(round(rate,1))+'%')
+00988:     for g,s in sorted(type_stats.items()):
+00989:         r=s['rejected']/s['total']*100 if s['total'] else 0
+00990:         print('    '+g.ljust(25)+' '+str(s['rejected'])+'/'+str(s['total'])+'  '+str(round(r))+'%')
+00991:     if fail_cases:
+00992:         print('\n  \u4ecd\u672a\u62d2\u7edd('+str(len(fail_cases))+'\u6761):')
+00993:         for fc in fail_cases[:10]: print('    '+fc['test_id']+' | '+fc['question'][:60]+'...')
+00994:     return rejected_n,n_total,rate
+00995: 
+00996: r1,r3,r5,ra,nr=run_eval('\u4e3b\u8bc4\u4f30\uff08\u6709group+\u5728\u5e93\uff09',bucket_main)
+00997: g1,g3,g5,ga,ng=run_eval('GEN\u5206\u652f\uff08\u65e0group\uff09',bucket_gen,is_gen=True)
+00998: l1,l3,l5,la,nl=run_eval('legacy_eq\u5206\u652f',bucket_legacy,eq_override_field='_legacy_equation')
+00999: neg_rejected,neg_total,neg_rate=run_neg_eval(bucket_neg)
+01000: 
+01001: def pct(x,n): return str(100*x//(n or 1))+'%'
+01002: total_n=nr+ng+nl; total_h1=r1+g1+l1; total_h3=r3+g3+l3; total_h5=r5+g5+l5; total_ha=ra+ga+la
+01003: print('\n'+'='*76)
+01004: for label,n_,h1_,h3_,h5_,ha_ in [
+01005:     ('DeepSeek API (\u53c2\u8003,50\u6761)','50','82%','86%','88%','\u2014'),
+01006:     ('v9  \u57fa\u7ebf','376','74%','78%','81%','81%'),
+01007:     ('v17 \u7efc\u5408','376','76%','80%','82%','82%'),
+01008:     ('v19 \u7efc\u5408','376','76%','80%','83%','83%'),
+01009:     ('v20 \u7efc\u5408','376','79%','83%','85%','85%'),
+01010: ]:
+01011:     print(label.ljust(32)+str(n_).rjust(5)+h1_.rjust(7)+h3_.rjust(7)+h5_.rjust(7)+ha_.rjust(8))
+01012: print('-'*76)
+01013: print('v24 \u4e3b\u8bc4\u4f30'.ljust(32)+str(nr).rjust(5)+pct(r1,nr).rjust(7)+pct(r3,nr).rjust(7)+pct(r5,nr).rjust(7)+pct(ra,nr).rjust(8))
+01014: print('v24 GEN\u5206\u652f'.ljust(32)+str(ng).rjust(5)+pct(g1,ng).rjust(7)+pct(g3,ng).rjust(7)+pct(g5,ng).rjust(7)+pct(ga,ng).rjust(8))
+01015: print('v23 legacy_eq'.ljust(32)+str(nl).rjust(5)+pct(l1,nl).rjust(7)+pct(l3,nl).rjust(7)+pct(l5,nl).rjust(7)+pct(la,nl).rjust(8))
+01016: print('='*76)
+01017: print('v24 \u7efc\u5408'.ljust(32)+str(total_n).rjust(5)+pct(total_h1,total_n).rjust(7)+pct(total_h3,total_n).rjust(7)+pct(total_h5,total_n).rjust(7)+pct(total_ha,total_n).rjust(8))
+01018: print('='*76)
+01019: print('  v9  \u57fa\u7ebf\u62d2\u7edd\u7387: 14.1%')
+01020: print('  v17 \u62d2\u7edd\u7387:     18.8%')
+01021: print('  v19 \u62d2\u7edd\u7387:     51.6%')
+
+==========================================================================================
+F. OTHER HISTORICAL FILES WITH BUCKET LOGIC
+==========================================================================================
+
+FILE = <PRIVATE_ROOT>/analyze_v16_errors.py
+MATCHED = ['bucket_main']
+00062: bucket_main = []
+00076:         bucket_main.append(c)
+00148: for c in bucket_main:
+00232: total = len(bucket_main)
+00320: for c in bucket_main:
+
+FILE = <PRIVATE_ROOT>/abl_full.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00865: bucket_main=[]; bucket_gen=[]; bucket_legacy=[]
+00866: bucket_neg=[]; bucket_rejection=[]; bucket_no_db=[]
+00874:     if eq_str and not is_valid_equation(eq_str): bucket_rejection.append(c); continue
+00876:         if is_wrong_prem(c): bucket_rejection.append(c)
+00877:         elif eq_str: bucket_gen.append(c)
+00880:         if is_neg: bucket_rejection.append(c)
+00881:         elif legacy_eq: bucket_legacy.append(c)
+00883:     if is_neg: bucket_rejection.append(c)
+00884:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00885:     else: bucket_no_db.append(c)
+00886: print('  \u4e3b\u8bc4\u4f30: '+str(len(bucket_main))+'\u6761  GEN\u5206\u652f: '+str(len(bucket_gen))+'\u6761  legacy_eq: '+str(len(bucket_legacy))+'\u6761')
+00887: print('  \u8d1f\u6837\u672c: '+str(len(bucket_neg))+'\u6761  \u8df3\u8fc7: '+str(len(bucket_rejection)+len(bucket_no_db))+'\u6761  \u5408\u8ba1: '+str(len(all_cases))+'\u6761')
+01015: r1,r3,r5,ra,nr=run_eval('\u4e3b\u8bc4\u4f30\uff08\u6709group+\u5728\u5e93\uff09',bucket_main)
+01016: g1,g3,g5,ga,ng=run_eval('GEN\u5206\u652f\uff08\u65e0group\uff09',bucket_gen,is_gen=True)
+01017: l1,l3,l5,la,nl=run_eval('legacy_eq\u5206\u652f',bucket_legacy,eq_override_field='_legacy_equation')
+
+FILE = <PRIVATE_ROOT>/biomass_expert_v8.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00437: bucket_main=[];bucket_gen=[];bucket_legacy=[]
+00438: bucket_rejection=[];bucket_no_db=[];bucket_unknown=[]
+00448:         bucket_rejection.append(c)
+00451:         if is_wrong_prem(c):  bucket_rejection.append(c)
+00452:         elif eq_str:          bucket_gen.append(c)
+00456:         if is_neg:            bucket_rejection.append(c)
+00457:         elif legacy_eq:       bucket_legacy.append(c)
+00460:     if is_neg:                              bucket_rejection.append(c)
+00461:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00462:     else:                                   bucket_no_db.append(c)
+00464: print(f"  ✅ 主评估（有group+在库）:      {len(bucket_main)}条")
+00465: print(f"  ✅ GEN分支（无group+有eq）:     {len(bucket_gen)}条")
+00466: print(f"  ✅ legacy_eq分支（碳储量等）:   {len(bucket_legacy)}条")
+00467: print(f"  ⏭️  负样本+错误前提+伪方程:     {len(bucket_rejection)}条")
+00468: print(f"  ⏭️  答案不在库（跳过）:         {len(bucket_no_db)}条")
+00471: print(f"  可评估总数:                     {len(bucket_main)+len(bucket_gen)+len(bucket_legacy)}条")
+00558: r1,r3,r5,nr = run_eval('主评估（有group+在库）',    bucket_main)
+00559: g1,g3,g5,ng = run_eval('GEN分支（无group）',         bucket_gen)
+00560: l1,l3,l5,nl = run_eval('legacy_eq分支（碳储量等）',  bucket_legacy,
+00581: print(f'  负样本+错误前提+伪方程: {len(bucket_rejection)}条')
+00582: print(f'  答案不在库:             {len(bucket_no_db)}条')
+
+FILE = <PRIVATE_ROOT>/abl_x1_no_softsignal.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00866: bucket_main=[]; bucket_gen=[]; bucket_legacy=[]
+00867: bucket_neg=[]; bucket_rejection=[]; bucket_no_db=[]
+00875:     if eq_str and not is_valid_equation(eq_str): bucket_rejection.append(c); continue
+00877:         if is_wrong_prem(c): bucket_rejection.append(c)
+00878:         elif eq_str: bucket_gen.append(c)
+00881:         if is_neg: bucket_rejection.append(c)
+00882:         elif legacy_eq: bucket_legacy.append(c)
+00884:     if is_neg: bucket_rejection.append(c)
+00885:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00886:     else: bucket_no_db.append(c)
+00887: print('  \u4e3b\u8bc4\u4f30: '+str(len(bucket_main))+'\u6761  GEN\u5206\u652f: '+str(len(bucket_gen))+'\u6761  legacy_eq: '+str(len(bucket_legacy))+'\u6761')
+00888: print('  \u8d1f\u6837\u672c: '+str(len(bucket_neg))+'\u6761  \u8df3\u8fc7: '+str(len(bucket_rejection)+len(bucket_no_db))+'\u6761  \u5408\u8ba1: '+str(len(all_cases))+'\u6761')
+01016: r1,r3,r5,ra,nr=run_eval('\u4e3b\u8bc4\u4f30\uff08\u6709group+\u5728\u5e93\uff09',bucket_main)
+01017: g1,g3,g5,ga,ng=run_eval('GEN\u5206\u652f\uff08\u65e0group\uff09',bucket_gen,is_gen=True)
+01018: l1,l3,l5,la,nl=run_eval('legacy_eq\u5206\u652f',bucket_legacy,eq_override_field='_legacy_equation')
+
+FILE = <PRIVATE_ROOT>/biomass_expert_v7.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00402: bucket_main=[];bucket_gen=[];bucket_legacy=[]
+00403: bucket_rejection=[];bucket_no_db=[];bucket_unknown=[]
+00414:         bucket_rejection.append(c)
+00417:         if is_wrong_prem(c):  bucket_rejection.append(c)
+00418:         elif eq_str:          bucket_gen.append(c)
+00422:         if is_neg:            bucket_rejection.append(c)
+00423:         elif legacy_eq:       bucket_legacy.append(c)
+00426:     if is_neg:                              bucket_rejection.append(c)
+00427:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00428:     else:                                   bucket_no_db.append(c)
+00430: print(f"  ✅ 主评估（有group+在库）:      {len(bucket_main)}条")
+00431: print(f"  ✅ GEN分支（无group+有eq）:     {len(bucket_gen)}条")
+00432: print(f"  ✅ legacy_eq分支（碳储量等）:   {len(bucket_legacy)}条")
+00433: print(f"  ⏭️  负样本+错误前提+伪方程:     {len(bucket_rejection)}条")
+00434: print(f"  ⏭️  答案不在库（跳过）:         {len(bucket_no_db)}条")
+00437: print(f"  可评估总数:                     {len(bucket_main)+len(bucket_gen)+len(bucket_legacy)}条")
+00531: r1,r3,r5,nr = run_eval('主评估（有group+在库）',    bucket_main)
+00532: g1,g3,g5,ng = run_eval('GEN分支（无group）',         bucket_gen)
+00533: l1,l3,l5,nl = run_eval('legacy_eq分支（碳储量等）',  bucket_legacy,
+
+FILE = <PRIVATE_ROOT>/test_qwen_full_v2.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00006:   3. 错误前提25条移入 bucket_rejection，不计入检索评估
+00166: bucket_main=[];bucket_gen=[];bucket_legacy=[]
+00167: bucket_rejection=[];bucket_no_db=[];bucket_unknown=[]
+00176:         if is_wrong_prem(c):       bucket_rejection.append(c)
+00177:         elif eq_str:               bucket_gen.append(c)
+00182:         if is_neg:                 bucket_rejection.append(c)
+00183:         elif legacy_eq:            bucket_legacy.append(c)
+00187:     if is_neg:                     bucket_rejection.append(c)
+00188:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00189:     else:                          bucket_no_db.append(c)
+00191: print(f"  ✅ 主评估（有group+在库）:      {len(bucket_main)}条")
+00192: print(f"  ✅ GEN分支（无group+有eq）:     {len(bucket_gen)}条  ← 已排除错误前提题")
+00193: print(f"  ✅ legacy_eq分支（碳储量等）:   {len(bucket_legacy)}条")
+00194: print(f"  ⏭️  负样本+错误前提（跳过）:    {len(bucket_rejection)}条")
+00195: print(f"  ⏭️  答案不在库（跳过）:         {len(bucket_no_db)}条")
+00198: print(f"  可评估总数:                     {len(bucket_main)+len(bucket_gen)+len(bucket_legacy)}条")
+00330: r1,r3,r5,nr = run_eval('主评估（有group+在库）',     bucket_main)
+00331: g1,g3,g5,ng = run_eval('GEN分支（无group）',          bucket_gen)
+00332: l1,l3,l5,nl = run_eval('legacy_eq分支（碳储量等）',   bucket_legacy,
+00351: print(f'  负样本+错误前提(拒绝类): {len(bucket_rejection)}条')
+00352: print(f'  答案不在库:              {len(bucket_no_db)}条')
+
+FILE = <PRIVATE_ROOT>/biomass_expert_v10.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00569: bucket_main=[];bucket_gen=[];bucket_legacy=[]
+00570: bucket_neg=[];bucket_rejection=[];bucket_no_db=[];bucket_unknown=[]
+00580:         bucket_rejection.append(c); continue
+00582:         if is_wrong_prem(c): bucket_rejection.append(c)
+00583:         elif eq_str: bucket_gen.append(c)
+00587:         if is_neg: bucket_rejection.append(c)
+00588:         elif legacy_eq: bucket_legacy.append(c)
+00591:     if is_neg: bucket_rejection.append(c)
+00592:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00593:     else: bucket_no_db.append(c)
+00595: print(f"  ✅ 主评估（有group+在库）:      {len(bucket_main)}条")
+00596: print(f"  ✅ GEN分支（无group+有eq）:     {len(bucket_gen)}条")
+00597: print(f"  ✅ legacy_eq分支（碳储量等）:   {len(bucket_legacy)}条")
+00599: print(f"  ⏭️  错误前提+伪方程:            {len(bucket_rejection)}条")
+00600: print(f"  ⏭️  答案不在库（跳过）:         {len(bucket_no_db)}条")
+00602: print(f"  可评估总数:                     {len(bucket_main)+len(bucket_gen)+len(bucket_legacy)}条")
+00799: r1,r3,r5,ra,nr = run_eval('主评估（有group+在库）', bucket_main)
+00800: g1,g3,g5,ga,ng = run_eval('GEN分支（无group）', bucket_gen)
+00801: l1,l3,l5,la,nl = run_eval('legacy_eq分支（碳储量等）', bucket_legacy,
+00834: print(f'  错误前提+伪方程: {len(bucket_rejection)}条')
+00835: print(f'  答案不在库:      {len(bucket_no_db)}条')
+
+FILE = <PRIVATE_ROOT>/biomass_expert_v9_backup_before_prompt_fix.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00365: bucket_main=[];bucket_gen=[];bucket_legacy=[]
+00366: bucket_rejection=[];bucket_no_db=[];bucket_unknown=[]
+00374:         bucket_rejection.append(c); continue
+00376:         if is_wrong_prem(c): bucket_rejection.append(c)
+00377:         elif eq_str: bucket_gen.append(c)
+00381:         if is_neg: bucket_rejection.append(c)
+00382:         elif legacy_eq: bucket_legacy.append(c)
+00385:     if is_neg: bucket_rejection.append(c)
+00386:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00387:     else: bucket_no_db.append(c)
+00389: print(f"  ✅ 主评估（有group+在库）:      {len(bucket_main)}条")
+00390: print(f"  ✅ GEN分支（无group+有eq）:     {len(bucket_gen)}条")
+00391: print(f"  ✅ legacy_eq分支（碳储量等）:   {len(bucket_legacy)}条")
+00392: print(f"  ⏭️  负样本+错误前提+伪方程:     {len(bucket_rejection)}条")
+00393: print(f"  ⏭️  答案不在库（跳过）:         {len(bucket_no_db)}条")
+00395: print(f"  可评估总数:                     {len(bucket_main)+len(bucket_gen)+len(bucket_legacy)}条")
+00496: r1,r3,r5,ra,nr=run_eval('主评估（有group+在库）',bucket_main)
+00497: g1,g3,g5,ga,ng=run_eval('GEN分支（无group）',bucket_gen)
+00498: l1,l3,l5,la,nl=run_eval('legacy_eq分支（碳储量等）',bucket_legacy,
+
+FILE = <PRIVATE_ROOT>/biomass_expert_v24.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00846: bucket_main=[]; bucket_gen=[]; bucket_legacy=[]
+00847: bucket_neg=[]; bucket_rejection=[]; bucket_no_db=[]
+00855:     if eq_str and not is_valid_equation(eq_str): bucket_rejection.append(c); continue
+00857:         if is_wrong_prem(c): bucket_rejection.append(c)
+00858:         elif eq_str: bucket_gen.append(c)
+00861:         if is_neg: bucket_rejection.append(c)
+00862:         elif legacy_eq: bucket_legacy.append(c)
+00864:     if is_neg: bucket_rejection.append(c)
+00865:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00866:     else: bucket_no_db.append(c)
+00867: print('  \u4e3b\u8bc4\u4f30: '+str(len(bucket_main))+'\u6761  GEN\u5206\u652f: '+str(len(bucket_gen))+'\u6761  legacy_eq: '+str(len(bucket_legacy))+'\u6761')
+00868: print('  \u8d1f\u6837\u672c: '+str(len(bucket_neg))+'\u6761  \u8df3\u8fc7: '+str(len(bucket_rejection)+len(bucket_no_db))+'\u6761  \u5408\u8ba1: '+str(len(all_cases))+'\u6761')
+00996: r1,r3,r5,ra,nr=run_eval('\u4e3b\u8bc4\u4f30\uff08\u6709group+\u5728\u5e93\uff09',bucket_main)
+00997: g1,g3,g5,ga,ng=run_eval('GEN\u5206\u652f\uff08\u65e0group\uff09',bucket_gen,is_gen=True)
+00998: l1,l3,l5,la,nl=run_eval('legacy_eq\u5206\u652f',bucket_legacy,eq_override_field='_legacy_equation')
+
+FILE = <PRIVATE_ROOT>/biomass_expert_v17.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00800: bucket_main = []; bucket_gen  = []; bucket_legacy = []
+00801: bucket_neg  = []; bucket_rejection = []; bucket_no_db = []
+00811:         bucket_rejection.append(c); continue
+00813:         if is_wrong_prem(c): bucket_rejection.append(c)
+00814:         elif eq_str:         bucket_gen.append(c)
+00817:         if is_neg:      bucket_rejection.append(c)
+00818:         elif legacy_eq: bucket_legacy.append(c)
+00820:     if is_neg:                                     bucket_rejection.append(c)
+00821:     elif normalize_eq(eq_str) in db_eq_set:        bucket_main.append(c)
+00822:     else:                                          bucket_no_db.append(c)
+00824: print(f"  ✅ 主评估:     {len(bucket_main)}条")
+00825: print(f"  ✅ GEN分支:    {len(bucket_gen)}条")
+00826: print(f"  ✅ legacy_eq:  {len(bucket_legacy)}条")
+00828: print(f"  ⏭️  跳过:      {len(bucket_rejection)+len(bucket_no_db)}条")
+01038: r1, r3, r5, ra, nr = run_eval('主评估（有group+在库）',  bucket_main)
+01039: g1, g3, g5, ga, ng = run_eval('GEN分支（无group）',      bucket_gen, is_gen=True)
+01040: l1, l3, l5, la, nl = run_eval('legacy_eq分支（碳储量等）', bucket_legacy,
+
+FILE = <PRIVATE_ROOT>/biomass_expert_v91.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00368: bucket_main=[];bucket_gen=[];bucket_legacy=[]
+00370: bucket_rejection=[]     # 错误前提 + 伪方程（原有逻辑）
+00371: bucket_no_db=[];bucket_unknown=[]
+00385:         bucket_rejection.append(c); continue
+00387:         if is_wrong_prem(c): bucket_rejection.append(c)
+00388:         elif eq_str: bucket_gen.append(c)
+00392:         if is_neg: bucket_rejection.append(c)
+00393:         elif legacy_eq: bucket_legacy.append(c)
+00396:     if is_neg: bucket_rejection.append(c)
+00397:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00398:     else: bucket_no_db.append(c)
+00400: print(f"  ✅ 主评估（有group+在库）:      {len(bucket_main)}条")
+00401: print(f"  ✅ GEN分支（无group+有eq）:     {len(bucket_gen)}条")
+00402: print(f"  ✅ legacy_eq分支（碳储量等）:   {len(bucket_legacy)}条")
+00404: print(f"  ⏭️  错误前提+伪方程:            {len(bucket_rejection)}条")
+00405: print(f"  ⏭️  答案不在库（跳过）:         {len(bucket_no_db)}条")
+00407: print(f"  可评估总数:                     {len(bucket_main)+len(bucket_gen)+len(bucket_legacy)}条")
+00614: r1,r3,r5,ra,nr = run_eval('主评估（有group+在库）', bucket_main)
+00615: g1,g3,g5,ga,ng = run_eval('GEN分支（无group）', bucket_gen)
+00616: l1,l3,l5,la,nl = run_eval('legacy_eq分支（碳储量等）', bucket_legacy,
+00652: print(f'  错误前提+伪方程: {len(bucket_rejection)}条')
+00653: print(f'  答案不在库:      {len(bucket_no_db)}条')
+
+FILE = <PRIVATE_ROOT>/abl_abl3_noroute.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00865: bucket_main=[]; bucket_gen=[]; bucket_legacy=[]
+00866: bucket_neg=[]; bucket_rejection=[]; bucket_no_db=[]
+00874:     if eq_str and not is_valid_equation(eq_str): bucket_rejection.append(c); continue
+00876:         if is_wrong_prem(c): bucket_rejection.append(c)
+00877:         elif eq_str: bucket_gen.append(c)
+00880:         if is_neg: bucket_rejection.append(c)
+00881:         elif legacy_eq: bucket_legacy.append(c)
+00883:     if is_neg: bucket_rejection.append(c)
+00884:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00885:     else: bucket_no_db.append(c)
+00886: print('  \u4e3b\u8bc4\u4f30: '+str(len(bucket_main))+'\u6761  GEN\u5206\u652f: '+str(len(bucket_gen))+'\u6761  legacy_eq: '+str(len(bucket_legacy))+'\u6761')
+00887: print('  \u8d1f\u6837\u672c: '+str(len(bucket_neg))+'\u6761  \u8df3\u8fc7: '+str(len(bucket_rejection)+len(bucket_no_db))+'\u6761  \u5408\u8ba1: '+str(len(all_cases))+'\u6761')
+01015: r1,r3,r5,ra,nr=run_eval('\u4e3b\u8bc4\u4f30\uff08\u6709group+\u5728\u5e93\uff09',bucket_main)
+01016: g1,g3,g5,ga,ng=run_eval('GEN\u5206\u652f\uff08\u65e0group\uff09',bucket_gen,is_gen=True)
+01017: l1,l3,l5,la,nl=run_eval('legacy_eq\u5206\u652f',bucket_legacy,eq_override_field='_legacy_equation')
+
+FILE = <PRIVATE_ROOT>/biomass_expert_v23.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00816: bucket_main=[]; bucket_gen=[]; bucket_legacy=[]
+00817: bucket_neg=[]; bucket_rejection=[]; bucket_no_db=[]
+00825:     if eq_str and not is_valid_equation(eq_str): bucket_rejection.append(c); continue
+00827:         if is_wrong_prem(c): bucket_rejection.append(c)
+00828:         elif eq_str: bucket_gen.append(c)
+00831:         if is_neg: bucket_rejection.append(c)
+00832:         elif legacy_eq: bucket_legacy.append(c)
+00834:     if is_neg: bucket_rejection.append(c)
+00835:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00836:     else: bucket_no_db.append(c)
+00837: print('  \u4e3b\u8bc4\u4f30: '+str(len(bucket_main))+'\u6761  GEN\u5206\u652f: '+str(len(bucket_gen))+'\u6761  legacy_eq: '+str(len(bucket_legacy))+'\u6761')
+00838: print('  \u8d1f\u6837\u672c: '+str(len(bucket_neg))+'\u6761  \u8df3\u8fc7: '+str(len(bucket_rejection)+len(bucket_no_db))+'\u6761  \u5408\u8ba1: '+str(len(all_cases))+'\u6761')
+00966: r1,r3,r5,ra,nr=run_eval('\u4e3b\u8bc4\u4f30\uff08\u6709group+\u5728\u5e93\uff09',bucket_main)
+00967: g1,g3,g5,ga,ng=run_eval('GEN\u5206\u652f\uff08\u65e0group\uff09',bucket_gen,is_gen=True)
+00968: l1,l3,l5,la,nl=run_eval('legacy_eq\u5206\u652f',bucket_legacy,eq_override_field='_legacy_equation')
+
+FILE = <PRIVATE_ROOT>/biomass_expert_v15.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00738: bucket_main = []; bucket_gen  = []; bucket_legacy = []
+00739: bucket_neg  = []; bucket_rejection = []; bucket_no_db = []
+00749:         bucket_rejection.append(c); continue
+00751:         if is_wrong_prem(c): bucket_rejection.append(c)
+00752:         elif eq_str:         bucket_gen.append(c)
+00755:         if is_neg:      bucket_rejection.append(c)
+00756:         elif legacy_eq: bucket_legacy.append(c)
+00758:     if is_neg:                                     bucket_rejection.append(c)
+00759:     elif normalize_eq(eq_str) in db_eq_set:        bucket_main.append(c)
+00760:     else:                                          bucket_no_db.append(c)
+00762: print(f"  ✅ 主评估:     {len(bucket_main)}条")
+00763: print(f"  ✅ GEN分支:    {len(bucket_gen)}条")
+00764: print(f"  ✅ legacy_eq:  {len(bucket_legacy)}条")
+00766: print(f"  ⏭️  跳过:      {len(bucket_rejection)+len(bucket_no_db)}条")
+00968: r1, r3, r5, ra, nr = run_eval('主评估（有group+在库）',  bucket_main)
+00969: g1, g3, g5, ga, ng = run_eval('GEN分支（无group）',      bucket_gen, is_gen=True)
+00970: l1, l3, l5, la, nl = run_eval('legacy_eq分支（碳储量等）', bucket_legacy,
+
+FILE = <PRIVATE_ROOT>/test_fix_on_failures.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00255: bucket_main,bucket_gen,bucket_legacy,bucket_rejection,bucket_no_db=[],[],[],[],[]
+00262:         (bucket_gen if eq_str else []).append(c); continue
+00264:         if is_neg: bucket_rejection.append(c)
+00265:         elif legacy_eq: bucket_legacy.append(c)
+00267:     if is_neg: bucket_rejection.append(c)
+00268:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00269:     else: bucket_no_db.append(c)
+00277: bucket_gen_clean  = [c for c in bucket_gen if not is_wrong_prem(c)]
+00278: bucket_gen_errors = [c for c in bucket_gen if is_wrong_prem(c)]
+00279: print(f"GEN分支: 共{len(bucket_gen)}条, 其中错误前提题{len(bucket_gen_errors)}条已移出")
+00280: print(f"实际参与对比的: 主评估{len(bucket_main)} + GEN正常{len(bucket_gen_clean)} + legacy{len(bucket_legacy)} = {len(bucket_main)+len(bucket_gen_clean)+len(bucket_legacy)}条")
+00343: failed_main  = find_failures(bucket_main,   SYSTEM_OLD)
+00347: failed_gen   = find_failures(bucket_gen_clean, SYSTEM_OLD)
+00351: failed_legacy= find_failures(bucket_legacy, SYSTEM_OLD, eq_override_field='_legacy_equation')
+00419: print(f"\n  错误前提题(移出检索评估): {len(bucket_gen_errors)}条")
+00420: print(f"  → 这{len(bucket_gen_errors)}条在检索框架下不应计入失败，移出后命中率数字更准确")
+
+FILE = <PRIVATE_ROOT>/test_qwen_full.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00153: bucket_main      = []   # 有group + equation在库
+00154: bucket_gen       = []   # 无group + 有equation（GEN类）
+00155: bucket_legacy    = []   # equation为空 + 有_legacy_equation
+00156: bucket_rejection = []   # 负样本/拒绝类 → 跳过
+00157: bucket_no_db     = []   # equation不在库 → 跳过
+00168:         (bucket_gen if eq_str else bucket_unknown).append(c)
+00172:         if is_neg:              bucket_rejection.append(c)
+00173:         elif legacy_eq:         bucket_legacy.append(c)
+00178:         bucket_rejection.append(c)
+00180:         bucket_main.append(c)
+00182:         bucket_no_db.append(c)
+00184: print(f"  ✅ 主评估（有group+在库）:      {len(bucket_main)}条")
+00185: print(f"  ✅ GEN分支（无group+有eq）:     {len(bucket_gen)}条")
+00186: print(f"  ✅ legacy_eq分支（碳储量等）:   {len(bucket_legacy)}条")
+00187: print(f"  ⏭️  负样本/拒绝类（跳过）:      {len(bucket_rejection)}条")
+00188: print(f"  ⏭️  答案不在库（跳过）:         {len(bucket_no_db)}条")
+00191: print(f"  可评估总数:                     {len(bucket_main)+len(bucket_gen)+len(bucket_legacy)}条")
+00349: r1,  r3,  r5,  nr  = run_eval('主评估（有group+在库）',     bucket_main)
+00350: g1,  g3,  g5,  ng  = run_eval('GEN分支（无group）',         bucket_gen)
+00351: l1,  l3,  l5,  nl  = run_eval('legacy_eq分支（碳储量等）',  bucket_legacy,
+00368: print(f'  负样本/拒绝类: {len(bucket_rejection)}条 — 需单独"拒绝检测"框架')
+00369: print(f'  答案不在库:    {len(bucket_no_db)}条 — 需补充浙江地区原始方程数据')
+
+FILE = <PRIVATE_ROOT>/biomass_expert_v11.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00481: bucket_main=[];bucket_gen=[];bucket_legacy=[]
+00482: bucket_neg=[];bucket_rejection=[];bucket_no_db=[];bucket_unknown=[]
+00492:         bucket_rejection.append(c); continue
+00494:         if is_wrong_prem(c): bucket_rejection.append(c)
+00495:         elif eq_str: bucket_gen.append(c)
+00499:         if is_neg: bucket_rejection.append(c)
+00500:         elif legacy_eq: bucket_legacy.append(c)
+00503:     if is_neg: bucket_rejection.append(c)
+00504:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00505:     else: bucket_no_db.append(c)
+00507: print(f"  ✅ 主评估（有group+在库）:      {len(bucket_main)}条")
+00508: print(f"  ✅ GEN分支（无group+有eq）:     {len(bucket_gen)}条")
+00509: print(f"  ✅ legacy_eq分支（碳储量等）:   {len(bucket_legacy)}条")
+00511: print(f"  ⏭️  错误前提+伪方程:            {len(bucket_rejection)}条")
+00512: print(f"  ⏭️  答案不在库（跳过）:         {len(bucket_no_db)}条")
+00707: r1,r3,r5,ra,nr = run_eval('主评估（有group+在库）', bucket_main)
+00708: g1,g3,g5,ga,ng = run_eval('GEN分支（无group）', bucket_gen)
+00709: l1,l3,l5,la,nl = run_eval('legacy_eq分支（碳储量等）', bucket_legacy,
+
+FILE = <PRIVATE_ROOT>/test_qwen_full_v3.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00212: bucket_main=[];bucket_gen=[];bucket_legacy=[]
+00213: bucket_rejection=[];bucket_no_db=[];bucket_unknown=[]
+00224:         if is_wrong_prem(c):  bucket_rejection.append(c)
+00225:         elif eq_str:          bucket_gen.append(c)
+00230:         if is_neg:            bucket_rejection.append(c)
+00231:         elif legacy_eq:       bucket_legacy.append(c)
+00235:     if is_neg:                            bucket_rejection.append(c)
+00236:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00237:     else:                                 bucket_no_db.append(c)
+00239: print(f"  ✅ 主评估（有group+在库）:      {len(bucket_main)}条")
+00240: print(f"  ✅ GEN分支（无group+有eq）:     {len(bucket_gen)}条")
+00241: print(f"  ✅ legacy_eq分支（碳储量等）:   {len(bucket_legacy)}条")
+00242: print(f"  ⏭️  负样本+错误前提（跳过）:    {len(bucket_rejection)}条")
+00243: print(f"  ⏭️  答案不在库（跳过）:         {len(bucket_no_db)}条")
+00246: print(f"  可评估总数:                     {len(bucket_main)+len(bucket_gen)+len(bucket_legacy)}条")
+00413: r1,r3,r5,nr = run_eval('主评估（有group+在库）',    bucket_main)
+00414: g1,g3,g5,ng = run_eval('GEN分支（无group）',         bucket_gen)
+00415: l1,l3,l5,nl = run_eval('legacy_eq分支（碳储量等）',  bucket_legacy,
+00441: print(f'  负样本+错误前提(拒绝类): {len(bucket_rejection)}条 —— 需单独"拒绝检测"框架')
+00442: print(f'  答案不在库:              {len(bucket_no_db)}条   —— 需补充原始方程数据')
+
+FILE = <PRIVATE_ROOT>/abl_stage1_retrieval.py
+MATCHED = ['bucket_main']
+00477: # 加载测试集，与v21 bucket_main完全相同的过滤条件
+00485: # 与v21 bucket_main构造逻辑完全一致
+
+FILE = <PRIVATE_ROOT>/ablation_study_v2.py
+MATCHED = ['bucket_main']
+00348: bucket_main=[c for c in all_cases
+00357: print(f"评估集: {len(bucket_main)}条（主评估，已过滤伪方程和负样本）\n")
+00381:                bucket_main, use_intent=True,
+00387:                bucket_main, use_intent=False,
+00393:                bucket_main, use_intent=False,
+00399:                bucket_main, use_intent=False,
+00405:                bucket_main, use_intent=False,
+
+FILE = <PRIVATE_ROOT>/biomass_expert_v12.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00531: bucket_main=[];bucket_gen=[];bucket_legacy=[]
+00532: bucket_neg=[];bucket_rejection=[];bucket_no_db=[];bucket_unknown=[]
+00542:         bucket_rejection.append(c); continue
+00544:         if is_wrong_prem(c): bucket_rejection.append(c)
+00545:         elif eq_str: bucket_gen.append(c)
+00549:         if is_neg: bucket_rejection.append(c)
+00550:         elif legacy_eq: bucket_legacy.append(c)
+00553:     if is_neg: bucket_rejection.append(c)
+00554:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00555:     else: bucket_no_db.append(c)
+00557: print(f"  ✅ 主评估（有group+在库）:      {len(bucket_main)}条")
+00558: print(f"  ✅ GEN分支（无group+有eq）:     {len(bucket_gen)}条")
+00559: print(f"  ✅ legacy_eq分支（碳储量等）:   {len(bucket_legacy)}条")
+00561: print(f"  ⏭️  错误前提+伪方程:            {len(bucket_rejection)}条")
+00562: print(f"  ⏭️  答案不在库（跳过）:         {len(bucket_no_db)}条")
+00719: r1,r3,r5,ra,nr = run_eval('主评估（有group+在库）', bucket_main)
+00720: g1,g3,g5,ga,ng = run_eval('GEN分支（无group）', bucket_gen)
+00721: l1,l3,l5,la,nl = run_eval('legacy_eq分支（碳储量等）', bucket_legacy,
+
+FILE = <PRIVATE_ROOT>/biomass_expert_v13.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00582: bucket_main=[];bucket_gen=[];bucket_legacy=[]
+00583: bucket_neg=[];bucket_rejection=[];bucket_no_db=[]
+00593:         bucket_rejection.append(c); continue
+00595:         if is_wrong_prem(c): bucket_rejection.append(c)
+00596:         elif eq_str: bucket_gen.append(c)
+00599:         if is_neg: bucket_rejection.append(c)
+00600:         elif legacy_eq: bucket_legacy.append(c)
+00602:     if is_neg: bucket_rejection.append(c)
+00603:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00604:     else: bucket_no_db.append(c)
+00606: print(f"  ✅ 主评估（有group+在库）:      {len(bucket_main)}条")
+00607: print(f"  ✅ GEN分支（无group+有eq）:     {len(bucket_gen)}条")
+00608: print(f"  ✅ legacy_eq分支（碳储量等）:   {len(bucket_legacy)}条")
+00610: print(f"  ⏭️  错误前提+伪方程:            {len(bucket_rejection)}条")
+00611: print(f"  ⏭️  答案不在库（跳过）:         {len(bucket_no_db)}条")
+00759: r1,r3,r5,ra,nr = run_eval('主评估（有group+在库）', bucket_main)
+00760: g1,g3,g5,ga,ng = run_eval('GEN分支（无group）', bucket_gen)
+00761: l1,l3,l5,la,nl = run_eval('legacy_eq分支（碳储量等）', bucket_legacy,
+
+FILE = <PRIVATE_ROOT>/diagnose_data_full.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00418: bucket_main, bucket_gen, bucket_legacy, bucket_rejection, bucket_no_db = [], [], [], [], []
+00428:             bucket_gen.append(c)
+00434:             bucket_rejection.append(c)
+00436:             bucket_legacy.append(c)
+00441:         bucket_rejection.append(c)
+00443:         bucket_main.append(c)
+00445:         bucket_no_db.append(c)
+00447: total_bucketed = (len(bucket_main) + len(bucket_gen) + len(bucket_legacy)
+00448:                   + len(bucket_rejection) + len(bucket_no_db))
+00453: print(f"  {'主评估（有group+equation在库）':<30} {len(bucket_main):>6}  {pct(len(bucket_main),len(all_cases)):>7}  ✅ 可直接评估")
+00454: print(f"  {'GEN类（无group但有equation）':<30} {len(bucket_gen):>6}  {pct(len(bucket_gen),len(all_cases)):>7}  ✅ equation作gold")
+00455: print(f"  {'legacy_eq（无equation有legacy）':<30} {len(bucket_legacy):>6}  {pct(len(bucket_legacy),len(all_cases)):>7}  ✅ legacy作gold")
+00456: print(f"  {'负样本/拒绝题':<30} {len(bucket_rejection):>6}  {pct(len(bucket_rejection),len(all_cases)):>7}  ❌ 需单独框架")
+00457: print(f"  {'equation不在库':<30} {len(bucket_no_db):>6}  {pct(len(bucket_no_db),len(all_cases)):>7}  ❌ 数据缺口")
+00462: print(f"\n  可评估总量: {len(bucket_main)+len(bucket_gen)+len(bucket_legacy)} 条")
+00463: print(f"  跳过总量:   {len(bucket_rejection)+len(bucket_no_db)+unclassified} 条")
+00472: for c in bucket_gen:
+00482: for c in bucket_gen[:15]:
+00487: if len(bucket_gen) > 15:
+00488:     print(f"  ... 还有 {len(bucket_gen)-15} 条")
+00490: gen_in_db  = sum(1 for c in bucket_gen if normalize_eq(str(c.get('equation','') or '').strip()) in db_eq_set)
+00491: gen_not_db = len(bucket_gen) - gen_in_db
+00539:   │ 主评估（有group+eq在库）             │ {len(bucket_main):>5} │ ✅ 直接跑评估        │
+00540:   │ GEN类（无group但有eq）               │ {len(bucket_gen):>5} │ ✅ eq作gold评估      │
+00541:   │ legacy_eq类                          │ {len(bucket_legacy):>5} │ ✅ legacy作gold      │
+00542:   │ 负样本/拒绝题                        │ {len(bucket_rejection):>5} │ ❌ 需单独拒绝框架   │
+00543:   │ equation不在库                       │ {len(bucket_no_db):>5} │ ❌ 数据缺口待补充   │
+00547:   可立即评估: {len(bucket_main)+len(bucket_gen)+len(bucket_legacy)} 条
+00548:   跳过（含原因记录）: {len(bucket_rejection)+len(bucket_no_db)+unclassified} 条
+
+FILE = <PRIVATE_ROOT>/abl_abl2_nometa.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00865: bucket_main=[]; bucket_gen=[]; bucket_legacy=[]
+00866: bucket_neg=[]; bucket_rejection=[]; bucket_no_db=[]
+00874:     if eq_str and not is_valid_equation(eq_str): bucket_rejection.append(c); continue
+00876:         if is_wrong_prem(c): bucket_rejection.append(c)
+00877:         elif eq_str: bucket_gen.append(c)
+00880:         if is_neg: bucket_rejection.append(c)
+00881:         elif legacy_eq: bucket_legacy.append(c)
+00883:     if is_neg: bucket_rejection.append(c)
+00884:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00885:     else: bucket_no_db.append(c)
+00886: print('  \u4e3b\u8bc4\u4f30: '+str(len(bucket_main))+'\u6761  GEN\u5206\u652f: '+str(len(bucket_gen))+'\u6761  legacy_eq: '+str(len(bucket_legacy))+'\u6761')
+00887: print('  \u8d1f\u6837\u672c: '+str(len(bucket_neg))+'\u6761  \u8df3\u8fc7: '+str(len(bucket_rejection)+len(bucket_no_db))+'\u6761  \u5408\u8ba1: '+str(len(all_cases))+'\u6761')
+01015: r1,r3,r5,ra,nr=run_eval('\u4e3b\u8bc4\u4f30\uff08\u6709group+\u5728\u5e93\uff09',bucket_main)
+01016: g1,g3,g5,ga,ng=run_eval('GEN\u5206\u652f\uff08\u65e0group\uff09',bucket_gen,is_gen=True)
+01017: l1,l3,l5,la,nl=run_eval('legacy_eq\u5206\u652f',bucket_legacy,eq_override_field='_legacy_equation')
+
+FILE = <PRIVATE_ROOT>/biomass_ablation_study.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00865: bucket_main=[]; bucket_gen=[]; bucket_legacy=[]
+00866: bucket_neg=[]; bucket_rejection=[]; bucket_no_db=[]
+00874:     if eq_str and not is_valid_equation(eq_str): bucket_rejection.append(c); continue
+00876:         if is_wrong_prem(c): bucket_rejection.append(c)
+00877:         elif eq_str: bucket_gen.append(c)
+00880:         if is_neg: bucket_rejection.append(c)
+00881:         elif legacy_eq: bucket_legacy.append(c)
+00883:     if is_neg: bucket_rejection.append(c)
+00884:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00885:     else: bucket_no_db.append(c)
+00886: print('  \u4e3b\u8bc4\u4f30: '+str(len(bucket_main))+'\u6761  GEN\u5206\u652f: '+str(len(bucket_gen))+'\u6761  legacy_eq: '+str(len(bucket_legacy))+'\u6761')
+00887: print('  \u8d1f\u6837\u672c: '+str(len(bucket_neg))+'\u6761  \u8df3\u8fc7: '+str(len(bucket_rejection)+len(bucket_no_db))+'\u6761  \u5408\u8ba1: '+str(len(all_cases))+'\u6761')
+01015: r1,r3,r5,ra,nr=run_eval('\u4e3b\u8bc4\u4f30\uff08\u6709group+\u5728\u5e93\uff09',bucket_main)
+01016: g1,g3,g5,ga,ng=run_eval('GEN\u5206\u652f\uff08\u65e0group\uff09',bucket_gen,is_gen=True)
+01017: l1,l3,l5,la,nl=run_eval('legacy_eq\u5206\u652f',bucket_legacy,eq_override_field='_legacy_equation')
+
+FILE = <PRIVATE_ROOT>/biomass_expert_v16.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00759: bucket_main = []; bucket_gen  = []; bucket_legacy = []
+00760: bucket_neg  = []; bucket_rejection = []; bucket_no_db = []
+00770:         bucket_rejection.append(c); continue
+00772:         if is_wrong_prem(c): bucket_rejection.append(c)
+00773:         elif eq_str:         bucket_gen.append(c)
+00776:         if is_neg:      bucket_rejection.append(c)
+00777:         elif legacy_eq: bucket_legacy.append(c)
+00779:     if is_neg:                                     bucket_rejection.append(c)
+00780:     elif normalize_eq(eq_str) in db_eq_set:        bucket_main.append(c)
+00781:     else:                                          bucket_no_db.append(c)
+00783: print(f"  ✅ 主评估:     {len(bucket_main)}条")
+00784: print(f"  ✅ GEN分支:    {len(bucket_gen)}条")
+00785: print(f"  ✅ legacy_eq:  {len(bucket_legacy)}条")
+00787: print(f"  ⏭️  跳过:      {len(bucket_rejection)+len(bucket_no_db)}条")
+00989: r1, r3, r5, ra, nr = run_eval('主评估（有group+在库）',  bucket_main)
+00990: g1, g3, g5, ga, ng = run_eval('GEN分支（无group）',      bucket_gen, is_gen=True)
+00991: l1, l3, l5, la, nl = run_eval('legacy_eq分支（碳储量等）', bucket_legacy,
+
+FILE = <PRIVATE_ROOT>/test_qwen_full_v4.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00213: bucket_main=[];bucket_gen=[];bucket_legacy=[]
+00214: bucket_rejection=[];bucket_no_db=[];bucket_unknown=[]
+00224:         if is_wrong_prem(c):  bucket_rejection.append(c)
+00225:         elif eq_str:          bucket_gen.append(c)
+00229:         if is_neg:            bucket_rejection.append(c)
+00230:         elif legacy_eq:       bucket_legacy.append(c)
+00233:     if is_neg:                              bucket_rejection.append(c)
+00234:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00235:     else:                                   bucket_no_db.append(c)
+00237: print(f"  ✅ 主评估（有group+在库）:      {len(bucket_main)}条")
+00238: print(f"  ✅ GEN分支（无group+有eq）:     {len(bucket_gen)}条")
+00239: print(f"  ✅ legacy_eq分支（碳储量等）:   {len(bucket_legacy)}条")
+00240: print(f"  ⏭️  负样本+错误前提（跳过）:    {len(bucket_rejection)}条")
+00241: print(f"  ⏭️  答案不在库（跳过）:         {len(bucket_no_db)}条")
+00244: print(f"  可评估总数:                     {len(bucket_main)+len(bucket_gen)+len(bucket_legacy)}条")
+00411: r1,r3,r5,nr = run_eval('主评估（有group+在库）',    bucket_main)
+00412: g1,g3,g5,ng = run_eval('GEN分支（无group）',         bucket_gen)
+00413: l1,l3,l5,nl = run_eval('legacy_eq分支（碳储量等）',  bucket_legacy,
+00437: print(f'  负样本+错误前提(拒绝类): {len(bucket_rejection)}条 —— 需单独"拒绝检测"框架')
+00438: print(f'  答案不在库:              {len(bucket_no_db)}条   —— 需补充原始方程数据入库')
+
+FILE = <PRIVATE_ROOT>/test_qwen_full_v5.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00018: 改动4: 合入 v2 的错误前提25条移入 bucket_rejection
+00170: bucket_main=[];bucket_gen=[];bucket_legacy=[]
+00171: bucket_rejection=[];bucket_no_db=[];bucket_unknown=[]
+00182:         if is_wrong_prem(c):  bucket_rejection.append(c)
+00183:         elif eq_str:          bucket_gen.append(c)
+00187:         if is_neg:            bucket_rejection.append(c)
+00188:         elif legacy_eq:       bucket_legacy.append(c)
+00191:     if is_neg:                              bucket_rejection.append(c)
+00192:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00193:     else:                                   bucket_no_db.append(c)
+00195: print(f"  ✅ 主评估（有group+在库）:      {len(bucket_main)}条")
+00196: print(f"  ✅ GEN分支（无group+有eq）:     {len(bucket_gen)}条")
+00197: print(f"  ✅ legacy_eq分支（碳储量等）:   {len(bucket_legacy)}条")
+00198: print(f"  ⏭️  负样本+错误前提（跳过）:    {len(bucket_rejection)}条")
+00199: print(f"  ⏭️  答案不在库（跳过）:         {len(bucket_no_db)}条")
+00202: print(f"  可评估总数:                     {len(bucket_main)+len(bucket_gen)+len(bucket_legacy)}条")
+00350: r1,r3,r5,nr = run_eval('主评估（有group+在库）',    bucket_main)
+00351: g1,g3,g5,ng = run_eval('GEN分支（无group）',         bucket_gen)
+00352: l1,l3,l5,nl = run_eval('legacy_eq分支（碳储量等）',  bucket_legacy,
+00371: print(f'  负样本+错误前提: {len(bucket_rejection)}条')
+00372: print(f'  答案不在库:      {len(bucket_no_db)}条 —— 下一步: 补充这些方程入库')
+
+FILE = <PRIVATE_ROOT>/biomass_expert_v171.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00787: bucket_main = []; bucket_gen  = []; bucket_legacy = []
+00788: bucket_neg  = []; bucket_rejection = []; bucket_no_db = []
+00798:         bucket_rejection.append(c); continue
+00800:         if is_wrong_prem(c): bucket_rejection.append(c)
+00801:         elif eq_str:         bucket_gen.append(c)
+00804:         if is_neg:      bucket_rejection.append(c)
+00805:         elif legacy_eq: bucket_legacy.append(c)
+00807:     if is_neg:                                     bucket_rejection.append(c)
+00808:     elif normalize_eq(eq_str) in db_eq_set:        bucket_main.append(c)
+00809:     else:                                          bucket_no_db.append(c)
+00811: print(f"  ✅ 主评估:     {len(bucket_main)}条")
+00812: print(f"  ✅ GEN分支:    {len(bucket_gen)}条")
+00813: print(f"  ✅ legacy_eq:  {len(bucket_legacy)}条")
+00815: print(f"  ⏭️  跳过:      {len(bucket_rejection)+len(bucket_no_db)}条")
+01030: r1, r3, r5, ra, nr = run_eval('主评估（有group+在库）',  bucket_main)
+01031: g1, g3, g5, ga, ng = run_eval('GEN分支（无group）',      bucket_gen, is_gen=True)
+01032: l1, l3, l5, la, nl = run_eval('legacy_eq分支（碳储量等）', bucket_legacy,
+
+FILE = <PRIVATE_ROOT>/abl_abl1_nojudge.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00865: bucket_main=[]; bucket_gen=[]; bucket_legacy=[]
+00866: bucket_neg=[]; bucket_rejection=[]; bucket_no_db=[]
+00874:     if eq_str and not is_valid_equation(eq_str): bucket_rejection.append(c); continue
+00876:         if is_wrong_prem(c): bucket_rejection.append(c)
+00877:         elif eq_str: bucket_gen.append(c)
+00880:         if is_neg: bucket_rejection.append(c)
+00881:         elif legacy_eq: bucket_legacy.append(c)
+00883:     if is_neg: bucket_rejection.append(c)
+00884:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00885:     else: bucket_no_db.append(c)
+00886: print('  \u4e3b\u8bc4\u4f30: '+str(len(bucket_main))+'\u6761  GEN\u5206\u652f: '+str(len(bucket_gen))+'\u6761  legacy_eq: '+str(len(bucket_legacy))+'\u6761')
+00887: print('  \u8d1f\u6837\u672c: '+str(len(bucket_neg))+'\u6761  \u8df3\u8fc7: '+str(len(bucket_rejection)+len(bucket_no_db))+'\u6761  \u5408\u8ba1: '+str(len(all_cases))+'\u6761')
+01015: r1,r3,r5,ra,nr=run_eval('\u4e3b\u8bc4\u4f30\uff08\u6709group+\u5728\u5e93\uff09',bucket_main)
+01016: g1,g3,g5,ga,ng=run_eval('GEN\u5206\u652f\uff08\u65e0group\uff09',bucket_gen,is_gen=True)
+01017: l1,l3,l5,la,nl=run_eval('legacy_eq\u5206\u652f',bucket_legacy,eq_override_field='_legacy_equation')
+
+FILE = <PRIVATE_ROOT>/biomass_expert_v23_backup.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00816: bucket_main=[]; bucket_gen=[]; bucket_legacy=[]
+00817: bucket_neg=[]; bucket_rejection=[]; bucket_no_db=[]
+00825:     if eq_str and not is_valid_equation(eq_str): bucket_rejection.append(c); continue
+00827:         if is_wrong_prem(c): bucket_rejection.append(c)
+00828:         elif eq_str: bucket_gen.append(c)
+00831:         if is_neg: bucket_rejection.append(c)
+00832:         elif legacy_eq: bucket_legacy.append(c)
+00834:     if is_neg: bucket_rejection.append(c)
+00835:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00836:     else: bucket_no_db.append(c)
+00837: print('  \u4e3b\u8bc4\u4f30: '+str(len(bucket_main))+'\u6761  GEN\u5206\u652f: '+str(len(bucket_gen))+'\u6761  legacy_eq: '+str(len(bucket_legacy))+'\u6761')
+00838: print('  \u8d1f\u6837\u672c: '+str(len(bucket_neg))+'\u6761  \u8df3\u8fc7: '+str(len(bucket_rejection)+len(bucket_no_db))+'\u6761  \u5408\u8ba1: '+str(len(all_cases))+'\u6761')
+00966: r1,r3,r5,ra,nr=run_eval('\u4e3b\u8bc4\u4f30\uff08\u6709group+\u5728\u5e93\uff09',bucket_main)
+00967: g1,g3,g5,ga,ng=run_eval('GEN\u5206\u652f\uff08\u65e0group\uff09',bucket_gen,is_gen=True)
+00968: l1,l3,l5,la,nl=run_eval('legacy_eq\u5206\u652f',bucket_legacy,eq_override_field='_legacy_equation')
+
+FILE = <PRIVATE_ROOT>/biomass_expert_v172.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00514: bucket_main=[]; bucket_gen=[]; bucket_legacy=[]; bucket_neg=[]; bucket_rejection=[]; bucket_no_db=[]
+00520:     if eq_str and not is_valid_equation(eq_str): bucket_rejection.append(c); continue
+00522:         if is_wrong_prem(c): bucket_rejection.append(c)
+00523:         elif eq_str: bucket_gen.append(c)
+00526:         if is_neg: bucket_rejection.append(c)
+00527:         elif legacy_eq: bucket_legacy.append(c)
+00529:     if is_neg: bucket_rejection.append(c)
+00530:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00531:     else: bucket_no_db.append(c)
+00532: print('  主评估: '+str(len(bucket_main))+'条  GEN分支: '+str(len(bucket_gen))+'条  legacy_eq: '+str(len(bucket_legacy))+'条')
+00533: print('  负样本: '+str(len(bucket_neg))+'条  跳过: '+str(len(bucket_rejection)+len(bucket_no_db))+'条  合计: '+str(len(all_cases))+'条')
+00642: r1,r3,r5,ra,nr=run_eval('主评估（有group+在库）',bucket_main)
+00643: g1,g3,g5,ga,ng=run_eval('GEN分支（无group）',bucket_gen,is_gen=True)
+00644: l1,l3,l5,la,nl=run_eval('legacy_eq分支',bucket_legacy,eq_override_field='_legacy_equation')
+
+FILE = <PRIVATE_ROOT>/biomass_expert_v14.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00539: bucket_main=[];bucket_gen=[];bucket_legacy=[]
+00540: bucket_neg=[];bucket_rejection=[];bucket_no_db=[]
+00550:         bucket_rejection.append(c); continue
+00552:         if is_wrong_prem(c): bucket_rejection.append(c)
+00553:         elif eq_str: bucket_gen.append(c)
+00556:         if is_neg: bucket_rejection.append(c)
+00557:         elif legacy_eq: bucket_legacy.append(c)
+00559:     if is_neg: bucket_rejection.append(c)
+00560:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00561:     else: bucket_no_db.append(c)
+00563: print(f"  ✅ 主评估:     {len(bucket_main)}条")
+00564: print(f"  ✅ GEN分支:    {len(bucket_gen)}条")
+00565: print(f"  ✅ legacy_eq:  {len(bucket_legacy)}条")
+00567: print(f"  ⏭️  跳过:      {len(bucket_rejection)+len(bucket_no_db)}条")
+00687: r1,r3,r5,ra,nr = run_eval('主评估（有group+在库）', bucket_main)
+00688: g1,g3,g5,ga,ng = run_eval('GEN分支（无group）', bucket_gen)
+00689: l1,l3,l5,la,nl = run_eval('legacy_eq分支（碳储量等）', bucket_legacy,
+
+FILE = <PRIVATE_ROOT>/biomass_expert_v21.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00743: bucket_main=[]; bucket_gen=[]; bucket_legacy=[]
+00744: bucket_neg=[]; bucket_rejection=[]; bucket_no_db=[]
+00752:     if eq_str and not is_valid_equation(eq_str): bucket_rejection.append(c); continue
+00754:         if is_wrong_prem(c): bucket_rejection.append(c)
+00755:         elif eq_str: bucket_gen.append(c)
+00758:         if is_neg: bucket_rejection.append(c)
+00759:         elif legacy_eq: bucket_legacy.append(c)
+00761:     if is_neg: bucket_rejection.append(c)
+00762:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00763:     else: bucket_no_db.append(c)
+00764: print('  \u4e3b\u8bc4\u4f30: '+str(len(bucket_main))+'\u6761  GEN\u5206\u652f: '+str(len(bucket_gen))+'\u6761  legacy_eq: '+str(len(bucket_legacy))+'\u6761')
+00765: print('  \u8d1f\u6837\u672c: '+str(len(bucket_neg))+'\u6761  \u8df3\u8fc7: '+str(len(bucket_rejection)+len(bucket_no_db))+'\u6761  \u5408\u8ba1: '+str(len(all_cases))+'\u6761')
+00893: r1,r3,r5,ra,nr=run_eval('\u4e3b\u8bc4\u4f30\uff08\u6709group+\u5728\u5e93\uff09',bucket_main)
+00894: g1,g3,g5,ga,ng=run_eval('GEN\u5206\u652f\uff08\u65e0group\uff09',bucket_gen,is_gen=True)
+00895: l1,l3,l5,la,nl=run_eval('legacy_eq\u5206\u652f',bucket_legacy,eq_override_field='_legacy_equation')
+
+FILE = <PRIVATE_ROOT>/abl_x2_softsignal_minmeta.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00865: bucket_main=[]; bucket_gen=[]; bucket_legacy=[]
+00866: bucket_neg=[]; bucket_rejection=[]; bucket_no_db=[]
+00874:     if eq_str and not is_valid_equation(eq_str): bucket_rejection.append(c); continue
+00876:         if is_wrong_prem(c): bucket_rejection.append(c)
+00877:         elif eq_str: bucket_gen.append(c)
+00880:         if is_neg: bucket_rejection.append(c)
+00881:         elif legacy_eq: bucket_legacy.append(c)
+00883:     if is_neg: bucket_rejection.append(c)
+00884:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00885:     else: bucket_no_db.append(c)
+00886: print('  \u4e3b\u8bc4\u4f30: '+str(len(bucket_main))+'\u6761  GEN\u5206\u652f: '+str(len(bucket_gen))+'\u6761  legacy_eq: '+str(len(bucket_legacy))+'\u6761')
+00887: print('  \u8d1f\u6837\u672c: '+str(len(bucket_neg))+'\u6761  \u8df3\u8fc7: '+str(len(bucket_rejection)+len(bucket_no_db))+'\u6761  \u5408\u8ba1: '+str(len(all_cases))+'\u6761')
+01015: r1,r3,r5,ra,nr=run_eval('\u4e3b\u8bc4\u4f30\uff08\u6709group+\u5728\u5e93\uff09',bucket_main)
+01016: g1,g3,g5,ga,ng=run_eval('GEN\u5206\u652f\uff08\u65e0group\uff09',bucket_gen,is_gen=True)
+01017: l1,l3,l5,la,nl=run_eval('legacy_eq\u5206\u652f',bucket_legacy,eq_override_field='_legacy_equation')
+
+FILE = <PRIVATE_ROOT>/biomass_expert_v18.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00727: bucket_main=[]; bucket_gen=[]; bucket_legacy=[]
+00728: bucket_neg=[]; bucket_rejection=[]; bucket_no_db=[]
+00737:         bucket_rejection.append(c); continue
+00739:         if is_wrong_prem(c): bucket_rejection.append(c)
+00740:         elif eq_str: bucket_gen.append(c)
+00743:         if is_neg: bucket_rejection.append(c)
+00744:         elif legacy_eq: bucket_legacy.append(c)
+00746:     if is_neg: bucket_rejection.append(c)
+00747:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00748:     else: bucket_no_db.append(c)
+00749: print('  主评估: '+str(len(bucket_main))+'条  GEN分支: '+str(len(bucket_gen))+'条  legacy_eq: '+str(len(bucket_legacy))+'条')
+00750: print('  负样本: '+str(len(bucket_neg))+'条  跳过: '+str(len(bucket_rejection)+len(bucket_no_db))+'条  合计: '+str(len(all_cases))+'条')
+00897: r1,r3,r5,ra,nr = run_eval('主评估（有group+在库）', bucket_main)
+00898: g1,g3,g5,ga,ng = run_eval('GEN分支（无group）', bucket_gen, is_gen=True)
+00899: l1,l3,l5,la,nl = run_eval('legacy_eq分支', bucket_legacy, eq_override_field='_legacy_equation')
+
+FILE = <PRIVATE_ROOT>/abl_abl4_norerank.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00865: bucket_main=[]; bucket_gen=[]; bucket_legacy=[]
+00866: bucket_neg=[]; bucket_rejection=[]; bucket_no_db=[]
+00874:     if eq_str and not is_valid_equation(eq_str): bucket_rejection.append(c); continue
+00876:         if is_wrong_prem(c): bucket_rejection.append(c)
+00877:         elif eq_str: bucket_gen.append(c)
+00880:         if is_neg: bucket_rejection.append(c)
+00881:         elif legacy_eq: bucket_legacy.append(c)
+00883:     if is_neg: bucket_rejection.append(c)
+00884:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00885:     else: bucket_no_db.append(c)
+00886: print('  \u4e3b\u8bc4\u4f30: '+str(len(bucket_main))+'\u6761  GEN\u5206\u652f: '+str(len(bucket_gen))+'\u6761  legacy_eq: '+str(len(bucket_legacy))+'\u6761')
+00887: print('  \u8d1f\u6837\u672c: '+str(len(bucket_neg))+'\u6761  \u8df3\u8fc7: '+str(len(bucket_rejection)+len(bucket_no_db))+'\u6761  \u5408\u8ba1: '+str(len(all_cases))+'\u6761')
+01015: r1,r3,r5,ra,nr=run_eval('\u4e3b\u8bc4\u4f30\uff08\u6709group+\u5728\u5e93\uff09',bucket_main)
+01016: g1,g3,g5,ga,ng=run_eval('GEN\u5206\u652f\uff08\u65e0group\uff09',bucket_gen,is_gen=True)
+01017: l1,l3,l5,la,nl=run_eval('legacy_eq\u5206\u652f',bucket_legacy,eq_override_field='_legacy_equation')
+
+FILE = <PRIVATE_ROOT>/biomass_expert_v20.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00624: bucket_main=[]; bucket_gen=[]; bucket_legacy=[]
+00625: bucket_neg=[]; bucket_rejection=[]; bucket_no_db=[]
+00633:     if eq_str and not is_valid_equation(eq_str): bucket_rejection.append(c); continue
+00635:         if is_wrong_prem(c): bucket_rejection.append(c)
+00636:         elif eq_str: bucket_gen.append(c)
+00639:         if is_neg: bucket_rejection.append(c)
+00640:         elif legacy_eq: bucket_legacy.append(c)
+00642:     if is_neg: bucket_rejection.append(c)
+00643:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00644:     else: bucket_no_db.append(c)
+00645: print('  \u4e3b\u8bc4\u4f30: '+str(len(bucket_main))+'\u6761  GEN\u5206\u652f: '+str(len(bucket_gen))+'\u6761  legacy_eq: '+str(len(bucket_legacy))+'\u6761')
+00646: print('  \u8d1f\u6837\u672c: '+str(len(bucket_neg))+'\u6761  \u8df3\u8fc7: '+str(len(bucket_rejection)+len(bucket_no_db))+'\u6761  \u5408\u8ba1: '+str(len(all_cases))+'\u6761')
+00776: r1,r3,r5,ra,nr=run_eval('\u4e3b\u8bc4\u4f30\uff08\u6709group+\u5728\u5e93\uff09',bucket_main)
+00777: g1,g3,g5,ga,ng=run_eval('GEN\u5206\u652f\uff08\u65e0group\uff09',bucket_gen,is_gen=True)
+00778: l1,l3,l5,la,nl=run_eval('legacy_eq\u5206\u652f',bucket_legacy,eq_override_field='_legacy_equation')
+
+FILE = <PRIVATE_ROOT>/biomass_expert_v9.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00380: bucket_main=[];bucket_gen=[];bucket_legacy=[]
+00381: bucket_rejection=[];bucket_no_db=[];bucket_unknown=[]
+00389:         bucket_rejection.append(c); continue
+00391:         if is_wrong_prem(c): bucket_rejection.append(c)
+00392:         elif eq_str: bucket_gen.append(c)
+00396:         if is_neg: bucket_rejection.append(c)
+00397:         elif legacy_eq: bucket_legacy.append(c)
+00400:     if is_neg: bucket_rejection.append(c)
+00401:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00402:     else: bucket_no_db.append(c)
+00404: print(f"  ✅ 主评估（有group+在库）:      {len(bucket_main)}条")
+00405: print(f"  ✅ GEN分支（无group+有eq）:     {len(bucket_gen)}条")
+00406: print(f"  ✅ legacy_eq分支（碳储量等）:   {len(bucket_legacy)}条")
+00407: print(f"  ⏭️  负样本+错误前提+伪方程:     {len(bucket_rejection)}条")
+00408: print(f"  ⏭️  答案不在库（跳过）:         {len(bucket_no_db)}条")
+00410: print(f"  可评估总数:                     {len(bucket_main)+len(bucket_gen)+len(bucket_legacy)}条")
+00511: r1,r3,r5,ra,nr=run_eval('主评估（有group+在库）',bucket_main)
+00512: g1,g3,g5,ga,ng=run_eval('GEN分支（无group）',bucket_gen)
+00513: l1,l3,l5,la,nl=run_eval('legacy_eq分支（碳储量等）',bucket_legacy,
+
+FILE = <PRIVATE_ROOT>/test_qwen_full_v6.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00162: bucket_main=[];bucket_gen=[];bucket_legacy=[]
+00163: bucket_rejection=[];bucket_no_db=[];bucket_unknown=[]
+00173:         if is_wrong_prem(c):  bucket_rejection.append(c)
+00174:         elif eq_str:          bucket_gen.append(c)
+00178:         if is_neg:            bucket_rejection.append(c)
+00179:         elif legacy_eq:       bucket_legacy.append(c)
+00182:     if is_neg:                              bucket_rejection.append(c)
+00183:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00184:     else:                                   bucket_no_db.append(c)
+00186: print(f"  ✅ 主评估（有group+在库）:      {len(bucket_main)}条  ← 应为264条")
+00187: print(f"  ✅ GEN分支（无group+有eq）:     {len(bucket_gen)}条")
+00188: print(f"  ✅ legacy_eq分支（碳储量等）:   {len(bucket_legacy)}条")
+00189: print(f"  ⏭️  负样本+错误前提（跳过）:    {len(bucket_rejection)}条")
+00190: print(f"  ⏭️  答案不在库（跳过）:         {len(bucket_no_db)}条  ← 应为35条")
+00193: print(f"  可评估总数:                     {len(bucket_main)+len(bucket_gen)+len(bucket_legacy)}条")
+00336: r1,r3,r5,nr = run_eval('主评估（有group+在库）',    bucket_main)
+00337: g1,g3,g5,ng = run_eval('GEN分支（无group）',         bucket_gen)
+00338: l1,l3,l5,nl = run_eval('legacy_eq分支（碳储量等）',  bucket_legacy,
+00357: print(f'  负样本+错误前提: {len(bucket_rejection)}条')
+00358: print(f'  答案不在库:      {len(bucket_no_db)}条')
+00361: for c in bucket_no_db[:10]:
+
+FILE = <PROJECT_ROOT>/github_release/code/biomass_expert_manuscript.py
+MATCHED = ['bucket_main', 'bucket_no_db', 'bucket_gen', 'bucket_legacy', 'bucket_rejection']
+00846: bucket_main=[]; bucket_gen=[]; bucket_legacy=[]
+00847: bucket_neg=[]; bucket_rejection=[]; bucket_no_db=[]
+00855:     if eq_str and not is_valid_equation(eq_str): bucket_rejection.append(c); continue
+00857:         if is_wrong_prem(c): bucket_rejection.append(c)
+00858:         elif eq_str: bucket_gen.append(c)
+00861:         if is_neg: bucket_rejection.append(c)
+00862:         elif legacy_eq: bucket_legacy.append(c)
+00864:     if is_neg: bucket_rejection.append(c)
+00865:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00866:     else: bucket_no_db.append(c)
+00867: print('  \u4e3b\u8bc4\u4f30: '+str(len(bucket_main))+'\u6761  GEN\u5206\u652f: '+str(len(bucket_gen))+'\u6761  legacy_eq: '+str(len(bucket_legacy))+'\u6761')
+00868: print('  \u8d1f\u6837\u672c: '+str(len(bucket_neg))+'\u6761  \u8df3\u8fc7: '+str(len(bucket_rejection)+len(bucket_no_db))+'\u6761  \u5408\u8ba1: '+str(len(all_cases))+'\u6761')
+00996: r1,r3,r5,ra,nr=run_eval('\u4e3b\u8bc4\u4f30\uff08\u6709group+\u5728\u5e93\uff09',bucket_main)
+00997: g1,g3,g5,ga,ng=run_eval('GEN\u5206\u652f\uff08\u65e0group\uff09',bucket_gen,is_gen=True)
+00998: l1,l3,l5,la,nl=run_eval('legacy_eq\u5206\u652f',bucket_legacy,eq_override_field='_legacy_equation')
+
+==========================================================================================
+G. FINAL ASSERTIONS
+==========================================================================================
+TARGET_CASES = 13
+TARGET_IDS = ['Q0018', 'Q0019', 'Q0020', 'Q0023', 'Q0024', 'Q0104', 'Q0132', 'Q0235', 'Q0260', 'Q0270', 'Q0278', 'Q0326', 'Q0338']
+PASS: 13 unresolved applicable cases isolated
+PASS: original v24 unchanged
+AUDIT_COMPLETE

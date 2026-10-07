@@ -1,0 +1,1654 @@
+============================================================
+A. HISTORICAL SIZE_CLASS PARSER
+============================================================
+
+# ══════════════════════════════════════════════════════════════
+# 检索
+# ══════════════════════════════════════════════════════════════
+
+def has_var(eq, var):
+    return bool(re.search(r'(?<![A-Za-z0-9])'+re.escape(var)+r'(?![A-Za-z0-9_])', eq))
+
+def param_score(eq_str, slots):
+    s = 0
+    if slots.get('H') is not None and has_var(eq_str,'H'):   s += 2
+    if slots.get('D0') is not None and has_var(eq_str,'D0'): s += 2
+    if slots.get('V') is not None and has_var(eq_str,'V'):   s += 3
+    if slots.get('A') is not None and has_var(eq_str,'A'):   s += 3
+    return s
+
+def parse_d_range(sc):
+    """v23增强：支持真实数据中的多种size_class格式"""
+    if not sc: return None
+    sc_str = str(sc)
+    for pat in [
+        # 格式1：胸径X-Ycm
+        r'\u80f8\u5f84[\u8303\u56f4\uff1a:为]*\s*(\d+\.?\d*)\s*[-\u2013~\uff5e]\s*(\d+\.?\d*)\s*(?:cm|\u5398\u7c73)',
+        # 格式2：胸径X, Ycm（逗号分隔）
+        r'\u80f8\u5f84[\u8303\u56f4\uff1a:为]*\s*(\d+\.?\d*)\s*,\s*(\d+\.?\d*)\s*(?:cm|\u5398\u7c73)',
+        # 格式3：D=X-Ycm
+        r'D\s*[=:\uff1a]\s*(\d+\.?\d*)\s*[-\u2013~\uff5e]\s*(\d+\.?\d*)\s*(?:cm|\u5398\u7c73)',
+        # 格式4：径级X-Y
+        r'\u5f84\u7ea7\s*(\d+\.?\d*)\s*[-\u2013~\uff5e]\s*(\d+\.?\d*)',
+        # 格式5：纯数字X-Ycm
+        r'(\d+\.?\d*)\s*[-\u2013~\uff5e]\s*(\d+\.?\d*)\s*cm',
+        # 格式6：胸径 X Y cm（空格分隔）
+        r'\u80f8\u5f84\s+(\d+\.?\d*)\s+(\d+\.?\d*)\s*(?:cm|\u5398\u7c73)',
+    ]:
+        m = re.search(pat, sc_str, re.IGNORECASE)
+        if m:
+            try:
+                lo, hi = float(m.group(1)), float(m.group(2))
+                # 自动纠正顺序颠倒
+                if lo > hi: lo, hi = hi, lo
+                if lo < hi: return lo, hi
+            except:
+                continue
+    return None
+
+def d_range_score(sc, D):
+    if D is None: return 0
+    dr = parse_d_range(sc)
+    if not dr: return 0
+    if dr[0] <= D <= dr[1]: return 2
+    if D <= dr[1]*1.3: return 0
+    if D > dr[1]*1.5: return -3
+    return 0
+
+def retrieve(slots, top_k=5, return_scores=False):
+    sp       = re.sub(r'\s+','', slots.get('tree_species','') or '')
+    loc      = re.sub(r'\s+','', slots.get('region','') or '')
+    comp_raw = slots.get('component','') or ''
+    comp_std = COMP_TO_STD.get(comp_raw, comp_raw)
+    D  = slots.get('D');  H  = slots.get('H')
+    D0 = slots.get('D0'); V  = slots.get('V'); A = slots.get('A')
+    struct_scored = []
+    for i, r in enumerate(db):
+        eq_sp   = re.sub(r'\s+','',r.get('tree_type',''))
+        eq_loc  = re.sub(r'\s+','',r.get('location',''))
+        eq_comp = r.get('component','')
+        sc      = r.get('size_class','') or ''
+        s = 0
+        loc_s = loc_match_score(loc, eq_loc) if loc else 0
+        s += loc_s
+        sp_exact = (sp == eq_sp)
+        if sp_exact: s += 5
+        elif sp in eq_sp: s += 3
+        elif eq_sp in sp: s += 2
+        cm = 1.5 if (sp_exact and loc_s >= 3) else 1.0
+        if comp_std:
+            if comp_std == eq_comp:   s += int(6*cm)
+            elif comp_std in eq_comp: s += int(3*cm)
+            elif eq_comp in comp_std: s += int(2*cm)
+        s += d_range_score(sc, D)
+        s += param_score(r.get('equation',''), {'D':D,'H':H,'D0':D0,'V':V,'A':A})
+        if comp_std not in ('\u6750\u79ef','\u5355\u4f4d\u9762\u79ef\u751f\u7269\u91cf','') and eq_comp == '\u6750\u79ef': s -= 20
+        if s > 0: struct_scored.append((i, s))
+    struct_scored.sort(key=lambda x: -x[1])
+    if not struct_scored:
+        if not sp: return []
+        q_vec = emb.encode([sp], normalize_embeddings=True)[0]
+        sims  = np.dot(sp_vecs, q_vec)
+        ranked = sorted(enumerate(sims.tolist()), key=lambda x: -x[1])
+        if return_scores: return [(db[i], float(s)) for i,s in ranked[:top_k]]
+        return [db[i] for i,_ in ranked[:top_k]]
+
+============================================================
+B. V24 SIZE_CLASS PARSER
+============================================================
+525-    return bool(re.search(r'(?<![A-Za-z0-9])'+re.escape(var)+r'(?![A-Za-z0-9_])', eq))
+526-
+527-def param_score(eq_str, slots):
+528-    s = 0
+529-    if slots.get('H') is not None and has_var(eq_str,'H'):   s += 2
+530-    if slots.get('D0') is not None and has_var(eq_str,'D0'): s += 2
+531-    if slots.get('V') is not None and has_var(eq_str,'V'):   s += 3
+532-    if slots.get('A') is not None and has_var(eq_str,'A'):   s += 3
+533-    return s
+534-
+535:def parse_d_range(sc):
+536-    """v23增强：支持真实数据中的多种size_class格式"""
+537-    if not sc: return None
+538-    sc_str = str(sc)
+539-    for pat in [
+540-        # 格式1：胸径X-Ycm
+541-        r'\u80f8\u5f84[\u8303\u56f4\uff1a:为]*\s*(\d+\.?\d*)\s*[-\u2013~\uff5e]\s*(\d+\.?\d*)\s*(?:cm|\u5398\u7c73)',
+542-        # 格式2：胸径X, Ycm（逗号分隔）
+543-        r'\u80f8\u5f84[\u8303\u56f4\uff1a:为]*\s*(\d+\.?\d*)\s*,\s*(\d+\.?\d*)\s*(?:cm|\u5398\u7c73)',
+544-        # 格式3：D=X-Ycm
+545-        r'D\s*[=:\uff1a]\s*(\d+\.?\d*)\s*[-\u2013~\uff5e]\s*(\d+\.?\d*)\s*(?:cm|\u5398\u7c73)',
+546-        # 格式4：径级X-Y
+547-        r'\u5f84\u7ea7\s*(\d+\.?\d*)\s*[-\u2013~\uff5e]\s*(\d+\.?\d*)',
+548-        # 格式5：纯数字X-Ycm
+549-        r'(\d+\.?\d*)\s*[-\u2013~\uff5e]\s*(\d+\.?\d*)\s*cm',
+550-        # 格式6：胸径 X Y cm（空格分隔）
+551-        r'\u80f8\u5f84\s+(\d+\.?\d*)\s+(\d+\.?\d*)\s*(?:cm|\u5398\u7c73)',
+552-    ]:
+553-        m = re.search(pat, sc_str, re.IGNORECASE)
+554-        if m:
+555-            try:
+556-                lo, hi = float(m.group(1)), float(m.group(2))
+557-                # 自动纠正顺序颠倒
+558-                if lo > hi: lo, hi = hi, lo
+559-                if lo < hi: return lo, hi
+560-            except:
+561-                continue
+562-    return None
+563-
+564-def d_range_score(sc, D):
+565-    if D is None: return 0
+566-    dr = parse_d_range(sc)
+567-    if not dr: return 0
+568-    if dr[0] <= D <= dr[1]: return 2
+569-    if D <= dr[1]*1.3: return 0
+570-    if D > dr[1]*1.5: return -3
+571-    return 0
+572-
+573-def retrieve(slots, top_k=5, return_scores=False):
+574-    sp       = re.sub(r'\s+','', slots.get('tree_species','') or '')
+575-    loc      = re.sub(r'\s+','', slots.get('region','') or '')
+576-    comp_raw = slots.get('component','') or ''
+577-    comp_std = COMP_TO_STD.get(comp_raw, comp_raw)
+578-    D  = slots.get('D');  H  = slots.get('H')
+579-    D0 = slots.get('D0'); V  = slots.get('V'); A = slots.get('A')
+580-    struct_scored = []
+581-    for i, r in enumerate(db):
+582-        eq_sp   = re.sub(r'\s+','',r.get('tree_type',''))
+583-        eq_loc  = re.sub(r'\s+','',r.get('location',''))
+584-        eq_comp = r.get('component','')
+585-        sc      = r.get('size_class','') or ''
+586-        s = 0
+587-        loc_s = loc_match_score(loc, eq_loc) if loc else 0
+588-        s += loc_s
+589-        sp_exact = (sp == eq_sp)
+590-        if sp_exact: s += 5
+591-        elif sp in eq_sp: s += 3
+592-        elif eq_sp in sp: s += 2
+593-        cm = 1.5 if (sp_exact and loc_s >= 3) else 1.0
+594-        if comp_std:
+595-            if comp_std == eq_comp:   s += int(6*cm)
+596-            elif comp_std in eq_comp: s += int(3*cm)
+597-            elif eq_comp in comp_std: s += int(2*cm)
+598-        s += d_range_score(sc, D)
+599-        s += param_score(r.get('equation',''), {'D':D,'H':H,'D0':D0,'V':V,'A':A})
+600-        if comp_std not in ('\u6750\u79ef','\u5355\u4f4d\u9762\u79ef\u751f\u7269\u91cf','') and eq_comp == '\u6750\u79ef': s -= 20
+601-        if s > 0: struct_scored.append((i, s))
+602-    struct_scored.sort(key=lambda x: -x[1])
+603-    if not struct_scored:
+604-        if not sp: return []
+605-        q_vec = emb.encode([sp], normalize_embeddings=True)[0]
+606-        sims  = np.dot(sp_vecs, q_vec)
+607-        ranked = sorted(enumerate(sims.tolist()), key=lambda x: -x[1])
+608-        if return_scores: return [(db[i], float(s)) for i,s in ranked[:top_k]]
+609-        return [db[i] for i,_ in ranked[:top_k]]
+610-    
+611-    # 修复C：若检索结果偏少，追加上位类/林分通用方程
+612-    # 松科树种 → 追加"松类"/"松杉类"通用方程
+613-    # 询问林分 → 追加tree_type="林分"/"各树种"的方程
+614-    _SUPERCLASS_MAP = {
+615-        '华山松':'松类','油松':'松类','马尾松':'松类','红松':'松类',
+616-        '落叶松':'松类','云杉':'松类','冷杉':'松类','樟子松':'松类',
+617-        '杉木':'杉类','柳杉':'杉类','水杉':'杉类','池杉':'杉类',
+618-    }
+619-    if len(struct_scored) < 15 and sp:
+620-        superclass = _SUPERCLASS_MAP.get(sp)
+621-        if superclass:
+622-            seen = {i for i,_ in struct_scored}
+623-            for i, r in enumerate(db):
+624-                if i not in seen and r.get('tree_type','') in (superclass, '松杉类', '全树种'):
+625-                    eq_loc = re.sub(r'\s+','',r.get('location',''))
+
+============================================================
+C. TOP REAL SIZE_CLASS VALUES
+============================================================
+nonempty = 7221
+unique   = 1904
+   99	'D≤100cm'
+   88	'未指定'
+   69	'说明: w为生物量(kg), D为胸径(cm), H为树高(m); 对数形式方程,需胸径和树高数据'
+   56	'D≤60cm'
+   44	'胸径范围：6.0, 20.0cm'
+   33	'胸径≥5cm'
+   27	'说明: W为生物量(kg), D为胸径(cm); 适用于胸径≥5cm的乔木'
+   26	'胸径范围：2.0, 22.0cm'
+   26	'胸径范围：10.4, 19.4cm, 树高范围：8.6, 13.4m'
+   25	'胸径范围：2.0, 14.0cm'
+   25	'D≤50cm'
+   25	'D≤70cm'
+   23	'冰川退缩区树种'
+   22	'D≤90cm'
+   21	'人工林'
+   21	'说明: B为单位面积生物量(t/hm²), V为单位面积蓄积量(m³/hm²); 基于2000/2005年森林资源清查'
+   20	'胸径范围：6.0, 24.0cm, 树高范围：5.0, 21.5m'
+   18	'胸径范围：2.0, 9.0cm, 树高范围：2.9, 7.5m'
+   17	'胸径范围：4.0, 16.0cm'
+   16	'林分类型: 人工林(银中杨、小黑杨、樟子松、落叶松、红松)或天然次生林(山杨、白桦、蒙古栎); 林龄: 中龄林以上(17~53年)'
+   16	'林分类型: 天然次生林(山杨、油松、辽东栎)和人工林(侧柏); 林龄: 幼龄林至过熟林'
+   16	'胸径范围：4.0, 40.0cm'
+   16	'胸径范围：6.0, 20.0cm, 树高范围：7.5, 11.0m'
+   16	'胸径范围：2.0, 15.0cm, 树高范围：3.1, 13.0m'
+   16	'胸径范围：8.0, 20.0cm'
+   16	'胸径范围：6.0, 18.0cm'
+   16	'D≤74cm'
+   15	'针叶树种'
+   15	'说明: W为生物量(kg),V为蓄积量; 三次方程模型'
+   15	'说明: W为生物量(kg), D为胸径(cm); 仅需胸径数据'
+   15	'说明: W为生物量(kg), D为胸径(cm), H为树高(m); 对数形式方程,需胸径和树高数据'
+   15	'胸径范围：10.0, 17.0cm, 树高范围：9.0, 16.0m'
+   15	'D≤40cm'
+   15	'D≤30cm'
+   15	'D≤62cm'
+   14	'适用于广西森林资源连续清查数据'
+   14	'说明: W为生物量(kg),D为胸径，H为树高; 三次方程模型'
+   14	'胸径范围：5.0, 20.0cm'
+   14	'胸径范围：20.0, 50.0cm'
+   13	'说明: B为单位面积生物量(t/ha), V为单位面积蓄积量(m³/ha); 适用于乔木林、疏林和散生木; 基于1994/1999/2004年清查数据'
+   13	'说明: B为每公顷生物量(t/hm²), V为每公顷蓄积量(m³/hm²); 需蓄积量数据'
+   12	'胸径范围：6.1, 20.7cm, 树高范围：4.7, 11.8m'
+   12	'胸径范围：5.0, 18.0cm'
+   12	'胸径范围：4.0, 26.0cm'
+   12	'胸径范围：8.0, 24.0cm'
+   12	'胸径范围：2.0, 22.0cm, 树高范围：4.0, 17.0m'
+   12	'胸径范围：1.0, 5.0cm'
+   12	'胸径范围：2.4, 30.0cm'
+   12	'胸径范围：4.2, 9.9cm'
+   12	'胸径范围：7.9, 30.6cm'
+   12	'胸径范围：7.9, 30.6cm, 树高范围：8.3, 11.9m'
+   12	'胸径范围：11.7, 35.0cm, 树高范围：7.2, 21.5m'
+   12	'胸径范围：6.0, 24.0cm'
+   11	'适用于安徽省森林资源清查数据'
+   11	'胸径范围：2.0, 38.0cm'
+   11	'胸径范围：5.0, 25.0cm'
+   11	'胸径范围：3.6, 10.7cm'
+   11	'胸径范围：6.0, 22.0cm'
+   11	'胸径范围：13.0, 24.0cm, 树高范围：9.0, 17.0m'
+   11	'胸径范围：4.0, 18.0cm'
+   11	'胸径范围：10.4, 19.4cm'
+   11	'胸径范围：22.0, 32.0cm'
+   11	'D≤34cm'
+   11	'D≤38cm'
+   11	'D≤115cm'
+   10	'说明: B为生物量(Mg/ha), V为林分蓄积量(m³/ha); 适用于东三省主要森林类型'
+   10	'说明: B为生物量(吨), V为蓄积量(立方米); 需蓄积量数据'
+   10	'胸径范围：12.0, 40.0cm'
+   10	'胸径范围：1.7, 20.5cm'
+   10	'胸径范围：1.0, 48.5cm'
+   10	'胸径范围：1.0, 48.5cm, 树高范围：2.1, 13.0m'
+   10	'胸径范围：2.0, 5.0cm'
+   10	'胸径范围：3.0, 30.0cm'
+   10	'胸径范围：10.0, 32.0cm'
+   10	'胸径范围：10.0, 32.0cm, 树高范围：11.5, 24.5m'
+   10	'胸径范围：13.7, 41.4cm'
+   10	'胸径范围：4.3, 57.1cm'
+   10	'胸径范围：2.6, 45.5cm'
+   10	'胸径范围：8.1, 40.9cm'
+   10	'胸径范围：6.4, 37.3cm'
+   10	'胸径范围：4.3, 41.3cm'
+   10	'胸径范围：4.4, 35.6cm'
+   10	'胸径范围：2.8, 41.3cm'
+   10	'胸径范围：2.9, 32.0cm'
+   10	'胸径范围：8.6, 23.1cm'
+   10	'胸径范围：8.6, 23.1cm, 树高范围：6.4, 14.1m'
+   10	'胸径范围：24.0, 38.0cm'
+   10	'胸径范围：2.0, 53.0cm, 树高范围：3.0, 32.0m'
+   10	'胸径范围：6.0, 18.0cm, 树高范围：5.8, 9.2m'
+   10	'D≤20cm'
+    9	'阔叶树种'
+    9	'说明: B为生物量(Mg/hm²), V为蓄积量(m³/hm²); 乔木林'
+    9	'胸径范围：3.5, 10.3cm'
+    9	'胸径范围：4.0, 22.0cm'
+    9	'胸径范围：3.2, 24.8cm, 树高范围：3.5, 15.9m'
+    9	'胸径范围：9.1, 27.3cm'
+    9	'胸径范围：8.0, 16.0cm'
+    9	'胸径范围：8.0, 16.0cm, 树高范围：8.5, 16.5m'
+    9	'胸径范围：7.4, 22.1cm, 树高范围：6.4, 19.1m'
+    9	'胸径范围：2.8, 30.1cm, 树高范围：3.8, 12.0m'
+
+============================================================
+D. EXACT 522 GROUP / GEN_TYPE COUNTS
+============================================================
+TOTAL = 522
+
+--- group ---
+ 126	'None'
+  13	'负样本_参数异常'
+  10	'负样本_跨区域'
+  10	'负样本_信息严重不足'
+   8	'内蒙古_森林异速生长'
+   7	'负样本_范围外'
+   6	'黑龙江省_碳汇树种'
+   6	'山西省_森林生态系统'
+   5	'思茅松_云南普洱'
+   5	'亚热带常绿阔叶林_粗根'
+   5	'正样本_基础匹配'
+   4	'小秦岭_松类'
+   4	'小秦岭_阔叶树'
+   4	'紫椴_吉林蛟河'
+   4	'内蒙古_兴安落叶松'
+   4	'负样本_参数超范围'
+   4	'负样本_超出知识边界'
+   3	'荒漠植被_乌兰布和'
+   3	'山西_华北落叶松'
+   3	'甘肃_华山松'
+   3	'湖南_杉木'
+   2	'全国通用方程_松杉类'
+   2	'大兴安岭_兴安落叶松'
+   2	'云南省_碳储量转换'
+   2	'东北地区_幼苗'
+   2	'湖北_日本落叶松'
+   2	'湖北_杉木'
+   2	'北京_栓皮栎'
+   2	'浙江_青冈'
+   2	'浙江_石栎'
+   2	'浙江_其他常绿阔叶树'
+   2	'浙江_青冈_树干'
+   2	'福建_马尾松'
+   2	'内蒙古_白桦'
+   2	'边界样本_单变量'
+   2	'广东_杉木'
+   2	'正样本_落叶松'
+   2	'应用场景_速生林评估'
+   2	'广东_雷州桉1号'
+   2	'负样本_树种混淆'
+   2	'复杂场景_方程形式对比'
+   2	'复杂场景_立地条件'
+   2	'边界情况_参数下限'
+   2	'边界情况_参数上限'
+   1	'半干旱区樟子松_比例根'
+   1	'福州市_林分蓄积量转换'
+   1	'福州市_经济林面积转换'
+   1	'广东省公益林示范区_碳储量'
+   1	'东三省_林分生物量'
+   1	'湖南湘西_马尾松'
+   1	'安徽省_林分转换'
+   1	'广西_桉树全株'
+   1	'广西_经济林树种'
+   1	'广西_栎类'
+   1	'广西_硬阔类'
+   1	'广西_软阔类'
+   1	'广西_石山林'
+   1	'广西_毛竹'
+   1	'广西_丛生竹'
+   1	'广西_油茶'
+   1	'广西_林分蓄积量转换'
+   1	'三峡库区_柏木'
+   1	'云南省_林分转换'
+   1	'浙江省_永康市_林分转换'
+   1	'浙江省_永康市_灌木转换'
+   1	'北京妙峰山_白蜡'
+   1	'北京妙峰山_鸡桑幼苗'
+   1	'北京妙峰山_三裂绣线菊'
+   1	'北京妙峰山_五角枫'
+   1	'北京妙峰山_胡枝子'
+   1	'新疆阿尔泰山_落叶松'
+   1	'河北木兰_落叶松'
+   1	'甘肃天水_落叶松'
+   1	'浙江省_永康市_其他林分'
+   1	'北京妙峰山_灌草'
+   1	'北京妙峰山_黑枣'
+   1	'河南伏牛山_油松'
+   1	'河南伏牛山_日本落叶松'
+   1	'河南伏牛山_华山松'
+   1	'广西_杉木'
+   1	'广西_比例根'
+   1	'东北地区_落叶松'
+   1	'东北地区_比例根'
+   1	'青岛市_黑松'
+   1	'青岛市_杨树'
+   1	'秦岭_栎类'
+   1	'负样本_比例根系数'
+   1	'秦岭_落叶松'
+   1	'秦岭_暖温带落叶阔叶林_径级区分'
+   1	'秦岭_暖温带落叶阔叶林_中径级'
+   1	'山东省_油松'
+   1	'河南省_经济林'
+   1	'江西省_灌木林'
+   1	'小兴安岭_红松'
+   1	'喀斯特森林_罗伞'
+   1	'负样本_径级错用'
+   1	'负样本_区域不适用'
+   1	'小兴安岭_山杨'
+   1	'福建省_油杉'
+   1	'福建省_黑松'
+   1	'福建省_马尾松'
+   1	'福建省_柳杉'
+   1	'福建省_相思'
+   1	'福建省_湿地松'
+   1	'福建省_其他硬阔类'
+   1	'青海省_林分转换'
+   1	'海南_热带山地雨林'
+   1	'西藏_云南松'
+   1	'天山_云杉'
+   1	'江苏省_林分转换'
+   1	'负样本_适用范围'
+   1	'东北地区_幼苗期_紫椴'
+   1	'东北林区_红松'
+   1	'青藏高原_针叶林'
+   1	'青藏高原_阔叶林'
+   1	'安徽岭南_杉木'
+   1	'安徽岭南_马尾松'
+   1	'喀斯特森林_黄樟'
+   1	'负样本_径级适用'
+   1	'湖北_马尾松'
+   1	'湖北_柳杉'
+   1	'贵州_柏木'
+   1	'贵州_麻栎'
+   1	'黑龙江_兴安落叶松'
+   1	'北京_油松'
+   1	'黑龙江_红松'
+   1	'辽宁_红松'
+   1	'北京_油松_二元'
+   1	'北京_栓皮栎_根系'
+   1	'黑龙江_红松_叶'
+   1	'陕西_华山松'
+   1	'湖南_杉木_树皮'
+   1	'浙江_落叶栎类'
+   1	'浙江_其他落叶阔叶树'
+   1	'浙江_林下层_青冈'
+   1	'浙江_林下层_其他常绿阔叶树'
+   1	'负样本_林下方程用于大树'
+   1	'陕西_华北落叶松'
+   1	'陕西_油松'
+   1	'陕西_锐齿槲栎'
+   1	'新疆_胡杨'
+   1	'新疆_新疆杨'
+   1	'海南_竹柏'
+   1	'福建_楠木'
+   1	'北京_侧柏'
+   1	'广西_尾巨桉'
+   1	'湖南_黄杞'
+   1	'甘肃_日本落叶松'
+   1	'甘肃_油松'
+   1	'甘肃_通用方程'
+   1	'山西_油松'
+   1	'福建_木荷'
+   1	'云南_云南松'
+   1	'正样本_通用方程'
+   1	'负样本_树种不匹配'
+   1	'复杂样本_多条件'
+   1	'复杂样本_隐含条件'
+   1	'复杂样本_组分理解'
+   1	'复杂样本_方程形式理解'
+   1	'复杂样本_对数方程'
+   1	'边界样本_极值'
+   1	'应用场景_林分调查'
+   1	'应用场景_碳储量'
+   1	'质量控制_R方值'
+   1	'质量控制_样本量'
+   1	'特殊组分_根系分级'
+   1	'特殊组分_叶龄分级'
+   1	'负样本_组分错配'
+   1	'负样本_单位混淆'
+   1	'模糊查询_口语化'
+   1	'模糊查询_不确定参数'
+   1	'综合场景_混交林'
+   1	'综合场景_监测对比'
+   1	'错误理解_方程链'
+   1	'数据质量_置信度'
+   1	'西藏_急尖长苞冷杉'
+   1	'青海_云杉'
+   1	'江苏_水杉'
+   1	'云南_橡胶树'
+   1	'内蒙古_油松'
+   1	'云南_热带湿性季节雨林'
+   1	'云南_先锋树种'
+   1	'河北_油松'
+   1	'贵州_亮叶桦'
+   1	'浙江_水杉'
+   1	'云南_耳荚相思'
+   1	'湖南_樟树'
+   1	'正样本_新树种_油松'
+   1	'正样本_新树种_浙江阔叶'
+   1	'复杂样本_同地多树种'
+   1	'负样本_针阔混淆'
+   1	'复杂样本_双变量优选'
+   1	'应用场景_杨树速生林'
+   1	'负样本_同科跨种'
+   1	'复杂样本_组分细分_枝皮'
+   1	'正样本_高样本量'
+   1	'边界样本_小径木'
+   1	'复杂样本_多个地区方程对比'
+   1	'应用场景_防护林'
+   1	'特殊方程形式_二次项'
+   1	'质量控制_超高R方'
+   1	'负样本_地理跨度'
+   1	'复杂样本_双变量单位'
+   1	'正样本_福建杉木'
+   1	'复杂样本_叶量特殊'
+   1	'综合场景_人工林vs天然林'
+   1	'应用场景_组分占比'
+   1	'负样本_落叶vs常绿'
+   1	'数据质量_无R方值'
+   1	'复杂样本_根系分类对比'
+   1	'综合场景_方程更新'
+   1	'边界样本_超大径木'
+   1	'特殊场景_高海拔'
+   1	'质量控制_小样本量'
+   1	'综合场景_多论文对比'
+   1	'上海_桃'
+   1	'上海_柑橘'
+   1	'西藏_多种杨树'
+   1	'福建_黧蒴锥'
+   1	'广东_尾巨桉'
+   1	'福建_水杉'
+   1	'湖南_油桐'
+   1	'福建_杉木'
+   1	'贵州_猴樟'
+   1	'贵州_银杏'
+   1	'福建_千年桐'
+   1	'福建_木麻黄'
+   1	'正样本_对数方程'
+   1	'正样本_杨树'
+   1	'正样本_杂交树种'
+   1	'负样本_径级不匹配'
+   1	'负样本_组分不匹配'
+   1	'负样本_样本量过小'
+   1	'复杂场景_多方程选择'
+   1	'复杂场景_径级选择'
+   1	'复杂场景_对数方程理解'
+   1	'复杂场景_特殊组分'
+   1	'复杂场景_混淆树种'
+   1	'复杂场景_速生林评估'
+   1	'复杂场景_幼龄林'
+   1	'边界情况_径级交界'
+   1	'应用场景_碳汇计量'
+   1	'应用场景_防护林监测'
+   1	'应用场景_林分清查'
+   1	'质量评估_R²对比'
+   1	'质量评估_样本量影响'
+   1	'质量评估_缺失信息'
+   1	'正样本_ln形式'
+   1	'正样本_大样本'
+   1	'正样本_高R²'
+   1	'正样本_新树种'
+   1	'负样本_小样本量'
+   1	'负样本_品种混淆'
+   1	'复杂场景_变量选择'
+   1	'复杂场景_线性方程'
+   1	'复杂场景_径级段选择'
+   1	'边界情况_树高边界'
+   1	'应用场景_防护林评估'
+   1	'质量评估_极小样本'
+   1	'质量评估_大样本'
+   1	'特殊场景_二次项方程'
+   1	'树种泛化_红松_安徽'
+   1	'树种泛化_白桦_河南'
+   1	'树种泛化_兴安落叶松_湖南'
+   1	'树种泛化_红松_贵州'
+   1	'树种泛化_华北落叶松_云南'
+   1	'树种泛化_兴安落叶松_浙江'
+   1	'地区泛化_马尾松_山西'
+   1	'地区泛化_杉木_内蒙古'
+   1	'地区泛化_红松_山东'
+   1	'地区泛化_云南松_四川'
+   1	'地区泛化_兴安落叶松_广西'
+   1	'地区泛化_侧柏_云南'
+   1	'地区泛化_毛白杨_福建'
+   1	'地区泛化_橡胶树_广东'
+   1	'意图理解_口语化树种'
+   1	'意图理解_隐含组分'
+   1	'意图理解_单位口语化'
+   1	'意图理解_否定排除'
+   1	'意图理解_反问句'
+   1	'意图理解_比较意图'
+   1	'意图理解_范围估算'
+   1	'意图理解_植物特征识别'
+
+--- gen_type ---
+ 347	'原有'
+ 153	'None'
+   8	'地区泛化'
+   8	'意图理解'
+   6	'树种泛化'
+
+--- source ---
+ 126	'自动生成_真实场景_deepseek'
+  33	''
+  27	'None'
+  14	'林业方程_统一格式.json'
+  13	'《Chen, Q.C.: Study on the Primary Productivity of an Evergreen Broadleaved Forest Ecosystem》'
+   9	'《广西主要树种(组)异速生长模型及森林生物量特征》'
+   8	'《小秦岭国家级自然保护区乔木生物量随地形因子变化格局》'
+   8	'《内蒙古森林异速生长分析》'
+   7	'《森林生态系统内灌草植被生物量估测方法的研究》'
+   7	'《基于生长生物量模型法的福建森林碳汇估算研究》'
+   6	'《黑龙江省主要碳汇树种生物量异速生长方程研究》'
+   6	'《山西森林生态系统碳密度分配格局及碳储量研究》'
+   5	'《思茅松人工林根系特征与生物量分配》'
+   5	'《亚热带常绿阔叶林8个常见树种粗根生物量》'
+   5	'《Cheng, T.R., Ma, Q.Y., Feng, Z.K., and Luo, X.: Study on forest biomass in Xiaolong Mountains, Gansu Province》'
+   4	'《紫椴生物量分配格局及异速生长方程》'
+   4	'《秦岭典型群落木本植物生物量影响因素研究》'
+   4	'biomass_0927'
+   4	'biomass_0981'
+   4	'biomass_1876-1880'
+   3	'《乌兰布和沙漠东北缘荒漠-绿洲过渡带植被地上生物量估算》'
+   3	'《云南省森林碳储量现状与动态分析》'
+   3	'《永康市森林碳储量估算研究》'
+   3	'《河南伏牛山区典型森林植被乔木层生物量研究》'
+   3	'《东北地区主要造林树种幼苗期生物量分配特征与异速生长模型》'
+   3	'《Bao, X.C., Chen, L.Z., Chen, Q.L., Ren, J.K., Hu, Y.H., and Li, Y.: The biomass of planted oriental oak (Quercus variabilis) forest》'
+   3	'《Chen, C.G.: Biomass equations of Korean pine plantation》'
+   3	'《Chen, C.G.: Biomass and productivity of tree layers in Pinus armandii forests, Qinling Mountains》'
+   3	'《Chen, C.G., and Peng, H.: Standing crops and productivity of the major forest types at Huoditang Forest Region of Qinling Mountains》'
+   3	'biomass_1009'
+   3	'《Han, F.Y., Zhou, Q.Y., Chen, S.X., Chen, W.P., Li, T.H., Wu, Z.H., and Jian, M.: The biomass and energy of two different aged Eucalyptus stands》'
+   3	'biomass_1935-1952'
+   2	'《第八次全国森林资源清查森林生物量调查建模项目》'
+   2	'《福州市森林碳储量及碳密度格局分析》'
+   2	'《中国主要乔木树种生物量方程》'
+   2	'《广西主要树种立木生物量模型的研建》'
+   2	'《东北地区落叶松林碳储量估算》'
+   2	'《青岛市森林生态系统碳储量及碳密度》'
+   2	'《小兴安岭7种典型林型林分生物量碳密度与固碳能力》'
+   2	'《基于异速生长方程和随机森林模型的青藏高原不同乔木林类型碳储量估测》'
+   2	'《安徽岭南优势树种(组)生物量特征》'
+   2	'《Ai, X.R., and Shen, Z.K.: Growth and biomass of Larix kaempferi plantation》'
+   2	'《An, H.P., Jin, X.L., and Yang, C.H.: Growth rhythm and biomass dynamics of major vegetation types in Banqiaohe Watershed》'
+   2	'《Cao, J.X., Wang, X.P., Tian, Y., Wen, Z.Y., and Zha, T.S.: Pattern of carbon allocation across three different stages of stand development of a Chinese pine (Pinus tabuliformis) forest》'
+   2	'《Chen, H.J.: Biomass and nutrient distribution in a Chinese-fir plantation chronosequence in Southwest Hunan》'
+   2	'《Chen, C.X., Yu, K.Y., Yang, Z.Q., Liao, X.L., You, H.C., and Chen, F.H.: The compatible stand biomass estimation model of Pinus massoniana stands》'
+   2	'biomass_0928'
+   2	'biomass_0937'
+   2	'biomass_0988'
+   2	'《Gu, Y.K., Chen, B.G., and Feng, Y.H.: An investigation on the aboveground biomass and its productivity of artificial Cunninghamia lanceolata stands in Xijiang Region, Guangdong Province》'
+   2	'biomass_1015'
+   2	'biomass_1009-1014'
+   2	'biomass_1090-1094'
+   2	'biomass_1106'
+   2	'biomass_1063'
+   2	'《Guo, X.Y., Cai, T., Duan, X.W., Han, Y.J., Huang, D., and Da, L.J.: Carbon storage and distribution pattern in main economic fruit forest ecosystems in Shanghai》'
+   2	'《He, H.Z., Huang, L.H., Duan, X., and He, R.K.: Study on the biomass in main afforestation tree species of the second-ring forest belt of Guiyang City》'
+   2	'biomass_1917-1926'
+   2	'biomass_1977-1980'
+   2	'biomass_1905-1908'
+   2	'biomass_1909-1916'
+   2	'biomass_1953-1956'
+   2	'biomass_1991'
+   2	'biomass_2005'
+   2	'biomass_2055'
+   2	'黑龙江省_碳汇树种'
+   1	'《半干旱区樟子松人工林生物量研究》'
+   1	'《广东省公益林示范区森林碳汇计量》'
+   1	'《1994年-2018年东三省森林碳储量动态变化研究》'
+   1	'《基于可加性生物量模型的大兴安岭东部主要林型森林植被碳储量及其分配》'
+   1	'《湖南湘西地区马尾松林枯落物动态估算模型研究》'
+   1	'《1994～2013年安徽省森林生物量与生产力动态变化分析》'
+   1	'《基于连清数据的广西森林碳储量动态变化研究》'
+   1	'《三峡库区乔木林生物量和碳储量的估算》'
+   1	'《新疆阿尔泰山森林生态系统碳密度与碳储量估算》'
+   1	'《山东省森林碳储量计量方法的研究》'
+   1	'《基于森林资源清查资料的河南省森林碳储量及其经济价值研究》'
+   1	'《基于森林资源清查的江西省森林碳储量及固碳潜力研究》'
+   1	'《喀斯特森林优势树种罗伞生物量研究》'
+   1	'《青海省森林生态系统植被固碳现状研究》'
+   1	'《鹦哥岭山地雨林不同海拔区森林群落的生物量研究》'
+   1	'《兴安落叶松原始林生态系统碳密度与碳储量研究》'
+   1	'《西藏高原云南松生物量模型及碳储量》'
+   1	'《天山云杉林生物量及其变化规律的研究》'
+   1	'《江苏省森林生物量与生产力估算及空间分布格局分析》'
+   1	'《东北林区4个天然针叶树种单木生物量模型误差结构及可加性模型》'
+   1	'《喀斯特森林优势树种黄樟生物量研究》'
+   1	'《Ai, X.R., and Zhou, G.L.: The biomass of Chinese fir plantation》'
+   1	'《Ai, X.R., Shen, Z.K., and Yi, Y.M.: Effect of stand density on the biomass of Pinus massoniana plantation》'
+   1	'《Ai, X.R., Yao, L., Yi, Y.M., and Shen, Z.K.: Carbon storage of Cryptomeria fortunei plantation》'
+   1	'《Bai, Y.Q., and Zhan, H.Z.: The biomass of Larix gmelinii plantation》'
+   1	'《Bao, C.S., Bai, Y., Qing, M., Chen, G.W., Zhang, Q.L., and Wang, L.M.: Productivity and carbon storage of Larix gmelinii natural forest》'
+   1	'《Chai, B.F., Zhang, J.T., Qiu, Y., and Zheng, F.Y.: Aboveground biomass and productivity of Larix principis-rupprechtii artificial forest in the west of Shanxi Province》'
+   1	'《Chen, Z.S., and Fang, Q.: Nutrient content and the biomass of Populus alba var. pyramidalis plantation》'
+   1	'《Chen, D.X., Li, Y.D., Luo, T.S., Lin, M.X., and Sun, Y.X.: Biomass and net primary productivity of Podocarpus imbricatus plantation in Jianfengling, Hainan Island》'
+   1	'《Chen, C.G., and Zhu, J.F.: Manual on Biomass Equations of Major Tree Species in Northeast China》'
+   1	'《Chen, L.N., Xiao, Y., Gai, Q., and Ji, W.X.: Preliminary study on the biomass of Larix principis-rupprechtii forest in Pangquangou Nature Reserve》'
+   1	'《Chen, L.Z., Chen, Q.L., Bao, X.C., Ren, J.K., Miao, Y.G., and Hu, Y.H.: Study on Chinese arborvitae (Platycladus orientalis) forest and its biomass in Beijing》'
+   1	'《Chen, T., Wen, Y.G., Sun, Y.P., and Liang, H.W.: Preliminary study on the biomass and productivity of Eucalyptus urophylla × E. grandis plantations with successive rotations》'
+   1	'《Cheng, Y.X., and Li, Z.X.: Preliminary study on the biomass of three Larix gmelinii forests》'
+   1	'《Cheng, X.Q., Han, H.R., and Kang, F.F.: Biomass, carbon accumulation and their partitioning of a Pinus tabuliformis plantation ecosystem in Shanxi Province》'
+   1	'《Cheng, Y., Hong, W., Wu, C.Z., and Qi, X.H.: Aboveground biomass and its productivity of Schima superba population》'
+   1	'《Cui, W., Mu, C.C., Lu, H.C., Bao, X., and Wang, B.: Effects of draining for forestation on carbon storage of wetland ecosystem in Daxing’an Mountains》'
+   1	'《Dang, C.L., and Wu, Z.L.: Study on the biomass of Pinus yunnanensis forest》'
+   1	'biomass_0929'
+   1	'biomass_0933'
+   1	'biomass_0949'
+   1	'biomass_0951-0954'
+   1	'biomass_1002'
+   1	'biomass_0981-0987'
+   1	'biomass_0937 vs biomass_0943'
+   1	'biomass_0949 vs biomass_0988'
+   1	'biomass_0960-0964'
+   1	'biomass_0955-0958'
+   1	'multiple'
+   1	'《Fang, J.P., and Xiang, W.H.: Biomass and its distribution of a primeval Abies georgei var. smithii forest in Sejila Mountain in Tibet Plateau》'
+   1	'《Fang, X., and Tian, D.L.: Dynamics of carbon stock and sequestration in Chinese fir plantation》'
+   1	'《Fang, C.L., Zhu, X.W., and Zhang, H.C.: Preliminary study on the biomass and productivity of Picea crassifolia natural secondary forests》'
+   1	'《Fang, S.Z., Cai, S.Z., Chen, J.H., Yang, B., Ding, X.F., and Song, Z.Y.: Biomass production and pulp-making performance of Metasequoia glyptostroboides plantation》'
+   1	'《Feng, Y.Z.: Man-made Community》'
+   1	'《Feng, L., and Yang, Y.G.: The biomass of natural secondary forests of Pinus tabuliformis, Betula platyphylla and Populus davidiana in Inner Mongolia Region》'
+   1	'《Feng, L., and Yang, Y.G.: Biomass and productivity of three Larix gmelinii virgin forests》'
+   1	'《Feng, Z.L., Zheng, Z., Zhang, J.H., Cao, M., Sha, L.Q., and Deng, J.W.: Biomass and its distribution of a tropical wet seasonal rainforest in Xishuangbanna》'
+   1	'《Feng, Z.L., Tang, J.W., Zheng, Z., Song, Q.S., Cao, M., Zhang, J.H., and Xie, J.W.: Biomass dynamics of the pioneer Trema orientalis community in the early stages of secondary succession of tropical forest in Xishuangbanna》'
+   1	'《Feng, Z.W., Chen, C.Y., Zhang, J.W., Wang, K.P., and Zhao, J.L.: Biological productivity of two forest communities in Huitong County of Hunan Province》'
+   1	'《Gao, H.Z., You, L.Q., and Wang, C.: Individual biomass and productivity of Pinus tabuliformis plantation in Yanshan Mountain》'
+   1	'《Gao, Y.P., Pan, M.L., Ding, F.J., Zhou, F.J., and Wu, P.: Biomass and net productivity of natural secondary forests of Betula luminifera in west Guizhou》'
+   1	'《Gao, Z.H., Jiang, G.H., Xing, A.J., and Yu, M.R.: The biomass of Metasequoia glyptostroboides plantation in Zhebei Plain》'
+   1	'《Gao, C.J., Tang, G.Y., Sun, Y.Y., Zhang, C.H., Xie, Q.H., and Li, K.: Biomass and allocation of young Azadirachta indica and Acacia auriculiformis for different restoration patterns in dry-hot valley》'
+   1	'《Gao, S.C., Tian, D.L., Yan, W.D., Zhu, F., Fang, X., and Liang, X.C., Pattern characteristics of stand biomass of urban forest in Changsha City》'
+   1	'biomass_1015, biomass_1027, biomass_1039'
+   1	'biomass_1068'
+   1	'biomass_1015 vs biomass_1021'
+   1	'biomass_1073-1078'
+   1	'biomass_1017-1018'
+   1	'biomass_1063-1067 vs biomass_0981-0987'
+   1	'biomass_1100'
+   1	'biomass_1085'
+   1	'biomass_1088'
+   1	'biomass_1068-1072'
+   1	'biomass_1007'
+   1	'biomass_1002-1008'
+   1	'biomass_1100-1105'
+   1	'biomass_1009-1014 vs biomass_1100-1105'
+   1	'《Guo, L.Q., and Xiao, Y.: The biomass table of Larix principis-rupprechtii natural forest》'
+   1	'《Han, M.Z.: The biomass and production of Larix gmelinii plantation》'
+   1	'《Han, M.Z.: The biomass and net primary productivity of a Dahurian larch-birch forest ecosystem》'
+   1	'《Guan, H.S., and Liu, Y.L.: Study on the biomass of poplar plantations in the middle region of “One River and Two Streams” Watershed, Tibet》'
+   1	'《Guan, D.Y., and Huang, G.Q.: The biomass and its predictive models of Castanopsis fissa natural forest》'
+   1	'《He, R.B.: The biomass model of Metasequoia glyptostroboides plantation》'
+   1	'《He, F., Wang, Y.Q., Tan, X.F., and Wang, C.N.: The biomass and nutrient cycle in Vernicia fordii plantations》'
+   1	'《He, G.P., Chen, Y.T., Hu, B.T., Feng, J.W., Liu, H.T., and Cai, H.M.: Study on the biomass and soil fertility of pure and mixed stands of Cunninghamia lanceolata, Liriodendron chinense and Sassafras tzumu》'
+   1	'《Hong, T., Wu, C.Z., Lin, Y.M., Chen, C., Li, J., and Lin, H.: Biomass characteristics in the arbor layer of Vernicia montana plantation》'
+   1	'《Hong, Y.C., Xu, W.Q., Ye, G.F., and Zhang, L.H.: Model for estimating biomass of Casuarina equisetifolia planation in coastal region of the southeastern China》'
+   1	'《Hu, Y.H., and Pang, Q.L.: The biomass and distribution pattern of Cunninghamia lanceolata plantation in western Hubei》'
+   1	'biomass_1889-1896'
+   1	'biomass_1935-1940'
+   1	'biomass_1957-1966'
+   1	'biomass_1909-1916 vs biomass_1967-1976'
+   1	'biomass_1897-1904'
+   1	'biomass_1927-1934'
+   1	'biomass_1881-1888 vs biomass_1987-1990'
+   1	'biomass_1981-1986'
+   1	'biomass_1935-1946'
+   1	'biomass_1957-1966 vs 同地区其他研究'
+   1	'biomass_1881-1888 (n=5) vs biomass_1889-1896 (n=54)'
+   1	'biomass_2061'
+   1	'biomass_2095'
+   1	'biomass_2062'
+   1	'biomass_2097'
+   1	'biomass_2008'
+   1	'biomass_1991, biomass_1999'
+   1	'biomass_2008, biomass_2023'
+   1	'biomass_2013, biomass_2008'
+   1	'biomass_2023, biomass_2031, biomass_2039'
+   1	'biomass_2065-2094'
+   1	'biomass_2063'
+   1	'biomass_2060'
+   1	'biomass_2064'
+   1	'biomass_2013'
+   1	'biomass_2003, biomass_1997'
+   1	'biomass_2016'
+   1	'山西省_森林生态系统'
+   1	'湖南_杉木'
+   1	'甘肃天水_落叶松'
+
+--- group x gen_type ---
+ 126	group='None'	gen_type='None'
+  13	group='负样本_参数异常'	gen_type='None'
+  10	group='负样本_跨区域'	gen_type='原有'
+  10	group='负样本_信息严重不足'	gen_type='None'
+   8	group='内蒙古_森林异速生长'	gen_type='原有'
+   7	group='负样本_范围外'	gen_type='原有'
+   6	group='黑龙江省_碳汇树种'	gen_type='原有'
+   6	group='山西省_森林生态系统'	gen_type='原有'
+   5	group='思茅松_云南普洱'	gen_type='原有'
+   5	group='亚热带常绿阔叶林_粗根'	gen_type='原有'
+   5	group='正样本_基础匹配'	gen_type='原有'
+   4	group='小秦岭_松类'	gen_type='原有'
+   4	group='小秦岭_阔叶树'	gen_type='原有'
+   4	group='紫椴_吉林蛟河'	gen_type='原有'
+   4	group='内蒙古_兴安落叶松'	gen_type='原有'
+   4	group='负样本_参数超范围'	gen_type='原有'
+   4	group='负样本_超出知识边界'	gen_type='None'
+   3	group='荒漠植被_乌兰布和'	gen_type='原有'
+   3	group='山西_华北落叶松'	gen_type='原有'
+   3	group='甘肃_华山松'	gen_type='原有'
+   3	group='湖南_杉木'	gen_type='原有'
+   2	group='全国通用方程_松杉类'	gen_type='原有'
+   2	group='大兴安岭_兴安落叶松'	gen_type='原有'
+   2	group='云南省_碳储量转换'	gen_type='原有'
+   2	group='东北地区_幼苗'	gen_type='原有'
+   2	group='湖北_日本落叶松'	gen_type='原有'
+   2	group='湖北_杉木'	gen_type='原有'
+   2	group='北京_栓皮栎'	gen_type='原有'
+   2	group='浙江_青冈'	gen_type='原有'
+   2	group='浙江_石栎'	gen_type='原有'
+   2	group='浙江_其他常绿阔叶树'	gen_type='原有'
+   2	group='浙江_青冈_树干'	gen_type='原有'
+   2	group='福建_马尾松'	gen_type='原有'
+   2	group='内蒙古_白桦'	gen_type='原有'
+   2	group='边界样本_单变量'	gen_type='原有'
+   2	group='广东_杉木'	gen_type='原有'
+   2	group='正样本_落叶松'	gen_type='原有'
+   2	group='应用场景_速生林评估'	gen_type='原有'
+   2	group='广东_雷州桉1号'	gen_type='原有'
+   2	group='负样本_树种混淆'	gen_type='原有'
+   2	group='复杂场景_方程形式对比'	gen_type='原有'
+   2	group='复杂场景_立地条件'	gen_type='原有'
+   2	group='边界情况_参数下限'	gen_type='原有'
+   2	group='边界情况_参数上限'	gen_type='原有'
+   1	group='半干旱区樟子松_比例根'	gen_type='原有'
+   1	group='福州市_林分蓄积量转换'	gen_type='原有'
+   1	group='福州市_经济林面积转换'	gen_type='原有'
+   1	group='广东省公益林示范区_碳储量'	gen_type='原有'
+   1	group='东三省_林分生物量'	gen_type='原有'
+   1	group='湖南湘西_马尾松'	gen_type='原有'
+   1	group='安徽省_林分转换'	gen_type='原有'
+   1	group='广西_桉树全株'	gen_type='原有'
+   1	group='广西_经济林树种'	gen_type='原有'
+   1	group='广西_栎类'	gen_type='原有'
+   1	group='广西_硬阔类'	gen_type='原有'
+   1	group='广西_软阔类'	gen_type='原有'
+   1	group='广西_石山林'	gen_type='原有'
+   1	group='广西_毛竹'	gen_type='原有'
+   1	group='广西_丛生竹'	gen_type='原有'
+   1	group='广西_油茶'	gen_type='原有'
+   1	group='广西_林分蓄积量转换'	gen_type='原有'
+   1	group='三峡库区_柏木'	gen_type='原有'
+   1	group='云南省_林分转换'	gen_type='原有'
+   1	group='浙江省_永康市_林分转换'	gen_type='原有'
+   1	group='浙江省_永康市_灌木转换'	gen_type='原有'
+   1	group='北京妙峰山_白蜡'	gen_type='原有'
+   1	group='北京妙峰山_鸡桑幼苗'	gen_type='原有'
+   1	group='北京妙峰山_三裂绣线菊'	gen_type='原有'
+   1	group='北京妙峰山_五角枫'	gen_type='原有'
+   1	group='北京妙峰山_胡枝子'	gen_type='原有'
+   1	group='新疆阿尔泰山_落叶松'	gen_type='原有'
+   1	group='河北木兰_落叶松'	gen_type='原有'
+   1	group='甘肃天水_落叶松'	gen_type='原有'
+   1	group='浙江省_永康市_其他林分'	gen_type='原有'
+   1	group='北京妙峰山_灌草'	gen_type='原有'
+   1	group='北京妙峰山_黑枣'	gen_type='原有'
+   1	group='河南伏牛山_油松'	gen_type='原有'
+   1	group='河南伏牛山_日本落叶松'	gen_type='原有'
+   1	group='河南伏牛山_华山松'	gen_type='原有'
+   1	group='广西_杉木'	gen_type='原有'
+   1	group='广西_比例根'	gen_type='原有'
+   1	group='东北地区_落叶松'	gen_type='原有'
+   1	group='东北地区_比例根'	gen_type='原有'
+   1	group='青岛市_黑松'	gen_type='原有'
+   1	group='青岛市_杨树'	gen_type='原有'
+   1	group='秦岭_栎类'	gen_type='原有'
+   1	group='负样本_比例根系数'	gen_type='原有'
+   1	group='秦岭_落叶松'	gen_type='原有'
+   1	group='秦岭_暖温带落叶阔叶林_径级区分'	gen_type='原有'
+   1	group='秦岭_暖温带落叶阔叶林_中径级'	gen_type='原有'
+   1	group='山东省_油松'	gen_type='原有'
+   1	group='河南省_经济林'	gen_type='原有'
+   1	group='江西省_灌木林'	gen_type='原有'
+   1	group='小兴安岭_红松'	gen_type='原有'
+   1	group='喀斯特森林_罗伞'	gen_type='原有'
+   1	group='负样本_径级错用'	gen_type='原有'
+   1	group='负样本_区域不适用'	gen_type='原有'
+   1	group='小兴安岭_山杨'	gen_type='原有'
+   1	group='福建省_油杉'	gen_type='原有'
+   1	group='福建省_黑松'	gen_type='原有'
+   1	group='福建省_马尾松'	gen_type='原有'
+   1	group='福建省_柳杉'	gen_type='原有'
+   1	group='福建省_相思'	gen_type='原有'
+   1	group='福建省_湿地松'	gen_type='原有'
+   1	group='福建省_其他硬阔类'	gen_type='原有'
+   1	group='青海省_林分转换'	gen_type='原有'
+   1	group='海南_热带山地雨林'	gen_type='原有'
+   1	group='西藏_云南松'	gen_type='原有'
+   1	group='天山_云杉'	gen_type='原有'
+   1	group='江苏省_林分转换'	gen_type='原有'
+   1	group='负样本_适用范围'	gen_type='原有'
+   1	group='东北地区_幼苗期_紫椴'	gen_type='原有'
+   1	group='东北林区_红松'	gen_type='原有'
+   1	group='青藏高原_针叶林'	gen_type='原有'
+   1	group='青藏高原_阔叶林'	gen_type='原有'
+   1	group='安徽岭南_杉木'	gen_type='原有'
+   1	group='安徽岭南_马尾松'	gen_type='原有'
+   1	group='喀斯特森林_黄樟'	gen_type='原有'
+   1	group='负样本_径级适用'	gen_type='原有'
+   1	group='湖北_马尾松'	gen_type='原有'
+   1	group='湖北_柳杉'	gen_type='原有'
+   1	group='贵州_柏木'	gen_type='原有'
+   1	group='贵州_麻栎'	gen_type='原有'
+   1	group='黑龙江_兴安落叶松'	gen_type='原有'
+   1	group='北京_油松'	gen_type='原有'
+   1	group='黑龙江_红松'	gen_type='原有'
+   1	group='辽宁_红松'	gen_type='原有'
+   1	group='北京_油松_二元'	gen_type='原有'
+   1	group='北京_栓皮栎_根系'	gen_type='原有'
+   1	group='黑龙江_红松_叶'	gen_type='原有'
+   1	group='陕西_华山松'	gen_type='原有'
+   1	group='湖南_杉木_树皮'	gen_type='原有'
+   1	group='浙江_落叶栎类'	gen_type='原有'
+   1	group='浙江_其他落叶阔叶树'	gen_type='原有'
+   1	group='浙江_林下层_青冈'	gen_type='原有'
+   1	group='浙江_林下层_其他常绿阔叶树'	gen_type='原有'
+   1	group='负样本_林下方程用于大树'	gen_type='原有'
+   1	group='陕西_华北落叶松'	gen_type='原有'
+   1	group='陕西_油松'	gen_type='原有'
+   1	group='陕西_锐齿槲栎'	gen_type='原有'
+   1	group='新疆_胡杨'	gen_type='原有'
+   1	group='新疆_新疆杨'	gen_type='原有'
+   1	group='海南_竹柏'	gen_type='原有'
+   1	group='福建_楠木'	gen_type='原有'
+   1	group='北京_侧柏'	gen_type='原有'
+   1	group='广西_尾巨桉'	gen_type='原有'
+   1	group='湖南_黄杞'	gen_type='原有'
+   1	group='甘肃_日本落叶松'	gen_type='原有'
+   1	group='甘肃_油松'	gen_type='原有'
+   1	group='甘肃_通用方程'	gen_type='原有'
+   1	group='山西_油松'	gen_type='原有'
+   1	group='福建_木荷'	gen_type='原有'
+   1	group='云南_云南松'	gen_type='原有'
+   1	group='正样本_通用方程'	gen_type='原有'
+   1	group='负样本_树种不匹配'	gen_type='原有'
+   1	group='复杂样本_多条件'	gen_type='原有'
+   1	group='复杂样本_隐含条件'	gen_type='原有'
+   1	group='复杂样本_组分理解'	gen_type='原有'
+   1	group='复杂样本_方程形式理解'	gen_type='原有'
+   1	group='复杂样本_对数方程'	gen_type='原有'
+   1	group='边界样本_极值'	gen_type='原有'
+   1	group='应用场景_林分调查'	gen_type='原有'
+   1	group='应用场景_碳储量'	gen_type='原有'
+   1	group='质量控制_R方值'	gen_type='原有'
+   1	group='质量控制_样本量'	gen_type='原有'
+   1	group='特殊组分_根系分级'	gen_type='原有'
+   1	group='特殊组分_叶龄分级'	gen_type='原有'
+   1	group='负样本_组分错配'	gen_type='原有'
+   1	group='负样本_单位混淆'	gen_type='原有'
+   1	group='模糊查询_口语化'	gen_type='原有'
+   1	group='模糊查询_不确定参数'	gen_type='原有'
+   1	group='综合场景_混交林'	gen_type='原有'
+   1	group='综合场景_监测对比'	gen_type='原有'
+   1	group='错误理解_方程链'	gen_type='原有'
+   1	group='数据质量_置信度'	gen_type='原有'
+   1	group='西藏_急尖长苞冷杉'	gen_type='原有'
+   1	group='青海_云杉'	gen_type='原有'
+   1	group='江苏_水杉'	gen_type='原有'
+   1	group='云南_橡胶树'	gen_type='原有'
+   1	group='内蒙古_油松'	gen_type='原有'
+   1	group='云南_热带湿性季节雨林'	gen_type='原有'
+   1	group='云南_先锋树种'	gen_type='原有'
+   1	group='河北_油松'	gen_type='原有'
+   1	group='贵州_亮叶桦'	gen_type='原有'
+   1	group='浙江_水杉'	gen_type='原有'
+   1	group='云南_耳荚相思'	gen_type='原有'
+   1	group='湖南_樟树'	gen_type='原有'
+   1	group='正样本_新树种_油松'	gen_type='原有'
+   1	group='正样本_新树种_浙江阔叶'	gen_type='原有'
+   1	group='复杂样本_同地多树种'	gen_type='原有'
+   1	group='负样本_针阔混淆'	gen_type='原有'
+   1	group='复杂样本_双变量优选'	gen_type='原有'
+   1	group='应用场景_杨树速生林'	gen_type='原有'
+   1	group='负样本_同科跨种'	gen_type='原有'
+   1	group='复杂样本_组分细分_枝皮'	gen_type='原有'
+   1	group='正样本_高样本量'	gen_type='原有'
+   1	group='边界样本_小径木'	gen_type='原有'
+   1	group='复杂样本_多个地区方程对比'	gen_type='原有'
+   1	group='应用场景_防护林'	gen_type='原有'
+   1	group='特殊方程形式_二次项'	gen_type='原有'
+   1	group='质量控制_超高R方'	gen_type='原有'
+   1	group='负样本_地理跨度'	gen_type='原有'
+   1	group='复杂样本_双变量单位'	gen_type='原有'
+   1	group='正样本_福建杉木'	gen_type='原有'
+   1	group='复杂样本_叶量特殊'	gen_type='原有'
+   1	group='综合场景_人工林vs天然林'	gen_type='原有'
+   1	group='应用场景_组分占比'	gen_type='原有'
+   1	group='负样本_落叶vs常绿'	gen_type='原有'
+   1	group='数据质量_无R方值'	gen_type='原有'
+   1	group='复杂样本_根系分类对比'	gen_type='原有'
+   1	group='综合场景_方程更新'	gen_type='原有'
+   1	group='边界样本_超大径木'	gen_type='原有'
+   1	group='特殊场景_高海拔'	gen_type='原有'
+   1	group='质量控制_小样本量'	gen_type='原有'
+   1	group='综合场景_多论文对比'	gen_type='原有'
+   1	group='上海_桃'	gen_type='原有'
+   1	group='上海_柑橘'	gen_type='原有'
+   1	group='西藏_多种杨树'	gen_type='原有'
+   1	group='福建_黧蒴锥'	gen_type='原有'
+   1	group='广东_尾巨桉'	gen_type='原有'
+   1	group='福建_水杉'	gen_type='原有'
+   1	group='湖南_油桐'	gen_type='原有'
+   1	group='福建_杉木'	gen_type='原有'
+   1	group='贵州_猴樟'	gen_type='原有'
+   1	group='贵州_银杏'	gen_type='原有'
+   1	group='福建_千年桐'	gen_type='原有'
+   1	group='福建_木麻黄'	gen_type='原有'
+   1	group='正样本_对数方程'	gen_type='原有'
+   1	group='正样本_杨树'	gen_type='原有'
+   1	group='正样本_杂交树种'	gen_type='原有'
+   1	group='负样本_径级不匹配'	gen_type='原有'
+   1	group='负样本_组分不匹配'	gen_type='原有'
+   1	group='负样本_样本量过小'	gen_type='原有'
+   1	group='复杂场景_多方程选择'	gen_type='原有'
+   1	group='复杂场景_径级选择'	gen_type='原有'
+   1	group='复杂场景_对数方程理解'	gen_type='原有'
+   1	group='复杂场景_特殊组分'	gen_type='原有'
+   1	group='复杂场景_混淆树种'	gen_type='原有'
+   1	group='复杂场景_速生林评估'	gen_type='原有'
+   1	group='复杂场景_幼龄林'	gen_type='原有'
+   1	group='边界情况_径级交界'	gen_type='原有'
+   1	group='应用场景_碳汇计量'	gen_type='原有'
+   1	group='应用场景_防护林监测'	gen_type='原有'
+   1	group='应用场景_林分清查'	gen_type='原有'
+   1	group='质量评估_R²对比'	gen_type='原有'
+   1	group='质量评估_样本量影响'	gen_type='原有'
+   1	group='质量评估_缺失信息'	gen_type='原有'
+   1	group='正样本_ln形式'	gen_type='原有'
+   1	group='正样本_大样本'	gen_type='原有'
+   1	group='正样本_高R²'	gen_type='原有'
+   1	group='正样本_新树种'	gen_type='原有'
+   1	group='负样本_小样本量'	gen_type='原有'
+   1	group='负样本_品种混淆'	gen_type='原有'
+   1	group='复杂场景_变量选择'	gen_type='原有'
+   1	group='复杂场景_线性方程'	gen_type='原有'
+   1	group='复杂场景_径级段选择'	gen_type='原有'
+   1	group='边界情况_树高边界'	gen_type='原有'
+   1	group='应用场景_防护林评估'	gen_type='原有'
+   1	group='质量评估_极小样本'	gen_type='原有'
+   1	group='质量评估_大样本'	gen_type='原有'
+   1	group='特殊场景_二次项方程'	gen_type='原有'
+   1	group='树种泛化_红松_安徽'	gen_type='树种泛化'
+   1	group='树种泛化_白桦_河南'	gen_type='树种泛化'
+   1	group='树种泛化_兴安落叶松_湖南'	gen_type='树种泛化'
+   1	group='树种泛化_红松_贵州'	gen_type='树种泛化'
+   1	group='树种泛化_华北落叶松_云南'	gen_type='树种泛化'
+   1	group='树种泛化_兴安落叶松_浙江'	gen_type='树种泛化'
+   1	group='地区泛化_马尾松_山西'	gen_type='地区泛化'
+   1	group='地区泛化_杉木_内蒙古'	gen_type='地区泛化'
+   1	group='地区泛化_红松_山东'	gen_type='地区泛化'
+   1	group='地区泛化_云南松_四川'	gen_type='地区泛化'
+   1	group='地区泛化_兴安落叶松_广西'	gen_type='地区泛化'
+   1	group='地区泛化_侧柏_云南'	gen_type='地区泛化'
+   1	group='地区泛化_毛白杨_福建'	gen_type='地区泛化'
+   1	group='地区泛化_橡胶树_广东'	gen_type='地区泛化'
+   1	group='意图理解_口语化树种'	gen_type='意图理解'
+   1	group='意图理解_隐含组分'	gen_type='意图理解'
+   1	group='意图理解_单位口语化'	gen_type='意图理解'
+   1	group='意图理解_否定排除'	gen_type='意图理解'
+   1	group='意图理解_反问句'	gen_type='意图理解'
+   1	group='意图理解_比较意图'	gen_type='意图理解'
+   1	group='意图理解_范围估算'	gen_type='意图理解'
+   1	group='意图理解_植物特征识别'	gen_type='意图理解'
+
+============================================================
+E. THE 27 CASES WITH MISSING CORE METADATA
+============================================================
+COUNT = 27
+
+---
+test_id         = 'NEG_OOD_C_001'
+missing         = ['tree_type', 'component', 'location']
+group           = '负样本_超出知识边界'
+gen_type        = None
+source          = None
+question        = '请问见血封喉在西藏墨脱的整株生物量方程有吗？D=45cm，H=25m。'
+expected_result = None
+_calc_params    = None
+
+---
+test_id         = 'NEG_OOD_C_002'
+missing         = ['tree_type', 'component', 'location']
+group           = '负样本_超出知识边界'
+gen_type        = None
+source          = None
+question        = '我在广东珠海滨海调查了一棵红树（秋茄），胸径8cm，树高6m，想算地上生物量，有合适的方程吗？'
+expected_result = None
+_calc_params    = None
+
+---
+test_id         = 'NEG_OOD_C_003'
+missing         = ['tree_type', 'component', 'location']
+group           = '负样本_超出知识边界'
+gen_type        = None
+source          = None
+question        = '请问椰子树在海南三亚的整株生物量方程有吗？D=50cm，H=15m。'
+expected_result = None
+_calc_params    = None
+
+---
+test_id         = 'NEG_OOD_C_004'
+missing         = ['tree_type', 'component', 'location']
+group           = '负样本_超出知识边界'
+gen_type        = None
+source          = None
+question        = '我在俄罗斯西伯利亚做调查，测了一棵当地的云杉（Picea obovata），胸径42cm，树高30m，想算干生物量，中国的方程库里有这个树种的方程吗？'
+expected_result = None
+_calc_params    = None
+
+---
+test_id         = 'NEG_PARAM_001'
+missing         = ['tree_type', 'component', 'location']
+group           = '负样本_参数异常'
+gen_type        = None
+source          = None
+question        = '栎树，胸径380厘米，整株生物量怎么算？（位于广西省）'
+expected_result = None
+_calc_params    = None
+
+---
+test_id         = 'NEG_PARAM_002'
+missing         = ['tree_type', 'component', 'location']
+group           = '负样本_参数异常'
+gen_type        = None
+source          = None
+question        = '我想算一下小秦岭水曲柳的树干生物量，胸径12厘米，树高250米，应该用什么公式？'
+expected_result = None
+_calc_params    = None
+
+---
+test_id         = 'NEG_PARAM_003'
+missing         = ['tree_type', 'component', 'location']
+group           = '负样本_参数异常'
+gen_type        = None
+source          = None
+question        = '福建的油杉，测量时发现胸径数据记录错了，写成了负数：胸径为负十五厘米，这个数据有问题，能用生物量方程吗？树干生物量怎么算？'
+expected_result = None
+_calc_params    = None
+
+---
+test_id         = 'NEG_PARAM_004'
+missing         = ['tree_type', 'component', 'location']
+group           = '负样本_参数异常'
+gen_type        = None
+source          = None
+question        = '小兴安岭的山杨，胸径0.5厘米，树高10米，树干生物量怎么算？'
+expected_result = None
+_calc_params    = None
+
+---
+test_id         = 'NEG_PARAM_005'
+missing         = ['tree_type', 'component', 'location']
+group           = '负样本_参数异常'
+gen_type        = None
+source          = None
+question        = '在小秦岭自然保护区，有一棵华山松地径（比胸径小5cm）12厘米，叶子重量能算出来吗？'
+expected_result = None
+_calc_params    = None
+
+---
+test_id         = 'NEG_PARAM_006'
+missing         = ['tree_type', 'component', 'location']
+group           = '负样本_参数异常'
+gen_type        = None
+source          = None
+question        = '广西那边的硬阔树种，胸径380厘米，整棵树多重？'
+expected_result = None
+_calc_params    = None
+
+---
+test_id         = 'NEG_PARAM_007'
+missing         = ['tree_type', 'component', 'location']
+group           = '负样本_参数异常'
+gen_type        = None
+source          = None
+question        = '新疆的胡杨，胸径12厘米，树高250米，整株生物量怎么算？'
+expected_result = None
+_calc_params    = None
+
+---
+test_id         = 'NEG_PARAM_008'
+missing         = ['tree_type', 'component', 'location']
+group           = '负样本_参数异常'
+gen_type        = None
+source          = None
+question        = '河南农田防护林，毛白杨，测量记录上写的胸径是负十五厘米，估算全树生物量用于碳汇计算，这个负数胸径能直接代入方程吗？'
+expected_result = None
+_calc_params    = None
+
+---
+test_id         = 'NEG_PARAM_009'
+missing         = ['tree_type', 'component', 'location']
+group           = '负样本_参数异常'
+gen_type        = None
+source          = None
+question        = '安徽某树种，胸径0.5cm，树高12m，有两个方程：W=0.1853*D^2.0283 (R²=0.8971) 和 W=0.0357*(D^2*H)^0.9223 (R²=0.9622)，选哪个？'
+expected_result = None
+_calc_params    = None
+
+---
+test_id         = 'NEG_PARAM_010'
+missing         = ['tree_type', 'component', 'location']
+group           = '负样本_参数异常'
+gen_type        = None
+source          = None
+question        = '福建的楠木，地径（比胸径小5cm）6厘米，树高5米，整株生物量怎么算？'
+expected_result = None
+_calc_params    = None
+
+---
+test_id         = 'NEG_PARAM_011'
+missing         = ['tree_type', 'component', 'location']
+group           = '负样本_参数异常'
+gen_type        = None
+source          = None
+question        = '黑龙江兴安落叶松，胸径200厘米，树高1米，想算整株生物量，用什么方程？'
+expected_result = None
+_calc_params    = None
+
+---
+test_id         = 'NEG_PARAM_012'
+missing         = ['tree_type', 'component', 'location']
+group           = '负样本_参数异常'
+gen_type        = None
+source          = None
+question        = '湖南的马尾松，测量记录上写的胸径是负八厘米，我想查枝生物量方程，这个负数测量值能用吗？'
+expected_result = None
+_calc_params    = None
+
+---
+test_id         = 'NEG_PARAM_013'
+missing         = ['tree_type', 'component', 'location']
+group           = '负样本_参数异常'
+gen_type        = None
+source          = None
+question        = '陕西油松，胸径500厘米，树高30米，请问哪个方程估算干生物量最合适？'
+expected_result = None
+_calc_params    = None
+
+---
+test_id         = 'NEG_AMBIG_001'
+missing         = ['tree_type', 'component', 'location']
+group           = '负样本_信息严重不足'
+gen_type        = None
+source          = None
+question        = '听说一种树的叶子也能算生物量，我在云南普洱景谷县，我有棵胸径20厘米的树，没量树高，能算出来吗？'
+expected_result = None
+_calc_params    = None
+
+---
+test_id         = 'NEG_AMBIG_002'
+missing         = ['tree_type', 'component', 'location']
+group           = '负样本_信息严重不足'
+gen_type        = None
+source          = None
+question        = '杉木的粗根生物量怎么算？我在某地，有一棵胸径15厘米的，只用胸径够不够？'
+expected_result = None
+_calc_params    = None
+
+---
+test_id         = 'NEG_AMBIG_003'
+missing         = ['tree_type', 'component', 'location']
+group           = '负样本_信息严重不足'
+gen_type        = None
+source          = None
+question        = '某地的一种树，胸径7厘米，树干生物量怎么算？'
+expected_result = None
+_calc_params    = None
+
+---
+test_id         = 'NEG_AMBIG_004'
+missing         = ['tree_type', 'component', 'location']
+group           = '负样本_信息严重不足'
+gen_type        = None
+source          = None
+question        = '内蒙古兴安落叶松-一种树混交林里的一种树，胸径11厘米，树高8米，树干生物量怎么算？'
+expected_result = None
+_calc_params    = None
+
+---
+test_id         = 'NEG_AMBIG_005'
+missing         = ['tree_type', 'component', 'location']
+group           = '负样本_信息严重不足'
+gen_type        = None
+source          = None
+question        = '某地的白桦树，胸径8厘米，树高6米，它的叶子能有多重？'
+expected_result = None
+_calc_params    = None
+
+---
+test_id         = 'NEG_AMBIG_006'
+missing         = ['tree_type', 'component', 'location']
+group           = '负样本_信息严重不足'
+gen_type        = None
+source          = None
+question        = '某地一片一种树林，每公顷蓄积量120立方米，单位面积生物量大概多少？'
+expected_result = None
+_calc_params    = None
+
+---
+test_id         = 'NEG_AMBIG_007'
+missing         = ['tree_type', 'component', 'location']
+group           = '负样本_信息严重不足'
+gen_type        = None
+source          = None
+question        = '甘肃的松树，胸径10厘米，整株生物量怎么估算？'
+expected_result = None
+_calc_params    = None
+
+---
+test_id         = 'NEG_AMBIG_008'
+missing         = ['tree_type', 'component', 'location']
+group           = '负样本_信息严重不足'
+gen_type        = None
+source          = None
+question        = '我在贵州测量了一棵一种树，胸径D=25cm，树高H=12m。我用公式W=0.812+0.012*(D*H)计算干总量，得出W≈3.812kg。这个公式和参数用法对吗？'
+expected_result = None
+_calc_params    = None
+
+---
+test_id         = 'NEG_AMBIG_009'
+missing         = ['tree_type', 'component', 'location']
+group           = '负样本_信息严重不足'
+gen_type        = None
+source          = None
+question        = '帮我找一个生物量方程。'
+expected_result = None
+_calc_params    = None
+
+---
+test_id         = 'NEG_AMBIG_010'
+missing         = ['tree_type', 'component', 'location']
+group           = '负样本_信息严重不足'
+gen_type        = None
+source          = None
+question        = '栎树在东北的叶生物量方程有吗？D=18cm。'
+expected_result = None
+_calc_params    = None
+
+============================================================
+F. SEARCH EXPLICIT NEGATIVE/REJECTION METADATA
+============================================================
+
+FIELD=requires_rejection PRESENT=88
+  88	'True'
+
+FIELD=group PRESENT=396
+  13	'负样本_参数异常'
+  10	'负样本_跨区域'
+  10	'负样本_信息严重不足'
+   8	'内蒙古_森林异速生长'
+   7	'负样本_范围外'
+   6	'黑龙江省_碳汇树种'
+   6	'山西省_森林生态系统'
+   5	'思茅松_云南普洱'
+   5	'亚热带常绿阔叶林_粗根'
+   5	'正样本_基础匹配'
+   4	'小秦岭_松类'
+   4	'小秦岭_阔叶树'
+   4	'紫椴_吉林蛟河'
+   4	'内蒙古_兴安落叶松'
+   4	'负样本_参数超范围'
+   4	'负样本_超出知识边界'
+   3	'荒漠植被_乌兰布和'
+   3	'山西_华北落叶松'
+   3	'甘肃_华山松'
+   3	'湖南_杉木'
+   2	'全国通用方程_松杉类'
+   2	'大兴安岭_兴安落叶松'
+   2	'云南省_碳储量转换'
+   2	'东北地区_幼苗'
+   2	'湖北_日本落叶松'
+   2	'湖北_杉木'
+   2	'北京_栓皮栎'
+   2	'浙江_青冈'
+   2	'浙江_石栎'
+   2	'浙江_其他常绿阔叶树'
+   2	'浙江_青冈_树干'
+   2	'福建_马尾松'
+   2	'内蒙古_白桦'
+   2	'边界样本_单变量'
+   2	'广东_杉木'
+   2	'正样本_落叶松'
+   2	'应用场景_速生林评估'
+   2	'广东_雷州桉1号'
+   2	'负样本_树种混淆'
+   2	'复杂场景_方程形式对比'
+   2	'复杂场景_立地条件'
+   2	'边界情况_参数下限'
+   2	'边界情况_参数上限'
+   1	'半干旱区樟子松_比例根'
+   1	'福州市_林分蓄积量转换'
+   1	'福州市_经济林面积转换'
+   1	'广东省公益林示范区_碳储量'
+   1	'东三省_林分生物量'
+   1	'湖南湘西_马尾松'
+   1	'安徽省_林分转换'
+   1	'广西_桉树全株'
+   1	'广西_经济林树种'
+   1	'广西_栎类'
+   1	'广西_硬阔类'
+   1	'广西_软阔类'
+   1	'广西_石山林'
+   1	'广西_毛竹'
+   1	'广西_丛生竹'
+   1	'广西_油茶'
+   1	'广西_林分蓄积量转换'
+   1	'三峡库区_柏木'
+   1	'云南省_林分转换'
+   1	'浙江省_永康市_林分转换'
+   1	'浙江省_永康市_灌木转换'
+   1	'北京妙峰山_白蜡'
+   1	'北京妙峰山_鸡桑幼苗'
+   1	'北京妙峰山_三裂绣线菊'
+   1	'北京妙峰山_五角枫'
+   1	'北京妙峰山_胡枝子'
+   1	'新疆阿尔泰山_落叶松'
+   1	'河北木兰_落叶松'
+   1	'甘肃天水_落叶松'
+   1	'浙江省_永康市_其他林分'
+   1	'北京妙峰山_灌草'
+   1	'北京妙峰山_黑枣'
+   1	'河南伏牛山_油松'
+   1	'河南伏牛山_日本落叶松'
+   1	'河南伏牛山_华山松'
+   1	'广西_杉木'
+   1	'广西_比例根'
+   1	'东北地区_落叶松'
+   1	'东北地区_比例根'
+   1	'青岛市_黑松'
+   1	'青岛市_杨树'
+   1	'秦岭_栎类'
+   1	'负样本_比例根系数'
+   1	'秦岭_落叶松'
+   1	'秦岭_暖温带落叶阔叶林_径级区分'
+   1	'秦岭_暖温带落叶阔叶林_中径级'
+   1	'山东省_油松'
+   1	'河南省_经济林'
+   1	'江西省_灌木林'
+   1	'小兴安岭_红松'
+   1	'喀斯特森林_罗伞'
+   1	'负样本_径级错用'
+   1	'负样本_区域不适用'
+   1	'小兴安岭_山杨'
+   1	'福建省_油杉'
+   1	'福建省_黑松'
+   1	'福建省_马尾松'
+   1	'福建省_柳杉'
+   1	'福建省_相思'
+   1	'福建省_湿地松'
+   1	'福建省_其他硬阔类'
+   1	'青海省_林分转换'
+   1	'海南_热带山地雨林'
+   1	'西藏_云南松'
+   1	'天山_云杉'
+   1	'江苏省_林分转换'
+   1	'负样本_适用范围'
+   1	'东北地区_幼苗期_紫椴'
+   1	'东北林区_红松'
+   1	'青藏高原_针叶林'
+   1	'青藏高原_阔叶林'
+   1	'安徽岭南_杉木'
+   1	'安徽岭南_马尾松'
+   1	'喀斯特森林_黄樟'
+   1	'负样本_径级适用'
+   1	'湖北_马尾松'
+   1	'湖北_柳杉'
+   1	'贵州_柏木'
+   1	'贵州_麻栎'
+   1	'黑龙江_兴安落叶松'
+   1	'北京_油松'
+   1	'黑龙江_红松'
+   1	'辽宁_红松'
+   1	'北京_油松_二元'
+   1	'北京_栓皮栎_根系'
+   1	'黑龙江_红松_叶'
+   1	'陕西_华山松'
+   1	'湖南_杉木_树皮'
+   1	'浙江_落叶栎类'
+   1	'浙江_其他落叶阔叶树'
+   1	'浙江_林下层_青冈'
+   1	'浙江_林下层_其他常绿阔叶树'
+   1	'负样本_林下方程用于大树'
+   1	'陕西_华北落叶松'
+   1	'陕西_油松'
+   1	'陕西_锐齿槲栎'
+   1	'新疆_胡杨'
+   1	'新疆_新疆杨'
+   1	'海南_竹柏'
+   1	'福建_楠木'
+   1	'北京_侧柏'
+   1	'广西_尾巨桉'
+   1	'湖南_黄杞'
+   1	'甘肃_日本落叶松'
+   1	'甘肃_油松'
+   1	'甘肃_通用方程'
+   1	'山西_油松'
+   1	'福建_木荷'
+   1	'云南_云南松'
+   1	'正样本_通用方程'
+   1	'负样本_树种不匹配'
+   1	'复杂样本_多条件'
+   1	'复杂样本_隐含条件'
+   1	'复杂样本_组分理解'
+   1	'复杂样本_方程形式理解'
+   1	'复杂样本_对数方程'
+   1	'边界样本_极值'
+   1	'应用场景_林分调查'
+   1	'应用场景_碳储量'
+   1	'质量控制_R方值'
+   1	'质量控制_样本量'
+   1	'特殊组分_根系分级'
+   1	'特殊组分_叶龄分级'
+   1	'负样本_组分错配'
+   1	'负样本_单位混淆'
+   1	'模糊查询_口语化'
+   1	'模糊查询_不确定参数'
+   1	'综合场景_混交林'
+   1	'综合场景_监测对比'
+   1	'错误理解_方程链'
+   1	'数据质量_置信度'
+   1	'西藏_急尖长苞冷杉'
+   1	'青海_云杉'
+   1	'江苏_水杉'
+   1	'云南_橡胶树'
+   1	'内蒙古_油松'
+   1	'云南_热带湿性季节雨林'
+   1	'云南_先锋树种'
+   1	'河北_油松'
+   1	'贵州_亮叶桦'
+   1	'浙江_水杉'
+   1	'云南_耳荚相思'
+   1	'湖南_樟树'
+   1	'正样本_新树种_油松'
+   1	'正样本_新树种_浙江阔叶'
+   1	'复杂样本_同地多树种'
+   1	'负样本_针阔混淆'
+   1	'复杂样本_双变量优选'
+   1	'应用场景_杨树速生林'
+   1	'负样本_同科跨种'
+   1	'复杂样本_组分细分_枝皮'
+   1	'正样本_高样本量'
+   1	'边界样本_小径木'
+   1	'复杂样本_多个地区方程对比'
+   1	'应用场景_防护林'
+   1	'特殊方程形式_二次项'
+   1	'质量控制_超高R方'
+   1	'负样本_地理跨度'
+   1	'复杂样本_双变量单位'
+   1	'正样本_福建杉木'
+   1	'复杂样本_叶量特殊'
+   1	'综合场景_人工林vs天然林'
+   1	'应用场景_组分占比'
+   1	'负样本_落叶vs常绿'
+   1	'数据质量_无R方值'
+   1	'复杂样本_根系分类对比'
+   1	'综合场景_方程更新'
+   1	'边界样本_超大径木'
+   1	'特殊场景_高海拔'
+   1	'质量控制_小样本量'
+   1	'综合场景_多论文对比'
+   1	'上海_桃'
+   1	'上海_柑橘'
+   1	'西藏_多种杨树'
+   1	'福建_黧蒴锥'
+   1	'广东_尾巨桉'
+   1	'福建_水杉'
+   1	'湖南_油桐'
+   1	'福建_杉木'
+   1	'贵州_猴樟'
+   1	'贵州_银杏'
+   1	'福建_千年桐'
+   1	'福建_木麻黄'
+   1	'正样本_对数方程'
+   1	'正样本_杨树'
+   1	'正样本_杂交树种'
+   1	'负样本_径级不匹配'
+   1	'负样本_组分不匹配'
+   1	'负样本_样本量过小'
+   1	'复杂场景_多方程选择'
+   1	'复杂场景_径级选择'
+   1	'复杂场景_对数方程理解'
+   1	'复杂场景_特殊组分'
+   1	'复杂场景_混淆树种'
+   1	'复杂场景_速生林评估'
+   1	'复杂场景_幼龄林'
+   1	'边界情况_径级交界'
+   1	'应用场景_碳汇计量'
+   1	'应用场景_防护林监测'
+   1	'应用场景_林分清查'
+   1	'质量评估_R²对比'
+   1	'质量评估_样本量影响'
+   1	'质量评估_缺失信息'
+   1	'正样本_ln形式'
+   1	'正样本_大样本'
+   1	'正样本_高R²'
+   1	'正样本_新树种'
+   1	'负样本_小样本量'
+   1	'负样本_品种混淆'
+   1	'复杂场景_变量选择'
+   1	'复杂场景_线性方程'
+   1	'复杂场景_径级段选择'
+   1	'边界情况_树高边界'
+   1	'应用场景_防护林评估'
+   1	'质量评估_极小样本'
+   1	'质量评估_大样本'
+   1	'特殊场景_二次项方程'
+   1	'树种泛化_红松_安徽'
+   1	'树种泛化_白桦_河南'
+   1	'树种泛化_兴安落叶松_湖南'
+   1	'树种泛化_红松_贵州'
+   1	'树种泛化_华北落叶松_云南'
+   1	'树种泛化_兴安落叶松_浙江'
+   1	'地区泛化_马尾松_山西'
+   1	'地区泛化_杉木_内蒙古'
+   1	'地区泛化_红松_山东'
+   1	'地区泛化_云南松_四川'
+   1	'地区泛化_兴安落叶松_广西'
+   1	'地区泛化_侧柏_云南'
+   1	'地区泛化_毛白杨_福建'
+   1	'地区泛化_橡胶树_广东'
+   1	'意图理解_口语化树种'
+   1	'意图理解_隐含组分'
+   1	'意图理解_单位口语化'
+   1	'意图理解_否定排除'
+   1	'意图理解_反问句'
+   1	'意图理解_比较意图'
+   1	'意图理解_范围估算'
+   1	'意图理解_植物特征识别'
+
+FIELD=gen_type PRESENT=369
+ 347	'原有'
+   8	'地区泛化'
+   8	'意图理解'
+   6	'树种泛化'
+
+ROOT META:
+meta = {'version': 'v7_with_neg', 'total_cases': 522, 'neg_added': 27}
+
+============================================================
+G. ORIGINAL V24 SHA256
+============================================================
+ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990  <PRIVATE_ROOT>/biomass_expert_v24.py

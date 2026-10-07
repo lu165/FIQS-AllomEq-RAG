@@ -1,0 +1,92 @@
+================================================================================
+A. SOURCE INTEGRITY
+================================================================================
+V24 = ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990
+FEDB = 2b2ace233067fd4b4ee04a093bde3346fbf8a7aa94e9b63ebe87e23c49b60dab
+BENCH = c40c5dfe1362f19e13a1963661e3472e973b386fdcd5038715403e5e464ce073
+PASS: all source hashes verified
+
+================================================================================
+B. GOLD COVERAGE
+================================================================================
+
+LABEL = applicable
+total                  = 434
+primary_present        = 434
+primary_missing        = 0
+primary_in_db          = 398
+primary_not_in_db      = 36
+gold_has_db_overlap    = 421
+gold_no_db_overlap     = 13
+
+LABEL = inapplicable
+total                  = 88
+primary_present        = 6
+primary_missing        = 82
+primary_in_db          = 6
+primary_not_in_db      = 82
+gold_has_db_overlap    = 6
+gold_no_db_overlap     = 82
+
+================================================================================
+C. GOLD SET SIZE DISTRIBUTION
+================================================================================
+GOLD_SIZE_0 = 82
+GOLD_SIZE_1 = 154
+GOLD_SIZE_2 = 68
+GOLD_SIZE_3 = 32
+GOLD_SIZE_4 = 28
+GOLD_SIZE_5 = 28
+GOLD_SIZE_6 = 27
+GOLD_SIZE_7 = 3
+GOLD_SIZE_8 = 12
+GOLD_SIZE_9 = 7
+GOLD_SIZE_10 = 7
+GOLD_SIZE_11 = 1
+GOLD_SIZE_12 = 10
+GOLD_SIZE_13 = 7
+GOLD_SIZE_14 = 6
+GOLD_SIZE_15 = 2
+GOLD_SIZE_16 = 4
+GOLD_SIZE_17 = 1
+GOLD_SIZE_18 = 4
+GOLD_SIZE_19 = 1
+GOLD_SIZE_20 = 6
+GOLD_SIZE_21 = 4
+GOLD_SIZE_22 = 3
+GOLD_SIZE_29 = 6
+GOLD_SIZE_30 = 1
+GOLD_SIZE_32 = 1
+GOLD_SIZE_36 = 1
+GOLD_SIZE_37 = 2
+GOLD_SIZE_41 = 2
+GOLD_SIZE_54 = 6
+GOLD_SIZE_55 = 5
+GOLD_SIZE_75 = 1
+
+================================================================================
+D. APPLICABLE WITHOUT DB GOLD
+================================================================================
+COUNT = 13
+{'test_id': 'Q0018', 'label': 'applicable', 'primary_in_db': False, 'gold_size': 1, 'gold_db_overlap_size': 0, 'used_legacy_override': False}
+{'test_id': 'Q0019', 'label': 'applicable', 'primary_in_db': False, 'gold_size': 1, 'gold_db_overlap_size': 0, 'used_legacy_override': False}
+{'test_id': 'Q0020', 'label': 'applicable', 'primary_in_db': False, 'gold_size': 1, 'gold_db_overlap_size': 0, 'used_legacy_override': False}
+{'test_id': 'Q0023', 'label': 'applicable', 'primary_in_db': False, 'gold_size': 1, 'gold_db_overlap_size': 0, 'used_legacy_override': False}
+{'test_id': 'Q0024', 'label': 'applicable', 'primary_in_db': False, 'gold_size': 1, 'gold_db_overlap_size': 0, 'used_legacy_override': False}
+{'test_id': 'Q0104', 'label': 'applicable', 'primary_in_db': False, 'gold_size': 1, 'gold_db_overlap_size': 0, 'used_legacy_override': False}
+{'test_id': 'Q0132', 'label': 'applicable', 'primary_in_db': False, 'gold_size': 1, 'gold_db_overlap_size': 0, 'used_legacy_override': False}
+{'test_id': 'Q0235', 'label': 'applicable', 'primary_in_db': False, 'gold_size': 1, 'gold_db_overlap_size': 0, 'used_legacy_override': False}
+{'test_id': 'Q0260', 'label': 'applicable', 'primary_in_db': False, 'gold_size': 1, 'gold_db_overlap_size': 0, 'used_legacy_override': False}
+{'test_id': 'Q0270', 'label': 'applicable', 'primary_in_db': False, 'gold_size': 1, 'gold_db_overlap_size': 0, 'used_legacy_override': False}
+{'test_id': 'Q0278', 'label': 'applicable', 'primary_in_db': False, 'gold_size': 1, 'gold_db_overlap_size': 0, 'used_legacy_override': False}
+{'test_id': 'Q0326', 'label': 'applicable', 'primary_in_db': False, 'gold_size': 1, 'gold_db_overlap_size': 0, 'used_legacy_override': False}
+{'test_id': 'Q0338', 'label': 'applicable', 'primary_in_db': False, 'gold_size': 1, 'gold_db_overlap_size': 0, 'used_legacy_override': False}
+
+================================================================================
+E. FINAL ASSERTIONS
+================================================================================
+APPLICABLE = 434
+INAPPLICABLE = 88
+PASS: 434/88 benchmark split verified
+PASS: original sources remain unchanged
+AUDIT_COMPLETE

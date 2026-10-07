@@ -1,0 +1,24 @@
+{
+  "implementation_status": "manuscript-aligned reconstructed implementation",
+  "historical_result_claim": false,
+  "generalized_matching": {
+    "taxonomy": {
+      "exact_species": 1.0,
+      "same_genus": 0.8,
+      "same_family": 0.5,
+      "discovery_threshold": 0.7
+    },
+    "geography": {
+      "exact_location": 1.0,
+      "adjacent_geographic_zone": 0.7,
+      "same_broader_climatic_zone": 0.5,
+      "discovery_threshold": 0.5
+    }
+  },
+  "unknown_metadata_policy": {
+    "assign_similarity_score": false,
+    "discovery_decision": null,
+    "description": "Unknown taxonomy or geography metadata are not assigned an invented generalized similarity score."
+  },
+  "important_note": "Generalized matching scores and thresholds are for candidate discovery and are not themselves the final five-constraint applicability gate."
+}

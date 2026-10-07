@@ -1,0 +1,43 @@
+================================================================================
+PUBLIC PORTABILITY + RANGE AUDIT
+================================================================================
+
+[1] ORIGINAL V24
+V24_EXISTS = True
+V24_SHA256 = ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990
+V24_UNCHANGED = True
+
+[2] PUBLIC ABSOLUTE PATHS
+ALL_CODE_ABSOLUTE_PATH_HITS = 7
+PATH_HIT = code/allomeq_rag/range_adapter_conservative_v1.py:17: <PRIVATE_ROOT>/abl_full.py
+PATH_HIT = code/biomass_expert_manuscript.py:37: sys.path.insert(0, '<PRIVATE_ROOT>')
+PATH_HIT = code/biomass_expert_manuscript.py:42: MODEL_PATH = '<PRIVATE_ROOT>/Qwen/Qwen1.5-7B-Chat'
+PATH_HIT = code/biomass_expert_manuscript.py:43: EQ_PATH    = '<PRIVATE_ROOT>/林业方程_标准化.json'
+PATH_HIT = code/biomass_expert_manuscript.py:44: TEST_PATH  = '<PRIVATE_ROOT>/最新生物量测试集构建_v7_with_neg.json'
+PATH_HIT = code/biomass_expert_manuscript.py:45: EMB_PATH   = '<PRIVATE_ROOT>/BAAI/bge-large-zh-v1___5'
+PATH_HIT = code/evaluation/historical_v24_evaluator_failed_missing_locrev.py:8: logic from <PRIVATE_ROOT>/biomass_expert_v24.py.
+
+[3] SYNTHETIC SIZE_CLASS
+SYNTHETIC_RECORDS = 20
+SIZE_CLASS_01 = 'Synthetic demonstration range only'
+SIZE_CLASS_02 = 'Synthetic demonstration range only'
+SIZE_CLASS_03 = 'Synthetic demonstration range only'
+SIZE_CLASS_04 = 'Synthetic demonstration range only'
+SIZE_CLASS_05 = 'Synthetic demonstration range only'
+SIZE_CLASS_06 = 'Synthetic demonstration range only'
+SIZE_CLASS_07 = 'Synthetic demonstration range only'
+SIZE_CLASS_08 = 'Synthetic demonstration range only'
+SIZE_CLASS_09 = 'Synthetic demonstration range only'
+SIZE_CLASS_10 = 'Synthetic demonstration range only'
+SIZE_CLASS_11 = 'Synthetic demonstration range only'
+SIZE_CLASS_12 = 'Synthetic demonstration range only'
+SIZE_CLASS_13 = 'Synthetic demonstration range only'
+SIZE_CLASS_14 = 'Synthetic demonstration range only'
+SIZE_CLASS_15 = 'Synthetic demonstration range only'
+SIZE_CLASS_16 = 'Synthetic demonstration range only'
+SIZE_CLASS_17 = 'Synthetic demonstration range only'
+SIZE_CLASS_18 = 'Synthetic demonstration range only'
+SIZE_CLASS_19 = 'Synthetic demonstration range only'
+SIZE_CLASS_20 = 'Synthetic demonstration range only'
+
+[4] RANGE PARSER

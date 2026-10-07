@@ -1,0 +1,142 @@
+========================================================================
+A. FEDB
+========================================================================
+FEDB_RECORDS = 7394
+UNIQUE_TREE_TYPES = 829
+UNIQUE_LOCATIONS = 241
+
+========================================================================
+B. TAXON CACHE
+========================================================================
+ROOT_TYPE = dict
+ROOT_KEYS = 48
+EXACT_TREE_TYPE_KEYS_MATCHED = 4
+EXACT_UNIQUE_TREE_COVERAGE = 0.48%
+EXACT_RECORD_COVERAGE = 0.11%
+
+EXACT_MATCHED_TREE_TYPES:
+3 'I针叶树'
+1 '相思树'
+1 '软阔林'
+3 '针叶树'
+
+TREE_TYPES_FOUND_ANYWHERE_IN_TAXON_CACHE = 71
+ANYWHERE_UNIQUE_TREE_COVERAGE = 8.56%
+ANYWHERE_RECORD_COVERAGE = 24.26%
+
+========================================================================
+C. LOCATION COORDINATE RESOURCES
+========================================================================
+
+LOCATION_COORDS
+RESOURCE_KEYS = 260
+EXACT_UNIQUE_LOCATION_MATCHES = 206
+EXACT_UNIQUE_LOCATION_COVERAGE = 85.48%
+EXACT_LOCATION_RECORD_COVERAGE = 91.94%
+
+LOCATION_COORDS_CACHE
+RESOURCE_KEYS = 241
+EXACT_UNIQUE_LOCATION_MATCHES = 241
+EXACT_UNIQUE_LOCATION_COVERAGE = 100.00%
+EXACT_LOCATION_RECORD_COVERAGE = 100.00%
+
+COORD_UNION
+RESOURCE_KEYS = 295
+EXACT_UNIQUE_LOCATION_MATCHES = 241
+EXACT_UNIQUE_LOCATION_COVERAGE = 100.00%
+EXACT_LOCATION_RECORD_COVERAGE = 100.00%
+
+========================================================================
+D. LOCATION GENERALIZATION CACHE
+========================================================================
+ROOT_TYPE = dict
+ROOT_KEYS = 76
+
+GENERALIZATION_LEVEL_COUNTS:
+26 '不建议泛化'
+25 '跨气候带'
+12 '同生态区'
+9 '跨生态区'
+4 '同省/同生态区'
+
+FIRST_20_GENERALIZATION_RECORDS:
+
+KEY = '榆树|帽儿山|内蒙古'
+VALUE = {'approved': False, 'confidence': 'high', 'reason': '内蒙古与帽儿山分属不同气候带与生态区，榆树分布虽广但方程跨区泛化风险大', 'generalization_level': '跨生态区'}
+
+KEY = '白桦/刺槐/辽东栎/杨树|帽儿山|山西省黄土高原'
+VALUE = {'approved': False, 'confidence': 'high', 'reason': '帽儿山属温带湿润气候，山西黄土高原属半干旱区，跨气候带且生态区差异大', 'generalization_level': '跨气候带'}
+
+KEY = '多种杨树|帽儿山|西藏'
+VALUE = {'approved': False, 'confidence': 'high', 'reason': '西藏与帽儿山分属高原气候与温带季风气候，生态区差异极大，杨树种类不同', 'generalization_level': '跨气候带'}
+
+KEY = '榆树|帽儿山|内蒙古地区'
+VALUE = {'approved': False, 'confidence': 'high', 'reason': '内蒙古属温带大陆性气候，帽儿山属温带季风气候，生态区不同且榆树分布有差异', 'generalization_level': '跨生态区'}
+
+KEY = '榆树|帽儿山|广西'
+VALUE = {'approved': False, 'confidence': 'high', 'reason': '广西属亚热带，帽儿山属温带，榆树分布虽广但跨气候带方程误差大', 'generalization_level': '跨气候带'}
+
+KEY = '亮叶桦|帽儿山|贵州'
+VALUE = {'approved': False, 'confidence': 'high', 'reason': '帽儿山在黑龙江温带，贵州属亚热带，跨气候带且亮叶桦自然分布不连续', 'generalization_level': '跨气候带'}
+
+KEY = '川滇高山栎|帽儿山|云南'
+VALUE = {'approved': False, 'confidence': 'high', 'reason': '帽儿山在黑龙江温带，云南为亚热带，川滇高山栎自然分布限于西南，跨气候带且超出分布范围', 'generalization_level': '跨气候带'}
+
+KEY = '川黄檗|帽儿山|贵州'
+VALUE = {'approved': False, 'confidence': 'high', 'reason': '帽儿山在黑龙江属温带，贵州属亚热带，川黄檗自然分布不达东北，跨气候带且超分布范围。', 'generalization_level': '跨气候带'}
+
+KEY = '川黄檗|帽儿山|湖南'
+VALUE = {'approved': False, 'confidence': 'high', 'reason': '帽儿山属温带，湖南属亚热带，川黄檗自然分布不达黑龙江，跨气候带且超出物种分布范围。', 'generalization_level': '不建议泛化'}
+
+KEY = '山桐子|帽儿山|贵州'
+VALUE = {'approved': False, 'confidence': 'high', 'reason': '贵州属亚热带，帽儿山属温带，山桐子自然分布不过长江以北，跨气候带且超出物种分布范围。', 'generalization_level': '跨气候带'}
+
+KEY = '柠条|帽儿山|乌兰布和沙漠东北缘荒漠-绿洲过渡带'
+VALUE = {'approved': False, 'confidence': 'high', 'reason': '帽儿山属温带针阔混交林，柠条为荒漠旱生灌木，两地跨气候带且超出物种自然分布范围', 'generalization_level': '不建议泛化'}
+
+KEY = '白刺|内蒙古|乌兰布和沙漠东北缘荒漠-绿洲过渡带'
+VALUE = {'approved': True, 'confidence': 'high', 'reason': '乌兰布和沙漠位于内蒙古境内，白刺为当地乡土种，属同省同生态区合理泛化。', 'generalization_level': '同省/同生态区'}
+
+KEY = '沙蒿|内蒙古|乌兰布和沙漠东北缘荒漠-绿洲过渡带'
+VALUE = {'approved': True, 'confidence': 'high', 'reason': '乌兰布和沙漠位于内蒙古境内，同属温带荒漠生态区，且沙蒿自然分布覆盖该区域。', 'generalization_level': '同省/同生态区'}
+
+KEY = '梭梭|内蒙古|乌兰布和沙漠东北缘荒漠-绿洲过渡带'
+VALUE = {'approved': True, 'confidence': 'high', 'reason': '乌兰布和沙漠位于内蒙古境内，同属温带荒漠生态区，梭梭自然分布覆盖该区域。', 'generalization_level': '同省/同生态区'}
+
+KEY = '樟子松|内蒙古|东三省(黑龙江、吉林、辽宁)'
+VALUE = {'approved': True, 'confidence': 'high', 'reason': '樟子松天然分布于大兴安岭及呼伦贝尔，东三省与内蒙古同属温带针叶林区，气候生态相似。', 'generalization_level': '同生态区'}
+
+KEY = '油桐|广西|湖南'
+VALUE = {'approved': True, 'confidence': 'high', 'reason': '湘桂同属中亚热带常绿阔叶林带，油桐自然分布连续，气候生态相似。', 'generalization_level': '同生态区'}
+
+KEY = '云南松|三峡库区|云南'
+VALUE = {'approved': False, 'confidence': 'high', 'reason': '云南与三峡库区分属不同气候带和生态区，且云南松自然分布未覆盖库区，跨区使用不合理。', 'generalization_level': '跨气候带'}
+
+KEY = '云南松|三峡库区|云南省大理市'
+VALUE = {'approved': False, 'confidence': 'high', 'reason': '云南松自然分布于西南，三峡库区属中亚热带，跨生态区且超出其分布范围', 'generalization_level': '不建议泛化'}
+
+KEY = '其他硬阔类|北京妙峰山林场|云南省'
+VALUE = {'approved': False, 'confidence': 'high', 'reason': '北京与云南分属温带与亚热带/热带，气候生态区差异极大，硬阔树种组成不同，方程不可泛化。', 'generalization_level': '跨气候带'}
+
+KEY = '其他软阔类|北京妙峰山林场|云南省'
+VALUE = {'approved': False, 'confidence': 'high', 'reason': '北京与云南分属温带与亚热带/热带，气候生态区差异极大，软阔树种组成不同，方程不可跨用。', 'generalization_level': '跨气候带'}
+
+NUMERIC_FIELDS_IN_GENERALIZATION_CACHE:
+NONE
+
+========================================================================
+E. RESOURCE SHA256
+========================================================================
+80b8a5ed8b5405f0de5ad7b38c42cd142a6c80b8be012fd7d35ed875733f3d88 <PRIVATE_ROOT>/taxon_group_cache.json
+762831b1462cfaace4b739fe2cd1873258f0499448ef71073551621684036353 <PRIVATE_ROOT>/location_coords.json
+4583511762552f40b6e3d579f868692e7a5bb766ac4024586e1f783d3ed1d18c <PRIVATE_ROOT>/location_coords_cache.json
+e5fb4f7f5a3122884b7afcea1af1a9c7f6957779b84a5a2461f9f009356d4e88 <PRIVATE_ROOT>/location_generalization_cache.json
+
+========================================================================
+F. ORIGINAL V24 INTEGRITY
+========================================================================
+RECORDED = ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990
+CURRENT  = ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990
+PASS: original v24 remains unchanged
+
+AUDIT_COMPLETE

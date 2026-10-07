@@ -1,0 +1,33 @@
+==========================================================================================
+PUBLIC SYNTHETIC RELEASE SCHEMA VALIDATION
+==========================================================================================
+
+[SOURCE]
+SOURCE_FIDF = <PROJECT_ROOT>/data_public/synthetic_example/synthetic_fidf_20.jsonl
+SOURCE_FIDF_SHA256 = c5dfeadaffef8fb8dec8f05b15bd2d00d862ea8548ff8e6a408555f097191f2b
+SOURCE_FEDB = <PROJECT_ROOT>/data_public/synthetic_example/dummy_fedb_20.json
+SOURCE_FEDB_SHA256 = b78fa67c54de24991015845dc5a8065999469537996e1a52cafc44458af257c1
+
+[RELEASE FIDF]
+OUTPUT = <PROJECT_ROOT>/github_release/data_public/synthetic_example/synthetic_fidf_20.jsonl
+COUNT = 20
+FIELDS = ['input', 'instruction', 'output', 'source']
+STRICT_SCHEMA_ALL_20 = True
+SOURCE_VALUES = ['synthetic_forestry']
+SHA256 = 3e5387be299917b33755ef2650a45f3a0ac9d64d3452705aa5ca2505d1a6f9a5
+
+[RELEASE FEDB]
+OUTPUT = <PROJECT_ROOT>/github_release/data_public/synthetic_example/dummy_fedb_20.json
+TOP_KEYS = ['equations', 'metadata']
+COUNT = 20
+REQUIRED_INTERFACE_FIELDS_ALL_20 = True
+SYNTHETIC_EXTRA_FIELD_REMOVED = True
+FEDB_FIELD_COUNT = 21
+FEDB_FIELDS = ['altitude', 'authors', 'component', 'component_original', 'data_quality', 'equation', 'equation_chain', 'forest_type', 'id', 'location', 'mean_annual_precipitation', 'mean_annual_temperature', 'parameters', 'quality_score', 'size_class', 'source', 'source_dataset', 'stand_origin', 'tags', 'tree_type', 'variables']
+SHA256 = 649c5afd644239b2f41f1cae811a6131a1532bb1953c3f9975d8c239c7e67dc2
+
+[VERDICT]
+FIDF_RELEASE_READY = True
+FEDB_RELEASE_READY = True
+SCHEMA_VALIDATION = PASS
+AUDIT_COMPLETE

@@ -1,0 +1,1249 @@
+==============================================================================
+A. FEDB BASIC COUNTS
+==============================================================================
+FEDB_TOTAL = 7394
+variables: KEY_PRESENT=7394 NONEMPTY=7394
+parameters: KEY_PRESENT=7394 NONEMPTY=7373
+equation: KEY_PRESENT=7394 NONEMPTY=7394
+size_class: KEY_PRESENT=7394 NONEMPTY=7221
+
+==============================================================================
+B. VARIABLES TYPE DISTRIBUTION
+==============================================================================
+list 7394
+
+==============================================================================
+C. VARIABLES EXACT VALUE DISTRIBUTION
+==============================================================================
+UNIQUE_VARIABLE_VALUES = 36
+ 3744	['D', 'H']
+ 2706	['D']
+  232	['D_{轮}', 'H', 'D_{围}']
+  160	['V']
+  102	['D0', 'H']
+   95	['D0']
+   77	['D_{轮}', 'H']
+   52	['D_{轮}', 'D_{围}']
+   34	['D_{围}', 'H']
+   28	['B']
+   26	['V', 'A']
+   23	['A']
+   20	['H']
+   13	['D_{1.3}', 'H', 'D_{0}']
+   12	['DBH']
+    7	['V_total']
+    7	['B_total']
+    5	['W_T']
+    5	['D0.2']
+    5	['D0.3']
+    5	['D0.3', 'H']
+    5	['D_{轮}']
+    5	['D_{0}']
+    5	['D_{围}', 'H', 'D']
+    4	['W_aboveground']
+    3	['W_干', 'W_枝', 'W_叶']
+    2	['V', 'Cc']
+    2	['H', 'D_{1.3}', 'D_{0}']
+    2	['D_{轮}', 'V', 'H', 'D_{围}']
+    2	['D', 'H', 'V']
+    1	['D', 'H', 'O']
+    1	['H', 'D']
+    1	['D_{0}', 'D_{0)-0.0048*(1.5369+0.7152*D_{0}']
+    1	['D_{0}', 'D_{0)-0.00104*(2.1791+0.6986*D_{0}']
+    1	['D_{0}', 'D_{0)-0.005617419*(2.2840+0.6975*D_{0}']
+    1	['D_{0}', 'D_{0)-0.01439*(1.1196+0.74*D_{0}']
+
+==============================================================================
+D. PARAMETERS TYPE DISTRIBUTION
+==============================================================================
+dict 7394
+
+==============================================================================
+E. FIRST 30 FEDB RECORDS
+==============================================================================
+
+RECORD 1
+id        = 'rag_0001'
+tree_type = '思茅松'
+component = '干'
+equation  = 'W=0.022*D^2.495*H^0.357'
+variables = ['D', 'H']
+parameters= {'a': 0.022, 'b': 2.495, 'c': 0.357}
+size_class= '林龄5-26年, 胸径范围：4.5-24.63cm'
+
+RECORD 2
+id        = 'rag_0002'
+tree_type = '思茅松'
+component = '枝'
+equation  = 'W=0.005*D^4.026*H^(-1.23)'
+variables = ['D', 'H']
+parameters= {'a': 0.005, 'b': 4.026, 'c': -1.23}
+size_class= '林龄5-26年, 胸径范围：4.5-24.63cm'
+
+RECORD 3
+id        = 'rag_0003'
+tree_type = '思茅松'
+component = '叶'
+equation  = 'W=0.007*D^3.712'
+variables = ['D']
+parameters= {'a': 0.007, 'b': 3.712}
+size_class= '林龄5-26年, 胸径范围：4.5-24.63cm'
+
+RECORD 4
+id        = 'rag_0004'
+tree_type = '思茅松'
+component = '皮'
+equation  = 'W=0.0001*D^3.302'
+variables = ['D']
+parameters= {'a': 0.0001, 'b': 3.302}
+size_class= '林龄5-26年, 胸径范围：4.5-24.63cm'
+
+RECORD 5
+id        = 'rag_0005'
+tree_type = '思茅松'
+component = '根'
+equation  = 'W=0.003*D^3.478*H^(-0.894)'
+variables = ['D', 'H']
+parameters= {'a': 0.003, 'b': 3.478, 'c': -0.894}
+size_class= '林龄5-26年, 胸径范围：4.5-24.63cm'
+
+RECORD 6
+id        = 'rag_0006'
+tree_type = '思茅松'
+component = '根'
+equation  = 'W=0.008*D^3.335*H^(-0.758)'
+variables = ['D', 'H']
+parameters= {'a': 0.008, 'b': 3.335, 'c': -0.758}
+size_class= '林龄5-26年, 胸径范围：4.5-24.63cm'
+
+RECORD 7
+id        = 'rag_0007'
+tree_type = '思茅松'
+component = '整株'
+equation  = 'W=0.041*D^2.969*H^(-0.222)'
+variables = ['D', 'H']
+parameters= {'a': 0.041, 'b': 2.969, 'c': -0.222}
+size_class= '林龄5-26年, 胸径范围：4.5-24.63cm'
+
+RECORD 8
+id        = 'rag_0008'
+tree_type = '华山松'
+component = '干'
+equation  = 'W=exp(1.02363*log(D^2*H) - 4.49970)'
+variables = ['D', 'H']
+parameters= {'a': 1.02363, 'b': -4.4997}
+size_class= '未指定'
+
+RECORD 9
+id        = 'rag_0009'
+tree_type = '华山松'
+component = '枝'
+equation  = 'W=exp(2.57551*log(D) - 4.08452)'
+variables = ['D']
+parameters= {'a': 2.57551, 'b': -4.08452}
+size_class= '未指定'
+
+RECORD 10
+id        = 'rag_0010'
+tree_type = '华山松'
+component = '叶'
+equation  = 'W=exp(2.75687*log(D) - 5.75891)'
+variables = ['D']
+parameters= {'a': 2.75687, 'b': -5.75891}
+size_class= '未指定'
+
+RECORD 11
+id        = 'rag_0011'
+tree_type = '华山松'
+component = '根'
+equation  = 'W=exp(0.97120*log(D^2*H) - 5.26301)'
+variables = ['D', 'H']
+parameters= {'a': 0.9712, 'b': -5.26301}
+size_class= '未指定'
+
+RECORD 12
+id        = 'rag_0012'
+tree_type = '油松'
+component = '干'
+equation  = 'W=exp(1.04086*log(D^2*H) - 4.63143)'
+variables = ['D', 'H']
+parameters= {'a': 1.04086, 'b': -4.63143}
+size_class= '未指定'
+
+RECORD 13
+id        = 'rag_0013'
+tree_type = '油松'
+component = '枝'
+equation  = 'W=exp(2.57733*log(D) - 4.08026)'
+variables = ['D']
+parameters= {'a': 2.57733, 'b': -4.08026}
+size_class= '未指定'
+
+RECORD 14
+id        = 'rag_0014'
+tree_type = '油松'
+component = '叶'
+equation  = 'W=exp(2.57495*log(D) - 5.11712)'
+variables = ['D']
+parameters= {'a': 2.57495, 'b': -5.11712}
+size_class= '未指定'
+
+RECORD 15
+id        = 'rag_0015'
+tree_type = '蒙古栎'
+component = '干'
+equation  = 'W=0.03930*(D^2*H)^0.8514'
+variables = ['D', 'H']
+parameters= {'a': 0.0393, 'b': 0.8514}
+size_class= '未指定'
+
+RECORD 16
+id        = 'rag_0016'
+tree_type = '蒙古栎'
+component = '枝'
+equation  = 'W=0.005014*(D^2*H)^3.005'
+variables = ['D', 'H']
+parameters= {'a': 0.005014, 'b': 3.005}
+size_class= '未指定'
+
+RECORD 17
+id        = 'rag_0017'
+tree_type = '蒙古栎'
+component = '叶'
+equation  = 'W=0.01749*(D^2*H)^2.1639'
+variables = ['D', 'H']
+parameters= {'a': 0.01749, 'b': 2.1639}
+size_class= '未指定'
+
+RECORD 18
+id        = 'rag_0018'
+tree_type = '锐齿槲栎'
+component = '干'
+equation  = 'W=exp(0.99253*log(D^2*H) - 3.78818)'
+variables = ['D', 'H']
+parameters= {'a': 0.99253, 'b': -3.78818}
+size_class= '未指定'
+
+RECORD 19
+id        = 'rag_0019'
+tree_type = '锐齿槲栎'
+component = '枝'
+equation  = 'W=exp(3.49934*log(D) - 6.50726)'
+variables = ['D']
+parameters= {'a': 3.49934, 'b': -6.50726}
+size_class= '未指定'
+
+RECORD 20
+id        = 'rag_0020'
+tree_type = '锐齿槲栎'
+component = '叶'
+equation  = 'W=exp(2.29344*log(D) - 4.88581)'
+variables = ['D']
+parameters= {'a': 2.29344, 'b': -4.88581}
+size_class= '未指定'
+
+RECORD 21
+id        = 'rag_0021'
+tree_type = '白桦'
+component = '干'
+equation  = 'W=0.04939*(D^2*H)^0.9011'
+variables = ['D', 'H']
+parameters= {'a': 0.04939, 'b': 0.9011}
+size_class= '未指定'
+
+RECORD 22
+id        = 'rag_0022'
+tree_type = '白桦'
+component = '枝'
+equation  = 'W=0.01417*(D^2*H)^0.7686'
+variables = ['D', 'H']
+parameters= {'a': 0.01417, 'b': 0.7686}
+size_class= '未指定'
+
+RECORD 23
+id        = 'rag_0023'
+tree_type = '白桦'
+component = '叶'
+equation  = 'W=0.0109*(D^2*H)^0.6472'
+variables = ['D', 'H']
+parameters= {'a': 0.0109, 'b': 0.6472}
+size_class= '未指定'
+
+RECORD 24
+id        = 'rag_0024'
+tree_type = '水曲柳'
+component = '干'
+equation  = 'W=0.02511*(D^2*H)^0.9271'
+variables = ['D', 'H']
+parameters= {'a': 0.02511, 'b': 0.9271}
+size_class= '未指定'
+
+RECORD 25
+id        = 'rag_0025'
+tree_type = '水曲柳'
+component = '枝'
+equation  = 'W=0.00957*(D^2*H)^0.9740'
+variables = ['D', 'H']
+parameters= {'a': 0.00957, 'b': 0.974}
+size_class= '未指定'
+
+RECORD 26
+id        = 'rag_0026'
+tree_type = '水曲柳'
+component = '叶'
+equation  = 'W=0.8725*(D^2*H)^0.2634'
+variables = ['D', 'H']
+parameters= {'a': 0.8725, 'b': 0.2634}
+size_class= '未指定'
+
+RECORD 27
+id        = 'rag_0027'
+tree_type = '其他物种'
+component = '地上'
+equation  = 'W=0.09459*(D^2*H)^0.87'
+variables = ['D', 'H']
+parameters= {'a': 0.09459, 'b': 0.87}
+size_class= '未指定'
+
+RECORD 28
+id        = 'rag_0028'
+tree_type = '杉木、马尾松、云南松、湿地松、油松'
+component = '地上'
+equation  = 'W=0.09212*D^2.09119*H^0.360120'
+variables = ['D', 'H']
+parameters= {'a': 0.09212, 'b': 2.09119, 'c': 0.36012}
+size_class= '1055株立木'
+
+RECORD 29
+id        = 'rag_0029'
+tree_type = '杉木、马尾松、云南松、湿地松、油松'
+component = '干'
+equation  = 'W=0.03729*D^1.81348*H^0.894050'
+variables = ['D', 'H']
+parameters= {'a': 0.03729, 'b': 1.81348, 'c': 0.89405}
+size_class= '1055株立木'
+
+RECORD 30
+id        = 'rag_0030'
+tree_type = '杉木、马尾松、云南松、湿地松、油松'
+component = '树冠'
+equation  = 'W=0.08028*D^2.71779*H^(-0.810690)'
+variables = ['D', 'H']
+parameters= {'a': 0.08028, 'b': 2.71779, 'c': -0.81069}
+size_class= '1055株立木'
+
+==============================================================================
+F. BENCHMARK BASIC COUNTS
+==============================================================================
+BENCHMARK_TOTAL = 522
+REQUIRES_REJECTION_TRUE = 88
+REQUIRES_REJECTION_FALSE = 434
+
+==============================================================================
+G. _calc_params TYPE DISTRIBUTION
+==============================================================================
+dict 335
+NoneType 187
+
+==============================================================================
+H. _calc_params KEY DISTRIBUTION
+==============================================================================
+INDIVIDUAL_KEYS:
+  213	'D'
+  190	'H'
+    9	'V'
+    9	'Do'
+    6	'A'
+    5	'B'
+    5	'换算关系'
+    5	'原参数'
+    5	'user_result'
+    4	'换算后参数'
+    4	'user_equation'
+    3	'原胸径系数'
+    3	'树高指数'
+    3	'原系数'
+    3	'note'
+    3	'换算后方程'
+    2	'W_above'
+    2	'W_T'
+    2	'换算说明'
+    2	'换算后系数'
+    2	'original_coefficient'
+    2	'original_exponent'
+    2	'胸径指数'
+    2	'树围换算关系'
+    2	'代入后方程'
+    2	'树围换算说明'
+    1	'W_sum'
+    1	'原胸径指数'
+    1	'换算后指数'
+    1	'建议公式'
+    1	'树围转D_轮系数'
+    1	'树围转D_轮常数'
+    1	'材积系数'
+    1	'D_轮指数'
+    1	'树高常数1'
+    1	'树高常数2'
+    1	'树高常数3'
+    1	'胸径与树围关系'
+    1	'推导说明'
+    1	'circumference_to_diameter_ratio'
+    1	'converted_coefficient'
+    1	'converted_exponent'
+    1	'原参数说明'
+    1	'代入换算后的方程'
+    1	'circumference_to_D_conversion'
+    1	'原胸径D单位'
+    1	'树围C与胸径D关系'
+    1	'换算后建议公式'
+    1	'换算后关键参数解释'
+    1	'circumference_cm'
+    1	'height_m'
+    1	'circumference_to_diameter_note'
+    1	'converted_equation'
+    1	'D_围_to_D_轮'
+    1	'原胸径D与树围C关系'
+    1	'代入原方程'
+    1	'展开对数'
+    1	'进一步整理'
+    1	'计算常数项'
+    1	'简化后参数值'
+    1	'代入推导'
+    1	'新参数'
+    1	'常数计算'
+    1	'最终公式'
+    1	'建议新方程'
+    1	'树围转胸径换算'
+    1	'代入示例'
+    1	'单位提示'
+    1	'intercept'
+    1	'slope'
+    1	'converted_note'
+    1	'原指数'
+    1	'周长换算系数'
+    1	'新系数提示'
+    1	'改写后系数'
+    1	'改写后树围指数'
+    1	'新方程'
+    1	'原公式说明'
+    1	'使用建议'
+    1	'化简后参数'
+    1	'最终可用形式'
+    1	'user_formula'
+    1	'D_围'
+    1	'H_实测'
+    1	'V_错误计算'
+    1	'user_step'
+    1	'error_type'
+    1	'error_detail'
+
+KEY_SETS:
+  180	('D', 'H')
+   78	()
+   18	('D',)
+    9	('V',)
+    5	('A',)
+    4	('D', 'Do', 'H')
+    4	('D', 'Do')
+    3	('B',)
+    3	('D', 'H', 'user_equation', 'user_result')
+    2	('B', 'W_T', 'W_above')
+    1	('W_sum',)
+    1	('A', 'D', 'Do', 'H')
+    1	('原胸径指数', '原胸径系数', '建议公式', '换算后指数', '换算后系数', '换算说明')
+    1	('D_轮指数', '材积系数', '树围转D_轮常数', '树围转D_轮系数', '树高常数1', '树高常数2', '树高常数3', '树高指数')
+    1	('原系数', '推导说明', '胸径与树围关系')
+    1	('circumference_to_diameter_ratio', 'converted_coefficient', 'converted_exponent', 'note', 'original_coefficient', 'original_exponent')
+    1	('原系数', '换算后方程', '换算后系数', '树围换算关系', '树高指数', '胸径指数')
+    1	('代入换算后的方程', '原参数说明', '换算关系')
+    1	('circumference_to_D_conversion', 'note', 'original_coefficient', 'original_exponent')
+    1	('原胸径D单位', '换算后关键参数解释', '换算后建议公式', '树围C与胸径D关系')
+    1	('circumference_cm', 'circumference_to_diameter_note', 'converted_equation', 'height_m')
+    1	('D_围_to_D_轮', 'note')
+    1	('代入原方程', '原胸径D与树围C关系', '展开对数', '换算后方程', '计算常数项', '进一步整理')
+    1	('代入后方程', '原参数', '换算关系', '简化后参数值')
+    1	('代入推导', '原参数', '常数计算', '换算关系', '新参数', '最终公式')
+    1	('原胸径系数', '建议新方程', '换算后参数', '树围换算说明')
+    1	('换算后参数', '树围转胸径换算')
+    1	('代入示例', '单位提示', '树围换算说明')
+    1	('converted_note', 'intercept', 'slope')
+    1	('原指数', '原系数', '周长换算系数', '新系数提示')
+    1	('原胸径系数', '改写后树围指数', '改写后系数', '树围换算关系', '树高指数', '胸径指数')
+    1	('原参数', '换算后参数', '换算后方程')
+    1	('原参数', '换算后参数', '换算说明', '新方程')
+    1	('使用建议', '原公式说明', '换算关系')
+    1	('代入后方程', '化简后参数', '原参数', '换算关系', '最终可用形式')
+    1	('D', 'user_equation', 'user_result')
+    1	('D', 'H', 'user_formula', 'user_result')
+    1	('D_围', 'H_实测', 'V_错误计算')
+    1	('D', 'H', 'error_detail', 'error_type', 'user_step')
+
+==============================================================================
+I. _calc_params BY requires_rejection
+==============================================================================
+requires_rejection = False
+  TOTAL = 434
+  DICT = 335
+  NONEMPTY_DICT = 257
+requires_rejection = True
+  TOTAL = 88
+  DICT = 0
+  NONEMPTY_DICT = 0
+
+==============================================================================
+J. BENCHMARK CALC PARAM EXAMPLES
+==============================================================================
+
+test_id = 'Q0001'
+requires_rejection = False
+group = '思茅松_云南普洱'
+question = '我们在普洱种了一片思茅松，现在想做树干生物量调查，有一棵树的胸径大概是15厘米，树高12米左右，能帮我们算一下它的树干有多重吗？'
+_calc_params = {'D': 15.0, 'H': 12.0}
+equation = 'W=0.022 * D^2.495 * H^0.357'
+key_points = ['二元方程', '适用胸径4.5-24.63cm']
+
+test_id = 'Q0002'
+requires_rejection = False
+group = '思茅松_云南普洱'
+question = '在景谷县，我想估算一下思茅松的树枝生物量，有一棵胸径8厘米、树高6米，应该用哪个公式？'
+_calc_params = {'D': 8.0, 'H': 6.0}
+equation = 'W=0.005 * D^4.026 * H^(-1.23)'
+key_points = ['二元方程', 'H指数为负']
+
+test_id = 'Q0003'
+requires_rejection = False
+group = '思茅松_云南普洱'
+question = '听说思茅松的叶子也能算生物量，我在云南普洱景谷县，我有棵胸径20厘米的树，没量树高，能算出来吗？'
+_calc_params = {'D': 20.0, 'H': None}
+equation = 'W=0.007 * D^3.712'
+key_points = ['一元方程', '仅需胸径']
+
+test_id = 'Q0004'
+requires_rejection = False
+group = '思茅松_云南普洱'
+question = '我们想测思茅松的根系生物量，我在云南普洱景谷县，有一棵胸径12厘米、树高10米的树，查资料发现有的公式是算根的，有的算总根，到底用哪个？'
+_calc_params = {'D': 12.0, 'H': 10.0}
+equation = 'W=0.003 * D^3.478 * H^(-0.894)'
+key_points = ['存在多个根方程（根、总根）', '此为根方程']
+
+test_id = 'Q0005'
+requires_rejection = False
+group = '思茅松_云南普洱'
+question = '一棵思茅松，胸径18厘米，树高14米，整棵树大概多重？（位于云南普洱景谷县）'
+_calc_params = {'D': 18.0, 'H': 14.0}
+equation = 'W=0.041 * D^2.969 * H^(-0.222)'
+key_points = ['整株方程']
+
+test_id = 'Q0006'
+requires_rejection = False
+group = '小秦岭_松类'
+question = '在小秦岭自然保护区，有一棵华山松，胸径10厘米，树高8米，它的树干生物量怎么算？'
+_calc_params = {'D': 10.0, 'H': 8.0}
+equation = 'W=exp(1.02363 * log(D^2 * H) - 4.49970)'
+key_points = ['对数转换方程']
+
+test_id = 'Q0007'
+requires_rejection = False
+group = '小秦岭_松类'
+question = '在小秦岭自然保护区，有一棵华山松，其中胸径数据，15厘米，想算树枝的重量，能帮忙吗？'
+_calc_params = {'D': 15.0, 'H': None}
+equation = 'W=exp(2.57551 * log(D) - 4.08452)'
+key_points = ['一元方程', '仅需胸径']
+
+test_id = 'Q0008'
+requires_rejection = False
+group = '小秦岭_松类'
+question = '在小秦岭自然保护区，有一棵华山松胸径12厘米，叶子重量能算出来吗？'
+_calc_params = {'D': 12.0, 'H': None}
+equation = 'W=exp(2.75687 * log(D) - 5.75891)'
+key_points = ['一元方程', '仅需胸径']
+
+test_id = 'Q0009'
+requires_rejection = False
+group = '小秦岭_松类'
+question = '小秦岭地区，有一棵油松，胸径18厘米，树高10米，树干生物量怎么计算？'
+_calc_params = {'D': 18.0, 'H': 10.0}
+equation = 'W=exp(1.04086 * log(D^2 * H) - 4.63143)'
+key_points = ['对数转换方程']
+
+test_id = 'Q0010'
+requires_rejection = False
+group = '小秦岭_阔叶树'
+question = '小秦岭这里，我们这有一棵蒙古栎，胸径10厘米，树高7米，想知道它的枝桠有多重，有没有公式？'
+_calc_params = {'D': 10.0, 'H': 7.0}
+equation = 'W=0.005014 * (D^2 * H)^3.005'
+key_points = ['幂函数', '变量组合']
+
+test_id = 'Q0011'
+requires_rejection = False
+group = '小秦岭_阔叶树'
+question = '小秦岭的白桦树，胸径8厘米，树高6米，它的叶子能有多重？'
+_calc_params = {'D': 8.0, 'H': 6.0}
+equation = 'W=0.0109 * (D^2 * H)^0.6472'
+key_points = ['幂函数']
+
+test_id = 'Q0012'
+requires_rejection = False
+group = '小秦岭_阔叶树'
+question = '我想算一下小秦岭水曲柳的树干生物量，胸径12厘米，树高9米，应该用什么公式？'
+_calc_params = {'D': 12.0, 'H': 9.0}
+equation = 'W=0.02511 * (D^2 * H)^0.9271'
+key_points = ['幂函数']
+
+test_id = 'Q0013'
+requires_rejection = False
+group = '小秦岭_阔叶树'
+question = '小秦岭地区，锐齿槲栎的树枝生物量，胸径14厘米，能给个公式吗？'
+_calc_params = {'D': 14.0, 'H': None}
+equation = 'W=exp(3.49934 * log(D) - 6.50726)'
+key_points = ['一元对数方程']
+
+test_id = 'Q0014'
+requires_rejection = False
+group = '紫椴_吉林蛟河'
+question = '吉林蛟河那边有片紫椴林，有一棵小树胸径才5厘米，整棵树大概多重？'
+_calc_params = {'D': 5.0, 'H': None}
+equation = 'W=0.087 * D^2.463'
+key_points = ['小树方程', '适用胸径1-10cm']
+
+test_id = 'Q0015'
+requires_rejection = False
+group = '紫椴_吉林蛟河'
+question = '一棵紫椴，胸径15厘米，想算地上部分总重，怎么算？（位于吉林省蛟河林业实验区）'
+_calc_params = {'D': 15.0, 'H': None}
+equation = 'W=0.032 * D^2.787'
+key_points = ['中树方程', '适用胸径10-20cm']
+
+test_id = 'Q0016'
+requires_rejection = False
+group = '紫椴_吉林蛟河'
+question = '我们我在吉林省蛟河林业实验区，有一棵挺大的紫椴，胸径25厘米，树干部分大概有多重？'
+_calc_params = {'D': 25.0, 'H': None}
+equation = 'W=0.017 * D^2.786'
+key_points = ['大树方程', '适用胸径≥20cm']
+
+test_id = 'Q0017'
+requires_rejection = False
+group = '紫椴_吉林蛟河'
+question = '我们这我在吉林省蛟河林业实验区，有棵紫椴，胸径大概8厘米，树高5米，想估算它的枝条重量，应该用哪个方程？是不同大小的树用不同公式吗？'
+_calc_params = {'D': 8.0, 'H': 5.0}
+equation = 'W=0.020 * D^2.172'
+key_points = ['小树方程', '隐含径级']
+
+test_id = 'Q0018'
+requires_rejection = False
+group = '亚热带常绿阔叶林_粗根'
+question = '木荷这种树，胸径20厘米，想算粗根生物量，但我不确定它属于哪个林型，只知道是南方的常绿阔叶林，能用吗？（位于浙江）'
+_calc_params = {'D': 20.0, 'H': None}
+equation = 'W=0.0627 * D^2.19'
+key_points = ['隐含林型']
+
+test_id = 'Q0019'
+requires_rejection = False
+group = '亚热带常绿阔叶林_粗根'
+question = '马尾松的粗根生物量，胸径12厘米，有公式吗？（位于浙江）'
+_calc_params = {'D': 12.0, 'H': None}
+equation = 'W=0.0099 * D^2.61'
+key_points = ['仅胸径']
+
+test_id = 'Q0020'
+requires_rejection = False
+group = '亚热带常绿阔叶林_粗根'
+question = '檫木的根重怎么算？胸径18厘米。（位于浙江）'
+_calc_params = {'D': 18.0, 'H': None}
+equation = 'W=0.0083 * D^2.81'
+key_points = ["语义匹配'根重'"]
+
+test_id = 'Q0021'
+requires_rejection = False
+group = '全国通用方程_松杉类'
+question = '我在全国通用，我有棵杉木，胸径16厘米，树高12米，想算树干生物量，查到两个公式，一个叫树干一个叫干材，有什么区别？我应该用哪个？'
+_calc_params = {'D': 16.0, 'H': 12.0}
+equation = 'W=0.03729 * D^1.81348 * H^0.89405'
+key_points = ['存在多个树干方程（树干、干材）', '此为树干方程']
+
+test_id = 'Q0022'
+requires_rejection = False
+group = '全国通用方程_松杉类'
+question = '云南松，胸径14厘米，树高10米，树冠生物量怎么算？'
+_calc_params = {'D': 14.0, 'H': 10.0}
+equation = 'W=0.08028 * D^2.71779 * H^(-0.81069)'
+key_points = ['全国通用方程']
+
+test_id = 'Q0023'
+requires_rejection = False
+group = '亚热带常绿阔叶林_粗根'
+question = '我们在南方一片常绿阔叶林里做调查，我在浙江，有一棵马尾松，想测它的粗根生物量，胸径大概12厘米，有公式吗？'
+_calc_params = {'D': 12.0}
+equation = 'W=0.0657 * D^2.36'
+key_points = ['一元方程', '变量x为胸径', '适用直径1.8-24.5mm']
+
+test_id = 'Q0024'
+requires_rejection = False
+group = '亚热带常绿阔叶林_粗根'
+question = '杉木的粗根生物量怎么算？我在浙江，有一棵胸径15厘米的，只用胸径够不够？'
+_calc_params = {'D': 15.0}
+equation = 'W=0.1070 * D^2.67'
+key_points = ['一元方程', '仅需胸径']
+
+test_id = 'Q0025'
+requires_rejection = False
+group = '黑龙江省_碳汇树种'
+question = '黑龙江那边有片红松林，一棵胸径20厘米的红松，地上部分大概多重？有只靠胸径就能算的公式吗？'
+_calc_params = {'D': 20.0, 'H': None}
+equation = 'W=0.0599 * D^2.5643'
+key_points = ['一元方程', '适用中龄林以上']
+
+test_id = 'Q0026'
+requires_rejection = False
+group = '黑龙江省_碳汇树种'
+question = '大兴安岭的兴安落叶松，胸径18厘米，树高14米，地上生物量怎么算？有没有两种公式可以选？'
+_calc_params = {'D': 18.0, 'H': 14.0}
+equation = 'W=0.0629 * (D^2 * H)^0.8763'
+key_points = ['二元方程', '存在两个方程（一元和二元）']
+
+test_id = 'Q0027'
+requires_rejection = False
+group = '黑龙江省_碳汇树种'
+question = '黑龙江的樟子松，胸径16厘米，树高12米，地上生物量大概多少？'
+_calc_params = {'D': 16.0, 'H': 12.0}
+equation = 'W=0.0579 * (D^2 * H)^0.9296'
+key_points = ['二元方程']
+
+test_id = 'Q0028'
+requires_rejection = False
+group = '黑龙江省_碳汇树种'
+question = '黑龙江那边种的银中杨，胸径14厘米，想算地上生物量，有简单点的公式吗？'
+_calc_params = {'D': 14.0, 'H': None}
+equation = 'W=0.0885 * D^2.5379'
+key_points = ['一元方程']
+
+test_id = 'Q0029'
+requires_rejection = False
+group = '黑龙江省_碳汇树种'
+question = '山杨，胸径10厘米，树高8米，我想用只靠胸径的公式，有没有？（位于黑龙江省）'
+_calc_params = {'D': 10.0, 'H': 8.0}
+equation = 'W=0.0484 * D^2.6717'
+key_points = ['一元方程', '存在二元方程可选']
+
+test_id = 'Q0030'
+requires_rejection = False
+group = '黑龙江省_碳汇树种'
+question = '黑龙江的白桦，胸径12厘米，树高9米，地上生物量用哪个公式更准？'
+_calc_params = {'D': 12.0, 'H': 9.0}
+equation = 'W=0.0253 * (D^2 * H)^1.0035'
+key_points = ['二元方程', '存在一元方程可选']
+
+test_id = 'Q0031'
+requires_rejection = False
+group = '山西省_森林生态系统'
+question = '山西的山杨，胸径8厘米，叶子生物量怎么算？'
+_calc_params = {'D': 8.0, 'H': None}
+equation = 'W=0.011 * D^1.892'
+key_points = ['一元方程', '天然次生林']
+
+test_id = 'Q0032'
+requires_rejection = False
+group = '山西省_森林生态系统'
+question = '山西山杨的树干生物量，胸径15厘米，能算出来吗？'
+_calc_params = {'D': 15.0, 'H': None}
+equation = 'W=0.145 * D^2.543'
+key_points = ['一元方程']
+
+test_id = 'Q0033'
+requires_rejection = False
+group = '山西省_森林生态系统'
+question = '山西的油松，胸径12厘米，叶子大概多重？'
+_calc_params = {'D': 12.0, 'H': None}
+equation = 'W=0.009 * D^1.754'
+key_points = ['一元方程']
+
+test_id = 'Q0034'
+requires_rejection = False
+group = '山西省_森林生态系统'
+question = '油松的树干生物量，胸径18厘米，怎么算？（位于山西省）'
+_calc_params = {'D': 18.0, 'H': None}
+equation = 'W=0.138 * D^2.621'
+key_points = ['一元方程']
+
+test_id = 'Q0035'
+requires_rejection = False
+group = '山西省_森林生态系统'
+question = '侧柏的叶子生物量，胸径10厘米，有公式吗？（位于山西省）'
+_calc_params = {'D': 10.0, 'H': None}
+equation = 'W=0.008 * D^1.832'
+key_points = ['一元方程', '人工林']
+
+test_id = 'Q0036'
+requires_rejection = False
+group = '山西省_森林生态系统'
+question = '辽东栎的叶子生物量，胸径14厘米，能算吗？（位于山西省）'
+_calc_params = {'D': 14.0, 'H': None}
+equation = 'W=0.013 * D^1.945'
+key_points = ['一元方程']
+
+test_id = 'Q0037'
+requires_rejection = False
+group = '内蒙古_森林异速生长'
+question = '内蒙古的樟子松，胸径16厘米，树枝生物量怎么算？有没有指数形式的公式？'
+_calc_params = {'D': 16.0, 'H': None}
+equation = 'W=0.6191 * exp(0.1419 * D)'
+key_points = ['指数方程', '一元']
+
+test_id = 'Q0038'
+requires_rejection = False
+group = '内蒙古_森林异速生长'
+question = '内蒙古的白桦，胸径12厘米，树高10米，树干生物量用对数公式怎么算？'
+_calc_params = {'D': 12.0, 'H': 10.0}
+equation = 'W=exp(1.286 * log(D^2 * H) - 1.104)'
+key_points = ['对数转换方程', '二元']
+
+test_id = 'Q0039'
+requires_rejection = False
+group = '内蒙古_森林异速生长'
+question = '油松的树干，胸径15厘米，树高12米，内蒙古那边的公式怎么用？'
+_calc_params = {'D': 15.0, 'H': 12.0}
+equation = 'W=exp(0.13 * log(D^2 * H) - 1.297)'
+key_points = ['对数转换方程']
+
+test_id = 'Q0040'
+requires_rejection = False
+group = '内蒙古_森林异速生长'
+question = '兴安落叶松的树干生物量，胸径14厘米，树高11米，怎么算？（位于内蒙古）'
+_calc_params = {'D': 14.0, 'H': 11.0}
+equation = 'W=0.0437 * (D^2 * H)^0.9781'
+key_points = ['幂函数', '二元']
+
+==============================================================================
+K. MISSING _calc_params QUESTION SIGNALS
+==============================================================================
+MISSING_OR_NONDICT_CALC_PARAMS = 187
+
+test_id = 'Q0045'
+requires_rejection = True
+group = '荒漠植被_乌兰布和'
+question = '乌兰布和沙漠那边的白刺，想估算地上生物量，有公式吗？（位于内蒙古）'
+
+test_id = 'Q0046'
+requires_rejection = True
+group = '荒漠植被_乌兰布和'
+question = '沙蒿的地上生物量怎么估算？（位于内蒙古）'
+
+test_id = 'Q0068'
+requires_rejection = True
+group = '云南省_林分转换'
+question = '云南松的林分，每公顷蓄积量80立方米，单位面积生物量多少？'
+
+test_id = 'Q0083'
+requires_rejection = True
+group = '北京妙峰山_灌草'
+question = '北京妙峰山的小花溲疏，林地面积大概2平方米，整株生物量怎么估算？'
+
+test_id = 'Q0084'
+requires_rejection = True
+group = '北京妙峰山_黑枣'
+question = '黑枣的整株生物量，只知道林地面积是3平方米，有公式吗？（位于北京妙峰山林场）'
+
+test_id = 'Q0095'
+requires_rejection = True
+group = '负样本_比例根系数'
+question = '江西的杉木，地上生物量60公斤，想用广西那个0.2155的系数算地下，可以吗？'
+
+test_id = 'Q0096'
+requires_rejection = True
+group = '负样本_范围外'
+question = '秦岭的栎树，胸径25厘米，用小树的公式（胸径<5cm）算合理吗？'
+
+test_id = 'Q0105'
+requires_rejection = True
+group = '负样本_径级错用'
+question = '秦岭一棵胸径25厘米的暖温带落叶阔叶树，想用胸径<10cm的公式算树干生物量，靠谱吗？'
+
+test_id = 'Q0106'
+requires_rejection = True
+group = '负样本_区域不适用'
+question = '北京的红松，胸径12厘米，想用小兴安岭的红松公式，可以吗？'
+
+test_id = 'Q0115'
+requires_rejection = True
+group = '负样本_跨区域'
+question = '北京的山杨，胸径10厘米，树高8米，想用小兴安岭的山杨公式，可以吗？'
+
+test_id = 'Q0124'
+requires_rejection = True
+group = '负样本_跨区域'
+question = '四川的云南松，胸径12厘米，想用西藏察隅的那个云南松公式，可以吗？'
+
+test_id = 'Q0125'
+requires_rejection = True
+group = '负样本_适用范围'
+question = '水曲柳幼苗的叶生物量，算出来是负数，是不是公式有问题？（位于东北地区）'
+
+test_id = 'Q0134'
+requires_rejection = True
+group = '负样本_跨区域'
+question = '四川的红松，胸径20厘米，想用东北林区的红松公式，可以吗？'
+
+test_id = 'Q0135'
+requires_rejection = True
+group = '负样本_径级适用'
+question = '安徽岭南的马尾松，胸径28厘米，想用一元方程W=0.085*D^2.459，这个方程适用这么大的树吗？'
+
+test_id = 'Q0154'
+requires_rejection = True
+group = '负样本_范围外'
+question = '北京一棵栓皮栎，胸径15厘米，用胸径3.1-10.3cm的公式合理吗？'
+
+test_id = 'Q0172'
+requires_rejection = True
+group = '负样本_林下方程用于大树'
+question = '浙江一棵青冈，胸径15厘米，想用林下青冈的幼树公式（地径2-6cm）算，可以吗？'
+
+test_id = 'Q0173'
+requires_rejection = True
+group = '负样本_跨区域'
+question = '江西的石栎，胸径9厘米，想用浙江的石栎公式，可以吗？'
+
+test_id = 'Q0198'
+requires_rejection = True
+group = '负样本_范围外'
+question = '北京一棵侧柏，胸径15厘米，想用胸径3-10.2cm的公式（W=0.16982*D^1.92），合理吗？'
+
+test_id = 'Q0208'
+requires_rejection = True
+group = '负样本_范围外'
+question = '福建的木荷，胸径40厘米，想用一元幂函数W=0.0627*D^2.6805，这个方程适用这么大的树吗？'
+
+test_id = 'Q0209'
+requires_rejection = False
+group = '正样本_基础匹配'
+question = '湖南的杉木，胸径35厘米，树高25米，求果实生物量'
+
+test_id = 'Q0210'
+requires_rejection = False
+group = '正样本_基础匹配'
+question = '湖南杉木人工林，胸径30cm，树高22m，计算地下部分（根系）生物量'
+
+test_id = 'Q0211'
+requires_rejection = False
+group = '正样本_通用方程'
+question = '湖南地区某阔叶树种，胸径20cm，树高12m，没有找到该树种的专用方程，能否使用通用方程计算干材生物量？'
+
+test_id = 'Q0212'
+requires_rejection = True
+group = '负样本_树种不匹配'
+question = '湖南的马尾松，胸径30cm，树高20m，能否使用杉木的叶生物量方程？'
+
+test_id = 'Q0213'
+requires_rejection = True
+group = '负样本_参数超范围'
+question = '湖南的杉木，胸径50厘米，树高35米，求果实生物量'
+
+test_id = 'Q0214'
+requires_rejection = True
+group = '负样本_参数超范围'
+question = '福建的木荚红豆，胸径3cm，树高4m，计算干材生物量'
+
+test_id = 'Q0215'
+requires_rejection = True
+group = '负样本_跨区域'
+question = '辽宁的红松，胸径15cm，想用黑龙江红松的干材方程 W=0.3772*D^1.793，可以吗？'
+
+test_id = 'Q0216'
+requires_rejection = True
+group = '负样本_跨区域'
+question = '广东的马尾松能用贵州的方程吗？胸径12cm，树高10m'
+
+test_id = 'Q0217'
+requires_rejection = False
+group = '复杂样本_多条件'
+question = '黑龙江的红松人工林，林龄30年，胸径12cm，求干材生物量。有多个方程可选，哪个最合适？'
+
+test_id = 'Q0218'
+requires_rejection = False
+group = '复杂样本_隐含条件'
+question = '安徽山区某常绿阔叶树种，海拔800米，土壤贫瘠，胸径15cm，求叶生物量'
+
+test_id = 'Q0219'
+requires_rejection = False
+group = '复杂样本_组分理解'
+question = '黑龙江红松，胸径10cm，需要计算所有枝条的生物量，包括各年龄的枝'
+
+test_id = 'Q0220'
+requires_rejection = False
+group = '复杂样本_方程形式理解'
+question = '贵州马尾松纸浆林，胸径12cm，树高8m，求干材生物量。我看到方程是 W=0.037148953*D^1.79208523*H^0.904601135，这和常见的 D^2*H 形式不一样？'
+
+test_id = 'Q0221'
+requires_rejection = False
+group = '复杂样本_对数方程'
+question = '黑龙江红松，胸径20cm，使用对数方程 ln(W)=-2.0627+2.1573*ln(D)，如何计算实际生物量？'
+
+test_id = 'Q0222'
+requires_rejection = False
+group = '边界样本_单变量'
+question = '安徽某阔叶树，只测量了胸径15cm，没有树高数据，能估算干材生物量吗？'
+
+test_id = 'Q0223'
+requires_rejection = False
+group = '边界样本_单变量'
+question = '安徽某阔叶树，胸径15cm，树高10m，有两个方程可用：W=0.1853*D^2.0283 和 W=0.0357*(D^2*H)^0.9223，选哪个？'
+
+test_id = 'Q0224'
+requires_rejection = False
+group = '边界样本_极值'
+question = '湖南杉木，胸径26.5cm（刚好在下限），树高20.1m（刚好在下限），求果实生物量'
+
+test_id = 'Q0225'
+requires_rejection = False
+group = '应用场景_林分调查'
+question = '贵州马尾松林分调查，需要计算每株树的总生物量（地上+地下），胸径范围5-20cm，树高5-18m，如何选择方程？'
+
+test_id = 'Q0226'
+requires_rejection = False
+group = '应用场景_碳储量'
+question = '黑龙江红松人工林碳储量评估，胸径25cm，干材生物量计算后还需要乘以含碳率吗？'
+
+test_id = 'Q0227'
+requires_rejection = False
+group = '质量控制_R方值'
+question = '安徽某树种，胸径20cm，树高12m，有两个方程：W=0.1853*D^2.0283 (R²=0.8971) 和 W=0.0357*(D^2*H)^0.9223 (R²=0.9622)，选哪个？'
+
+test_id = 'Q0228'
+requires_rejection = False
+group = '质量控制_样本量'
+question = '黑龙江红松，胸径15cm，有两个方程：样本量5的 W=0.06631997964*D^2.304221211 和样本量31的 W=0.3772*D^1.793，选哪个？'
+
+test_id = 'Q0229'
+requires_rejection = False
+group = '特殊组分_根系分级'
+question = '黑龙江红松，胸径15cm，需要分别估算大根、粗根、中等根和细根的生物量，用于养分循环研究'
+
+test_id = 'Q0230'
+requires_rejection = False
+group = '特殊组分_叶龄分级'
+question = '黑龙江红松，胸径12cm，估算叶生物量，需要区分不同叶龄吗？'
+
+test_id = 'Q0231'
+requires_rejection = True
+group = '负样本_组分错配'
+question = '黑龙江红松，胸径15cm，用干材方程 W=0.3772*D^1.793 计算果实生物量'
+
+test_id = 'Q0232'
+requires_rejection = True
+group = '负样本_单位混淆'
+question = '湖南杉木，胸径3000mm，树高2500cm，用方程 lg(W)=-3.61329+0.68994*lg(D^2*H) 计算'
+
+test_id = 'Q0233'
+requires_rejection = False
+group = '模糊查询_口语化'
+question = '我有一片贵州的松树林，差不多一手粗（约10cm），两三层楼高（约8m），想算算木材量'
+
+test_id = 'Q0234'
+requires_rejection = False
+group = '模糊查询_不确定参数'
+question = '黑龙江红松，胸径大概在12-18cm之间，求干材生物量的大致范围'
+
+test_id = 'Q0235'
+requires_rejection = False
+group = '综合场景_混交林'
+question = '湖南混交林，包含杉木（胸径25cm）和阔叶树（胸径18cm），需要计算总生物量'
+
+test_id = 'Q0236'
+requires_rejection = False
+group = '综合场景_监测对比'
+question = '贵州马尾松人工林，2015年平均胸径10cm树高7m，2025年平均胸径15cm树高11m，计算10年生长的干材生物量增量'
+
+test_id = 'Q0237'
+requires_rejection = True
+group = '错误理解_方程链'
+question = '湖南杉木没有叶生物量方程，能否先算地上部分总量，再减去干材和枝条得到叶量？'
+
+test_id = 'Q0238'
+requires_rejection = False
+group = '数据质量_置信度'
+question = '安徽某树种，使用通用方程 W=0.1853*D^2.0283 (R²=0.8971, n=21)，结果的置信区间是多少？'
+
+test_id = 'Q0248'
+requires_rejection = True
+group = '负样本_范围外'
+question = '云南的橡胶树，胸径35厘米，想用胸径20-27.7cm的公式（W=118.1557+0.3755*D^2），合理吗？'
+
+==============================================================================
+L. HISTORICAL PREDICTOR LOGIC
+==============================================================================
+
+------------------------------------------------------------------------------
+SOURCE = <PRIVATE_ROOT>/abl_full.py
+------------------------------------------------------------------------------
+MATCH_COUNT = 15
+    27:       如"用户表达了跨区域使用意图"、"胸径超出径级范围"
+    86:   D: 胸径数值(cm)，没有填null
+    87:   H: 树高数值(m)，没有填null
+    89:   diameter_type: 直径类型，只能是"胸径"/"基径"/"未知"
+    92: {"tree_species":"华山松","region":"小秦岭","component":"整株","D":15.5,"H":null,"D0":null,"diameter_type":"胸径"}"""
+   110:   "小兴安岭红松整株生物量，胸径12cm" → single
+   121: 4. 径级范围：用户胸径超出上限1.5倍以上才拒绝（树种完全匹配时适当宽松）
+   431:                    'variables'}  # variables可从equation推断
+   518:     # 胸径超径级信号
+   566:         # 格式1：胸径X-Ycm
+   568:         # 格式2：胸径X, Ycm（逗号分隔）
+   576:         # 格式6：胸径 X Y cm（空格分隔）
+   678:     confirm_phrases = ['DBH\u5c31\u662f\u80f8\u5f84','dbh\u5c31\u662f\u80f8\u5f84','D\u5c31\u662f\u80f8\u5f84',
+   679:                        '\u5c31\u662f\u80f8\u5f84\u5427','\u5c31\u662fDBH\u5427','\u76f4\u63a5\u7528\u8fd9\u4e2a\u6570',
+   687:     return {'warn':True,'message':'\u6ce8\u610f\uff1a\u60a8\u63d0\u4f9b\u7684\u662f\u57fa\u5f84\uff0c\u8be5\u65b9\u7a0b\u4f7f\u7528\u80f8\u5f84\uff08DBH\uff0c1.3m\u5904\uff09\uff0c\u4e24\u8005\u76f8\u5dee\u7ea615~30%\u3002'}
+
+------------------------------------------------------------------------------
+SOURCE = <PRIVATE_ROOT>/biomass_expert_v24.py
+------------------------------------------------------------------------------
+MATCH_COUNT = 24
+    27:       如"用户表达了跨区域使用意图"、"胸径超出径级范围"
+    58:   D: 胸径数值(cm)，没有填null
+    59:   H: 树高数值(m)，没有填null
+    61:   diameter_type: 直径类型，只能是"胸径"/"基径"/"未知"
+    64: {"tree_species":"华山松","region":"小秦岭","component":"整株","D":15.5,"H":null,"D0":null,"diameter_type":"胸径"}"""
+    82:   "小兴安岭红松整株生物量，胸径12cm" → single
+    93: 4. 径级范围：用户胸径超出上限1.5倍以上才拒绝（树种完全匹配时适当宽松）；
+    96: 6. 变量匹配：若方程含H（树高），用户有H数据时可以使用该方程，不应拒绝；
+   406:                    'variables'}  # variables可从equation推断
+   484:     # 修复A+B: 胸径超径级信号 — 仅在size_class含明确胸径关键词时触发
+   489:         # 修复A: 只有明确含胸径关键词才解析，过滤林分转换类文字描述
+   490:         has_dbh_kw = any(kw in sc_str for kw in [
+   491:             '胸径', 'D=', 'D:', 'DBH', 'dbh', '径级'])
+   492:         dr = parse_d_range(sc) if has_dbh_kw else None
+   497:                 signals.append(f'用户胸径{D}cm明显超出径级上限{dr[1]}cm（{ratio:.2f}倍）')
+   499:                 signals.append(f'用户胸径{D}cm稍超径级上限{dr[1]}cm（{ratio:.2f}倍，请判断是否可接受）')
+   540:         # 格式1：胸径X-Ycm
+   542:         # 格式2：胸径X, Ycm（逗号分隔）
+   550:         # 格式6：胸径 X Y cm（空格分隔）
+   667:     confirm_phrases = ['DBH\u5c31\u662f\u80f8\u5f84','dbh\u5c31\u662f\u80f8\u5f84','D\u5c31\u662f\u80f8\u5f84',
+   668:                        '\u5c31\u662f\u80f8\u5f84\u5427','\u5c31\u662fDBH\u5427','\u76f4\u63a5\u7528\u8fd9\u4e2a\u6570',
+   676:     return {'warn':True,'message':'\u6ce8\u610f\uff1a\u60a8\u63d0\u4f9b\u7684\u662f\u57fa\u5f84\uff0c\u8be5\u65b9\u7a0b\u4f7f\u7528\u80f8\u5f84\uff08DBH\uff0c1.3m\u5904\uff09\uff0c\u4e24\u8005\u76f8\u5dee\u7ea615~30%\u3002'}
+  1044: print('  修复A: 软信号只在size_class含明确胸径关键词时才产生径级信号')
+  1050: print('  修复D: judge prompt增加变量匹配规则')
+
+------------------------------------------------------------------------------
+SOURCE = <PRIVATE_ROOT>/biomass_expert_v17.py
+------------------------------------------------------------------------------
+MATCH_COUNT = 34
+     7: Fix2  SLOT_SYSTEM 新增 diameter_type 枚举字段（胸径/基径/未知）
+     8:       + 检索后纯代码校验：用户给的是基径但方程只用胸径时给出提示
+    35:   D: 胸径(cm)，必须为正数
+    36:   H: 树高(m)，必须为正数
+    37:   D0: 地径(cm)，必须 ≥ D（地径通常大于胸径）
+    39:     "胸径" → 用户明确说 DBH / 胸径 / 1.3m 处直径
+    55: 3. 用户胸径明显超出方程适用范围上限1.5倍以上
+    57: 如果树种相似、地区相近、参数在合理范围内，输出"采用"。
+    58: 不要因为"胸径=None"或"信息不完整"就拒绝。
+    91:                 '推荐','区别','n=','R²','样本量','单变量','双变量',
+   190:     if dt not in ('胸径', '基径', '未知'):
+   247:     dbh_kw   = ['胸径', 'DBH', 'dbh', '1.3m', '1.3米', '胸高直径']
+   251:     for kw in dbh_kw:
+   253:             return '胸径'
+   264:         if '胸径' in question or 'D=' in question:
+   299:         r'胸径[范围：:为]*\s*(\d+\.?\d*)\s*[-–~～]\s*(\d+\.?\d*)\s*(?:cm|厘米)',
+   328:     若用户提供的是基径(D0)，但候选 Top1 方程只使用胸径(DBH/D)，
+   333:       2. 方程的 variables/equation/tags 里不含 D0/d0/基径/地径
+   344:     var_str  = str(top_eq.get('variables', '') or '').lower()
+   354:     # 方程只用 D（胸径）但用户给的是基径 → 提示
+   361:             f"但该方程（{eq_display}）需要的是胸径（DBH，1.3m处直径）。"
+   363:             f"建议重新测量胸径后再计算，或查找使用基径的方程。"
+   520:     # 2. 参数非法（胸径/树高为负数或严重异常）
+   524:         return True, f'胸径为负值({D}cm)，参数无效'
+   526:         return True, f'胸径{D}cm超出物种合理上限(>300cm)'
+   528:         return True, f'树高为负值({H}m)，参数无效'
+   530:         return True, f'树高{H}m超出物种合理上限(>200m)'
+   532:     # 3. 胸径与树高严重不协调
+   535:             return True, f'胸径{D}cm但树高{H}m，严重不协调'
+   537:             return True, f'胸径{D}cm但树高{H}m，严重不协调'
+   572:                 signals.append(f'胸径{D}cm超范围上限{d_max}cm的1.5倍')
+   616:                  f"胸径={slots.get('D','?')}cm")
+  1086:   Fix2  diameter_type 枚举字段（基径/胸径/未知）
+  1090:                用户给基径但方程只用胸径 → 返回提示信息
+
+------------------------------------------------------------------------------
+SOURCE = <PRIVATE_ROOT>/dbh_matching_fixed.py
+------------------------------------------------------------------------------
+MATCH_COUNT = 46
+     8: class DBHMatchingFixed:
+    41:     def extract_dbh_from_question(self, question: str) -> float:
+    42:         """从问题中提取胸径"""
+    45:             r'胸径\s*(\d+(?:\.\d+)?)',
+    47:             r'DBH\s*[=:]?\s*(\d+(?:\.\d+)?)',
+    58:     def parse_dbh_range_from_size_class(self, size_class: str) -> tuple:
+    63:         "林龄5-26年, 胸径范围：4.5-24.63cm" → (4.5, 24.63)
+    64:         "胸径范围：5.0, 31.0cm" → (5.0, 31.0)
+    65:         "胸径范围：17.0, 40.0cm" → (17.0, 40.0)
+    73:             # 胸径范围：4.5-24.63cm
+    74:             r'胸径范围[：:]\s*(\d+(?:\.\d+)?)\s*[-~～至]\s*(\d+(?:\.\d+)?)',
+    75:             # 胸径范围：5.0, 31.0cm
+    76:             r'胸径范围[：:]\s*(\d+(?:\.\d+)?)\s*[,，]\s*(\d+(?:\.\d+)?)',
+    77:             # DBH范围：10-20cm
+    78:             r'DBH范围[：:]\s*(\d+(?:\.\d+)?)\s*[-~～至]\s*(\d+(?:\.\d+)?)',
+    90:     def calculate_dbh_score(self, user_dbh: float, dbh_min: float, dbh_max: float) -> float:
+   100:         if user_dbh is None:
+   103:         if dbh_min is None or dbh_max is None:
+   107:         if dbh_min <= user_dbh <= dbh_max:
+   111:         if user_dbh < dbh_min:
+   112:             ratio = dbh_min / user_dbh
+   114:             ratio = user_dbh / dbh_max
+   123:     def normalize_variables(self, vars_field) -> set:
+   130:     def extract_mentioned_variables(self, question: str) -> set:
+   132:         if re.search(r'胸径|DBH|直径', question, re.IGNORECASE):
+   134:         if re.search(r'树高|高度|[，,]\s*高\s*\d+', question, re.IGNORECASE):
+   152:     def evaluate_with_dbh_fixed(self):
+   163:         dbh_info_count = 0
+   164:         dbh_improved_count = 0
+   177:             # 提取用户DBH
+   178:             user_dbh = self.extract_dbh_from_question(question)
+   180:             # 提取变量
+   181:             mentioned_vars = self.extract_mentioned_variables(question)
+   203:                 # 变量分数
+   204:                 eq_vars = self.normalize_variables(eq.get('variables', []))
+   209:                 dbh_min, dbh_max = self.parse_dbh_range_from_size_class(size_class)
+   210:                 dbh_s = self.calculate_dbh_score(user_dbh, dbh_min, dbh_max)
+   213:                 if dbh_min is not None and dbh_max is not None:
+   214:                     nonlocal dbh_info_count
+   215:                     dbh_info_count += 1
+   217:                 # 综合分数：地区25% + 变量50% + 径级25%
+   218:                 return 0.25 * loc_s + 0.5 * var_s + 0.25 * dbh_s
+   220:             dbh_info_count = 0  # 重置计数
+   243:         print(f"  变量优先级: 46.7% (244/522)")
+   252:     evaluator = DBHMatchingFixed()
+   253:     evaluator.evaluate_with_dbh_fixed()
+
+------------------------------------------------------------------------------
+SOURCE = <PRIVATE_ROOT>/llm_compare_v3.py
+------------------------------------------------------------------------------
+MATCH_COUNT = 21
+     5: 对比不同LLM在参数提取环节的表现
+    51:     """提取的参数"""
+    66:     DBH: Optional[float] = None
+    82: #  LLM参数提取器（多模型实现）
+    86:     """统一的LLM参数提取接口"""
+    94:         """提取参数的统一接口"""
+    99:         return f"""你是林业生物量方程参数提取专家。请从用户问题中提取以下参数：
+   111:   "D": 胸径数值或null,
+   112:   "H": 树高数值或null,
+   120: 4. 数值：D(胸径cm)、H(树高m)、D0(地径cm)，无数值填null
+   121: 5. 如果问题是咨询类（如"怎么选方程"），参数可填Unknown
+   400:     lines.append(f"     胸径D={d_str}, 树高H={h_str}, 地径D0={d0_str}")
+   424:     is_chain, required_components = detect_chain_equation(formula)
+   431:         print(f"     需要先计算组分: {', '.join(required_components)}")
+   435:     for component in required_components:
+   529:             'DBH': extracted.DBH if extracted.DBH is not None else (extracted.D if extracted.D is not None else 0),
+   677:         # 步骤1: LLM参数提取
+   679:             print(f"[步骤1] {config.name} 参数提取中...")
+  1123:         description="ChatGLM-4-Flash参数提取 + 完整系统",
+  1129:         description="混元-Turbo参数提取 + 完整系统",
+  1135:         description="Qwen2.5-72B参数提取 + 完整系统",
+
+==============================================================================
+M. ORIGINAL V24 INTEGRITY
+==============================================================================
+CURRENT = ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990
+EXPECTED = ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990
+UNCHANGED = True
+
+AUDIT_COMPLETE

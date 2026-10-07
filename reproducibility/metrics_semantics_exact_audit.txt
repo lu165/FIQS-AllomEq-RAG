@@ -1,0 +1,68 @@
+================================================================================
+EXACT METRIC SEMANTICS AUDIT
+================================================================================
+
+========== 1. metrics.py ==========
+     1	"""
+     2	审稿人 #52 要求的可执行指标定义代码
+     3	对应论文 Section 2.5 / Equation (10)
+     4	"""
+     5	
+     6	def rejection_rate(TP, FP, FN, TN):
+     7	    """RejectionRate = N_rejected / N_query = (FN+TN)/(TP+FP+FN+TN)"""
+     8	    return (FN + TN) / (TP + FP + FN + TN)
+     9	
+    10	def safety(TP, FN):
+    11	    """Safety = Recall = TP / (TP+FN)"""
+    12	    return TP / (TP + FN)
+    13	
+    14	def coverage(TP, FP):
+    15	    """Coverage = Precision = TP / (TP+FP)"""
+    16	    return TP / (TP + FP)
+    17	
+    18	def specificity(TN, FP):
+    19	    return TN / (TN + FP)
+    20	
+    21	def npv(TN, FN):
+    22	    return TN / (TN + FN)
+    23	
+    24	def f1_score(TP, FP, FN):
+    25	    p = coverage(TP, FP)
+    26	    r = safety(TP, FN)
+    27	    return 2 * p * r / (p + r) if (p + r) > 0 else 0.0
+    28	
+    29	if __name__ == "__main__":
+    30	    # 自检示例，运行 python3 metrics.py 直接看输出
+    31	    TP, FP, FN, TN = 850, 60, 40, 50
+    32	    print("RejectionRate:", rejection_rate(TP, FP, FN, TN))
+    33	    print("Safety:", safety(TP, FN))
+    34	    print("Coverage:", coverage(TP, FP))
+    35	    print("Specificity:", specificity(TN, FP))
+    36	    print("NPV:", npv(TN, FN))
+    37	    print("F1:", f1_score(TP, FP, FN))
+
+========== 2. metrics.py SHA256 ==========
+93877bd6258fff91187a915207608a2e8dd7e86ce4b650c95c862f817440a65b  metrics.py
+
+========== 3. WHO IMPORTS / CALLS metrics.py ==========
+<PROJECT_ROOT>/metrics.py:11:    """Safety = Recall = TP / (TP+FN)"""
+<PROJECT_ROOT>/metrics.py:15:    """Coverage = Precision = TP / (TP+FP)"""
+<PROJECT_ROOT>/metrics.py:24:def f1_score(TP, FP, FN):
+<PROJECT_ROOT>/metrics.py:37:    print("F1:", f1_score(TP, FP, FN))
+
+========== 4. EXACT REPORTED METRIC COMBINATIONS ==========
+
+========== 5. TP FP FN TN DEFINITIONS / ASSIGNMENTS ==========
+<PROJECT_ROOT>/metrics.py:31:    TP, FP, FN, TN = 850, 60, 40, 50
+
+========== 6. MATHEMATICAL CHECK ==========
+Safety = 0.969
+Coverage = 0.871
+HARMONIC_F1 = 0.917390217
+HARMONIC_F1_3DP = 0.917
+MATCHES_REPORTED_0.917 = True
+
+========== 7. ORIGINAL V24 ==========
+ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990  <PRIVATE_ROOT>/biomass_expert_v24.py
+
+AUDIT_COMPLETE

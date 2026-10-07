@@ -1,0 +1,47 @@
+====================================================================================================
+SYNTHETIC EXAMPLE LOCATION AUDIT
+====================================================================================================
+
+[1] CANDIDATE DIRECTORIES
+DIR = <PROJECT_ROOT>/data_public
+DIR = <PROJECT_ROOT>/data_public/synthetic_example
+DIR = <PROJECT_ROOT>/github_release/data/synthetic_example
+DIR = <PROJECT_ROOT>/reproducibility_public
+CANDIDATE_DIRECTORY_COUNT = 4
+
+====================================================================================================
+[2] CANDIDATE DATA FILES
+====================================================================================================
+
+====================================================================================================
+[3] EXACT 20/40-RECORD CANDIDATES
+====================================================================================================
+CANDIDATE_COUNT = 2
+
+--- CANDIDATE 1 ---
+FILE = <PROJECT_ROOT>/data_public/synthetic_example/synthetic_fidf_20.jsonl
+SHA256 = c5dfeadaffef8fb8dec8f05b15bd2d00d862ea8548ff8e6a408555f097191f2b
+RECORD_PATH = $
+RECORD_COUNT = 20
+LOOKS_FIDF = True
+LOOKS_FEDB = False
+FIELDS = ['input', 'instruction', 'output', 'source', 'subdomain', 'synthetic', 'synthetic_id']
+
+--- CANDIDATE 2 ---
+FILE = <PROJECT_ROOT>/data_public/synthetic_example/dummy_fedb_20.json
+SHA256 = b78fa67c54de24991015845dc5a8065999469537996e1a52cafc44458af257c1
+RECORD_PATH = $.equations
+RECORD_COUNT = 20
+LOOKS_FIDF = False
+LOOKS_FEDB = True
+FIELDS = ['altitude', 'authors', 'component', 'component_original', 'data_quality', 'equation', 'equation_chain', 'forest_type', 'id', 'location', 'mean_annual_precipitation', 'mean_annual_temperature', 'parameters', 'quality_score', 'size_class', 'source', 'source_dataset', 'stand_origin', 'synthetic', 'tags', 'tree_type', 'variables']
+
+====================================================================================================
+[4] SUMMARY
+====================================================================================================
+FIDF_20_CANDIDATES = 1
+FIDF_20_FILE = <PROJECT_ROOT>/data_public/synthetic_example/synthetic_fidf_20.jsonl
+FEDB_20_CANDIDATES = 1
+FEDB_20_FILE = <PROJECT_ROOT>/data_public/synthetic_example/dummy_fedb_20.json
+
+AUDIT_COMPLETE

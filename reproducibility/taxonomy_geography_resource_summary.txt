@@ -1,0 +1,701 @@
+============================================================
+1. FEDB FIELD COVERAGE
+============================================================
+FEDB_TOTAL = 7394
+tree_type            KEY_PRESENT= 7394 NONEMPTY= 7394
+species              KEY_PRESENT= 0 NONEMPTY= 0
+scientific_name      KEY_PRESENT= 0 NONEMPTY= 0
+genus                KEY_PRESENT= 0 NONEMPTY= 0
+family               KEY_PRESENT= 0 NONEMPTY= 0
+taxonomy             KEY_PRESENT= 0 NONEMPTY= 0
+taxonomic_info       KEY_PRESENT= 0 NONEMPTY= 0
+location             KEY_PRESENT= 7394 NONEMPTY= 7391
+province             KEY_PRESENT= 0 NONEMPTY= 0
+region               KEY_PRESENT= 0 NONEMPTY= 0
+climate_zone         KEY_PRESENT= 0 NONEMPTY= 0
+climatic_zone        KEY_PRESENT= 0 NONEMPTY= 0
+vegetation_zone      KEY_PRESENT= 0 NONEMPTY= 0
+forest_type          KEY_PRESENT= 6633 NONEMPTY= 630
+
+============================================================
+2. UNIQUE TREE / LOCATION COUNTS
+============================================================
+UNIQUE_TREE_TYPE = 830
+UNIQUE_LOCATION = 243
+
+============================================================
+3. ACTUAL TAXONOMY RESOURCE CANDIDATES
+============================================================
+<PRIVATE_ROOT>/__pycache__/local_model_tree_matcher.cpython-310.pyc	19093 bytes
+<PRIVATE_ROOT>/__pycache__/taxon_grouper.cpython-310.pyc	8567 bytes
+<PRIVATE_ROOT>/__pycache__/tree_species_matcher.cpython-310.pyc	10890 bytes
+<PRIVATE_ROOT>/local_model_tree_matcher.py	29845 bytes
+<PRIVATE_ROOT>/local_model_tree_matcher.py.backup_fix_key	26301 bytes
+<PRIVATE_ROOT>/species_constants.py	481 bytes
+<PRIVATE_ROOT>/taxon_group_cache.json	12545 bytes
+<PRIVATE_ROOT>/taxon_grouper.py	13448 bytes
+<PRIVATE_ROOT>/tree_species_matcher.py	14661 bytes
+<PRIVATE_ROOT>/local_model_tree_matcher.py:371:            "taxonomy": "该树种的科属信息（例如：松科-松属）",
+<PRIVATE_ROOT>/local_model_tree_matcher.py:533:            # 同科属加分（简单规则）
+
+============================================================
+4. ACTUAL GEOGRAPHY RESOURCE CANDIDATES
+============================================================
+<PRIVATE_ROOT>/Location_normalizer_llm.py	11759 bytes
+<PRIVATE_ROOT>/Location_normalizer_llm.py.bak_loc2	9901 bytes
+<PRIVATE_ROOT>/__pycache__/Location_normalizer_llm.cpython-310.pyc	8946 bytes
+<PRIVATE_ROOT>/__pycache__/dynamic_location_matcher_local.cpython-310.pyc	100361 bytes
+<PRIVATE_ROOT>/__pycache__/location_capability.cpython-310.pyc	12866 bytes
+<PRIVATE_ROOT>/__pycache__/location_matcher.cpython-310.pyc	42508 bytes
+<PRIVATE_ROOT>/__pycache__/location_normalizer.cpython-310.pyc	11381 bytes
+<PRIVATE_ROOT>/__pycache__/location_scorer.cpython-310.pyc	4803 bytes
+<PRIVATE_ROOT>/build_location_coords.py	3869 bytes
+<PRIVATE_ROOT>/dynamic_location_matcher_local.py	186665 bytes
+<PRIVATE_ROOT>/dynamic_location_matcher_local.py.backup_fix_key	132106 bytes
+<PRIVATE_ROOT>/dynamic_location_matcher_local.py.bak	163143 bytes
+<PRIVATE_ROOT>/dynamic_location_matcher_local.py.bak2	163143 bytes
+<PRIVATE_ROOT>/dynamic_location_matcher_local.py.bak3	164616 bytes
+<PRIVATE_ROOT>/fix_geo_matcher.py	1041 bytes
+<PRIVATE_ROOT>/forestry_ai_system/modules/fix_location_extraction.py	1309 bytes
+<PRIVATE_ROOT>/location_capability.py	19947 bytes
+<PRIVATE_ROOT>/location_coords.json	14867 bytes
+<PRIVATE_ROOT>/location_coords_cache.json	27478 bytes
+<PRIVATE_ROOT>/location_generalization_cache.json	20461 bytes
+<PRIVATE_ROOT>/location_geocode_preprocessing.py	7076 bytes
+<PRIVATE_ROOT>/location_matcher.py	56612 bytes
+<PRIVATE_ROOT>/location_normalizer.py	16111 bytes
+<PRIVATE_ROOT>/location_scorer.py	5339 bytes
+<PRIVATE_ROOT>/regional_analysis_detailed.py	2281 bytes
+<PRIVATE_ROOT>/location_generalization_cache.json:5:    "reason": "内蒙古与帽儿山分属不同气候带与生态区，榆树分布虽广但方程跨区泛化风险大",
+<PRIVATE_ROOT>/location_generalization_cache.json:11:    "reason": "帽儿山属温带湿润气候，山西黄土高原属半干旱区，跨气候带且生态区差异大",
+<PRIVATE_ROOT>/location_generalization_cache.json:12:    "generalization_level": "跨气候带"
+<PRIVATE_ROOT>/location_generalization_cache.json:18:    "generalization_level": "跨气候带"
+<PRIVATE_ROOT>/location_generalization_cache.json:29:    "reason": "广西属亚热带，帽儿山属温带，榆树分布虽广但跨气候带方程误差大",
+<PRIVATE_ROOT>/location_generalization_cache.json:30:    "generalization_level": "跨气候带"
+<PRIVATE_ROOT>/location_generalization_cache.json:35:    "reason": "帽儿山在黑龙江温带，贵州属亚热带，跨气候带且亮叶桦自然分布不连续",
+<PRIVATE_ROOT>/location_generalization_cache.json:36:    "generalization_level": "跨气候带"
+<PRIVATE_ROOT>/location_generalization_cache.json:41:    "reason": "帽儿山在黑龙江温带，云南为亚热带，川滇高山栎自然分布限于西南，跨气候带且超出分布范围",
+<PRIVATE_ROOT>/location_generalization_cache.json:42:    "generalization_level": "跨气候带"
+<PRIVATE_ROOT>/location_generalization_cache.json:47:    "reason": "帽儿山在黑龙江属温带，贵州属亚热带，川黄檗自然分布不达东北，跨气候带且超分布范围。",
+<PRIVATE_ROOT>/location_generalization_cache.json:48:    "generalization_level": "跨气候带"
+<PRIVATE_ROOT>/location_generalization_cache.json:53:    "reason": "帽儿山属温带，湖南属亚热带，川黄檗自然分布不达黑龙江，跨气候带且超出物种分布范围。",
+<PRIVATE_ROOT>/location_generalization_cache.json:59:    "reason": "贵州属亚热带，帽儿山属温带，山桐子自然分布不过长江以北，跨气候带且超出物种分布范围。",
+<PRIVATE_ROOT>/location_generalization_cache.json:60:    "generalization_level": "跨气候带"
+<PRIVATE_ROOT>/location_generalization_cache.json:65:    "reason": "帽儿山属温带针阔混交林，柠条为荒漠旱生灌木，两地跨气候带且超出物种自然分布范围",
+<PRIVATE_ROOT>/location_generalization_cache.json:101:    "reason": "云南与三峡库区分属不同气候带和生态区，且云南松自然分布未覆盖库区，跨区使用不合理。",
+<PRIVATE_ROOT>/location_generalization_cache.json:102:    "generalization_level": "跨气候带"
+<PRIVATE_ROOT>/location_generalization_cache.json:114:    "generalization_level": "跨气候带"
+<PRIVATE_ROOT>/location_generalization_cache.json:120:    "generalization_level": "跨气候带"
+<PRIVATE_ROOT>/location_generalization_cache.json:125:    "reason": "山东属暖温带，永康属中亚热带，跨气候带且超出杨树适生核心区，方程不可直接套用。",
+<PRIVATE_ROOT>/location_generalization_cache.json:126:    "generalization_level": "跨气候带"
+<PRIVATE_ROOT>/location_generalization_cache.json:131:    "reason": "河南属暖温带，永康属中亚热带，跨气候带且杨树分布虽广但生态区差异大，不宜直接套用",
+<PRIVATE_ROOT>/location_generalization_cache.json:132:    "generalization_level": "跨气候带"
+<PRIVATE_ROOT>/location_generalization_cache.json:137:    "reason": "云南与浙江跨气候带和生态区，硬阔类树种组成差异大，方程不可直接迁移。",
+<PRIVATE_ROOT>/location_generalization_cache.json:138:    "generalization_level": "跨气候带"
+<PRIVATE_ROOT>/location_generalization_cache.json:149:    "reason": "云南与福建分属不同气候带与生态区，耳荚相思自然分布不连续，跨区使用方程误差大。",
+<PRIVATE_ROOT>/location_generalization_cache.json:161:    "reason": "河北木兰属暖温带落叶阔叶林，青海为高寒区，落叶松分布区不重叠，跨气候带差异大",
+<PRIVATE_ROOT>/location_generalization_cache.json:162:    "generalization_level": "跨气候带"
+<PRIVATE_ROOT>/location_generalization_cache.json:167:    "reason": "落叶松天然分布于东北，青海无分布，跨气候带且超出物种范围，不可用",
+<PRIVATE_ROOT>/location_generalization_cache.json:179:    "reason": "天山与四川分属温带与亚热带，云杉为不同种系，跨气候带且超出自然分布范围",
+<PRIVATE_ROOT>/location_generalization_cache.json:180:    "generalization_level": "跨气候带"
+<PRIVATE_ROOT>/location_generalization_cache.json:185:    "reason": "江苏属暖温带-北亚热带，广西属南亚热带-中亚热带，栎类分布区重叠少，跨气候带泛化不合理。",
+<PRIVATE_ROOT>/location_generalization_cache.json:186:    "generalization_level": "跨气候带"
+<PRIVATE_ROOT>/location_generalization_cache.json:191:    "reason": "红松自然分布于东北，四川无分布，跨气候带且超出物种范围，不可泛化",
+<PRIVATE_ROOT>/location_generalization_cache.json:197:    "reason": "红松自然分布于东北，四川无分布，跨气候带且超出物种范围，不可泛化。",
+<PRIVATE_ROOT>/location_generalization_cache.json:203:    "reason": "红松自然分布于东北，青海无分布且气候差异大，属跨气候带不可用",
+<PRIVATE_ROOT>/location_generalization_cache.json:209:    "reason": "红松自然分布于东北，青海属高原气候，远超其分布范围，属跨气候带滥用。",
+<PRIVATE_ROOT>/location_generalization_cache.json:215:    "reason": "红松自然分布于东北，青海无分布且气候差异极大，属跨气候带不建议泛化",
+<PRIVATE_ROOT>/location_generalization_cache.json:221:    "reason": "云南松自然分布于西南，内蒙古大兴安岭属寒温带，跨气候带且超出物种分布范围",
+<PRIVATE_ROOT>/location_generalization_cache.json:233:    "reason": "辽宁与黑龙江分属不同气候带和生态区，长白落叶松分布虽跨省但方程外推风险大，不宜直接使用。",
+<PRIVATE_ROOT>/location_generalization_cache.json:246:    "generalization_level": "跨气候带"
+<PRIVATE_ROOT>/location_generalization_cache.json:251:    "reason": "西藏与四川气候带和生态区差异大，冷杉分布区不连续，方程外推风险高。",
+<PRIVATE_ROOT>/location_generalization_cache.json:257:    "reason": "西藏与长白山跨多个气候带和生态区，且冷杉分布区不连续，方程不可泛化。",
+<PRIVATE_ROOT>/location_generalization_cache.json:269:    "reason": "秦岭暖温带与西藏高原气候带、生态区差异巨大，杨树分布区不连续，方程不可直接泛化。",
+<PRIVATE_ROOT>/location_generalization_cache.json:275:    "reason": "青岛属暖温带沿海，西藏为高原寒带/温带，气候迥异且杨树生态型差异大，跨气候带泛化不合理。",
+<PRIVATE_ROOT>/location_generalization_cache.json:276:    "generalization_level": "跨气候带"
+<PRIVATE_ROOT>/location_generalization_cache.json:281:    "reason": "半干旱区范围过大且与辽宁气候带不符，樟子松在辽宁非天然分布核心区，方程适用性差。",
+<PRIVATE_ROOT>/location_generalization_cache.json:317:    "reason": "贵州属亚热带，小兴安岭属寒温带，亮叶桦分布区不连续，跨气候带差异大",
+<PRIVATE_ROOT>/location_generalization_cache.json:323:    "reason": "福建属中亚热带，小兴安岭属寒温带，亮叶桦分布区不连续，跨气候带不可用",
+<PRIVATE_ROOT>/location_generalization_cache.json:324:    "generalization_level": "跨气候带"
+<PRIVATE_ROOT>/location_generalization_cache.json:329:    "reason": "云南松自然分布不达西藏，两地分属不同生态区与气候带，方程不可泛化。",
+<PRIVATE_ROOT>/location_generalization_cache.json:359:    "reason": "黑龙江与山西跨气候带和生态区，小黑杨分布虽广但两地生境差异大，方程外推风险高。",
+<PRIVATE_ROOT>/location_generalization_cache.json:360:    "generalization_level": "跨气候带"
+<PRIVATE_ROOT>/location_generalization_cache.json:371:    "reason": "北京与三峡库区跨气候带且栓皮栎分布区不重叠，方程不可泛化",
+<PRIVATE_ROOT>/location_generalization_cache.json:372:    "generalization_level": "跨气候带"
+<PRIVATE_ROOT>/location_generalization_cache.json:377:    "reason": "目标地点未明确，若与山西跨生态区或气候带，则泛化不合理",
+<PRIVATE_ROOT>/location_generalization_cache.json:389:    "reason": "云南与浙江分属不同气候带与生态区，落叶阔叶树组成差异大，方程不可直接跨区使用。",
+<PRIVATE_ROOT>/location_generalization_cache.json:390:    "generalization_level": "跨气候带"
+<PRIVATE_ROOT>/location_generalization_cache.json:401:    "reason": "黑河与青海跨多个气候带和生态区，落叶松分布区不连续，方程不可泛化",
+<PRIVATE_ROOT>/location_generalization_cache.json:402:    "generalization_level": "跨气候带"
+<PRIVATE_ROOT>/location_generalization_cache.json:407:    "reason": "黑河属寒温带，江苏属亚热带，落叶松自然分布不达江苏，跨气候带且超出物种分布范围。",
+<PRIVATE_ROOT>/location_generalization_cache.json:413:    "reason": "黑河属寒温带，云南属亚热带，落叶松分布区不重叠，跨气候带且超出自然分布范围。",
+<PRIVATE_ROOT>/location_generalization_cache.json:419:    "reason": "华北落叶松天然分布于华北，台湾中南部属热带/亚热带，跨气候带且超出物种自然分布范围",
+<PRIVATE_ROOT>/location_generalization_cache.json:420:    "generalization_level": "跨气候带"
+<PRIVATE_ROOT>/location_generalization_cache.json:437:    "reason": "青海与东北分属不同气候带和生态区，落叶松分布区不连续，方程不可直接跨区使用。",
+<PRIVATE_ROOT>/location_generalization_cache.json:443:    "reason": "江苏属暖温带/北亚热带，东北为中温带/寒温带，且落叶松天然分布不过黄河，跨气候带且超出自然分布范围",
+<PRIVATE_ROOT>/location_generalization_cache.json:444:    "generalization_level": "跨气候带"
+<PRIVATE_ROOT>/location_generalization_cache.json:449:    "reason": "落叶松天然分布于东北，云南无分布，跨气候带且超出物种范围，不可泛化。",
+<PRIVATE_ROOT>/location_generalization_cache.json:455:    "reason": "半干旱区与大兴安岭气候带不同，且超出樟子松典型分布核心区，泛化风险高",
+<PRIVATE_ROOT>/dynamic_location_matcher_local.py:1240:2. **邻省次之**：相邻省份的地区优于远距离地区
+<PRIVATE_ROOT>/dynamic_location_matcher_local.py:1241:3. **气候相似**：气候带相似的地区可以考虑
+<PRIVATE_ROOT>/dynamic_location_matcher_local.py:1245:- 查询"长沙市" → 优先选择"湖南湘西"（同省）> "江西省"（邻省）> "福建省"（较远）
+<PRIVATE_ROOT>/dynamic_location_matcher_local.py:2135:        prompt = f"""你是一个中国地理专家，精通山脉、河流、气候带、植被分布和行政区划。
+<PRIVATE_ROOT>/dynamic_location_matcher_local.py:2165:    - 行政区划接近度（同市 > 同省 > 邻省）
+<PRIVATE_ROOT>/dynamic_location_matcher_local.py:2171:    4. **气候带和植被类型**
+<PRIVATE_ROOT>/dynamic_location_matcher_local.py:2220:                "climate_zone": "气候带（如：寒温带）",
+<PRIVATE_ROOT>/dynamic_location_matcher_local.py:2256:                "climate_zone": "温带季风气候",
+<PRIVATE_ROOT>/dynamic_location_matcher_local.py:2478:            print(f"      气候: {query_info.get('climate_zone', '未知')}")
+
+============================================================
+5. STATIC TAXONOMY DEFINITIONS
+============================================================
+42:B. SEARCH CODE FOR EXPLICIT TAXONOMY DICTIONARIES / TABLES
+44:<PRIVATE_ROOT>/biomass_expert_v10.py:31:  tree_species: 树种名（精确树种，非属名如"松树"）
+47:<PRIVATE_ROOT>/biomass_expert_v17.py:32:  tree_species: 树种名（精确树种，非属名如"松树"）
+48:<PRIVATE_ROOT>/biomass_expert_v91.py:24:  tree_species: 树种名（精确树种，非属名如"松树"）
+53:<PRIVATE_ROOT>/BiModel主1.py:7374:                    提取树种的属名
+54:<PRIVATE_ROOT>/BiModel主1.py:7394:                    genus_keywords = {
+55:<PRIVATE_ROOT>/BiModel主1.py:7398:                    for genus in genus_keywords:
+56:<PRIVATE_ROOT>/BiModel主1.py:7416:                        tree_match = True  # 两个都是多字属名
+57:<PRIVATE_ROOT>/BiModel主1.py:7418:                        tree_match = True  # 两个都是单字属名
+59:<PRIVATE_ROOT>/BiModel主1.py:8652:                # 提取属名（简化版）
+60:<PRIVATE_ROOT>/BiModel主1.py:8654:                    genus_keywords = {
+61:<PRIVATE_ROOT>/BiModel主1.py:8658:                    for genus, keywords in genus_keywords.items():
+62:<PRIVATE_ROOT>/BiModel主1.py:8672:                    # 🔥 修改6：增加属名匹配的严格限制
+63:<PRIVATE_ROOT>/biomass_expert_v15.py:44:  tree_species: 树种名（精确树种，非属名如"松树"）
+64:<PRIVATE_ROOT>/low_score_cases_seed42.json:12:      "评语": "学生未提及学科名称源自日文及更名原因，概念演变描述与标准不符，但部分内容相关。"
+67:<PRIVATE_ROOT>/semantic_equation_matcher.py:930:            genus_keywords = {
+68:<PRIVATE_ROOT>/semantic_equation_matcher.py:941:            for genus, members in genus_keywords.items():
+69:<PRIVATE_ROOT>/semantic_equation_matcher.py:947:                genus_members = genus_keywords.get(user_genus, [])
+75:<PRIVATE_ROOT>/llm_compare_v3.py:106:  "genus": "属名（如：Pinus、Cunninghamia、Unknown）",
+76:<PRIVATE_ROOT>/llm_compare_v3.py:385:    lines.append(f"     树种={params.species}{genus_info}")
+77:<PRIVATE_ROOT>/local_model_tree_matcher.py:371:            "taxonomy": "该树种的科属信息（例如：松科-松属）",
+78:<PRIVATE_ROOT>/local_model_tree_matcher.py:533:            # 同科属加分（简单规则）
+79:<PRIVATE_ROOT>/biomass_expert_v13.py:62:  tree_species: 树种名（精确树种，非属名如"松树"）
+81:<PRIVATE_ROOT>/biomass_expert_v16.py:65:  tree_species: 树种名（精确树种，非属名如"松树"）
+82:<PRIVATE_ROOT>/biomass_expert_v171.py:35:  tree_species: 树种名（精确树种，非属名如"松树"）
+85:<PRIVATE_ROOT>/biomass_expert_v14.py:42:  tree_species: 树种名（精确树种，非属名如"松树"）
+86:<PRIVATE_ROOT>/llm_semantic_matcher.py:31:请回忆这两个树种的科属分类：
+87:<PRIVATE_ROOT>/llm_semantic_matcher.py:52:第一步：写出{user_tree}的拉丁属名是什么（如Pinus、Cunninghamia、Larix等）
+88:<PRIVATE_ROOT>/llm_semantic_matcher.py:53:第二步：写出{eq_tree}的拉丁属名是什么
+89:<PRIVATE_ROOT>/llm_semantic_matcher.py:54:第三步：比较两个拉丁属名——是否完全相同？（是/否）
+90:<PRIVATE_ROOT>/llm_semantic_matcher.py:56:  - 如果拉丁属名完全相同 → match=true
+91:<PRIVATE_ROOT>/llm_semantic_matcher.py:57:  - 如果拉丁属名不同 → match=false
+93:<PRIVATE_ROOT>/biomass_expert_v9.py:29:  tree_species: 树种名（精确树种，非属名如"松树"）
+94:<PRIVATE_ROOT>/fix_neg_and_prompt.py:145:  tree_species: 树种名（精确树种，非属名如"松树"）
+1128:G. INSPECT EMBEDDED genus_keywords EXACT SOURCE
+1149:   930:             genus_keywords = {
+1160:   941:             for genus, members in genus_keywords.items():
+1166:   947:                 genus_members = genus_keywords.get(user_genus, [])
+1257:   930:             genus_keywords = {
+1268:   941:             for genus, members in genus_keywords.items():
+1274:   947:                 genus_members = genus_keywords.get(user_genus, [])
+1381:   941:             for genus, members in genus_keywords.items():
+1387:   947:                 genus_members = genus_keywords.get(user_genus, [])
+
+============================================================
+6. STATIC GEOGRAPHY DEFINITIONS
+============================================================
+97:C. SEARCH CODE FOR PROVINCE ADJACENCY / CLIMATE ZONES
+100:<PRIVATE_ROOT>/abl_full.py:119:2. 地区适用：同气候带/相邻省份通常可参考；南北跨度极大才不适用
+101:<PRIVATE_ROOT>/abl_full.py:129:  - "四川华山松，用甘肃华山松方程" → 采用（相邻省份同树种）
+121:<PRIVATE_ROOT>/prompts.py:119:   - 完全相同 > 同省 > 邻省 > 无地点限制
+125:<PRIVATE_ROOT>/abl_x1_no_softsignal.py:119:2. 地区适用：同气候带/相邻省份通常可参考；南北跨度极大才不适用
+126:<PRIVATE_ROOT>/abl_x1_no_softsignal.py:129:  - "四川华山松，用甘肃华山松方程" → 采用（相邻省份同树种）
+127:<PRIVATE_ROOT>/FINAL_exp1_knowledge_understanding.py:83:        'expected_reasoning': '韶关属南方湿润气候，可参考邻省方程',
+129:<PRIVATE_ROOT>/FINAL_exp1_knowledge_understanding.py:177:        'expected_ranking': '本地方程优先，邻省次之',
+133:<PRIVATE_ROOT>/biomass_expert_v10.py:85:3. 地区差异是否过大（跨气候区慎用）
+145:<PRIVATE_ROOT>/location_generalization_cache.json:5:    "reason": "内蒙古与帽儿山分属不同气候带与生态区，榆树分布虽广但方程跨区泛化风险大",
+146:<PRIVATE_ROOT>/location_generalization_cache.json:11:    "reason": "帽儿山属温带湿润气候，山西黄土高原属半干旱区，跨气候带且生态区差异大",
+147:<PRIVATE_ROOT>/location_generalization_cache.json:12:    "generalization_level": "跨气候带"
+148:<PRIVATE_ROOT>/location_generalization_cache.json:18:    "generalization_level": "跨气候带"
+149:<PRIVATE_ROOT>/location_generalization_cache.json:29:    "reason": "广西属亚热带，帽儿山属温带，榆树分布虽广但跨气候带方程误差大",
+150:<PRIVATE_ROOT>/location_generalization_cache.json:30:    "generalization_level": "跨气候带"
+151:<PRIVATE_ROOT>/location_generalization_cache.json:35:    "reason": "帽儿山在黑龙江温带，贵州属亚热带，跨气候带且亮叶桦自然分布不连续",
+152:<PRIVATE_ROOT>/location_generalization_cache.json:36:    "generalization_level": "跨气候带"
+153:<PRIVATE_ROOT>/location_generalization_cache.json:41:    "reason": "帽儿山在黑龙江温带，云南为亚热带，川滇高山栎自然分布限于西南，跨气候带且超出分布范围",
+154:<PRIVATE_ROOT>/location_generalization_cache.json:42:    "generalization_level": "跨气候带"
+155:<PRIVATE_ROOT>/location_generalization_cache.json:47:    "reason": "帽儿山在黑龙江属温带，贵州属亚热带，川黄檗自然分布不达东北，跨气候带且超分布范围。",
+156:<PRIVATE_ROOT>/location_generalization_cache.json:48:    "generalization_level": "跨气候带"
+157:<PRIVATE_ROOT>/location_generalization_cache.json:53:    "reason": "帽儿山属温带，湖南属亚热带，川黄檗自然分布不达黑龙江，跨气候带且超出物种分布范围。",
+158:<PRIVATE_ROOT>/location_generalization_cache.json:59:    "reason": "贵州属亚热带，帽儿山属温带，山桐子自然分布不过长江以北，跨气候带且超出物种分布范围。",
+159:<PRIVATE_ROOT>/location_generalization_cache.json:60:    "generalization_level": "跨气候带"
+160:<PRIVATE_ROOT>/location_generalization_cache.json:65:    "reason": "帽儿山属温带针阔混交林，柠条为荒漠旱生灌木，两地跨气候带且超出物种自然分布范围",
+161:<PRIVATE_ROOT>/location_generalization_cache.json:101:    "reason": "云南与三峡库区分属不同气候带和生态区，且云南松自然分布未覆盖库区，跨区使用不合理。",
+162:<PRIVATE_ROOT>/location_generalization_cache.json:102:    "generalization_level": "跨气候带"
+163:<PRIVATE_ROOT>/location_generalization_cache.json:114:    "generalization_level": "跨气候带"
+164:<PRIVATE_ROOT>/location_generalization_cache.json:120:    "generalization_level": "跨气候带"
+165:<PRIVATE_ROOT>/location_generalization_cache.json:125:    "reason": "山东属暖温带，永康属中亚热带，跨气候带且超出杨树适生核心区，方程不可直接套用。",
+166:<PRIVATE_ROOT>/location_generalization_cache.json:126:    "generalization_level": "跨气候带"
+167:<PRIVATE_ROOT>/location_generalization_cache.json:131:    "reason": "河南属暖温带，永康属中亚热带，跨气候带且杨树分布虽广但生态区差异大，不宜直接套用",
+168:<PRIVATE_ROOT>/location_generalization_cache.json:132:    "generalization_level": "跨气候带"
+169:<PRIVATE_ROOT>/location_generalization_cache.json:137:    "reason": "云南与浙江跨气候带和生态区，硬阔类树种组成差异大，方程不可直接迁移。",
+170:<PRIVATE_ROOT>/location_generalization_cache.json:138:    "generalization_level": "跨气候带"
+171:<PRIVATE_ROOT>/location_generalization_cache.json:149:    "reason": "云南与福建分属不同气候带与生态区，耳荚相思自然分布不连续，跨区使用方程误差大。",
+172:<PRIVATE_ROOT>/location_generalization_cache.json:161:    "reason": "河北木兰属暖温带落叶阔叶林，青海为高寒区，落叶松分布区不重叠，跨气候带差异大",
+173:<PRIVATE_ROOT>/location_generalization_cache.json:162:    "generalization_level": "跨气候带"
+174:<PRIVATE_ROOT>/location_generalization_cache.json:167:    "reason": "落叶松天然分布于东北，青海无分布，跨气候带且超出物种范围，不可用",
+175:<PRIVATE_ROOT>/location_generalization_cache.json:179:    "reason": "天山与四川分属温带与亚热带，云杉为不同种系，跨气候带且超出自然分布范围",
+176:<PRIVATE_ROOT>/location_generalization_cache.json:180:    "generalization_level": "跨气候带"
+177:<PRIVATE_ROOT>/location_generalization_cache.json:185:    "reason": "江苏属暖温带-北亚热带，广西属南亚热带-中亚热带，栎类分布区重叠少，跨气候带泛化不合理。",
+178:<PRIVATE_ROOT>/location_generalization_cache.json:186:    "generalization_level": "跨气候带"
+179:<PRIVATE_ROOT>/location_generalization_cache.json:191:    "reason": "红松自然分布于东北，四川无分布，跨气候带且超出物种范围，不可泛化",
+180:<PRIVATE_ROOT>/location_generalization_cache.json:197:    "reason": "红松自然分布于东北，四川无分布，跨气候带且超出物种范围，不可泛化。",
+181:<PRIVATE_ROOT>/location_generalization_cache.json:203:    "reason": "红松自然分布于东北，青海无分布且气候差异大，属跨气候带不可用",
+182:<PRIVATE_ROOT>/location_generalization_cache.json:209:    "reason": "红松自然分布于东北，青海属高原气候，远超其分布范围，属跨气候带滥用。",
+183:<PRIVATE_ROOT>/location_generalization_cache.json:215:    "reason": "红松自然分布于东北，青海无分布且气候差异极大，属跨气候带不建议泛化",
+184:<PRIVATE_ROOT>/location_generalization_cache.json:221:    "reason": "云南松自然分布于西南，内蒙古大兴安岭属寒温带，跨气候带且超出物种分布范围",
+185:<PRIVATE_ROOT>/location_generalization_cache.json:233:    "reason": "辽宁与黑龙江分属不同气候带和生态区，长白落叶松分布虽跨省但方程外推风险大，不宜直接使用。",
+186:<PRIVATE_ROOT>/location_generalization_cache.json:246:    "generalization_level": "跨气候带"
+187:<PRIVATE_ROOT>/location_generalization_cache.json:251:    "reason": "西藏与四川气候带和生态区差异大，冷杉分布区不连续，方程外推风险高。",
+188:<PRIVATE_ROOT>/location_generalization_cache.json:257:    "reason": "西藏与长白山跨多个气候带和生态区，且冷杉分布区不连续，方程不可泛化。",
+189:<PRIVATE_ROOT>/location_generalization_cache.json:269:    "reason": "秦岭暖温带与西藏高原气候带、生态区差异巨大，杨树分布区不连续，方程不可直接泛化。",
+190:<PRIVATE_ROOT>/location_generalization_cache.json:275:    "reason": "青岛属暖温带沿海，西藏为高原寒带/温带，气候迥异且杨树生态型差异大，跨气候带泛化不合理。",
+191:<PRIVATE_ROOT>/location_generalization_cache.json:276:    "generalization_level": "跨气候带"
+192:<PRIVATE_ROOT>/location_generalization_cache.json:281:    "reason": "半干旱区范围过大且与辽宁气候带不符，樟子松在辽宁非天然分布核心区，方程适用性差。",
+193:<PRIVATE_ROOT>/location_generalization_cache.json:317:    "reason": "贵州属亚热带，小兴安岭属寒温带，亮叶桦分布区不连续，跨气候带差异大",
+194:<PRIVATE_ROOT>/location_generalization_cache.json:323:    "reason": "福建属中亚热带，小兴安岭属寒温带，亮叶桦分布区不连续，跨气候带不可用",
+195:<PRIVATE_ROOT>/location_generalization_cache.json:324:    "generalization_level": "跨气候带"
+196:<PRIVATE_ROOT>/location_generalization_cache.json:329:    "reason": "云南松自然分布不达西藏，两地分属不同生态区与气候带，方程不可泛化。",
+197:<PRIVATE_ROOT>/location_generalization_cache.json:359:    "reason": "黑龙江与山西跨气候带和生态区，小黑杨分布虽广但两地生境差异大，方程外推风险高。",
+198:<PRIVATE_ROOT>/location_generalization_cache.json:360:    "generalization_level": "跨气候带"
+199:<PRIVATE_ROOT>/location_generalization_cache.json:371:    "reason": "北京与三峡库区跨气候带且栓皮栎分布区不重叠，方程不可泛化",
+200:<PRIVATE_ROOT>/location_generalization_cache.json:372:    "generalization_level": "跨气候带"
+201:<PRIVATE_ROOT>/location_generalization_cache.json:377:    "reason": "目标地点未明确，若与山西跨生态区或气候带，则泛化不合理",
+202:<PRIVATE_ROOT>/location_generalization_cache.json:389:    "reason": "云南与浙江分属不同气候带与生态区，落叶阔叶树组成差异大，方程不可直接跨区使用。",
+203:<PRIVATE_ROOT>/location_generalization_cache.json:390:    "generalization_level": "跨气候带"
+204:<PRIVATE_ROOT>/location_generalization_cache.json:401:    "reason": "黑河与青海跨多个气候带和生态区，落叶松分布区不连续，方程不可泛化",
+205:<PRIVATE_ROOT>/location_generalization_cache.json:402:    "generalization_level": "跨气候带"
+206:<PRIVATE_ROOT>/location_generalization_cache.json:407:    "reason": "黑河属寒温带，江苏属亚热带，落叶松自然分布不达江苏，跨气候带且超出物种分布范围。",
+207:<PRIVATE_ROOT>/location_generalization_cache.json:413:    "reason": "黑河属寒温带，云南属亚热带，落叶松分布区不重叠，跨气候带且超出自然分布范围。",
+208:<PRIVATE_ROOT>/location_generalization_cache.json:419:    "reason": "华北落叶松天然分布于华北，台湾中南部属热带/亚热带，跨气候带且超出物种自然分布范围",
+209:<PRIVATE_ROOT>/location_generalization_cache.json:420:    "generalization_level": "跨气候带"
+210:<PRIVATE_ROOT>/location_generalization_cache.json:437:    "reason": "青海与东北分属不同气候带和生态区，落叶松分布区不连续，方程不可直接跨区使用。",
+211:<PRIVATE_ROOT>/location_generalization_cache.json:443:    "reason": "江苏属暖温带/北亚热带，东北为中温带/寒温带，且落叶松天然分布不过黄河，跨气候带且超出自然分布范围",
+212:<PRIVATE_ROOT>/location_generalization_cache.json:444:    "generalization_level": "跨气候带"
+213:<PRIVATE_ROOT>/location_generalization_cache.json:449:    "reason": "落叶松天然分布于东北，云南无分布，跨气候带且超出物种范围，不可泛化。",
+214:<PRIVATE_ROOT>/location_generalization_cache.json:455:    "reason": "半干旱区与大兴安岭气候带不同，且超出樟子松典型分布核心区，泛化风险高",
+215:<PRIVATE_ROOT>/biomass_expert_v24.py:91:2. 地区适用：同气候带/相邻省份通常可参考；南北跨度极大才不适用
+216:<PRIVATE_ROOT>/biomass_expert_v24.py:104:  - "四川华山松，用甘肃华山松方程" → 采用（相邻省份同树种）
+259:<PRIVATE_ROOT>/abl_abl3_noroute.py:119:2. 地区适用：同气候带/相邻省份通常可参考；南北跨度极大才不适用
+260:<PRIVATE_ROOT>/abl_abl3_noroute.py:129:  - "四川华山松，用甘肃华山松方程" → 采用（相邻省份同树种）
+263:<PRIVATE_ROOT>/biomass_expert_v23.py:91:2. 地区适用：同气候带/相邻省份通常可参考；南北跨度极大才不适用
+264:<PRIVATE_ROOT>/biomass_expert_v23.py:101:  - "四川华山松，用甘肃华山松方程" → 采用（相邻省份同树种）
+266:<PRIVATE_ROOT>/unified_selector.py:32:地区隔着几千公里、跨越完全不同的气候带（比如"帽儿山"配到"山西省黄土
+374:<PRIVATE_ROOT>/semantic_equation_matcher.py:652:  "climate_zone": "气候带（如：温带季风、亚热带季风等）",
+375:<PRIVATE_ROOT>/semantic_equation_matcher.py:653:  "vegetation_zone": "植被带（如：温带针叶林、亚热带常绿阔叶林等）",
+376:<PRIVATE_ROOT>/semantic_equation_matcher.py:707:    同时考虑：地理距离、气候相似性、植被带相似性
+377:<PRIVATE_ROOT>/semantic_equation_matcher.py:740:气候带：{query_geo.get('climate_zone','未知')}
+378:<PRIVATE_ROOT>/semantic_equation_matcher.py:741:植被带：{query_geo.get('vegetation_zone','未知')}
+379:<PRIVATE_ROOT>/semantic_equation_matcher.py:750:2. 地理距离最近（同省同山系 > 同省不同山系 > 邻省）
+380:<PRIVATE_ROOT>/semantic_equation_matcher.py:818:    print(f"  气候带: {query_geo.get('climate_zone')}")
+381:<PRIVATE_ROOT>/semantic_equation_matcher.py:819:    print(f"  植被带: {query_geo.get('vegetation_zone')}")
+382:<PRIVATE_ROOT>/biomass_expert_v11.py:74:3. 地区差异是否过大（跨气候区慎用）
+420:<PRIVATE_ROOT>/detailed_failed_report/detailed_failed_cases_20260312_011851.json:1563:          "response": "根据您的要求，作为林业生物量估算专家，我将使用一个适用于陕西地区山杨的通用生物量异速生长方程进行计算。\n\n### 1. 数值答案\n该胸径为 **20 cm** 的山杨样木，其树干（干材）生物量估算结果为：\n**85.2 kg** （干重）\n\n### 2. 使用的方程\n我采用山杨（*Populus davidiana*）的树干生物量通用异速生长方程，其形式为幂函数：\n\\[\nW_s = a \\times (D)^b\n\\]\n其中：\n* \\( W_s \\) = 树干生物量（kg，干重）\n* \\( D \\) = 胸径（cm）\n* \\( a \\) = 方程系数，值为 **0.0581**\n* \\( b \\) = 方程指数，值为 **2.4765**\n\n### 3. 方程的适用范围\n* **树种**： 山杨（*Populus davidiana*）\n* **地区**： 中国北方温带地区（该方程参数综合了多个北方地区的研究，适用于陕西等类似气候区）\n* **胸径范围**： 通常适用于 **5 cm 至 50 cm** 的立木。20 cm 在此范围内，估算结果可靠。\n* **生物量组分**： 仅针对树干",
+421:<PRIVATE_ROOT>/detailed_failed_report/detailed_failed_cases_20260312_011851.json:1652:          "reference_response": "根据您的要求，作为林业生物量估算专家，我将使用一个适用于陕西地区山杨的通用生物量异速生长方程进行计算。\n\n### 1. 数值答案\n该胸径为 **20 cm** 的山杨样木，其树干（干材）生物量估算结果为：\n**85.2 kg** （干重）\n\n### 2. 使用的方程\n我采用山杨（*Populus davidiana*）的树干生物量通用异速生长方程，其形式为幂函数：\n\\[\nW_s = a \\times (D)^b\n\\]\n其中：\n* \\( W_s \\) = 树干生物量（kg，干重）\n* \\( D \\) = 胸径（cm）\n* \\( a \\) = 方程系数，值为 **0.0581**\n* \\( b \\) = 方程指数，值为 **2.4765**\n\n### 3. 方程的适用范围\n* **树种**： 山杨（*Populus davidiana*）\n* **地区**： 中国北方温带地区（该方程参数综合了多个北方地区的研究，适用于陕西等类似气候区）\n* **胸径范围**： 通常适用于 **5 cm 至 50 cm** 的立木。20 cm 在此范围内，估算结果可靠。\n* **生物量组分**： 仅针对树干"
+422:<PRIVATE_ROOT>/detailed_failed_report/detailed_failed_cases_20260312_011851.json:6161:          "response": "### 1. 数值答案  \n该杉木人工林样木的干材总量为 **0.095 m³**（约合 **57.0 kg**，基于杉木基本密度 0.6 g/cm³ 换算）。  \n\n---\n\n### 2. 使用的方程  \n采用 **杉木一元材积方程**（适用于湖南地区）：  \n\\[\nV = 0.000062761 \\times D^{1.855149} \\times H^{0.956824}\n\\]  \n其中：  \n- \\( V \\)：树干材积（m³）  \n- \\( D \\)：胸径（cm）  \n- \\( H \\)：树高（m）  \n\n---\n\n### 3. 方程的适用范围  \n- **树种**：杉木（*Cunninghamia lanceolata*）  \n- **地区**：中国湖南及类似气候区的人工林  \n- **胸径范围**：5–50 cm  \n- **树高范围**：5–30 m  \n- **适用条件**：适用于健康、未受损的杉木单木材积估算，尤其适合人工林。  \n\n---\n\n### 4. 数据来源  \n方程来源于《湖南杉木人工林单木材积模型研究》（作者：李明等，发表于《林业科学》2015年，第51",
+423:<PRIVATE_ROOT>/detailed_failed_report/detailed_failed_cases_20260312_011851.json:6257:          "reference_response": "### 1. 数值答案  \n该杉木人工林样木的干材总量为 **0.095 m³**（约合 **57.0 kg**，基于杉木基本密度 0.6 g/cm³ 换算）。  \n\n---\n\n### 2. 使用的方程  \n采用 **杉木一元材积方程**（适用于湖南地区）：  \n\\[\nV = 0.000062761 \\times D^{1.855149} \\times H^{0.956824}\n\\]  \n其中：  \n- \\( V \\)：树干材积（m³）  \n- \\( D \\)：胸径（cm）  \n- \\( H \\)：树高（m）  \n\n---\n\n### 3. 方程的适用范围  \n- **树种**：杉木（*Cunninghamia lanceolata*）  \n- **地区**：中国湖南及类似气候区的人工林  \n- **胸径范围**：5–50 cm  \n- **树高范围**：5–30 m  \n- **适用条件**：适用于健康、未受损的杉木单木材积估算，尤其适合人工林。  \n\n---\n\n### 4. 数据来源  \n方程来源于《湖南杉木人工林单木材积模型研究》（作者：李明等，发表于《林业科学》2015年，第51"
+424:<PRIVATE_ROOT>/detailed_failed_report/detailed_failed_cases_20260312_011851.json:8771:          "response": "根据您提供的东北柞树参数（胸径D=35cm，树高H=18m），计算其立木材积如下：\n\n### 1. 数值答案\n**立木材积 V ≈ 1.15 m³**\n\n### 2. 使用的方程\n采用东北地区常用的 **二元材积方程（山本式）**，其形式为：\n\\[\nV = a \\times D^b \\times H^c\n\\]\n其中：\n- \\( V \\)：立木材积（m³）\n- \\( D \\)：胸径（cm）\n- \\( H \\)：树高（m）\n- \\( a, b, c \\)：方程参数\n\n对于东北地区的**柞树（蒙古栎等）**，参考《黑龙江省主要树种二元材积表》（黑龙江省林业厅，1990年）中柞树类的通用参数：\n\\[\na = 0.00005276, \\quad b = 1.88211, \\quad c = 0.96960\n\\]\n该方程基于大量实测数据拟合，适用于东北地区天然柞树林。\n\n### 3. 方程的适用范围\n- **树种**：东北地区主要柞树类（如蒙古栎、辽东栎等）。\n- **地区**：黑龙江省及东北相似气候区。\n- **胸径范围**：5–50 cm（35cm在适用范围内）。\n- **树高范围**：5–2",
+425:<PRIVATE_ROOT>/detailed_failed_report/detailed_failed_cases_20260312_011851.json:8865:          "reference_response": "根据您提供的东北柞树参数（胸径D=35cm，树高H=18m），计算其立木材积如下：\n\n### 1. 数值答案\n**立木材积 V ≈ 1.15 m³**\n\n### 2. 使用的方程\n采用东北地区常用的 **二元材积方程（山本式）**，其形式为：\n\\[\nV = a \\times D^b \\times H^c\n\\]\n其中：\n- \\( V \\)：立木材积（m³）\n- \\( D \\)：胸径（cm）\n- \\( H \\)：树高（m）\n- \\( a, b, c \\)：方程参数\n\n对于东北地区的**柞树（蒙古栎等）**，参考《黑龙江省主要树种二元材积表》（黑龙江省林业厅，1990年）中柞树类的通用参数：\n\\[\na = 0.00005276, \\quad b = 1.88211, \\quad c = 0.96960\n\\]\n该方程基于大量实测数据拟合，适用于东北地区天然柞树林。\n\n### 3. 方程的适用范围\n- **树种**：东北地区主要柞树类（如蒙古栎、辽东栎等）。\n- **地区**：黑龙江省及东北相似气候区。\n- **胸径范围**：5–50 cm（35cm在适用范围内）。\n- **树高范围**：5–2"
+426:<PRIVATE_ROOT>/detailed_failed_report/detailed_failed_cases_20260312_011851.json:10112:          "response": "### 1. 数值答案  \n该加拿大杨（I-214品种）样木的干总量（树干生物量）为 **184.2 kg**（约0.184吨）。  \n\n---\n\n### 2. 使用的方程  \n采用**一元生物量方程**（基于胸径D）：  \n\\[\nW_s = a \\times D^b\n\\]  \n其中：  \n- \\( W_s \\) = 树干生物量（kg）  \n- \\( D \\) = 胸径（cm）  \n- \\( a, b \\) = 方程参数  \n\n**参数值**（针对加拿大杨I-214品种）：  \n\\[\na = 0.091, \\quad b = 2.348\n\\]  \n方程形式：  \n\\[\nW_s = 0.091 \\times D^{2.348}\n\\]  \n\n---\n\n### 3. 方程的适用范围  \n- **树种**：加拿大杨（Populus × canadensis）I-214品种（欧美杨无性系）。  \n- **地区**：适用于中国黄淮海平原及类似气候区（如山东）。  \n- **胸径范围**：5–50 cm（该方程在10–30 cm范围内精度较高）。  \n- **数据基础**：基于伐倒样木的实测数据，采",
+427:<PRIVATE_ROOT>/detailed_failed_report/detailed_failed_cases_20260312_011851.json:10203:          "reference_response": "### 1. 数值答案  \n该加拿大杨（I-214品种）样木的干总量（树干生物量）为 **184.2 kg**（约0.184吨）。  \n\n---\n\n### 2. 使用的方程  \n采用**一元生物量方程**（基于胸径D）：  \n\\[\nW_s = a \\times D^b\n\\]  \n其中：  \n- \\( W_s \\) = 树干生物量（kg）  \n- \\( D \\) = 胸径（cm）  \n- \\( a, b \\) = 方程参数  \n\n**参数值**（针对加拿大杨I-214品种）：  \n\\[\na = 0.091, \\quad b = 2.348\n\\]  \n方程形式：  \n\\[\nW_s = 0.091 \\times D^{2.348}\n\\]  \n\n---\n\n### 3. 方程的适用范围  \n- **树种**：加拿大杨（Populus × canadensis）I-214品种（欧美杨无性系）。  \n- **地区**：适用于中国黄淮海平原及类似气候区（如山东）。  \n- **胸径范围**：5–50 cm（该方程在10–30 cm范围内精度较高）。  \n- **数据基础**：基于伐倒样木的实测数据，采"
+428:<PRIVATE_ROOT>/biomass_expert_v13.py:105:原因：树种匹配，相邻省份方程可参考
+429:<PRIVATE_ROOT>/explore_output.txt:648:  [跳过] 第666行解析失败: "extrapolation_risk": "不同海拔、气候带的生物量分配模式可能存在显著差异",
+430:<PRIVATE_ROOT>/explore_output.txt:1797:  [跳过] 第1820行解析失败: "extrapolation_risk": "不同海拔、气候带的生物量分配模式可能存在显著差异",
+431:<PRIVATE_ROOT>/explore_output.txt:4164:  [跳过] 第4229行解析失败: "geographic_distance": "中等（相邻省份）",
+432:<PRIVATE_ROOT>/explore_output.txt:12605:  [跳过] 第12918行解析失败: "材积方程具有强地域性，即使相邻省份也可能有显著差异",
+434:<PRIVATE_ROOT>/llm_query_expander.py:30:- 最后：气候/植被带（如"暖温带"、"全国"）
+435:<PRIVATE_ROOT>/abl_abl2_nometa.py:119:2. 地区适用：同气候带/相邻省份通常可参考；南北跨度极大才不适用
+436:<PRIVATE_ROOT>/abl_abl2_nometa.py:129:  - "四川华山松，用甘肃华山松方程" → 采用（相邻省份同树种）
+437:<PRIVATE_ROOT>/biomass_ablation_study.py:119:2. 地区适用：同气候带/相邻省份通常可参考；南北跨度极大才不适用
+438:<PRIVATE_ROOT>/biomass_ablation_study.py:129:  - "四川华山松，用甘肃华山松方程" → 采用（相邻省份同树种）
+476:<PRIVATE_ROOT>/dynamic_location_matcher_local.py:1240:2. **邻省次之**：相邻省份的地区优于远距离地区
+477:<PRIVATE_ROOT>/dynamic_location_matcher_local.py:1241:3. **气候相似**：气候带相似的地区可以考虑
+478:<PRIVATE_ROOT>/dynamic_location_matcher_local.py:1245:- 查询"长沙市" → 优先选择"湖南湘西"（同省）> "江西省"（邻省）> "福建省"（较远）
+479:<PRIVATE_ROOT>/dynamic_location_matcher_local.py:2135:        prompt = f"""你是一个中国地理专家，精通山脉、河流、气候带、植被分布和行政区划。
+480:<PRIVATE_ROOT>/dynamic_location_matcher_local.py:2165:    - 行政区划接近度（同市 > 同省 > 邻省）
+481:<PRIVATE_ROOT>/dynamic_location_matcher_local.py:2171:    4. **气候带和植被类型**
+482:<PRIVATE_ROOT>/dynamic_location_matcher_local.py:2220:                "climate_zone": "气候带（如：寒温带）",
+483:<PRIVATE_ROOT>/dynamic_location_matcher_local.py:2256:                "climate_zone": "温带季风气候",
+484:<PRIVATE_ROOT>/dynamic_location_matcher_local.py:2478:            print(f"      气候: {query_info.get('climate_zone', '未知')}")
+499:<PRIVATE_ROOT>/abl_abl1_nojudge.py:119:2. 地区适用：同气候带/相邻省份通常可参考；南北跨度极大才不适用
+500:<PRIVATE_ROOT>/abl_abl1_nojudge.py:129:  - "四川华山松，用甘肃华山松方程" → 采用（相邻省份同树种）
+501:<PRIVATE_ROOT>/biomass_expert_v23_backup.py:91:2. 地区适用：同气候带/相邻省份通常可参考；南北跨度极大才不适用
+502:<PRIVATE_ROOT>/biomass_expert_v23_backup.py:101:  - "四川华山松，用甘肃华山松方程" → 采用（相邻省份同树种）
+522:<PRIVATE_ROOT>/patch1_llm_reasoning.py:94:        # 4. 地理推理（气候带→省份）
+523:<PRIVATE_ROOT>/patch1_llm_reasoning.py:122:                info['climate_zone'] = climate
+540:<PRIVATE_ROOT>/biomass_expert_v21.py:91:2. 地区适用：同气候带/相邻省份通常可参考；南北跨度极大才不适用
+541:<PRIVATE_ROOT>/biomass_expert_v21.py:101:  - "四川华山松，用甘肃华山松方程" → 采用（相邻省份同树种）
+553:<PRIVATE_ROOT>/llm_reasoning_wrapper.py:130:4. 如果地区不匹配，气候带是否相似？
+554:<PRIVATE_ROOT>/llm_reasoning_wrapper.py:184:            return '气候带不匹配'
+555:<PRIVATE_ROOT>/abl_x2_softsignal_minmeta.py:119:2. 地区适用：同气候带/相邻省份通常可参考；南北跨度极大才不适用
+556:<PRIVATE_ROOT>/abl_x2_softsignal_minmeta.py:129:  - "四川华山松，用甘肃华山松方程" → 采用（相邻省份同树种）
+580:<PRIVATE_ROOT>/abl_abl4_norerank.py:119:2. 地区适用：同气候带/相邻省份通常可参考；南北跨度极大才不适用
+581:<PRIVATE_ROOT>/abl_abl4_norerank.py:129:  - "四川华山松，用甘肃华山松方程" → 采用（相邻省份同树种）
+582:<PRIVATE_ROOT>/林业方程问答对.json:666:        "extrapolation_risk": "不同海拔、气候带的生物量分配模式可能存在显著差异",
+583:<PRIVATE_ROOT>/林业方程问答对.json:1820:        "extrapolation_risk": "不同海拔、气候带的生物量分配模式可能存在显著差异",
+584:<PRIVATE_ROOT>/林业方程问答对.json:4229:        "geographic_distance": "中等（相邻省份）",
+585:<PRIVATE_ROOT>/林业方程问答对.json:12918:            "材积方程具有强地域性，即使相邻省份也可能有显著差异",
+586:<PRIVATE_ROOT>/biomass_expert_v20.py:76:2. 地区适用：地区不同但树种相同时，要考虑生态距离；相邻省份或同气候带通常可参考；南北跨度大（如东北对海南）才属于明显不适用
+603:<PRIVATE_ROOT>/apply_fixes.py:212:   - 完全相同 > 同省 > 邻省 > 无地点限制
+653:climate_zone         KEY_PRESENT= 0 NONEMPTY= 0
+655:vegetation_zone      KEY_PRESENT= 0 NONEMPTY= 0
+
+============================================================
+7. EMBEDDED genus_keywords SOURCE ONLY
+============================================================
+======================================================================
+
+================================================================================
+<PRIVATE_ROOT>/semantic_equation_matcher.py around line 930
+================================================================================
+   915:             if are_same_province(eq.get('location','').strip(), matched_loc)
+   916:         ]
+   917:         print(f"  {matched_loc}: 省份等价匹配 {len(loc_equations)} 个方程")
+   918:         
+   919:         # 树种过滤（增强版：支持落叶松属级匹配）
+   920:         if tree_type:
+   921:             # 精确匹配
+   922:             tree_exact = [
+   923:                 eq for eq in loc_equations
+   924:                 if tree_type in eq.get('tree_type', '') or 
+   925:                    eq.get('tree_type', '') in tree_type
+   926:             ]
+   927:             
+   928:             # 属级匹配（如"兴安落叶松"→"落叶松"属）
+   929:             tree_genus = []
+   930:             genus_keywords = {
+   931:                 '落叶松': ['落叶松', '兴安落叶松', '华北落叶松', '日本落叶松'],
+   932:                 '云杉': ['云杉', '红皮云杉', '青杄', '白杄', '油麦吊云杉'],
+   933:                 '松': ['油松', '马尾松', '红松', '樟子松', '思茅松', '华山松'],
+   934:                 '冷杉': ['冷杉', '岷江冷杉', '川滇冷杉'],
+   935:                 '桦': ['白桦', '黑桦', '红桦', '硕桦'],
+   936:                 '杨': ['山杨', '毛白杨', '小叶杨'],
+   937:             }
+   938:             
+   939:             # 找到查询树种所属的属
+   940:             user_genus = None
+   941:             for genus, members in genus_keywords.items():
+   942:                 if any(m in tree_type or tree_type in m for m in members):
+   943:                     user_genus = genus
+   944:                     break
+   945:             
+   946:             if user_genus and not tree_exact:
+   947:                 genus_members = genus_keywords.get(user_genus, [])
+   948:                 tree_genus = [
+   949:                     eq for eq in loc_equations
+   950:                     if any(m in eq.get('tree_type', '') or 
+   951:                            eq.get('tree_type', '') in m 
+   952:                            for m in genus_members)
+   953:                 ]
+   954:                 if tree_genus:
+   955:                     print(f"  [属级匹配] {tree_type} → {user_genus}属，找到{len(tree_genus)}个方程")
+   956:             
+   957:             # 优先精确，其次属级
+   958:             if tree_exact:
+   959:                 loc_equations = tree_exact
+   960:             elif tree_genus:
+   961:                 loc_equations = tree_genus
+   962:             # 若都没有，保留所有方程（让LLM决定）
+   963:         
+   964:         # 组分过滤
+   965:         if component and loc_equations:
+   966:             comp_filtered = [
+   967:                 eq for eq in loc_equations
+   968:                 if component in eq.get('component', '') or
+   969:                    eq.get('component', '') in component
+   970:             ]
+   971:             if comp_filtered:
+   972:                 loc_equations = comp_filtered
+   973:         
+   974:         # 添加泛化元数据
+   975:         for eq in loc_equations:
+   976:             eq_copy = eq.copy()
+   977:             eq_copy['_location_generalized'] = True
+   978:             eq_copy['_original_location'] = query_location
+   979:             eq_copy['_matched_location'] = matched_loc
+   980:             eq_copy['_distance_km'] = distance_km
+   981:             eq_copy['_similarity_score'] = similarity
+   982:             eq_copy['_location_reason'] = (
+   983:                 f"查询地区'{query_location}'在方程库中无直接匹配，"
+   984:                 f"根据地理相似性选择'{matched_loc}'（距离约{distance_km}km）。"
+   985:                 f"{reason}"
+   986:             )
+   987:             result_equations.append(eq_copy)
+   988:         
+   989:         print(f"  {matched_loc}: 找到 {len(loc_equations)} 个方程")
+   990:         
+   991:         # 找到足够的方程就停止
+   992:         if len(result_equations) >= 5:
+   993:             break
+   994:     
+   995:     print(f"\n[地区泛化] ✅ 共找到 {len(result_equations)} 个泛化方程")
+   996:     return result_equations
+   997: 
+   998: 
+   999: # ============================================================
+  1000: # 更新 SemanticEquationMatcher.match() 加入地区泛化
+  1001: # ============================================================
+  1002: 
+  1003: # 在原有 match 方法的 Step5 之后添加 Step6
+  1004: def match_with_location_generalization(
+  1005:     self, query: str, top_k: int = 20
+  1006: ) -> Optional[Dict]:
+  1007:     """
+  1008:     完整匹配流程（含地区泛化 + 树种泛化）
+  1009:     """
+  1010:     print(f"\n{'='*60}")
+  1011:     print(f"[完整语义匹配] 查询: {query}")
+  1012:     print(f"{'='*60}")
+  1013:     
+  1014:     # Step 1: LLM提取实体
+  1015:     print("\n[Step1] LLM提取实体...")
+  1016:     entities = extract_entities(
+  1017:         query,
+  1018:         self.db_locations[:30],
+  1019:         self.db_trees[:30],
+  1020:         self.db_components
+  1021:     )
+  1022:     location  = entities.get('location', '')
+  1023:     tree_type = entities.get('tree_type', '')
+  1024:     component = entities.get('component', '')
+  1025:     D = entities.get('D')
+  1026:     H = entities.get('H')
+  1027:     
+  1028:     # 实体提取静默
+  1029:     
+
+================================================================================
+<PRIVATE_ROOT>/semantic_equation_matcher.py around line 941
+================================================================================
+   926:             ]
+   927:             
+   928:             # 属级匹配（如"兴安落叶松"→"落叶松"属）
+   929:             tree_genus = []
+   930:             genus_keywords = {
+   931:                 '落叶松': ['落叶松', '兴安落叶松', '华北落叶松', '日本落叶松'],
+   932:                 '云杉': ['云杉', '红皮云杉', '青杄', '白杄', '油麦吊云杉'],
+   933:                 '松': ['油松', '马尾松', '红松', '樟子松', '思茅松', '华山松'],
+   934:                 '冷杉': ['冷杉', '岷江冷杉', '川滇冷杉'],
+   935:                 '桦': ['白桦', '黑桦', '红桦', '硕桦'],
+   936:                 '杨': ['山杨', '毛白杨', '小叶杨'],
+   937:             }
+   938:             
+   939:             # 找到查询树种所属的属
+   940:             user_genus = None
+   941:             for genus, members in genus_keywords.items():
+   942:                 if any(m in tree_type or tree_type in m for m in members):
+   943:                     user_genus = genus
+   944:                     break
+   945:             
+   946:             if user_genus and not tree_exact:
+   947:                 genus_members = genus_keywords.get(user_genus, [])
+   948:                 tree_genus = [
+   949:                     eq for eq in loc_equations
+   950:                     if any(m in eq.get('tree_type', '') or 
+   951:                            eq.get('tree_type', '') in m 
+   952:                            for m in genus_members)
+   953:                 ]
+   954:                 if tree_genus:
+   955:                     print(f"  [属级匹配] {tree_type} → {user_genus}属，找到{len(tree_genus)}个方程")
+   956:             
+   957:             # 优先精确，其次属级
+   958:             if tree_exact:
+   959:                 loc_equations = tree_exact
+   960:             elif tree_genus:
+   961:                 loc_equations = tree_genus
+   962:             # 若都没有，保留所有方程（让LLM决定）
+   963:         
+   964:         # 组分过滤
+   965:         if component and loc_equations:
+   966:             comp_filtered = [
+   967:                 eq for eq in loc_equations
+   968:                 if component in eq.get('component', '') or
+   969:                    eq.get('component', '') in component
+   970:             ]
+   971:             if comp_filtered:
+   972:                 loc_equations = comp_filtered
+   973:         
+   974:         # 添加泛化元数据
+   975:         for eq in loc_equations:
+   976:             eq_copy = eq.copy()
+   977:             eq_copy['_location_generalized'] = True
+   978:             eq_copy['_original_location'] = query_location
+   979:             eq_copy['_matched_location'] = matched_loc
+   980:             eq_copy['_distance_km'] = distance_km
+   981:             eq_copy['_similarity_score'] = similarity
+   982:             eq_copy['_location_reason'] = (
+   983:                 f"查询地区'{query_location}'在方程库中无直接匹配，"
+   984:                 f"根据地理相似性选择'{matched_loc}'（距离约{distance_km}km）。"
+   985:                 f"{reason}"
+   986:             )
+   987:             result_equations.append(eq_copy)
+   988:         
+   989:         print(f"  {matched_loc}: 找到 {len(loc_equations)} 个方程")
+   990:         
+   991:         # 找到足够的方程就停止
+   992:         if len(result_equations) >= 5:
+   993:             break
+   994:     
+   995:     print(f"\n[地区泛化] ✅ 共找到 {len(result_equations)} 个泛化方程")
+   996:     return result_equations
+   997: 
+   998: 
+   999: # ============================================================
+  1000: # 更新 SemanticEquationMatcher.match() 加入地区泛化
+  1001: # ============================================================
+  1002: 
+  1003: # 在原有 match 方法的 Step5 之后添加 Step6
+  1004: def match_with_location_generalization(
+  1005:     self, query: str, top_k: int = 20
+  1006: ) -> Optional[Dict]:
+  1007:     """
+  1008:     完整匹配流程（含地区泛化 + 树种泛化）
+  1009:     """
+  1010:     print(f"\n{'='*60}")
+  1011:     print(f"[完整语义匹配] 查询: {query}")
+  1012:     print(f"{'='*60}")
+  1013:     
+  1014:     # Step 1: LLM提取实体
+  1015:     print("\n[Step1] LLM提取实体...")
+  1016:     entities = extract_entities(
+  1017:         query,
+  1018:         self.db_locations[:30],
+  1019:         self.db_trees[:30],
+  1020:         self.db_components
+  1021:     )
+  1022:     location  = entities.get('location', '')
+  1023:     tree_type = entities.get('tree_type', '')
+  1024:     component = entities.get('component', '')
+  1025:     D = entities.get('D')
+  1026:     H = entities.get('H')
+  1027:     
+  1028:     # 实体提取静默
+  1029:     
+  1030:     # Step 2: BGE向量检索
+  1031:     print("\n[Step2] BGE向量检索...")
+  1032:     query_text = " ".join(filter(None, [
+  1033:         f"地区:{location}" if location else "",
+  1034:         f"树种:{tree_type}" if tree_type else "",
+  1035:         f"组分:{component}" if component else "",
+  1036:     ])) or query
+  1037:     
+  1038:     top_results = self.index.search(query_text, top_k=top_k)
+  1039:     candidates = [(self.equations[idx], score) for idx, score in top_results]
+  1040: 
+
+================================================================================
+<PRIVATE_ROOT>/semantic_equation_matcher.py around line 947
+================================================================================
+   932:                 '云杉': ['云杉', '红皮云杉', '青杄', '白杄', '油麦吊云杉'],
+   933:                 '松': ['油松', '马尾松', '红松', '樟子松', '思茅松', '华山松'],
+   934:                 '冷杉': ['冷杉', '岷江冷杉', '川滇冷杉'],
+   935:                 '桦': ['白桦', '黑桦', '红桦', '硕桦'],
+   936:                 '杨': ['山杨', '毛白杨', '小叶杨'],
+   937:             }
+   938:             
+   939:             # 找到查询树种所属的属
+   940:             user_genus = None
+   941:             for genus, members in genus_keywords.items():
+   942:                 if any(m in tree_type or tree_type in m for m in members):
+   943:                     user_genus = genus
+   944:                     break
+   945:             
+   946:             if user_genus and not tree_exact:
+   947:                 genus_members = genus_keywords.get(user_genus, [])
+   948:                 tree_genus = [
+   949:                     eq for eq in loc_equations
+   950:                     if any(m in eq.get('tree_type', '') or 
+   951:                            eq.get('tree_type', '') in m 
+   952:                            for m in genus_members)
+   953:                 ]
+   954:                 if tree_genus:
+   955:                     print(f"  [属级匹配] {tree_type} → {user_genus}属，找到{len(tree_genus)}个方程")
+   956:             
+   957:             # 优先精确，其次属级
+   958:             if tree_exact:
+   959:                 loc_equations = tree_exact
+   960:             elif tree_genus:
+   961:                 loc_equations = tree_genus
+   962:             # 若都没有，保留所有方程（让LLM决定）
+   963:         
+   964:         # 组分过滤
+   965:         if component and loc_equations:
+   966:             comp_filtered = [
+   967:                 eq for eq in loc_equations
+   968:                 if component in eq.get('component', '') or
+   969:                    eq.get('component', '') in component
+   970:             ]
+   971:             if comp_filtered:
+   972:                 loc_equations = comp_filtered
+   973:         
+   974:         # 添加泛化元数据
+   975:         for eq in loc_equations:
+   976:             eq_copy = eq.copy()
+   977:             eq_copy['_location_generalized'] = True
+   978:             eq_copy['_original_location'] = query_location
+   979:             eq_copy['_matched_location'] = matched_loc
+   980:             eq_copy['_distance_km'] = distance_km
+   981:             eq_copy['_similarity_score'] = similarity
+   982:             eq_copy['_location_reason'] = (
+   983:                 f"查询地区'{query_location}'在方程库中无直接匹配，"
+   984:                 f"根据地理相似性选择'{matched_loc}'（距离约{distance_km}km）。"
+   985:                 f"{reason}"
+   986:             )
+   987:             result_equations.append(eq_copy)
+   988:         
+   989:         print(f"  {matched_loc}: 找到 {len(loc_equations)} 个方程")
+   990:         
+   991:         # 找到足够的方程就停止
+   992:         if len(result_equations) >= 5:
+   993:             break
+   994:     
+   995:     print(f"\n[地区泛化] ✅ 共找到 {len(result_equations)} 个泛化方程")
+   996:     return result_equations
+   997: 
+   998: 
+   999: # ============================================================
+  1000: # 更新 SemanticEquationMatcher.match() 加入地区泛化
+  1001: # ============================================================
+  1002: 
+  1003: # 在原有 match 方法的 Step5 之后添加 Step6
+  1004: def match_with_location_generalization(
+  1005:     self, query: str, top_k: int = 20
+  1006: ) -> Optional[Dict]:
+  1007:     """
+  1008:     完整匹配流程（含地区泛化 + 树种泛化）
+  1009:     """
+  1010:     print(f"\n{'='*60}")
+  1011:     print(f"[完整语义匹配] 查询: {query}")
+  1012:     print(f"{'='*60}")
+  1013:     
+  1014:     # Step 1: LLM提取实体
+  1015:     print("\n[Step1] LLM提取实体...")
+  1016:     entities = extract_entities(
+  1017:         query,
+  1018:         self.db_locations[:30],
+  1019:         self.db_trees[:30],
+  1020:         self.db_components
+  1021:     )
+  1022:     location  = entities.get('location', '')
+  1023:     tree_type = entities.get('tree_type', '')
+  1024:     component = entities.get('component', '')
+  1025:     D = entities.get('D')
+  1026:     H = entities.get('H')
+  1027:     
+  1028:     # 实体提取静默
+  1029:     
+  1030:     # Step 2: BGE向量检索
+  1031:     print("\n[Step2] BGE向量检索...")
+  1032:     query_text = " ".join(filter(None, [
+  1033:         f"地区:{location}" if location else "",
+  1034:         f"树种:{tree_type}" if tree_type else "",
+  1035:         f"组分:{component}" if component else "",
+  1036:     ])) or query
+  1037:     
+  1038:     top_results = self.index.search(query_text, top_k=top_k)
+
+============================================================
+8. ORIGINAL V24 SHA256
+============================================================
+ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990  <PRIVATE_ROOT>/biomass_expert_v24.py

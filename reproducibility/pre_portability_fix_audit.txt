@@ -1,0 +1,110 @@
+==========================================================================================
+PRE-PORTABILITY FIX AUDIT
+==========================================================================================
+
+[1] ORIGINAL V24
+V24_SHA256 = ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990
+V24_UNCHANGED = True
+
+[2] RANGE PARSER
+PROBE = '5-10' => None
+PROBE = '5–10' => None
+PROBE = '5~10' => None
+PROBE = '5～10' => None
+PROBE = '5-10 cm' => (5.0, 10.0)
+PROBE = '5～10 cm' => (5.0, 10.0)
+PROBE = '胸径5-10cm' => (5.0, 10.0)
+PROBE = '胸径 5～10 cm' => (5.0, 10.0)
+PROBE = 'DBH 5-10 cm' => (5.0, 10.0)
+PROBE = 'D:5-10' => None
+PROBE = 'D=5-10' => None
+PROBE = '<10 cm' => None
+PROBE = '>20 cm' => None
+PROBE = '≤10 cm' => None
+PROBE = '≥20 cm' => None
+PROBE = '5' => None
+PROBE = '' => None
+PROBE = None => None
+SUCCESSFUL_PROBE_COUNT = 5
+
+[3] MANUSCRIPT COPY PATH CONTEXT
+
+PATH_LINE = 37
+   0034: """
+   0035: 
+   0036: import json, sys, re, torch, math
+>> 0037: sys.path.insert(0, '<PRIVATE_ROOT>')
+   0038: from transformers import AutoModelForCausalLM, AutoTokenizer
+   0039: from sentence_transformers import SentenceTransformer
+   0040: import numpy as np
+
+PATH_LINE = 42
+   0039: from sentence_transformers import SentenceTransformer
+   0040: import numpy as np
+   0041: 
+>> 0042: MODEL_PATH = '<PRIVATE_ROOT>/Qwen/Qwen1.5-7B-Chat'
+   0043: EQ_PATH    = '<PRIVATE_ROOT>/林业方程_标准化.json'
+   0044: TEST_PATH  = '<PRIVATE_ROOT>/最新生物量测试集构建_v7_with_neg.json'
+   0045: EMB_PATH   = '<PRIVATE_ROOT>/BAAI/bge-large-zh-v1___5'
+
+PATH_LINE = 43
+   0040: import numpy as np
+   0041: 
+   0042: MODEL_PATH = '<PRIVATE_ROOT>/Qwen/Qwen1.5-7B-Chat'
+>> 0043: EQ_PATH    = '<PRIVATE_ROOT>/林业方程_标准化.json'
+   0044: TEST_PATH  = '<PRIVATE_ROOT>/最新生物量测试集构建_v7_with_neg.json'
+   0045: EMB_PATH   = '<PRIVATE_ROOT>/BAAI/bge-large-zh-v1___5'
+   0046: 
+
+PATH_LINE = 44
+   0041: 
+   0042: MODEL_PATH = '<PRIVATE_ROOT>/Qwen/Qwen1.5-7B-Chat'
+   0043: EQ_PATH    = '<PRIVATE_ROOT>/林业方程_标准化.json'
+>> 0044: TEST_PATH  = '<PRIVATE_ROOT>/最新生物量测试集构建_v7_with_neg.json'
+   0045: EMB_PATH   = '<PRIVATE_ROOT>/BAAI/bge-large-zh-v1___5'
+   0046: 
+   0047: # ══════════════════════════════════════════════════════════════
+
+PATH_LINE = 45
+   0042: MODEL_PATH = '<PRIVATE_ROOT>/Qwen/Qwen1.5-7B-Chat'
+   0043: EQ_PATH    = '<PRIVATE_ROOT>/林业方程_标准化.json'
+   0044: TEST_PATH  = '<PRIVATE_ROOT>/最新生物量测试集构建_v7_with_neg.json'
+>> 0045: EMB_PATH   = '<PRIVATE_ROOT>/BAAI/bge-large-zh-v1___5'
+   0046: 
+   0047: # ══════════════════════════════════════════════════════════════
+   0048: # LLM Prompts
+
+[4] CONSTANT USAGE
+
+MODEL_PATH_OCCURRENCES = 3
+MODEL_PATH_USE = 42: MODEL_PATH = '<PRIVATE_ROOT>/Qwen/Qwen1.5-7B-Chat'
+MODEL_PATH_USE = 871: _tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH, trust_remote_code=True)
+MODEL_PATH_USE = 872: _model     = AutoModelForCausalLM.from_pretrained(MODEL_PATH, trust_remote_code=True,
+
+EQ_PATH_OCCURRENCES = 2
+EQ_PATH_USE = 43: EQ_PATH    = '<PRIVATE_ROOT>/林业方程_标准化.json'
+EQ_PATH_USE = 844: db        = json.load(open(EQ_PATH,   encoding='utf-8'))
+
+TEST_PATH_OCCURRENCES = 2
+TEST_PATH_USE = 44: TEST_PATH  = '<PRIVATE_ROOT>/最新生物量测试集构建_v7_with_neg.json'
+TEST_PATH_USE = 843: all_cases = json.load(open(TEST_PATH, encoding='utf-8'))['test_cases']
+
+EMB_PATH_OCCURRENCES = 2
+EMB_PATH_USE = 45: EMB_PATH   = '<PRIVATE_ROOT>/BAAI/bge-large-zh-v1___5'
+EMB_PATH_USE = 878: emb = SentenceTransformer(EMB_PATH)
+
+[5] CONSERVATIVE RANGE ADAPTER
+PATH_LINE = 17
+   0014: silently interpreted as OUT_OF_RANGE.
+   0015: 
+   0016: Historical source:
+>> 0017:     <PRIVATE_ROOT>/abl_full.py
+   0018:     parse_d_range()
+   0019: 
+   0020: The historical source file is not modified.
+
+[6] FAILED HISTORICAL ARTIFACT
+FAILED_ARTIFACT_EXISTS = True
+FAILED_ARTIFACT_IS_RUNTIME_REQUIRED = False
+
+AUDIT_COMPLETE

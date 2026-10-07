@@ -1,0 +1,749 @@
+==============================================================================
+A. RESOURCE INVENTORY
+==============================================================================
+
+FILE: <PRIVATE_ROOT>/species_constants.py
+EXISTS: True
+SIZE: 481
+SHA256: e4cdc7da5653a6d7ae5d29b8a51a459cd71cf59c9456d9052785cea95787ecc9
+
+FILE: <PRIVATE_ROOT>/taxon_group_cache.json
+EXISTS: True
+SIZE: 12545
+SHA256: 80b8a5ed8b5405f0de5ad7b38c42cd142a6c80b8be012fd7d35ed875733f3d88
+
+FILE: <PRIVATE_ROOT>/taxon_grouper.py
+EXISTS: True
+SIZE: 13448
+SHA256: ac7afdc25c0aaf64a9404d5927b285aff1fa8f19f47693c02473e67999576656
+
+FILE: <PRIVATE_ROOT>/tree_species_matcher.py
+EXISTS: True
+SIZE: 14661
+SHA256: 7d3b5ae961083ccf04707685c910e07fa61a9bc617e16fb55dabff07e4ae2f70
+
+FILE: <PRIVATE_ROOT>/local_model_tree_matcher.py
+EXISTS: True
+SIZE: 29845
+SHA256: 38f979aab5e2478819c399672085f3462434e45e9a63c2f3380088c04c097a18
+
+FILE: <PRIVATE_ROOT>/location_coords.json
+EXISTS: True
+SIZE: 14867
+SHA256: 762831b1462cfaace4b739fe2cd1873258f0499448ef71073551621684036353
+
+FILE: <PRIVATE_ROOT>/location_coords_cache.json
+EXISTS: True
+SIZE: 27478
+SHA256: 4583511762552f40b6e3d579f868692e7a5bb766ac4024586e1f783d3ed1d18c
+
+FILE: <PRIVATE_ROOT>/location_generalization_cache.json
+EXISTS: True
+SIZE: 20461
+SHA256: e5fb4f7f5a3122884b7afcea1af1a9c7f6957779b84a5a2461f9f009356d4e88
+
+FILE: <PRIVATE_ROOT>/location_matcher.py
+EXISTS: True
+SIZE: 56612
+SHA256: 4861233eb179906318e27e58cff0b35a6cf09526294243d98c8f9c4df4516a39
+
+FILE: <PRIVATE_ROOT>/location_scorer.py
+EXISTS: True
+SIZE: 5339
+SHA256: 3cdffa8eefabd8f495941b4382ae316f605ae343129042d3b0358577c1c61ae3
+
+FILE: <PRIVATE_ROOT>/location_capability.py
+EXISTS: True
+SIZE: 19947
+SHA256: d4777091920ff12d077d67e8ae2bc288f93a232587f99b3e231e4a66f4ef4adc
+
+FILE: <PRIVATE_ROOT>/dynamic_location_matcher_local.py
+EXISTS: True
+SIZE: 186665
+SHA256: 82cfa7d8248e61222b69a10d4b00bcc2ae64943aea8e6d427de9ac0b1d8d925f
+
+FILE: <PRIVATE_ROOT>/semantic_equation_matcher.py
+EXISTS: True
+SIZE: 45326
+SHA256: f9decf9e67947e34e689aca5b3677d27915db4aa08df9029c788eb88666e0dd4
+
+==============================================================================
+B. JSON RESOURCE STRUCTURE
+==============================================================================
+
+----------------------------------------------------------------------
+JSON: <PRIVATE_ROOT>/taxon_group_cache.json
+ROOT_TYPE: dict
+ROOT_COUNT: 48
+FIRST_KEYS: ['柞', '枫桦', '黄波罗', '柳树', '人工槭树（白牛槭、色木槭、拧筋槭）', '人工山槐', '槺椴', '人工山丁子', '山丁子3人工白桦3人工落叶松', '人工云杉3人工白桦', '花曲柳', '稠李', '人工樟子松5人工落叶松', '人工落叶松3柞2白桦', '人工水曲柳3柳树2白桦', '榆树4白桦', '其它灌木', '人工山桃稠李', '山桃稠李', '白桦3柳树2胡桃楸']
+SAMPLE_1_KEY: '柞'
+SAMPLE_1_VALUE_TYPE: dict
+SAMPLE_1_VALUE: {'best_matches': ['四川高山栎', '川滇高山栎', '高山栎'], 'reasoning': '柞树常指壳斗科栎属，高山栎同属且木材密度高、生长特性相近，亲缘最近。'}
+SAMPLE_2_KEY: '枫桦'
+SAMPLE_2_VALUE_TYPE: dict
+SAMPLE_2_VALUE: {'best_matches': ['云南桦树', '亮叶桦', '四川盆地桦树'], 'reasoning': '枫桦为桦木科桦木属，与云南桦树、亮叶桦、四川盆地桦树同科同属，亲缘最近。'}
+SAMPLE_3_KEY: '黄波罗'
+SAMPLE_3_VALUE_TYPE: dict
+SAMPLE_3_VALUE: {'best_matches': ['川黄檗', '黄波罗', '黄柏'], 'reasoning': '川黄檗与黄波罗同属芸香科黄檗属，分类学最近缘，木材密度和生长特性高度相似。'}
+SAMPLE_4_KEY: '柳树'
+SAMPLE_4_VALUE_TYPE: dict
+SAMPLE_4_VALUE: {'best_matches': ['川滇柳', '白柳', '杨柳类'], 'reasoning': '川滇柳和白柳均为柳属，与目标树种同科同属，亲缘最近；杨柳类包含柳树，材性相近。'}
+SAMPLE_5_KEY: '人工槭树（白牛槭、色木槭、拧筋槭）'
+SAMPLE_5_VALUE_TYPE: dict
+SAMPLE_5_VALUE: {'best_matches': ['色木', '五角枫', '元宝枫'], 'reasoning': '色木即色木槭，五角枫和元宝枫均为槭树科槭属，与目标树种同属，亲缘最近，生长特性相近。'}
+
+----------------------------------------------------------------------
+JSON: <PRIVATE_ROOT>/location_coords.json
+ROOT_TYPE: dict
+ROOT_COUNT: 260
+FIRST_KEYS: ['一般产区(贵州)', '三岔子林业局', '三峡库区', '三明市', '上海', '上海崇明岛', '东三省', '东北', '东北、内蒙古', '东北、大兴安岭', '东北地区', '东北林区', '东阳、义乌、浦江、兰溪、金华、巨县、武义、永康、天台、仙居、绍兴地区五个县', '中心产区', '临江林业局', '临汾、运城', '丽水地区七个县；温州地区七个县（除乐清外)', '乌兰布和沙漠东北缘荒漠-绿洲过渡带', '乐清、玉环、温岭、黄岩、临海、三门、宁波地区八个县', '云南']
+SAMPLE_1_KEY: '一般产区(贵州)'
+SAMPLE_1_VALUE_TYPE: list
+SAMPLE_1_VALUE: [26.0, 108.0]
+SAMPLE_2_KEY: '三岔子林业局'
+SAMPLE_2_VALUE_TYPE: list
+SAMPLE_2_VALUE: [47.0, 127.0]
+SAMPLE_3_KEY: '三峡库区'
+SAMPLE_3_VALUE_TYPE: list
+SAMPLE_3_VALUE: [30.0, 110.0]
+SAMPLE_4_KEY: '三明市'
+SAMPLE_4_VALUE_TYPE: list
+SAMPLE_4_VALUE: [26.0, 117.0]
+SAMPLE_5_KEY: '上海'
+SAMPLE_5_VALUE_TYPE: list
+SAMPLE_5_VALUE: [31.2, 121.4]
+
+----------------------------------------------------------------------
+JSON: <PRIVATE_ROOT>/location_coords_cache.json
+ROOT_TYPE: dict
+ROOT_COUNT: 244
+FIRST_KEYS: ['北京妙峰山林场(北纬40°03\'54",东经116°05\'45")', '', '云南普洱景谷县', '小秦岭国家级自然保护区', '全国', '吉林省蛟河林业实验区', '黑龙江省(齐齐哈尔/牡丹江/七台河)', '山西省(暖温带半干旱气候)', '红树林区域', '内蒙古地区', '乌兰布和沙漠东北缘荒漠-绿洲过渡带', '长白山金沟岭', '上海崇明岛', '贡嘎山海螺沟冰川退缩区(海拔2800m, 山地寒温带气候)', '辽宁抚顺地区', '半干旱区', '福州市', '广东省公益林示范区', '海南霸王岭', '东三省(黑龙江、吉林、辽宁)']
+SAMPLE_1_KEY: '北京妙峰山林场(北纬40°03\'54",东经116°05\'45")'
+SAMPLE_1_VALUE_TYPE: dict
+SAMPLE_1_VALUE: {'lat': 40.065, 'lon': 116.0958, 'source': 'regex', 'count': 55}
+SAMPLE_2_KEY: ''
+SAMPLE_2_VALUE_TYPE: dict
+SAMPLE_2_VALUE: {'lat': None, 'lon': None, 'source': 'empty', 'count': 3}
+SAMPLE_3_KEY: '云南普洱景谷县'
+SAMPLE_3_VALUE_TYPE: dict
+SAMPLE_3_VALUE: {'lat': 23.5, 'lon': 100.7, 'source': 'llm', 'count': 7}
+SAMPLE_4_KEY: '小秦岭国家级自然保护区'
+SAMPLE_4_VALUE_TYPE: dict
+SAMPLE_4_VALUE: {'lat': 34.4, 'lon': 110.5, 'source': 'llm', 'count': 20}
+SAMPLE_5_KEY: '全国'
+SAMPLE_5_VALUE_TYPE: dict
+SAMPLE_5_VALUE: {'lat': None, 'lon': None, 'source': 'llm', 'count': 7}
+
+----------------------------------------------------------------------
+JSON: <PRIVATE_ROOT>/location_generalization_cache.json
+ROOT_TYPE: dict
+ROOT_COUNT: 76
+FIRST_KEYS: ['榆树|帽儿山|内蒙古', '白桦/刺槐/辽东栎/杨树|帽儿山|山西省黄土高原', '多种杨树|帽儿山|西藏', '榆树|帽儿山|内蒙古地区', '榆树|帽儿山|广西', '亮叶桦|帽儿山|贵州', '川滇高山栎|帽儿山|云南', '川黄檗|帽儿山|贵州', '川黄檗|帽儿山|湖南', '山桐子|帽儿山|贵州', '柠条|帽儿山|乌兰布和沙漠东北缘荒漠-绿洲过渡带', '白刺|内蒙古|乌兰布和沙漠东北缘荒漠-绿洲过渡带', '沙蒿|内蒙古|乌兰布和沙漠东北缘荒漠-绿洲过渡带', '梭梭|内蒙古|乌兰布和沙漠东北缘荒漠-绿洲过渡带', '樟子松|内蒙古|东三省(黑龙江、吉林、辽宁)', '油桐|广西|湖南', '云南松|三峡库区|云南', '云南松|三峡库区|云南省大理市', '其他硬阔类|北京妙峰山林场|云南省', '其他软阔类|北京妙峰山林场|云南省']
+SAMPLE_1_KEY: '榆树|帽儿山|内蒙古'
+SAMPLE_1_VALUE_TYPE: dict
+SAMPLE_1_VALUE: {'approved': False, 'confidence': 'high', 'reason': '内蒙古与帽儿山分属不同气候带与生态区，榆树分布虽广但方程跨区泛化风险大', 'generalization_level': '跨生态区'}
+SAMPLE_2_KEY: '白桦/刺槐/辽东栎/杨树|帽儿山|山西省黄土高原'
+SAMPLE_2_VALUE_TYPE: dict
+SAMPLE_2_VALUE: {'approved': False, 'confidence': 'high', 'reason': '帽儿山属温带湿润气候，山西黄土高原属半干旱区，跨气候带且生态区差异大', 'generalization_level': '跨气候带'}
+SAMPLE_3_KEY: '多种杨树|帽儿山|西藏'
+SAMPLE_3_VALUE_TYPE: dict
+SAMPLE_3_VALUE: {'approved': False, 'confidence': 'high', 'reason': '西藏与帽儿山分属高原气候与温带季风气候，生态区差异极大，杨树种类不同', 'generalization_level': '跨气候带'}
+SAMPLE_4_KEY: '榆树|帽儿山|内蒙古地区'
+SAMPLE_4_VALUE_TYPE: dict
+SAMPLE_4_VALUE: {'approved': False, 'confidence': 'high', 'reason': '内蒙古属温带大陆性气候，帽儿山属温带季风气候，生态区不同且榆树分布有差异', 'generalization_level': '跨生态区'}
+SAMPLE_5_KEY: '榆树|帽儿山|广西'
+SAMPLE_5_VALUE_TYPE: dict
+SAMPLE_5_VALUE: {'approved': False, 'confidence': 'high', 'reason': '广西属亚热带，帽儿山属温带，榆树分布虽广但跨气候带方程误差大', 'generalization_level': '跨气候带'}
+
+==============================================================================
+C. PYTHON TOP-LEVEL FUNCTIONS / CONSTANTS
+==============================================================================
+
+----------------------------------------------------------------------
+PYTHON: <PRIVATE_ROOT>/species_constants.py
+FUNCTIONS: []
+CLASSES: []
+RELEVANT_CONSTANTS: ['PARENT_SPECIES_MAP']
+
+----------------------------------------------------------------------
+PYTHON: <PRIVATE_ROOT>/taxon_grouper.py
+FUNCTIONS: ['_load_equations', '_build_tag_groups', '_load_taxon_cache', '_save_taxon_cache', '_strip_origin_prefix', 'find_exact_match', 'find_regional_variants', 'find_conifer_group', 'llm_infer_broadleaf_group', 'resolve_tree_type']
+CLASSES: []
+RELEVANT_CONSTANTS: ['EQUATIONS_PATH', 'TAXON_CACHE_PATH', 'DEEPSEEK_API_KEY', 'DEEPSEEK_API_URL', 'BIOMASS_COMPONENTS', '_taxon_cache']
+
+----------------------------------------------------------------------
+PYTHON: <PRIVATE_ROOT>/tree_species_matcher.py
+FUNCTIONS: ['get_tree_matcher']
+CLASSES: ['TreeSpeciesMatcher']
+RELEVANT_CONSTANTS: []
+
+----------------------------------------------------------------------
+PYTHON: <PRIVATE_ROOT>/local_model_tree_matcher.py
+FUNCTIONS: []
+CLASSES: ['LocalModelTreeMatcher', 'LocalModelEnhancedRouter']
+RELEVANT_CONSTANTS: []
+
+----------------------------------------------------------------------
+PYTHON: <PRIVATE_ROOT>/location_matcher.py
+FUNCTIONS: []
+CLASSES: ['LocationMatcher']
+RELEVANT_CONSTANTS: []
+
+----------------------------------------------------------------------
+PYTHON: <PRIVATE_ROOT>/location_scorer.py
+FUNCTIONS: ['_load_cache', 'haversine_km', 'distance_to_score', 'geocode_query_location', 'score_all_equation_locations']
+CLASSES: []
+RELEVANT_CONSTANTS: ['CACHE_PATH', 'DEEPSEEK_API_KEY', 'DEEPSEEK_API_URL', '_location_cache']
+
+----------------------------------------------------------------------
+PYTHON: <PRIVATE_ROOT>/location_capability.py
+FUNCTIONS: []
+CLASSES: ['LocationCapabilityMap']
+RELEVANT_CONSTANTS: []
+
+----------------------------------------------------------------------
+PYTHON: <PRIVATE_ROOT>/dynamic_location_matcher_local.py
+FUNCTIONS: []
+CLASSES: ['DynamicLocationMatcher']
+RELEVANT_CONSTANTS: []
+
+----------------------------------------------------------------------
+PYTHON: <PRIVATE_ROOT>/semantic_equation_matcher.py
+FUNCTIONS: ['call_llm', 'extract_entities', 'check_ecological_similarity', 'find_similar_trees_in_province', 'llm_rerank', 'get_location_geographic_info', 'calculate_geographic_distance', 'llm_rank_locations_by_distance', 'find_nearest_location_in_db', 'match_with_location_generalization', '_print_result']
+CLASSES: ['MatchResult', 'SemanticEquationMatcher']
+RELEVANT_CONSTANTS: ['BGE_MODEL_PATH', 'LLM_API_KEY', 'LLM_API_URL', 'LLM_MODEL', 'EQUATION_FILE']
+
+==============================================================================
+D. RELEVANT SOURCE LINES
+==============================================================================
+
+----------------------------------------------------------------------
+SOURCE: <PRIVATE_ROOT>/species_constants.py
+MATCH_COUNT: 1
+6: PARENT_SPECIES_MAP = {
+
+----------------------------------------------------------------------
+SOURCE: <PRIVATE_ROOT>/taxon_grouper.py
+MATCH_COUNT: 22
+4: taxon_grouper.py
+13:      调用LLM做分类学推断("这个树种和方程库里已有的哪些树种同属/近缘/材性相近"),
+43: TAXON_CACHE_PATH = "<PRIVATE_ROOT>/taxon_group_cache.json"
+56: _taxon_cache = None
+94: def _load_taxon_cache():
+95:     global _taxon_cache
+96:     if _taxon_cache is None:
+97:         if os.path.exists(TAXON_CACHE_PATH):
+98:             with open(TAXON_CACHE_PATH, "r", encoding="utf-8") as f:
+99:                 _taxon_cache = json.load(f)
+101:             _taxon_cache = {}
+102:     return _taxon_cache
+105: def _save_taxon_cache():
+106:     with open(TAXON_CACHE_PATH, "w", encoding="utf-8") as f:
+107:         json.dump(_taxon_cache, f, ensure_ascii=False, indent=2)
+130:     应该优先于近缘种推断使用——具体选哪个地区变体,交给location_scorer
+156:     检查该树种是否属于某个'XX类'标签分组(主要覆盖针叶树)。
+184:     cache = _load_taxon_cache()
+197: 请从下面这份方程库现有树种名单里，找出与"{tree_type}"分类学上最近缘(同科同属优先)
+231:     _save_taxon_cache()
+316:     test_species = ["人工落叶松", "白桦", "柞", "枫桦", "榆树", "紫椴", "黄波罗", "人工杨树"]
+317:     for sp in test_species:
+
+----------------------------------------------------------------------
+SOURCE: <PRIVATE_ROOT>/tree_species_matcher.py
+MATCH_COUNT: 41
+15: class TreeSpeciesMatcher:
+20:         matcher = TreeSpeciesMatcher(
+25:         # → {'species': '臭冷杉', 'score': 0.99, 'method': 'exact'}
+44:         self.species_list = []        # 树种名称列表
+45:         self.species_vectors = None   # 树种向量矩阵 (N, dim)
+49:         self._load_species(equations_path)
+58:     def _load_species(self, equations_path: str):
+69:             species_set = set()
+74:                         species_set.add(t.strip())
+77:             self.species_list = sorted(species_set, key=len, reverse=True)
+80:                 print(f"[TreeMatcher] ✅ 加载树种 {len(self.species_list)} 个")
+81:                 print(f"[TreeMatcher] 示例: {self.species_list[:5]}")
+85:             self.species_list = []
+104:                 print(f"[TreeMatcher] 正在编码 {len(self.species_list)} 个树种...")
+110:             for i in range(0, len(self.species_list), batch_size):
+111:                 batch = self.species_list[i:i+batch_size]
+116:                     print(f"[TreeMatcher]   已编码 {i}/{len(self.species_list)}...")
+119:             self.species_vectors = np.vstack(all_vectors)
+122:                 print(f"[TreeMatcher] ✅ 向量库构建完成，shape: {self.species_vectors.shape}")
+129:             self.species_vectors = None
+177:                 'species': str,      # 识别到的树种名
+188:         for species in self.species_list:  # 已按长度降序
+189:             if species in query:
+191:                     print(f"[TreeMatcher] ✅ 精确匹配: '{species}'")
+193:                     'species': species,
+196:                     'candidates': [{'species': species, 'score': 1.0}]
+202:         if self.model is None or self.species_vectors is None:
+230:                 print(f"[TreeMatcher] ✅ 语义匹配: '{best_result['species']}' "
+287:             {'species': str, 'score': float, 'candidates': list}
+294:             # species_vectors已归一化，query_vec已归一化
+296:             scores = self.species_vectors.dot(query_vec.T).flatten()  # (N,)
+303:                     'species': self.species_list[i],
+310:                 'species': candidates[0]['species'],
+332:             return result['species']
+344:         verbose: bool = True) -> TreeSpeciesMatcher:
+351:         _matcher_instance = TreeSpeciesMatcher(
+363:     matcher = TreeSpeciesMatcher(
+383:         species = result['species'] if result else '未识别'
+386:         ok = '✅' if species == expected else '❌'
+387:         print(f"{ok} 期望:{expected:10s} 识别:{species:10s} "
+389:         if species == expected:
+
+----------------------------------------------------------------------
+SOURCE: <PRIVATE_ROOT>/local_model_tree_matcher.py
+MATCH_COUNT: 116
+7: 2. 遵循"同科、同属、同地区"原则匹配相似树种
+31:     1. 优先级1: 同属同科（分类学最接近）
+32:     2. 优先级2: 同科不同属（分类学较接近）
+62:         self.available_species = self._get_available_species()
+65:         print(f"  可用树种: {len(self.available_species)} 种")
+67:         sample_species = sorted(list(self.available_species))[:10]
+68:         print(f"  树种示例: {', '.join(sample_species)}")
+69:         if len(self.available_species) > 10:
+70:             print(f"  ... 共 {len(self.available_species)} 种")
+91:     def _get_available_species(self) -> Set[str]:
+93:         species_set = set()
+103:                     species_set.add(tree_type)
+105:         print(f"  ✅ 提取完成: {len(species_set)} 个不同树种")
+107:         return species_set
+109:     def find_matching_species(self, target_species: str, location: str,
+110:                          available_species: List[str], top_k: int = 3):
+113:         print(f"  目标树种: {target_species}")
+114:         print(f"  限定地区: {location}")
+115:         print(f"  可用树种: {available_species}")
+118:         if not target_species:
+119:             return {'species': None, 'direct_match': False, 'reason': '未提供目标树种'}
+121:         if not available_species:
+122:             return {'species': None, 'direct_match': False, 'reason': '该地区没有可用树种'}
+126:         target_normalized = self._normalize_tree_name(target_species)
+128:         for species in available_species:
+129:             species_normalized = self._normalize_tree_name(species)
+132:             if target_normalized == species_normalized:
+133:                 print(f"  ✅ 精确匹配: {target_species} == {species}")
+135:                     'species': species,  # 🔥 返回原始名称（不是标准化后的）
+138:                     'reason': f'精确匹配: {target_species} 在该地区存在',
+141:                         'species': species,
+144:                         'taxonomy': '完全相同',
+153:         for species in available_species:
+154:             species_normalized = self._normalize_tree_name(species)
+157:             if target_normalized in species_normalized or species_normalized in target_normalized:
+158:                 contain_matches.append(species)
+159:                 print(f"  ✅ 包含匹配: {target_species} ⊆ {species}")
+172:                 'species': best,
+175:                 'reason': f'包含匹配: {target_species} 是 {best} 的核心名称',
+177:                 'matches': [{'species': s, 'similarity_score': 0.95,
+178:                             'confidence': 'high', 'taxonomy': '同一树种不同命名',
+187:             prompt = self._build_matching_prompt(target_species, location, available_species, top_k)
+199:                 llm_species = best_match['species']
+200:                 llm_species_normalized = self._normalize_tree_name(llm_species)
+202:                 if llm_species_normalized == target_normalized:
+204:                     print(f"  ⚠️ LLM返回了目标树种本身: {llm_species}")
+207:                         'species': target_species,  # 🔥 返回用户原始输入
+215:                     print(f"  ✅ LLM推荐替代树种: {llm_species}")
+217:                         'species': llm_species,
+221:                         'taxonomy': best_match.get('taxonomy', ''),
+227:                 return {'species': None, 'direct_match': False, 'reason': 'LLM未能找到合适的替代树种'}
+232:             return self._fallback_rule_based_matching(target_species, available_species)
+322:         target_species: str,
+323:         location: str,
+324:         available_species: List[str],
+331:             target_species: 目标树种
+332:             location: 地区
+333:             available_species: 可用树种列表
+340:         species_list = '\n'.join([f"  - {s}" for s in available_species])
+345: 根据"同科、同属、同地区"的原则，从候选树种列表中找出与目标树种最相似的{top_k}个树种。
+348: {target_species}
+351: {location}
+354: {species_list}
+357: 1. 【最优先】同属同科 - 分类学关系最接近（如：高山松 → 思茅松，都是松科-松属）
+358: 2. 【次优先】同科不同属 - 分类学关系较接近（如：松类 → 冷杉，都是松科）
+370:             "species": "候选树种名称",
+371:             "taxonomy": "该树种的科属信息（例如：松科-松属）",
+372:             "reason": "匹配原因（例如：同科同属，都是松科松属，生态位相似）",
+381: - high: 同属同科
+382: - medium: 同科不同属
+383: - low: 不同科但生态相似
+512:     def _fallback_rule_based_matching(self, target_species: str, available_species: List[str]) -> Dict:
+517:             target_species: 目标树种
+518:             available_species: 可用树种列表
+528:         for species in available_species:
+530:             common_chars = set(target_species) & set(species)
+531:             similarity = len(common_chars) / max(len(set(target_species)), len(set(species)))
+533:             # 同科属加分（简单规则）
+534:             if ('松' in target_species and '松' in species) or \
+535:                ('杉' in target_species and '杉' in species) or \
+
+----------------------------------------------------------------------
+SOURCE: <PRIVATE_ROOT>/location_matcher.py
+MATCH_COUNT: 207
+10: class LocationMatcher:
+26:         self.location_name_mapping = {
+126:         self.forest_locations = {
+183:         self.province_cities = {
+185:                       '湛江市', '肇庆市', '江门市', '茂名市', '惠州市', '梅州市','广东肇庆(亚热带气候)',
+260:         self.location_coords = {
+275:             "广东肇庆(亚热带气候)": (23.10, 112.50),
+655:     def _normalize_location_name(self, location: str) -> str:
+657:         if location in self.location_name_mapping:
+658:             normalized = self.location_name_mapping[location]
+660:                 self._log(f"   [地名转换] {location} → {normalized}", level=3)
+661:             location = normalized
+664:             location = location.replace(suffix, '')
+666:         return location.strip()
+668:     def match_location(self, query_location: str, tree_species: str = None,
+671:         query_normalized = self._normalize_location_name(query_location)
+673:         cache_key = f"{query_normalized}|{tree_species}|{component}"
+678:         is_forest_query = self._is_forest_location(query_location)
+679:         has_complete_info = tree_species is not None and component is not None
+682:             self._log(f"🌲 林场查询: {query_location}", level=2)
+683:             result = self._match_forest_intelligent(query_location, tree_species, component)
+685:             self._log(f"🏙️  普通查询: {query_location} → 标准化: {query_normalized}", level=2)
+686:             result = self._match_location_original(query_normalized)
+693:     def _match_forest_intelligent(self, forest_location: str, tree_species: str,
+696:         province = self._find_province_for_forest(forest_location)
+697:         if not province:
+698:             print(f"   ❌ 无法确定林场 '{forest_location}' 所属省份，回退到普通匹配")
+699:             return self._match_location_original(forest_location)
+701:         self._log(f"   📍 林场所属省份: {province}", level=2)
+703:         matched_equations = self._search_equations_in_province(
+704:             province, tree_species, component
+709:             return self._match_location_original(forest_location)
+713:         forest_coords = self.location_coords.get(forest_location)
+717:                 'query_location': forest_location,
+718:                 'matched_location': best_match['location'],
+721:                 'tree_species': tree_species,
+726:             eq_coords = self.location_coords.get(eq['location'])
+735:         self._log(f"   🎯 最佳匹配: {best_match['location']} "
+739:             'query_location': forest_location,
+740:             'matched_location': best_match['location'],
+744:             'tree_species': tree_species,
+748:     def _search_equations_in_province(self, province: str, tree_species: str,
+754:         cities_in_province = self.province_cities.get(province, [])
+757:             eq_location_normalized = self._normalize_location_name(eq.location)
+758:             province_normalized = self._normalize_location_name(province)
+760:             is_in_province = (
+761:                 province_normalized in eq_location_normalized or
+762:                 any(self._normalize_location_name(city) in eq_location_normalized
+763:                     for city in cities_in_province)
+766:             if not is_in_province:
+770:                 tree_species == eq.tree_type or
+771:                 tree_species in eq.tree_type or
+772:                 eq.tree_type in tree_species
+782:                 self._log(f"      [匹配] {eq.location} - {eq.tree_type} - {eq.component}",
+786:                     'location': eq.location,
+792:     def _match_location_original(self, query_location: str) -> Dict:
+794:         print(f"\n[地区匹配] 查询: {query_location}")
+796:         if self._has_equations_for_location_exact(query_location):
+797:             self._log(f"   ✅ 精确匹配: {query_location}", level=2)
+799:                 'query_location': query_location,
+800:                 'matched_location': query_location,
+805:         hierarchical_down = self._match_hierarchical_down(query_location)
+807:             self._log(f"   ✅ 向下层级匹配: {query_location} → "
+808:                      f"{hierarchical_down['matched_location']}", level=2)
+811:         hierarchical_up = self._match_hierarchical_up(query_location)
+813:             self._log(f"   ✅ 向上层级匹配: {query_location} → "
+814:                      f"{hierarchical_up['matched_location']}", level=2)
+817:         province_match = self._match_same_province_with_priority(query_location)
+818:         if province_match:
+819:             self._log(f"   ✅ 同省优先匹配: {query_location} → "
+820:                      f"{province_match['matched_location']}", level=2)
+821:             return province_match
+823:         distance_match = self._match_by_distance(query_location)
+825:             self._log(f"   ✅ 距离匹配: {query_location} → "
+826:                      f"{distance_match['matched_location']}", level=2)
+829:         self._log(f"   ❌ 未找到匹配: {query_location}", level=1)
+832:     def _match_same_province_with_priority(self, query_location: str) -> Optional[Dict]:
+834:         province = self._extract_province(query_location)
+836:         if not province:
+839:         print(f"  [省份提取] {query_location} → {province}")
+
+----------------------------------------------------------------------
+SOURCE: <PRIVATE_ROOT>/location_scorer.py
+MATCH_COUNT: 22
+4: location_scorer.py
+9:   1. 方程库244个地名坐标 -> 从预处理好的 location_coords_cache.json 直接读取(不调LLM)
+29: CACHE_PATH = "<PRIVATE_ROOT>/location_coords_cache.json"
+33: _location_cache = None
+38:     global _location_cache
+39:     if _location_cache is None:
+41:             _location_cache = json.load(f)
+42:     return _location_cache
+68: def geocode_query_location(location_text: str) -> dict:
+73:     if not location_text or not location_text.strip():
+76:     if location_text in _query_geocode_cache:
+77:         return _query_geocode_cache[location_text]
+79:     prompt = f"""你是林业地理专家。请给出"{location_text}"这个地点的大致经纬度坐标(十进制度,保留2位小数)。
+104:         print(f"⚠️ 地理编码失败: {location_text} -> {e}")
+107:     _query_geocode_cache[location_text] = coord
+111: def score_all_equation_locations(user_location_text: str) -> dict:
+114:     返回 {location_string: score}
+117:     user_coord = geocode_query_location(user_location_text)
+132:     test_location = "帽儿山"
+133:     scores = score_all_equation_locations(test_location)
+136:     print(f"用户地区: {test_location}")
+137:     print(f"编码坐标: {geocode_query_location(test_location)}")
+
+----------------------------------------------------------------------
+SOURCE: <PRIVATE_ROOT>/location_capability.py
+MATCH_COUNT: 97
+10: class LocationCapabilityMap:
+30:         self.precise_locations = set()          # 所有有方程的精确地区
+31:         self.location_to_province = {}          # 地区 → 省份映射
+32:         self.province_locations = {}            # 省份 → [具体地区列表]
+33:         self.location_tree_species = {}         # 地区 → [树种列表]
+36:         self.location_name_mapping = {
+146:     def _normalize_location_name(self, location: str) -> str:
+156:             location: 原始地名
+161:         original = location
+164:         if location in self.location_name_mapping:
+165:             location = self.location_name_mapping[location]
+167:                 self._log(f"   [地名转换] {original} → {location}", level=2)
+171:             location = location.replace(suffix, '')
+173:         return location.strip()
+186:         location_count = {}
+193:                 location = eq.get('location', '').strip()
+196:                 location = ''
+199:                 # 方式1: 直接属性
+200:                 if hasattr(eq, 'location'):
+201:                     location = getattr(eq, 'location', '')
+208:                     location = location or data.get('location', '')
+211:                 location = str(location).strip()
+214:             if not location:
+218:             location_normalized = self._normalize_location_name(location)
+221:             self.precise_locations.add(location)
+224:             location_count[location] = location_count.get(location, 0) + 1
+227:             if location not in self.location_tree_species:
+228:                 self.location_tree_species[location] = set()
+230:                 self.location_tree_species[location].add(tree_type)
+233:             province = self._extract_province(location_normalized)
+234:             if province:
+235:                 self.location_to_province[location] = province
+238:                 if province not in self.province_locations:
+239:                     self.province_locations[province] = set()
+240:                 self.province_locations[province].add(location)
+243:         self._print_statistics(equation_count, location_count)
+264:     def _print_statistics(self, equation_count: int, location_count: Dict):
+268:         self._log(f"  精确地区数: {len(self.precise_locations)}", level=1)
+269:         self._log(f"  覆盖省份数: {len(self.province_locations)}", level=1)
+275:             for province in sorted(self.province_locations.keys()):
+276:                 locations = self.province_locations[province]
+277:                 total_equations = sum(location_count.get(loc, 0) for loc in locations)
+278:                 self._log(f"  {province}: {len(locations)} 个地区, {total_equations} 个方程",
+281:                 for loc in sorted(locations):
+282:                     eq_count = location_count.get(loc, 0)
+283:                     species = self.location_tree_species.get(loc, set())
+284:                     species_str = ', '.join(sorted(list(species)[:3]))
+285:                     if len(species) > 3:
+286:                         species_str += f" 等{len(species)}种"
+287:                     self._log(f"    - {loc}: {eq_count} 个方程 ({species_str})", level=2)
+290:     def can_precise_match(self, query_location: str) -> bool:
+295:             query_location: 查询地区（中文或英文）
+301:         query_normalized = self._normalize_location_name(query_location)
+304:         for precise_loc in self.precise_locations:
+305:             precise_normalized = self._normalize_location_name(precise_loc)
+311:         for precise_loc in self.precise_locations:
+312:             precise_normalized = self._normalize_location_name(precise_loc)
+320:     def get_best_match(self, query_location: str) -> Dict:
+324:         if query_location in self.precise_locations:
+327:                 'matched_location': query_location,
+332:         query_clean = self._clean_location_name(query_location)
+335:         for precise_loc in self.precise_locations:
+336:             precise_clean = self._clean_location_name(precise_loc)
+342:                     'matched_location': precise_loc,  # 返回方程库的原始名称
+344:                     'reason': f'"{query_location}" 清理后匹配 "{precise_loc}"'
+352:                 if not self._is_province_level(precise_loc):
+356:                     'location': precise_loc,
+367:                 'matched_location': best['location'],
+372:         province = self._extract_province(query_location)
+374:         if province and province in self.precise_locations:
+377:                 'matched_location': province,
+384:             'matched_location': None,
+389:     def _clean_location_name(self, location: str) -> str:
+395:         cleaned = location
+402:     def _is_province_level(self, location: str) -> bool:
+407:         province_keywords = ['省', '自治区', '特别行政区']
+413:         if any(kw in location for kw in province_keywords):
+418:             if location == city:
+423:             if location == city_name:
+428:         if '市' in location and location not in direct_municipalities:
+
+----------------------------------------------------------------------
+SOURCE: <PRIVATE_ROOT>/dynamic_location_matcher_local.py
+MATCH_COUNT: 682
+18: class DynamicLocationMatcher:
+21:     PROVINCE_KEYWORDS = {
+96:         self._province_cache = {}
+97:         self._logged_locations = set()
+113:         self.location_hierarchy = self._build_location_hierarchy()
+114:         self.location_equations = self._build_location_equations_map()
+118:     def _normalize_location_name_for_province_extraction(self, location: str) -> str:
+120:         if not location:
+123:         english_province_mapping = {
+134:         province_suffix_map = {
+142:         for eng, chn in english_province_mapping.items():
+143:             if location.startswith(eng):
+144:                 suffix = location[len(eng):]
+149:                 elif chn in province_suffix_map:
+150:                     return province_suffix_map[chn]
+154:         if location in english_province_mapping:
+155:             chn = english_province_mapping[location]
+158:             elif chn in province_suffix_map:
+159:                 return province_suffix_map[chn]
+163:         location = location.strip()
+164:         location = re.sub(r'\s+', '', location)
+166:         return location
+257:     def _get_available_species_in_location(self, location: str) -> List[str]:
+259:         if not hasattr(self, 'location_equations') or not self.location_equations:
+262:         if location not in self.location_equations:
+265:         return list(self.location_equations[location].keys())
+267:     def _build_location_hierarchy(self) -> Dict:
+271:         all_locations = set()
+273:             all_locations.add(eq.location)
+276:             print(f"  从方程库提取到 {len(all_locations)} 个地区")
+278:         for location in all_locations:
+279:             level = self._determine_level(location)
+281:             hierarchy[location] = {
+292:         for child_location in all_locations:
+293:             parent = self._find_parent_location(child_location, all_locations)
+295:                 if not self._would_form_cycle(child_location, parent, hierarchy):
+296:                     hierarchy[child_location]['parent'] = parent
+297:                     hierarchy[parent]['children'].append(child_location)
+301:                         print(f"    ⚠️ 跳过可能形成循环的关系: {child_location} → {parent}")
+309:             'children': [loc for loc in all_locations if hierarchy[loc]['parent'] is None],
+359:         for location, info in hierarchy.items():
+362:             if parent == location:
+363:                 self_references.append(location)
+366:             cycle_info = self._detect_cycle_path(location, hierarchy)
+378:     def _detect_cycle_path(self, start_location: str, hierarchy: Dict) -> Optional[List[str]]:
+382:         current = start_location
+398:     def _determine_level(self, location: str) -> str:
+400:         if location in ['全国', '中国', '通用']:
+403:         if any(keyword in location for keyword in ['省', '自治区']) or \
+404:            location in ['北京市', '天津市', '上海市', '重庆市', '北京', '天津', '上海', '重庆']:
+405:             return 'province'
+407:         if any(keyword in location for keyword in ['林场', '保护区', '森林公园', '自然保护区',
+411:         if '市' in location or '地区' in location or '自治州' in location:
+414:         if '县' in location or ('区' in location and '地区' not in location):
+419:     def _find_parent_location(self, child_location: str, all_locations: Set[str]) -> Optional[str]:
+421:         child_level = self._determine_level(child_location)
+425:             'province': 1,
+435:         for potential_parent in all_locations:
+436:             if potential_parent == child_location:
+439:             if len(potential_parent) >= len(child_location):
+440:                 if not (potential_parent in child_location and potential_parent != child_location):
+449:             if potential_parent in child_location and potential_parent != child_location:
+451:                     'location': potential_parent,
+459:                 province_keywords = self._extract_province_keywords(potential_parent)
+460:                 for keyword in province_keywords:
+461:                     if keyword in child_location and len(keyword) >= 2:
+463:                             'location': potential_parent,
+472:             return best_parent['location']
+476:     def _extract_province_keywords(self, location: str) -> List[str]:
+479:         province_base = location
+482:             province_base = province_base.replace(suffix, '')
+484:         if province_base and len(province_base) >= 2:
+485:             keywords.append(province_base)
+487:         if len(province_base) >= 2:
+488:             keywords.append(province_base[:2])
+490:         if len(province_base) >= 3:
+491:             keywords.append(province_base[:3])
+498:             if any(keyword in eq.location for keyword in ['全国', '通用', '中国']):
+502:     def _build_location_equations_map(self) -> Dict:
+504:         location_map = {}
+
+----------------------------------------------------------------------
+SOURCE: <PRIVATE_ROOT>/semantic_equation_matcher.py
+MATCH_COUNT: 159
+8:   _matched_location 必须始终 == 最终方程的 location 字段
+9:   选中方程后立即执行: best['_matched_location'] = best['location']
+18: from location_normalizer import (
+19:     get_province, are_same_province,
+20:     normalize_location_for_db, SUBREGION_TO_PROVINCE
+38:     location_match: str
+80: def extract_entities(query: str, db_locations: List[str],
+91:         if 'original_location' in result and 'location' not in result:
+92:             result['location'] = result['original_location']
+115: {"location":null,"tree_type":null,"component":null,"D":null,"H":null,
+121: 地名参考：{', '.join(db_locations[:15])}
+163:                                  location: str) -> Tuple[bool, str]:
+168:     prompt = f"""判断以下两个树种在{location}地区是否生态特性相似，可以用一个的生物量方程估算另一个。
+172: 地区：{location}
+175: 1. 同属或同科（优先）
+177: 3. 相似的气候适应性
+185:   "taxonomy_relation": "同属/同科/同目/无关"
+211: def find_similar_trees_in_province(
+213:     location: str,
+229:     province_equations = []
+231:         eq_loc = eq.get('location', '')
+233:         if location in eq_loc or eq_loc in location:
+234:             province_equations.append(eq)
+236:     if not province_equations:
+237:         print(f"[树种泛化] {location} 无任何方程，无法泛化")
+244:     for eq in province_equations:
+276:             target_tree, tree_name, location
+281:                 eq['_generalize_reason'] = f"原始树种'{target_tree}'在{location}无方程，使用生态相似树种'{tree_name}'替代。{reason}"
+310:                 f"地区:{eq.get('location','?')} "
+350: - 地区：{entities.get('location', '未知')}
+442:         self.db_locations = sorted(set(
+443:             eq.get('location','').strip()
+444:             for eq in self.equations if eq.get('location')
+457:         print(f"✅ 地名: {len(self.db_locations)} 个")
+462:         from location_normalizer import warmup_cache
+463:         warmup_cache(self.db_locations, verbose=False)
+495:             self.db_locations[:30],
+503:         print(f"  地区: {entities.get('location')}")
+514:         if entities.get('location'):
+515:             query_text_parts.append(f"地区:{entities['location']}")
+563:                 print(f"  地区: {best_eq.get('location')}")
+575:         location = entities.get('location', '')
+579:         if location and tree_type:
+580:             generalized = find_similar_trees_in_province(
+582:                 location=location,
+605:             'total_locations': len(self.db_locations),
+629:             print(f"✅ 匹配成功: {result.get('tree_type')} @ {result.get('location')}")
+640: def get_location_geographic_info(location: str) -> Dict:
+644:     prompt = f"""请提供"{location}"的地理信息，返回JSON格式。
+648:   "province": "所属省份",
+649:   "city": "所属城市（如有）",
+652:   "climate_zone": "气候带（如：温带季风、亚热带季风等）",
+653:   "vegetation_zone": "植被带（如：温带针叶林、亚热带常绿阔叶林等）",
+670:     return {"name": location, "province": "", "lat": None, "lon": None}
+698: def llm_rank_locations_by_distance(
+699:     query_location: str,
+701:     candidate_locations: List[str],
+707:     同时考虑：地理距离、气候相似性、植被带相似性
+713:     def location_specificity(loc):
+727:         candidate_locations[:20],
+728:         key=location_specificity,
+732:         f"{i+1}. {loc}（精确度:{'高' if location_specificity(loc)>=3 else '中' if location_specificity(loc)==2 else '低'}）"
+738: 查询地区：{query_location}
+739: 所属省份：{query_geo.get('province','未知')}
+740: 气候带：{query_geo.get('climate_zone','未知')}
+741: 植被带：{query_geo.get('vegetation_zone','未知')}
+746: 任务：选出与"{query_location}"地理空间位置最近的1个地区。
+750: 2. 地理距离最近（同省同山系 > 同省不同山系 > 邻省）
+751: 3. 气候植被类型相似
+761:       "location": "地区名（必须与候选列表完全一致，不含精确度标注）",
+764:       "reason": "理由：距离+气候+树种"
+783: def find_nearest_location_in_db(
+784:     query_location: str,
+800:         query_location: 用户查询的地区
+810:     print(f"\n[地区泛化] 查询地区: {query_location}")
+815:     query_geo = get_location_geographic_info(query_location)
+816:     print(f"  省份: {query_geo.get('province')}")
+818:     print(f"  气候带: {query_geo.get('climate_zone')}")
+819:     print(f"  植被带: {query_geo.get('vegetation_zone')}")
+825:     all_locations = list(set(
+
+==============================================================================
+E. IMPORTANT INTEGRITY CHECK
+==============================================================================
+ORIGINAL_V24_SHA256: ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990
+EXPECTED_V24_SHA256: ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990
+ORIGINAL_V24_UNCHANGED: True
+
+AUDIT_COMPLETE

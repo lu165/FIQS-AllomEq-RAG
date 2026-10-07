@@ -1,0 +1,505 @@
+====================================================================================================
+V7 MERGE EXACT EQUIVALENCE AUDIT
+====================================================================================================
+
+[1] FILES
+
+PATH   = <PRIVATE_ROOT>/eval_neg_standalone_v2.py
+EXISTS = True
+SIZE   = 15772
+SHA256 = 6ed5bca1d818ceab8f0a3da250f6cec56d66f9577d01cde86eaca2ff75ee8750
+
+PATH   = <PRIVATE_ROOT>/neg_samples_standalone.json
+EXISTS = True
+SIZE   = 13811
+SHA256 = 2aebe17e6a8653374892bb4c393c8cc970f437c672c6b5ba86f36b35d3e3bbdd
+
+PATH   = <PRIVATE_ROOT>/最新生物量测试集构建_v7_with_neg.json
+EXISTS = True
+SIZE   = 425102
+SHA256 = 09cdfeffb9dbea5673d9a248de69720a141e9e187e4261a3492f5089347b1229
+
+PATH   = <PRIVATE_ROOT>/最新生物量测试集构建_v7_with_neg_原始_20260503_131441.json
+EXISTS = True
+SIZE   = 403974
+SHA256 = c40c5dfe1362f19e13a1963661e3472e973b386fdcd5038715403e5e464ce073
+
+====================================================================================================
+[2] EXACT MERGE IMPLEMENTATION
+====================================================================================================
+
+--- SOURCE 1-83 ---
+00001: """
+00002: 负样本独立评估脚本 v2（修正版）
+00003: ================================
+00004: 修正点：
+00005:   1. 不再 import biomass_expert_v9（避免触发其主流程）
+00006:   2. 自己直接加载模型+向量，复用 v9 的槽位提取和检索逻辑
+00007:   3. 先检查 neg_samples_standalone.json 是否存在
+00008: 
+00009: 运行顺序（必须先跑构建脚本）：
+00010:   Step1: python3 build_neg_v3_data_driven.py   ← 先生成负样本
+00011:   Step2: python3 eval_neg_standalone_v2.py     ← 再单独评估
+00012:   Step3: python3 eval_neg_standalone_v2.py --merge  ← 效果好再合并
+00013: """
+00014: 
+00015: import json
+00016: import re
+00017: import sys
+00018: import time
+00019: import os
+00020: import importlib.util
+00021: from pathlib import Path
+00022: from collections import Counter
+00023: 
+00024: # ============================================================
+00025: # 路径配置
+00026: # ============================================================
+00027: NEG_PATH   = "<PRIVATE_ROOT>/neg_samples_standalone.json"
+00028: EQ_PATH    = "<PRIVATE_ROOT>/林业方程_标准化.json"
+00029: V9_PATH    = "<PRIVATE_ROOT>/biomass_expert_v9.py"
+00030: MODEL_PATH = "<PRIVATE_ROOT>/Qwen/Qwen1.5-7B-Chat"
+00031: OUT_RESULT = "<PRIVATE_ROOT>/neg_eval_result.txt"
+00032: OUT_DETAIL = "<PRIVATE_ROOT>/neg_eval_detail.json"
+00033: MAIN_TEST  = "<PRIVATE_ROOT>/最新生物量测试集构建_v6.json"
+00034: OUT_MERGED = "<PRIVATE_ROOT>/最新生物量测试集构建_v7_with_neg.json"
+00035: 
+00036: 
+00037: # ============================================================
+00038: # 前置检查
+00039: # ============================================================
+00040: def preflight_check():
+00041:     print("=" * 60)
+00042:     print("前置检查")
+00043:     print("=" * 60)
+00044:     ok = True
+00045: 
+00046:     if not Path(NEG_PATH).exists():
+00047:         print(f"  ❌ 负样本文件不存在: {NEG_PATH}")
+00048:         print(f"     请先运行: python3 build_neg_v3_data_driven.py")
+00049:         ok = False
+00050:     else:
+00051:         with open(NEG_PATH, encoding="utf-8") as f:
+00052:             neg_data = json.load(f)
+00053:         n = len(neg_data.get("test_cases", []))
+00054:         print(f"  ✅ 负样本文件存在，共 {n} 条")
+00055: 
+00056:     if not Path(EQ_PATH).exists():
+00057:         print(f"  ❌ 方程库不存在: {EQ_PATH}")
+00058:         ok = False
+00059:     else:
+00060:         print(f"  ✅ 方程库存在")
+00061: 
+00062:     if not Path(V9_PATH).exists():
+00063:         print(f"  ❌ v9 脚本不存在: {V9_PATH}")
+00064:         ok = False
+00065:     else:
+00066:         print(f"  ✅ v9 脚本存在")
+00067: 
+00068:     return ok
+00069: 
+00070: 
+00071: # ============================================================
+00072: # 从 v9 源码中提取函数（不执行其 __main__ 块）
+00073: # ============================================================
+00074: def load_v9_functions():
+00075:     """
+00076:     用 importlib 加载 v9 模块，但只提取函数，
+00077:     不触发 v9 的 if __name__ == '__main__' 以外的模块级代码。
+00078:     如果 v9 有模块级副作用（如模型加载），下面会捕获并跳过。
+00079:     """
+00080:     print("\n" + "=" * 60)
+00081:     print("加载 v9 核心函数（不触发主评估）")
+00082:     print("=" * 60)
+00083: 
+
+--- SOURCE 214-264 ---
+00214:     return {
+00215:         "correct_reject": correct,
+00216:         "reject_signal":  signal,
+00217:         "top1_equation":  top1_eq,
+00218:         "top1_species":   top1_sp,
+00219:         "top1_score":     top1_score,
+00220:         "slots":          slots,
+00221:         "intent":         intent,
+00222:     }
+00223: 
+00224: 
+00225: # ============================================================
+00226: # 主评估循环
+00227: # ============================================================
+00228: def run_eval(funcs: dict):
+00229:     with open(NEG_PATH, encoding="utf-8") as f:
+00230:         neg_data = json.load(f)
+00231:     with open(EQ_PATH, encoding="utf-8") as f:
+00232:         eq_db = json.load(f)
+00233: 
+00234:     cases = neg_data["test_cases"]
+00235: 
+00236:     print("\n" + "=" * 60)
+00237:     print(f"开始评估负样本（共 {len(cases)} 条）")
+00238:     print("=" * 60)
+00239: 
+00240:     records    = []
+00241:     correct_n  = 0
+00242:     type_stats = {}  # group -> {total, correct}
+00243: 
+00244:     for i, case in enumerate(cases):
+00245:         tid     = case.get("test_id", f"NEG_{i}")
+00246:         q       = case.get("question", "")
+00247:         group   = case.get("group", "未知")
+00248:         subtype = case.get("subtype", "")
+00249: 
+00250:         t0 = time.time()
+00251:         sys_result = process_one(q, eq_db, funcs)
+00252:         elapsed    = round(time.time() - t0, 3)
+00253: 
+00254:         jdg = judge(sys_result, case)
+00255:         if jdg["correct_reject"]:
+00256:             correct_n += 1
+00257: 
+00258:         if group not in type_stats:
+00259:             type_stats[group] = {"total": 0, "correct": 0}
+00260:         type_stats[group]["total"] += 1
+00261:         if jdg["correct_reject"]:
+00262:             type_stats[group]["correct"] += 1
+00263: 
+00264:         flag = "✅" if jdg["correct_reject"] else "❌"
+
+--- SOURCE 314-426 ---
+00314:         lines.append(f"  {grp:<22} {stat['correct']:>4} {stat['total']:>4}  {r:>6.1f}%")
+00315: 
+00316:     failed = [r for r in records if not r["correct_reject"]]
+00317:     if failed:
+00318:         lines.append(f"\n  ❌ 错误处理案例（{len(failed)}条）：")
+00319:         for r in failed:
+00320:             lines.append(f"    {r['test_id']} | score={r['system_top1_score']:.3f}")
+00321:             lines.append(f"      问题: {r['question'][:55]}…")
+00322:             lines.append(f"      系统返回树种: {r['system_top1_sp']}")
+00323:             lines.append(f"      应拒绝原因: {r['rejection_reason']}")
+00324: 
+00325:     lines.append("\n" + "=" * 60)
+00326:     lines.append("结论")
+00327:     lines.append("=" * 60)
+00328:     if rate >= 80:
+00329:         lines.append(f"  ✅ 拒绝率 {rate:.1f}% ≥ 80%，可合并进主测试集")
+00330:         lines.append(f"     运行: python3 eval_neg_standalone_v2.py --merge")
+00331:     elif rate >= 60:
+00332:         lines.append(f"  ⚠️  拒绝率 {rate:.1f}%，在 v9 中增加拒绝逻辑后再合并")
+00333:     else:
+00334:         lines.append(f"  ❌ 拒绝率 {rate:.1f}% 偏低，v9 缺少拒绝检测，需先修复")
+00335: 
+00336:     # 找最差的类型
+00337:     worst = min(type_stats.items(),
+00338:                 key=lambda x: x[1]["correct"] / x[1]["total"] if x[1]["total"] else 1)
+00339:     lines.append(f"\n  最需改进: {worst[0]}")
+00340:     lines.append("\n  建议在 v9 增加的拒绝逻辑：")
+00341:     lines.append("    1. slots 提取后校验 tree_species 是否在 db_species_set 里")
+00342:     lines.append("    2. 校验 region 是否在 db_region_set 里")
+00343:     lines.append("    3. 校验 D/H 范围 (5≤D≤200, 1≤H≤80)")
+00344:     lines.append("    4. 检索后若 top1_score < 阈值 → 返回 rejection 而非强输出")
+00345: 
+00346:     report = "\n".join(lines)
+00347:     print(report)
+00348:     with open(OUT_RESULT, "w", encoding="utf-8") as f:
+00349:         f.write(report)
+00350:     print(f"\n  报告已保存: {OUT_RESULT}")
+00351: 
+00352:     return rate
+00353: 
+00354: 
+00355: # ============================================================
+00356: # 合并负样本进主测试集
+00357: # ============================================================
+00358: def merge_into_main():
+00359:     with open(NEG_PATH, encoding="utf-8") as f:
+00360:         neg_data = json.load(f)
+00361:     with open(MAIN_TEST, encoding="utf-8") as f:
+00362:         main_data = json.load(f)
+00363: 
+00364:     neg_cases  = neg_data["test_cases"]
+00365:     main_cases = main_data["test_cases"]
+00366:     merged     = main_cases + neg_cases
+00367: 
+00368:     out = dict(main_data)
+00369:     out["test_cases"] = merged
+00370:     out["meta"] = {
+00371:         **main_data.get("meta", {}),
+00372:         "version": "v7_with_neg",
+00373:         "total_cases": len(merged),
+00374:         "neg_added": len(neg_cases),
+00375:     }
+00376:     with open(OUT_MERGED, "w", encoding="utf-8") as f:
+00377:         json.dump(out, f, ensure_ascii=False, indent=2)
+00378: 
+00379:     print(f"✅ 合并完成: {OUT_MERGED}")
+00380:     print(f"   原始: {len(main_cases)}条  +  负样本: {len(neg_cases)}条  =  合计: {len(merged)}条")
+00381: 
+00382: 
+00383: # ============================================================
+00384: # 入口
+00385: # ============================================================
+00386: if __name__ == "__main__":
+00387:     if len(sys.argv) > 1 and sys.argv[1] == "--merge":
+00388:         if not Path(NEG_PATH).exists():
+00389:             print("❌ 负样本文件不存在，请先运行 build_neg_v3_data_driven.py")
+00390:             sys.exit(1)
+00391:         merge_into_main()
+00392:         sys.exit(0)
+00393: 
+00394:     # 正常评估流程
+00395:     if not preflight_check():
+00396:         print("\n❌ 前置检查失败，请先运行 build_neg_v3_data_driven.py")
+00397:         sys.exit(1)
+00398: 
+00399:     # 加载 v9 函数（不触发主流程）
+00400:     funcs = load_v9_functions()
+00401:     if funcs is None:
+00402:         print("  → 降级到轻量关键词模式")
+00403:         funcs = {}
+00404: 
+00405:     # 评估
+00406:     records, correct_n, type_stats = run_eval(funcs)
+00407: 
+00408:     # 保存详细记录
+00409:     with open(OUT_DETAIL, "w", encoding="utf-8") as f:
+00410:         summary = {
+00411:             "total": len(records),
+00412:             "correct": correct_n,
+00413:             "rejection_rate": round(correct_n / len(records) * 100, 2) if records else 0,
+00414:         }
+00415:         json.dump({"summary": summary, "details": records},
+00416:                   f, ensure_ascii=False, indent=2)
+00417:     print(f"\n  详细记录已保存: {OUT_DETAIL}")
+00418: 
+00419:     # 生成报告
+00420:     rate = generate_report(records, correct_n, type_stats)
+00421: 
+00422:     print(f"\n最终拒绝率: {rate:.1f}%")
+00423:     if rate >= 70:
+00424:         print("👉 下一步：python3 eval_neg_standalone_v2.py --merge")
+00425:     else:
+00426:         print("👉 下一步：在 biomass_expert_v9.py 里增加拒绝检测逻辑后重跑")
+
+====================================================================================================
+[3] PATH CONSTANTS
+====================================================================================================
+EQ_PATH = <PRIVATE_ROOT>/林业方程_标准化.json
+MAIN_TEST = <PRIVATE_ROOT>/最新生物量测试集构建_v6.json
+MODEL_PATH = <PRIVATE_ROOT>/Qwen/Qwen1.5-7B-Chat
+NEG_PATH = <PRIVATE_ROOT>/neg_samples_standalone.json
+OUT_DETAIL = <PRIVATE_ROOT>/neg_eval_detail.json
+OUT_MERGED = <PRIVATE_ROOT>/最新生物量测试集构建_v7_with_neg.json
+OUT_RESULT = <PRIVATE_ROOT>/neg_eval_result.txt
+V9_PATH = <PRIVATE_ROOT>/biomass_expert_v9.py
+
+====================================================================================================
+[4] NEGATIVE SAMPLE AUDIT
+====================================================================================================
+NEG_TOTAL = 27
+NEG_UNIQUE_IDS = 27
+NEG_REQUIRES_REJECTION_TRUE = 27
+NEG_GROUPS =
+  '负样本_参数异常' 13
+  '负样本_信息严重不足' 10
+  '负样本_超出知识边界' 4
+
+NEG_IDS =
+NEG_OOD_C_001,NEG_OOD_C_002,NEG_OOD_C_003,NEG_OOD_C_004,NEG_PARAM_001,NEG_PARAM_002,NEG_PARAM_003,NEG_PARAM_004,NEG_PARAM_005,NEG_PARAM_006,NEG_PARAM_007,NEG_PARAM_008,NEG_PARAM_009,NEG_PARAM_010,NEG_PARAM_011,NEG_PARAM_012,NEG_PARAM_013,NEG_AMBIG_001,NEG_AMBIG_002,NEG_AMBIG_003,NEG_AMBIG_004,NEG_AMBIG_005,NEG_AMBIG_006,NEG_AMBIG_007,NEG_AMBIG_008,NEG_AMBIG_009,NEG_AMBIG_010
+
+====================================================================================================
+[5] V7 CONTENT AUDIT
+====================================================================================================
+
+V7 = <PRIVATE_ROOT>/最新生物量测试集构建_v7_with_neg.json
+TOTAL = 522
+UNIQUE_IDS = 522
+REJECTION_TRUE = 88
+NON_REJECTION = 434
+NEG_IDS_SUBSET_OF_V7_REJECTION = True
+NEG_ONLY = []
+V7_REJECTION_NOT_IN_NEG = ['Q0045', 'Q0046', 'Q0068', 'Q0083', 'Q0084', 'Q0095', 'Q0096', 'Q0105', 'Q0106', 'Q0115', 'Q0124', 'Q0125', 'Q0134', 'Q0135', 'Q0154', 'Q0172', 'Q0173', 'Q0198', 'Q0208', 'Q0212', 'Q0213', 'Q0214', 'Q0215', 'Q0216', 'Q0231', 'Q0232', 'Q0237', 'Q0248', 'Q0257', 'Q0262', 'Q0265', 'Q0273', 'Q0279', 'Q0283', 'Q0297', 'Q0306', 'Q0308', 'Q0309', 'Q0316', 'Q0317', 'Q0319', 'Q0320', 'Q0345', 'Q0348', 'Q0349', 'Q0363', 'Q0364', 'Q0365', 'Q0366', 'Q0367', 'Q0368', 'Q0369', 'Q0370', 'Q0371', 'Q0372', 'Q0373', 'Q0374', 'Q0375', 'Q0376', 'Q0380', 'Q0382']
+NEG_V7_COMMON_IDS = 27
+NEG_V7_EXACT_OBJECT_EQUAL = 0
+NEG_V7_CHANGED_OBJECTS = 27
+CHANGED_IDS = ['NEG_AMBIG_001', 'NEG_AMBIG_002', 'NEG_AMBIG_003', 'NEG_AMBIG_004', 'NEG_AMBIG_005', 'NEG_AMBIG_006', 'NEG_AMBIG_007', 'NEG_AMBIG_008', 'NEG_AMBIG_009', 'NEG_AMBIG_010', 'NEG_OOD_C_001', 'NEG_OOD_C_002', 'NEG_OOD_C_003', 'NEG_OOD_C_004', 'NEG_PARAM_001', 'NEG_PARAM_002', 'NEG_PARAM_003', 'NEG_PARAM_004', 'NEG_PARAM_005', 'NEG_PARAM_006', 'NEG_PARAM_007', 'NEG_PARAM_008', 'NEG_PARAM_009', 'NEG_PARAM_010', 'NEG_PARAM_011', 'NEG_PARAM_012', 'NEG_PARAM_013']
+
+DIFF NEG_AMBIG_001
+FIELDS = ['component_original']
+ NEG component_original = None
+ V7 component_original = ''
+
+DIFF NEG_AMBIG_002
+FIELDS = ['component_original']
+ NEG component_original = None
+ V7 component_original = ''
+
+DIFF NEG_AMBIG_003
+FIELDS = ['component_original']
+ NEG component_original = None
+ V7 component_original = ''
+
+DIFF NEG_AMBIG_004
+FIELDS = ['component_original']
+ NEG component_original = None
+ V7 component_original = ''
+
+DIFF NEG_AMBIG_005
+FIELDS = ['component_original']
+ NEG component_original = None
+ V7 component_original = ''
+
+DIFF NEG_AMBIG_006
+FIELDS = ['component_original']
+ NEG component_original = None
+ V7 component_original = ''
+
+DIFF NEG_AMBIG_007
+FIELDS = ['component_original']
+ NEG component_original = None
+ V7 component_original = ''
+
+DIFF NEG_AMBIG_008
+FIELDS = ['component_original']
+ NEG component_original = None
+ V7 component_original = ''
+
+DIFF NEG_AMBIG_009
+FIELDS = ['component_original']
+ NEG component_original = None
+ V7 component_original = ''
+
+DIFF NEG_AMBIG_010
+FIELDS = ['component_original']
+ NEG component_original = None
+ V7 component_original = ''
+
+DIFF NEG_OOD_C_001
+FIELDS = ['component_original']
+ NEG component_original = None
+ V7 component_original = ''
+
+DIFF NEG_OOD_C_002
+FIELDS = ['component_original']
+ NEG component_original = None
+ V7 component_original = ''
+
+DIFF NEG_OOD_C_003
+FIELDS = ['component_original']
+ NEG component_original = None
+ V7 component_original = ''
+
+DIFF NEG_OOD_C_004
+FIELDS = ['component_original', 'question', 'rejection_reason', 'subtype']
+ NEG component_original = None
+ V7 component_original = ''
+ NEG question = '我在俄罗斯滨海边疆区调查了一棵西伯利亚落叶松，胸径38cm，树高28m，想算干生物量，有合适的方程吗？'
+ V7 question = '我在俄罗斯西伯利亚做调查，测了一棵当地的云杉（Picea obovata），胸径42cm，树高30m，想算干生物量，中国的方程库里有这个树种的方程吗？'
+ NEG rejection_reason = "树种'西伯利亚落叶松'和地区'俄罗斯滨海边疆区'均不在方程库覆盖范围内"
+ V7 rejection_reason = 'Picea obovata（西伯利亚云杉）为境外物种，不在国内方程库收录范围'
+ NEG subtype = 'OOD-C_both_not_in_db'
+ V7 subtype = 'OOD-C_foreign_species'
+
+DIFF NEG_PARAM_001
+FIELDS = ['component_original']
+ NEG component_original = None
+ V7 component_original = ''
+
+DIFF NEG_PARAM_002
+FIELDS = ['component_original']
+ NEG component_original = None
+ V7 component_original = ''
+
+DIFF NEG_PARAM_003
+FIELDS = ['component_original', 'question', 'rejection_reason']
+ NEG component_original = None
+ V7 component_original = ''
+ NEG question = '福建的油杉，胸径-15厘米，树干生物量怎么算？只用胸径够吗？'
+ V7 question = '福建的油杉，测量时发现胸径数据记录错了，写成了负数：胸径为负十五厘米，这个数据有问题，能用生物量方程吗？树干生物量怎么算？'
+ NEG rejection_reason = '胸径为负数，物理不可能'
+ V7 rejection_reason = '胸径记录为负数（-15cm），参数无效，物理上不可能'
+
+DIFF NEG_PARAM_004
+FIELDS = ['component_original']
+ NEG component_original = None
+ V7 component_original = ''
+
+DIFF NEG_PARAM_005
+FIELDS = ['component_original']
+ NEG component_original = None
+ V7 component_original = ''
+
+DIFF NEG_PARAM_006
+FIELDS = ['component_original']
+ NEG component_original = None
+ V7 component_original = ''
+
+V7 = <PRIVATE_ROOT>/最新生物量测试集构建_v7_with_neg_原始_20260503_131441.json
+TOTAL = 522
+UNIQUE_IDS = 522
+REJECTION_TRUE = 88
+NON_REJECTION = 434
+NEG_IDS_SUBSET_OF_V7_REJECTION = True
+NEG_ONLY = []
+V7_REJECTION_NOT_IN_NEG = ['Q0045', 'Q0046', 'Q0068', 'Q0083', 'Q0084', 'Q0095', 'Q0096', 'Q0105', 'Q0106', 'Q0115', 'Q0124', 'Q0125', 'Q0134', 'Q0135', 'Q0154', 'Q0172', 'Q0173', 'Q0198', 'Q0208', 'Q0212', 'Q0213', 'Q0214', 'Q0215', 'Q0216', 'Q0231', 'Q0232', 'Q0237', 'Q0248', 'Q0257', 'Q0262', 'Q0265', 'Q0273', 'Q0279', 'Q0283', 'Q0297', 'Q0306', 'Q0308', 'Q0309', 'Q0316', 'Q0317', 'Q0319', 'Q0320', 'Q0345', 'Q0348', 'Q0349', 'Q0363', 'Q0364', 'Q0365', 'Q0366', 'Q0367', 'Q0368', 'Q0369', 'Q0370', 'Q0371', 'Q0372', 'Q0373', 'Q0374', 'Q0375', 'Q0376', 'Q0380', 'Q0382']
+NEG_V7_COMMON_IDS = 27
+NEG_V7_EXACT_OBJECT_EQUAL = 23
+NEG_V7_CHANGED_OBJECTS = 4
+CHANGED_IDS = ['NEG_OOD_C_004', 'NEG_PARAM_003', 'NEG_PARAM_008', 'NEG_PARAM_012']
+
+DIFF NEG_OOD_C_004
+FIELDS = ['question', 'rejection_reason', 'subtype']
+ NEG question = '我在俄罗斯滨海边疆区调查了一棵西伯利亚落叶松，胸径38cm，树高28m，想算干生物量，有合适的方程吗？'
+ V7 question = '我在俄罗斯西伯利亚做调查，测了一棵当地的云杉（Picea obovata），胸径42cm，树高30m，想算干生物量，中国的方程库里有这个树种的方程吗？'
+ NEG rejection_reason = "树种'西伯利亚落叶松'和地区'俄罗斯滨海边疆区'均不在方程库覆盖范围内"
+ V7 rejection_reason = 'Picea obovata（西伯利亚云杉）为境外物种，不在国内方程库收录范围'
+ NEG subtype = 'OOD-C_both_not_in_db'
+ V7 subtype = 'OOD-C_foreign_species'
+
+DIFF NEG_PARAM_003
+FIELDS = ['question', 'rejection_reason']
+ NEG question = '福建的油杉，胸径-15厘米，树干生物量怎么算？只用胸径够吗？'
+ V7 question = '福建的油杉，测量时发现胸径数据记录错了，写成了负数：胸径为负十五厘米，这个数据有问题，能用生物量方程吗？树干生物量怎么算？'
+ NEG rejection_reason = '胸径为负数，物理不可能'
+ V7 rejection_reason = '胸径记录为负数（-15cm），参数无效，物理上不可能'
+
+DIFF NEG_PARAM_008
+FIELDS = ['question', 'rejection_reason']
+ NEG question = '河南农田防护林,毛白杨胸径-15cm,估算全树生物量用于碳汇计算'
+ V7 question = '河南农田防护林，毛白杨，测量记录上写的胸径是负十五厘米，估算全树生物量用于碳汇计算，这个负数胸径能直接代入方程吗？'
+ NEG rejection_reason = '胸径为负数，物理不可能'
+ V7 rejection_reason = '胸径为负数（-15cm），参数无效'
+
+DIFF NEG_PARAM_012
+FIELDS = ['question', 'rejection_reason']
+ NEG question = '我测了一棵马尾松，胸径是-8厘米，地区在湖南，想查枝生物量方程。'
+ V7 question = '湖南的马尾松，测量记录上写的胸径是负八厘米，我想查枝生物量方程，这个负数测量值能用吗？'
+ NEG rejection_reason = '胸径为负值，物理上不可能，输入无效'
+ V7 rejection_reason = '胸径为负值（-8cm），物理上不可能，输入无效'
+
+====================================================================================================
+[6] V7 VARIANT COMPARISON
+====================================================================================================
+A = <PRIVATE_ROOT>/最新生物量测试集构建_v7_with_neg.json
+B = <PRIVATE_ROOT>/最新生物量测试集构建_v7_with_neg_原始_20260503_131441.json
+A_TOTAL = 522
+B_TOTAL = 522
+FULL_CASE_LIST_EQUAL = False
+ID_SET_EQUAL = True
+CHANGED_CASE_COUNT = 522
+CHANGED_IDS = ['GEN_单位_0001', 'GEN_单位_0003', 'GEN_单位_0004', 'GEN_单位_0005', 'GEN_单位_0006', 'GEN_单位_0007', 'GEN_单位_0008', 'GEN_单位_0010', 'GEN_单位_0011', 'GEN_单位_0012', 'GEN_单位_0013', 'GEN_单位_0014', 'GEN_单位_0015', 'GEN_单位_0016', 'GEN_单位_0017', 'GEN_单位_0018', 'GEN_单位_0019', 'GEN_单位_0020', 'GEN_单位_0021', 'GEN_单位_0022', 'GEN_单位_0023', 'GEN_单位_0024', 'GEN_单位_0025', 'GEN_术语_0101', 'GEN_术语_0102', 'GEN_术语_0103', 'GEN_术语_0104', 'GEN_术语_0105', 'GEN_术语_0106', 'GEN_术语_0107', 'GEN_术语_0108', 'GEN_术语_0109', 'GEN_术语_0110', 'GEN_术语_0111', 'GEN_术语_0112', 'GEN_术语_0113', 'GEN_术语_0114', 'GEN_术语_0115', 'GEN_术语_0116', 'GEN_术语_0117', 'GEN_术语_0118', 'GEN_术语_0119', 'GEN_术语_0120', 'GEN_术语_0121', 'GEN_术语_0122', 'GEN_术语_0123', 'GEN_术语_0124', 'GEN_术语_0125', 'GEN_术语_0126', 'GEN_术语_0127', 'GEN_术语_0128', 'GEN_术语_0129', 'GEN_术语_0130', 'GEN_条件_0056', 'GEN_条件_0057', 'GEN_条件_0058', 'GEN_条件_0059', 'GEN_条件_0060', 'GEN_条件_0061', 'GEN_条件_0062', 'GEN_条件_0063', 'GEN_条件_0064', 'GEN_条件_0065', 'GEN_条件_0066', 'GEN_条件_0067', 'GEN_条件_0068', 'GEN_条件_0069', 'GEN_条件_0071', 'GEN_条件_0072', 'GEN_条件_0073', 'GEN_条件_0074', 'GEN_条件_0075', 'GEN_背景_0026', 'GEN_背景_0027', 'GEN_背景_0028', 'GEN_背景_0029', 'GEN_背景_0030', 'GEN_背景_0031', 'GEN_背景_0032', 'GEN_背景_0033', 'GEN_背景_0034', 'GEN_背景_0035', 'GEN_背景_0036', 'GEN_背景_0037', 'GEN_背景_0038', 'GEN_背景_0039', 'GEN_背景_0040', 'GEN_背景_0041', 'GEN_背景_0042', 'GEN_背景_0043', 'GEN_背景_0044', 'GEN_背景_0045', 'GEN_背景_0046', 'GEN_背景_0047', 'GEN_背景_0048', 'GEN_背景_0049', 'GEN_背景_0050', 'GEN_背景_0052', 'GEN_背景_0053', 'GEN_背景_0054']
+
+====================================================================================================
+[7] EXPECTED FINAL BENCHMARK INVARIANTS
+====================================================================================================
+TARGET = <PRIVATE_ROOT>/最新生物量测试集构建_v7_with_neg_原始_20260503_131441.json
+TOTAL = 522
+APPLICABLE = 434
+INAPPLICABLE = 88
+EXPECT_TOTAL_522 = True
+EXPECT_APPLICABLE_434 = True
+EXPECT_INAPPLICABLE_88 = True
+
+====================================================================================================
+AUDIT_COMPLETE
+====================================================================================================

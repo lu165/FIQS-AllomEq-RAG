@@ -1,0 +1,1208 @@
+============================================================
+MANUSCRIPT-ALIGNED RUNTIME INVENTORY
+============================================================
+
+========== RELEASE PYTHON FILES ==========
+github_release/code/allomeq_rag/applicability.py
+github_release/code/allomeq_rag/applicability_basic_v1.py
+github_release/code/allomeq_rag/applicability_final.py
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py
+github_release/code/allomeq_rag/applicability_v3.py
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py
+github_release/code/allomeq_rag/compatibility.py
+github_release/code/allomeq_rag/predictor_adapter.py
+github_release/code/allomeq_rag/range_adapter.py
+github_release/code/allomeq_rag/range_adapter_conservative_v1.py
+github_release/code/allomeq_rag/scoring.py
+github_release/code/biomass_expert_manuscript.py
+github_release/code/evaluation/build_522_evaluator_ready.py
+github_release/code/evaluation/build_reference_manifest.py
+github_release/code/evaluation/build_reference_manifest_fixed.py
+github_release/code/evaluation/historical_v24_evaluator.py
+github_release/code/evaluation/manuscript_522.py
+github_release/code/evaluation/manuscript_522_v2.py
+github_release/code/fusion.py
+
+========== ALLOMEQ-RAG MODULE ==========
+github_release/code/allomeq_rag/__pycache__/applicability.cpython-310.pyc
+github_release/code/allomeq_rag/__pycache__/applicability_final.cpython-310.pyc
+github_release/code/allomeq_rag/__pycache__/applicability_v3.cpython-310.pyc
+github_release/code/allomeq_rag/__pycache__/compatibility.cpython-310.pyc
+github_release/code/allomeq_rag/__pycache__/predictor_adapter.cpython-310.pyc
+github_release/code/allomeq_rag/__pycache__/range_adapter.cpython-310.pyc
+github_release/code/allomeq_rag/__pycache__/range_adapter_conservative_v1.cpython-310.pyc
+github_release/code/allomeq_rag/__pycache__/scoring.cpython-310.pyc
+github_release/code/allomeq_rag/applicability.py
+github_release/code/allomeq_rag/applicability_basic_v1.py
+github_release/code/allomeq_rag/applicability_final.py
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py
+github_release/code/allomeq_rag/applicability_v3.py
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py
+github_release/code/allomeq_rag/compatibility.py
+github_release/code/allomeq_rag/predictor_adapter.py
+github_release/code/allomeq_rag/range_adapter.py
+github_release/code/allomeq_rag/range_adapter_conservative_v1.py
+github_release/code/allomeq_rag/scoring.py
+
+========== DEFINITIONS ==========
+github_release/code/allomeq_rag/predictor_adapter.py:21:class PredictorStatus(str, Enum):
+github_release/code/allomeq_rag/predictor_adapter.py:28:class PredictorRequirement:
+github_release/code/allomeq_rag/predictor_adapter.py:35:class PredictorCheck:
+github_release/code/allomeq_rag/predictor_adapter.py:140:def canonicalize_required_variable(
+github_release/code/allomeq_rag/predictor_adapter.py:177:def required_predictors_from_fedb(
+github_release/code/allomeq_rag/predictor_adapter.py:228:def _looks_non_predictor_key(
+github_release/code/allomeq_rag/predictor_adapter.py:240:def supplied_predictors_from_calc_params(
+github_release/code/allomeq_rag/predictor_adapter.py:278:def supplied_predictors_from_question(
+github_release/code/allomeq_rag/predictor_adapter.py:342:def collect_supplied_predictors(
+github_release/code/allomeq_rag/predictor_adapter.py:366:def check_required_predictors(
+github_release/code/allomeq_rag/applicability_final.py:42:class GateStatus(str, Enum):
+github_release/code/allomeq_rag/applicability_final.py:49:class ConstraintEvidence:
+github_release/code/allomeq_rag/applicability_final.py:56:class ApplicabilityDecision:
+github_release/code/allomeq_rag/applicability_final.py:69:def explicit_species_constraint(
+github_release/code/allomeq_rag/applicability_final.py:117:def explicit_geography_constraint(
+github_release/code/allomeq_rag/applicability_final.py:150:def component_constraint(
+github_release/code/allomeq_rag/applicability_final.py:199:def predictor_constraint(
+github_release/code/allomeq_rag/applicability_final.py:238:def measurement_range_constraint(
+github_release/code/allomeq_rag/applicability_final.py:277:def aggregate_constraints(
+github_release/code/allomeq_rag/applicability_final.py:357:def evaluate_applicability(
+github_release/code/allomeq_rag/range_adapter.py:36:def parse_d_range(sc):
+github_release/code/allomeq_rag/range_adapter.py:66:class RangeStatus(str, Enum):
+github_release/code/allomeq_rag/range_adapter.py:73:class RangeCheckResult:
+github_release/code/allomeq_rag/range_adapter.py:87:def check_dbh_range(
+github_release/code/allomeq_rag/applicability_v3.py:30:class ConstraintResult:
+github_release/code/allomeq_rag/applicability_v3.py:39:def _clean(value: Any) -> str:
+github_release/code/allomeq_rag/applicability_v3.py:45:def normalize_component(value: Any) -> str:
+github_release/code/allomeq_rag/applicability_v3.py:91:def check_component(
+github_release/code/allomeq_rag/applicability_v3.py:127:def normalize_variables(values: Any) -> Set[str]:
+github_release/code/allomeq_rag/applicability_v3.py:164:def check_required_predictors(
+github_release/code/allomeq_rag/applicability_v3.py:200:def evaluate_basic_applicability(
+github_release/code/allomeq_rag/applicability_v3.py:239:def _validate_compatibility_score(
+github_release/code/allomeq_rag/applicability_v3.py:264:def check_species_taxonomy(
+github_release/code/allomeq_rag/applicability_v3.py:303:def check_geography(
+github_release/code/allomeq_rag/applicability_v3.py:342:def evaluate_applicability(
+github_release/code/allomeq_rag/applicability_v3.py:403:def check_measurement_range(
+github_release/code/allomeq_rag/compatibility.py:32:class TaxonomicRelation(str, Enum):
+github_release/code/allomeq_rag/compatibility.py:40:class GeographicRelation(str, Enum):
+github_release/code/allomeq_rag/compatibility.py:49:class CompatibilityScore:
+github_release/code/allomeq_rag/compatibility.py:61:def taxonomic_score(
+github_release/code/allomeq_rag/compatibility.py:124:def geographic_score(
+github_release/code/allomeq_rag/compatibility.py:196:def passes_species_discovery(
+github_release/code/allomeq_rag/compatibility.py:204:def passes_geography_discovery(
+github_release/code/allomeq_rag/applicability.py:26:class ConstraintResult:
+github_release/code/allomeq_rag/applicability.py:35:def _clean(value: Any) -> str:
+github_release/code/allomeq_rag/applicability.py:41:def normalize_component(value: Any) -> str:
+github_release/code/allomeq_rag/applicability.py:87:def check_component(
+github_release/code/allomeq_rag/applicability.py:123:def normalize_variables(values: Any) -> Set[str]:
+github_release/code/allomeq_rag/applicability.py:160:def check_required_predictors(
+github_release/code/allomeq_rag/applicability.py:192:def parse_documented_range(
+github_release/code/allomeq_rag/applicability.py:238:def check_measurement_range(
+github_release/code/allomeq_rag/applicability.py:278:def evaluate_basic_applicability(
+github_release/code/allomeq_rag/applicability.py:317:def _validate_compatibility_score(
+github_release/code/allomeq_rag/applicability.py:342:def check_species_taxonomy(
+github_release/code/allomeq_rag/applicability.py:381:def check_geography(
+github_release/code/allomeq_rag/applicability.py:420:def evaluate_applicability(
+github_release/code/allomeq_rag/applicability_basic_v1.py:26:class ConstraintResult:
+github_release/code/allomeq_rag/applicability_basic_v1.py:35:def _clean(value: Any) -> str:
+github_release/code/allomeq_rag/applicability_basic_v1.py:41:def normalize_component(value: Any) -> str:
+github_release/code/allomeq_rag/applicability_basic_v1.py:87:def check_component(
+github_release/code/allomeq_rag/applicability_basic_v1.py:123:def normalize_variables(values: Any) -> Set[str]:
+github_release/code/allomeq_rag/applicability_basic_v1.py:160:def check_required_predictors(
+github_release/code/allomeq_rag/applicability_basic_v1.py:192:def parse_documented_range(
+github_release/code/allomeq_rag/applicability_basic_v1.py:238:def check_measurement_range(
+github_release/code/allomeq_rag/applicability_basic_v1.py:278:def evaluate_basic_applicability(
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:42:class GateStatus(str, Enum):
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:49:class ConstraintEvidence:
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:56:class ApplicabilityDecision:
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:69:def explicit_species_constraint(
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:117:def explicit_geography_constraint(
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:150:def component_constraint(
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:199:def predictor_constraint(
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:238:def measurement_range_constraint(
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:277:def aggregate_constraints(
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:357:def evaluate_applicability(
+github_release/code/allomeq_rag/range_adapter_conservative_v1.py:31:class RangeStatus(str, Enum):
+github_release/code/allomeq_rag/range_adapter_conservative_v1.py:38:class RangeCheckResult:
+github_release/code/allomeq_rag/range_adapter_conservative_v1.py:52:def parse_dbh_range(
+github_release/code/allomeq_rag/range_adapter_conservative_v1.py:133:def check_dbh_range(
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:30:class ConstraintResult:
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:39:def _clean(value: Any) -> str:
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:45:def normalize_component(value: Any) -> str:
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:91:def check_component(
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:127:def normalize_variables(values: Any) -> Set[str]:
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:164:def check_required_predictors(
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:200:def evaluate_basic_applicability(
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:239:def _validate_compatibility_score(
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:264:def check_species_taxonomy(
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:303:def check_geography(
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:342:def evaluate_applicability(
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:403:def check_measurement_range(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:26:class ConstraintResult:
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:35:def _clean(value: Any) -> str:
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:41:def normalize_component(value: Any) -> str:
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:87:def check_component(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:123:def normalize_variables(values: Any) -> Set[str]:
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:160:def check_required_predictors(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:192:def parse_documented_range(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:238:def check_measurement_range(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:278:def evaluate_basic_applicability(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:317:def _validate_compatibility_score(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:342:def check_species_taxonomy(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:381:def check_geography(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:420:def evaluate_applicability(
+github_release/code/allomeq_rag/scoring.py:28:def normalize_structural_score(score: Number) -> float:
+github_release/code/allomeq_rag/scoring.py:40:def normalize_dense_score(cosine_similarity: Number) -> float:
+github_release/code/allomeq_rag/scoring.py:53:def fuse_scores(
+github_release/code/evaluation/historical_v24_evaluator.py:48:def loc_canon(s):
+github_release/code/evaluation/historical_v24_evaluator.py:51:def loc_match_score(u, e):
+github_release/code/evaluation/historical_v24_evaluator.py:84:def normalize_eq(eq):
+github_release/code/evaluation/historical_v24_evaluator.py:101:def is_wrong_prem(c):
+github_release/code/evaluation/historical_v24_evaluator.py:105:def is_valid_equation(eq_str):
+github_release/code/evaluation/historical_v24_evaluator.py:108:def build_gold_set(case, eq_override=None):
+github_release/code/evaluation/manuscript_522.py:35:class BenchmarkLabel:
+github_release/code/evaluation/manuscript_522.py:44:def formal_label(case: Dict[str, Any]) -> BenchmarkLabel:
+github_release/code/evaluation/manuscript_522.py:54:def split_cases(
+github_release/code/evaluation/manuscript_522.py:72:def validate_522_benchmark(
+github_release/code/evaluation/manuscript_522.py:112:def normalize_prediction_status(
+github_release/code/evaluation/manuscript_522.py:167:def rejection_confusion(
+github_release/code/evaluation/manuscript_522.py:224:def safe_div(a: float, b: float) -> float:
+github_release/code/evaluation/manuscript_522.py:228:def rejection_metrics(
+github_release/code/evaluation/manuscript_522_v2.py:49:def safe_div(num: int, den: int) -> float:
+github_release/code/evaluation/manuscript_522_v2.py:54:class ConfusionMatrix:
+github_release/code/evaluation/manuscript_522_v2.py:94:def is_inapplicable(case: dict) -> bool:
+github_release/code/evaluation/manuscript_522_v2.py:99:def is_applicable(case: dict) -> bool:
+github_release/code/evaluation/manuscript_522_v2.py:103:def validate_benchmark_split(cases: Iterable[dict]) -> dict:
+github_release/code/evaluation/manuscript_522_v2.py:135:def normalize_equation_id(value: Any) -> Optional[str]:
+github_release/code/evaluation/manuscript_522_v2.py:147:def normalize_acceptable_set(values: Iterable[Any]) -> Set[str]:
+github_release/code/evaluation/manuscript_522_v2.py:158:def classify_decision(
+github_release/code/evaluation/manuscript_522_v2.py:233:def confusion_from_labels(labels: Iterable[str]) -> ConfusionMatrix:
+github_release/code/evaluation/manuscript_522_v2.py:259:def manuscript_reference_counts() -> ConfusionMatrix:
+
+========== FUSION / ALPHA ==========
+github_release/code/allomeq_rag/predictor_adapter.py:4:This is a reconstructed reproducibility implementation.
+github_release/code/allomeq_rag/predictor_adapter.py:62:    "D0.3": "D0.3",
+github_release/code/allomeq_rag/predictor_adapter.py:419:    # that the user omitted the predictor. If neither structured
+github_release/code/allomeq_rag/predictor_adapter.py:430:            "in the available structured/query evidence; "
+github_release/code/allomeq_rag/applicability_final.py:2:Final manuscript-aligned reconstructed applicability gate for AllomEq-RAG.
+github_release/code/allomeq_rag/applicability_final.py:6:This is a reconstructed reproducibility implementation. It is not claimed
+github_release/code/allomeq_rag/applicability_final.py:219:    # merely from absent structured evidence.
+github_release/code/allomeq_rag/range_adapter.py:2:Measurement-range adapter for the manuscript-aligned reconstructed
+github_release/code/allomeq_rag/applicability_v3.py:4:This module is part of the manuscript-aligned reconstructed
+github_release/code/allomeq_rag/compatibility.py:2:Manuscript-aligned reconstructed compatibility layer for AllomEq-RAG.
+github_release/code/allomeq_rag/compatibility.py:20:confused with the final explicit applicability gate.
+github_release/code/allomeq_rag/applicability.py:4:This module is part of the manuscript-aligned reconstructed
+github_release/code/allomeq_rag/applicability_basic_v1.py:4:This module is part of the manuscript-aligned reconstructed
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:2:Final manuscript-aligned reconstructed applicability gate for AllomEq-RAG.
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:6:This is a reconstructed reproducibility implementation. It is not claimed
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:219:    # merely from absent structured evidence.
+github_release/code/allomeq_rag/range_adapter_conservative_v1.py:3:reconstructed implementation.
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:4:This module is part of the manuscript-aligned reconstructed
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:4:This module is part of the manuscript-aligned reconstructed
+github_release/code/allomeq_rag/scoring.py:2:AllomEq-RAG score normalization and fusion.
+github_release/code/allomeq_rag/scoring.py:8:    S_struct_norm = S_struct / 1000
+github_release/code/allomeq_rag/scoring.py:12:    S_dense_norm = (cosine_similarity + 1) / 2
+github_release/code/allomeq_rag/scoring.py:15:    S_fuse =
+github_release/code/allomeq_rag/scoring.py:16:        alpha * S_struct_norm
+github_release/code/allomeq_rag/scoring.py:17:        + (1 - alpha) * S_dense_norm
+github_release/code/allomeq_rag/scoring.py:20:    alpha = 0.3
+github_release/code/allomeq_rag/scoring.py:28:def normalize_structural_score(score: Number) -> float:
+github_release/code/allomeq_rag/scoring.py:29:    """Map the structural score from [0, 1000] to [0, 1]."""
+github_release/code/allomeq_rag/scoring.py:34:            f"structural score must be in [0, 1000], got {score}"
+github_release/code/allomeq_rag/scoring.py:40:def normalize_dense_score(cosine_similarity: Number) -> float:
+github_release/code/allomeq_rag/scoring.py:53:def fuse_scores(
+github_release/code/allomeq_rag/scoring.py:54:    structural_score: Number,
+github_release/code/allomeq_rag/scoring.py:56:    alpha: float = 0.3,
+github_release/code/allomeq_rag/scoring.py:58:    """Return the manuscript-defined normalized fusion score."""
+github_release/code/allomeq_rag/scoring.py:59:    alpha = float(alpha)
+github_release/code/allomeq_rag/scoring.py:61:    if not 0.0 <= alpha <= 1.0:
+github_release/code/allomeq_rag/scoring.py:62:        raise ValueError(f"alpha must be in [0, 1], got {alpha}")
+github_release/code/allomeq_rag/scoring.py:64:    s_struct_norm = normalize_structural_score(structural_score)
+github_release/code/allomeq_rag/scoring.py:65:    s_dense_norm = normalize_dense_score(cosine_similarity)
+github_release/code/allomeq_rag/scoring.py:68:        alpha * s_struct_norm
+github_release/code/allomeq_rag/scoring.py:69:        + (1.0 - alpha) * s_dense_norm
+github_release/code/allomeq_rag/scoring.py:76:    assert normalize_structural_score(0) == 0.0
+github_release/code/allomeq_rag/scoring.py:77:    assert normalize_structural_score(1000) == 1.0
+github_release/code/allomeq_rag/scoring.py:78:    assert normalize_structural_score(500) == 0.5
+github_release/code/allomeq_rag/scoring.py:81:    assert normalize_dense_score(-1) == 0.0
+github_release/code/allomeq_rag/scoring.py:82:    assert normalize_dense_score(0) == 0.5
+github_release/code/allomeq_rag/scoring.py:83:    assert normalize_dense_score(1) == 1.0
+github_release/code/allomeq_rag/scoring.py:86:    assert abs(fuse_scores(1000, 1.0, 0.3) - 1.0) < 1e-12
+github_release/code/allomeq_rag/scoring.py:88:    # struct=1000 -> 1.0
+github_release/code/allomeq_rag/scoring.py:90:    # result = 0.3
+github_release/code/allomeq_rag/scoring.py:91:    assert abs(fuse_scores(1000, -1.0, 0.3) - 0.3) < 1e-12
+github_release/code/allomeq_rag/scoring.py:93:    # struct=0 -> 0.0
+github_release/code/allomeq_rag/scoring.py:96:    assert abs(fuse_scores(0, 1.0, 0.3) - 0.7) < 1e-12
+
+========== APPLICABILITY ==========
+github_release/code/allomeq_rag/predictor_adapter.py:2:Manuscript-aligned predictor adapter for AllomEq-RAG.
+github_release/code/allomeq_rag/predictor_adapter.py:10:3. Do not treat arbitrary benchmark `_calc_params` keys as predictors.
+github_release/code/allomeq_rag/predictor_adapter.py:12:5. Missing metadata is UNKNOWN, not automatically FAIL.
+github_release/code/allomeq_rag/predictor_adapter.py:45:# Canonical predictor vocabulary
+github_release/code/allomeq_rag/predictor_adapter.py:114:# converted formulas, or other non-predictor material.
+github_release/code/allomeq_rag/predictor_adapter.py:144:    Return a canonical predictor when the mapping is known.
+github_release/code/allomeq_rag/predictor_adapter.py:177:def required_predictors_from_fedb(
+github_release/code/allomeq_rag/predictor_adapter.py:182:    predictor requirements.
+github_release/code/allomeq_rag/predictor_adapter.py:225:# User / benchmark supplied predictors
+github_release/code/allomeq_rag/predictor_adapter.py:228:def _looks_non_predictor_key(
+github_release/code/allomeq_rag/predictor_adapter.py:240:def supplied_predictors_from_calc_params(
+github_release/code/allomeq_rag/predictor_adapter.py:244:    Extract only recognized predictor keys from benchmark
+github_release/code/allomeq_rag/predictor_adapter.py:248:    user predictors.
+github_release/code/allomeq_rag/predictor_adapter.py:263:        if _looks_non_predictor_key(s):
+github_release/code/allomeq_rag/predictor_adapter.py:278:def supplied_predictors_from_question(
+github_release/code/allomeq_rag/predictor_adapter.py:342:def collect_supplied_predictors(
+github_release/code/allomeq_rag/predictor_adapter.py:349:            supplied_predictors_from_calc_params(
+github_release/code/allomeq_rag/predictor_adapter.py:355:            supplied_predictors_from_question(
+github_release/code/allomeq_rag/predictor_adapter.py:366:def check_required_predictors(
+github_release/code/allomeq_rag/predictor_adapter.py:372:    requirement = required_predictors_from_fedb(
+github_release/code/allomeq_rag/predictor_adapter.py:376:    supplied = collect_supplied_predictors(
+github_release/code/allomeq_rag/predictor_adapter.py:382:    # deterministic applicability decision.
+github_release/code/allomeq_rag/predictor_adapter.py:413:                "predictors are supplied."
+github_release/code/allomeq_rag/predictor_adapter.py:419:    # that the user omitted the predictor. If neither structured
+github_release/code/allomeq_rag/predictor_adapter.py:429:            "One or more required predictors were not observed "
+github_release/code/allomeq_rag/applicability_final.py:2:Final manuscript-aligned reconstructed applicability gate for AllomEq-RAG.
+github_release/code/allomeq_rag/applicability_final.py:9:The final applicability decision is based on five explicit constraints:
+github_release/code/allomeq_rag/applicability_final.py:11:1. taxonomic/species compatibility
+github_release/code/allomeq_rag/applicability_final.py:12:2. geographic compatibility
+github_release/code/allomeq_rag/applicability_final.py:13:3. biomass-component compatibility
+github_release/code/allomeq_rag/applicability_final.py:14:4. required-predictor availability
+github_release/code/allomeq_rag/applicability_final.py:15:5. documented measurement-range compatibility
+github_release/code/allomeq_rag/applicability_final.py:19:Any explicit FAIL       -> FAIL
+github_release/code/allomeq_rag/applicability_final.py:20:All five explicit PASS  -> PASS
+github_release/code/allomeq_rag/applicability_final.py:21:Otherwise               -> UNRESOLVED
+github_release/code/allomeq_rag/applicability_final.py:23:Generalized taxonomy/geography similarity used during candidate discovery
+github_release/code/allomeq_rag/applicability_final.py:24:must not be substituted for the final explicit applicability decision.
+github_release/code/allomeq_rag/applicability_final.py:31:from .predictor_adapter import (
+github_release/code/allomeq_rag/applicability_final.py:33:    check_required_predictors,
+github_release/code/allomeq_rag/applicability_final.py:36:from .range_adapter import (
+github_release/code/allomeq_rag/applicability_final.py:38:    check_dbh_range,
+github_release/code/allomeq_rag/applicability_final.py:43:    PASS = "pass"
+github_release/code/allomeq_rag/applicability_final.py:44:    FAIL = "fail"
+github_release/code/allomeq_rag/applicability_final.py:45:    UNRESOLVED = "unresolved"
+github_release/code/allomeq_rag/applicability_final.py:69:def explicit_species_constraint(
+github_release/code/allomeq_rag/applicability_final.py:74:    Final species/taxonomic applicability evidence.
+github_release/code/allomeq_rag/applicability_final.py:91:            name="species",
+github_release/code/allomeq_rag/applicability_final.py:92:            status=GateStatus.PASS,
+github_release/code/allomeq_rag/applicability_final.py:94:                "Explicit taxonomic/species compatibility established."
+github_release/code/allomeq_rag/applicability_final.py:100:            name="species",
+github_release/code/allomeq_rag/applicability_final.py:101:            status=GateStatus.FAIL,
+github_release/code/allomeq_rag/applicability_final.py:103:                "Explicit taxonomic/species incompatibility established."
+github_release/code/allomeq_rag/applicability_final.py:108:        name="species",
+github_release/code/allomeq_rag/applicability_final.py:109:        status=GateStatus.UNRESOLVED,
+github_release/code/allomeq_rag/applicability_final.py:111:            "Taxonomic/species compatibility could not be "
+github_release/code/allomeq_rag/applicability_final.py:117:def explicit_geography_constraint(
+github_release/code/allomeq_rag/applicability_final.py:124:            name="geography",
+github_release/code/allomeq_rag/applicability_final.py:125:            status=GateStatus.PASS,
+github_release/code/allomeq_rag/applicability_final.py:127:                "Explicit geographic compatibility established."
+github_release/code/allomeq_rag/applicability_final.py:133:            name="geography",
+github_release/code/allomeq_rag/applicability_final.py:134:            status=GateStatus.FAIL,
+github_release/code/allomeq_rag/applicability_final.py:136:                "Explicit geographic incompatibility established."
+github_release/code/allomeq_rag/applicability_final.py:141:        name="geography",
+github_release/code/allomeq_rag/applicability_final.py:142:        status=GateStatus.UNRESOLVED,
+github_release/code/allomeq_rag/applicability_final.py:150:def component_constraint(
+github_release/code/allomeq_rag/applicability_final.py:151:    query_component: object,
+github_release/code/allomeq_rag/applicability_final.py:152:    equation_component: object,
+github_release/code/allomeq_rag/applicability_final.py:155:    Conservative exact normalized component check.
+github_release/code/allomeq_rag/applicability_final.py:158:    must be provided by a separately documented upstream component mapper.
+github_release/code/allomeq_rag/applicability_final.py:161:    if query_component is None or equation_component is None:
+github_release/code/allomeq_rag/applicability_final.py:163:            name="component",
+github_release/code/allomeq_rag/applicability_final.py:164:            status=GateStatus.UNRESOLVED,
+github_release/code/allomeq_rag/applicability_final.py:165:            reason="Biomass-component information is incomplete.",
+github_release/code/allomeq_rag/applicability_final.py:168:    q = str(query_component).strip()
+github_release/code/allomeq_rag/applicability_final.py:169:    e = str(equation_component).strip()
+github_release/code/allomeq_rag/applicability_final.py:173:            name="component",
+github_release/code/allomeq_rag/applicability_final.py:174:            status=GateStatus.UNRESOLVED,
+github_release/code/allomeq_rag/applicability_final.py:175:            reason="Biomass-component information is empty.",
+github_release/code/allomeq_rag/applicability_final.py:180:            name="component",
+github_release/code/allomeq_rag/applicability_final.py:181:            status=GateStatus.PASS,
+github_release/code/allomeq_rag/applicability_final.py:182:            reason="Biomass components match exactly.",
+github_release/code/allomeq_rag/applicability_final.py:186:        name="component",
+github_release/code/allomeq_rag/applicability_final.py:187:        status=GateStatus.FAIL,
+github_release/code/allomeq_rag/applicability_final.py:189:            f"Biomass-component mismatch: query={q!r}, "
+github_release/code/allomeq_rag/applicability_final.py:199:def predictor_constraint(
+github_release/code/allomeq_rag/applicability_final.py:205:    result = check_required_predictors(
+github_release/code/allomeq_rag/applicability_final.py:213:            name="predictors",
+github_release/code/allomeq_rag/applicability_final.py:214:            status=GateStatus.PASS,
+github_release/code/allomeq_rag/applicability_final.py:218:    # Current conservative adapter intentionally does not infer FAIL
+github_release/code/allomeq_rag/applicability_final.py:222:            name="predictors",
+github_release/code/allomeq_rag/applicability_final.py:223:            status=GateStatus.FAIL,
+github_release/code/allomeq_rag/applicability_final.py:228:        name="predictors",
+github_release/code/allomeq_rag/applicability_final.py:229:        status=GateStatus.UNRESOLVED,
+github_release/code/allomeq_rag/applicability_final.py:238:def measurement_range_constraint(
+github_release/code/allomeq_rag/applicability_final.py:243:    Uses the exact historical DBH-range parser wrapped by the public
+github_release/code/allomeq_rag/applicability_final.py:244:    three-state range adapter.
+github_release/code/allomeq_rag/applicability_final.py:247:    result = check_dbh_range(
+github_release/code/allomeq_rag/applicability_final.py:254:            name="measurement_range",
+github_release/code/allomeq_rag/applicability_final.py:255:            status=GateStatus.PASS,
+github_release/code/allomeq_rag/applicability_final.py:261:            name="measurement_range",
+github_release/code/allomeq_rag/applicability_final.py:262:            status=GateStatus.FAIL,
+github_release/code/allomeq_rag/applicability_final.py:267:        name="measurement_range",
+github_release/code/allomeq_rag/applicability_final.py:268:        status=GateStatus.UNRESOLVED,
+github_release/code/allomeq_rag/applicability_final.py:283:            "The final applicability gate requires exactly "
+github_release/code/allomeq_rag/applicability_final.py:290:        "species",
+github_release/code/allomeq_rag/applicability_final.py:291:        "geography",
+github_release/code/allomeq_rag/applicability_final.py:292:        "component",
+github_release/code/allomeq_rag/applicability_final.py:293:        "predictors",
+github_release/code/allomeq_rag/applicability_final.py:294:        "measurement_range",
+github_release/code/allomeq_rag/applicability_final.py:300:            "species, geography, component, predictors, "
+github_release/code/allomeq_rag/applicability_final.py:301:            "measurement_range."
+github_release/code/allomeq_rag/applicability_final.py:307:        if c.status == GateStatus.FAIL
+github_release/code/allomeq_rag/applicability_final.py:313:        if c.status == GateStatus.UNRESOLVED
+github_release/code/allomeq_rag/applicability_final.py:318:            status=GateStatus.FAIL,
+github_release/code/allomeq_rag/applicability_final.py:324:                "At least one explicit applicability constraint failed."
+github_release/code/allomeq_rag/applicability_final.py:330:            status=GateStatus.UNRESOLVED,
+github_release/code/allomeq_rag/applicability_final.py:342:        status=GateStatus.PASS,
+github_release/code/allomeq_rag/applicability_final.py:348:            "All five explicit applicability constraints passed."
+github_release/code/allomeq_rag/applicability_final.py:357:def evaluate_applicability(
+github_release/code/allomeq_rag/applicability_final.py:359:    species_compatible: Optional[bool],
+github_release/code/allomeq_rag/applicability_final.py:360:    geography_compatible: Optional[bool],
+github_release/code/allomeq_rag/applicability_final.py:361:    query_component: object,
+github_release/code/allomeq_rag/applicability_final.py:362:    equation_component: object,
+github_release/code/allomeq_rag/applicability_final.py:368:    species_reason: Optional[str] = None,
+github_release/code/allomeq_rag/applicability_final.py:369:    geography_reason: Optional[str] = None,
+github_release/code/allomeq_rag/applicability_final.py:373:        explicit_species_constraint(
+github_release/code/allomeq_rag/applicability_final.py:374:            species_compatible,
+github_release/code/allomeq_rag/applicability_final.py:375:            species_reason,
+github_release/code/allomeq_rag/applicability_final.py:377:        explicit_geography_constraint(
+github_release/code/allomeq_rag/applicability_final.py:378:            geography_compatible,
+github_release/code/allomeq_rag/applicability_final.py:379:            geography_reason,
+github_release/code/allomeq_rag/applicability_final.py:381:        component_constraint(
+github_release/code/allomeq_rag/applicability_final.py:382:            query_component,
+github_release/code/allomeq_rag/applicability_final.py:383:            equation_component,
+github_release/code/allomeq_rag/applicability_final.py:385:        predictor_constraint(
+github_release/code/allomeq_rag/applicability_final.py:390:        measurement_range_constraint(
+github_release/code/allomeq_rag/range_adapter.py:2:Measurement-range adapter for the manuscript-aligned reconstructed
+github_release/code/allomeq_rag/range_adapter.py:8:development implementation (abl_full.py / parse_d_range).
+github_release/code/allomeq_rag/range_adapter.py:36:def parse_d_range(sc):
+github_release/code/allomeq_rag/range_adapter.py:87:def check_dbh_range(
+github_release/code/allomeq_rag/range_adapter.py:92:    Apply the historical DBH-range parser and expose explicit
+github_release/code/allomeq_rag/range_adapter.py:108:    documented = parse_d_range(size_class)
+github_release/code/allomeq_rag/range_adapter.py:118:                "No machine-checkable documented DBH range "
+github_release/code/allomeq_rag/range_adapter.py:141:                f"range [{low:g}, {high:g}] cm."
+github_release/code/allomeq_rag/range_adapter.py:153:            f"range [{low:g}, {high:g}] cm."
+github_release/code/allomeq_rag/applicability_v3.py:2:Deterministic applicability checks for AllomEq-RAG.
+github_release/code/allomeq_rag/applicability_v3.py:9:1. component compatibility
+github_release/code/allomeq_rag/applicability_v3.py:10:2. required-predictor availability
+github_release/code/allomeq_rag/applicability_v3.py:11:3. documented measurement-range checking
+github_release/code/allomeq_rag/applicability_v3.py:13:Taxonomic/species and geographic compatibility are intentionally
+github_release/code/allomeq_rag/applicability_v3.py:23:from allomeq_rag.range_adapter import (
+github_release/code/allomeq_rag/applicability_v3.py:25:    check_dbh_range,
+github_release/code/allomeq_rag/applicability_v3.py:45:def normalize_component(value: Any) -> str:
+github_release/code/allomeq_rag/applicability_v3.py:46:    """Normalize common biomass-component aliases."""
+github_release/code/allomeq_rag/applicability_v3.py:91:def check_component(
+github_release/code/allomeq_rag/applicability_v3.py:92:    query_component: Any,
+github_release/code/allomeq_rag/applicability_v3.py:93:    equation_component: Any,
+github_release/code/allomeq_rag/applicability_v3.py:96:    q = normalize_component(query_component)
+github_release/code/allomeq_rag/applicability_v3.py:97:    e = normalize_component(equation_component)
+github_release/code/allomeq_rag/applicability_v3.py:101:            "component",
+github_release/code/allomeq_rag/applicability_v3.py:103:            "Query component is missing."
+github_release/code/allomeq_rag/applicability_v3.py:108:            "component",
+github_release/code/allomeq_rag/applicability_v3.py:110:            "Equation component metadata is missing."
+github_release/code/allomeq_rag/applicability_v3.py:115:            "component",
+github_release/code/allomeq_rag/applicability_v3.py:121:        "component",
+github_release/code/allomeq_rag/applicability_v3.py:128:    """Normalize predictor-variable metadata."""
+github_release/code/allomeq_rag/applicability_v3.py:164:def check_required_predictors(
+github_release/code/allomeq_rag/applicability_v3.py:174:            "required_predictors",
+github_release/code/allomeq_rag/applicability_v3.py:176:            "Equation predictor metadata is missing."
+github_release/code/allomeq_rag/applicability_v3.py:183:            "required_predictors",
+github_release/code/allomeq_rag/applicability_v3.py:185:            "Missing required predictor(s): "
+github_release/code/allomeq_rag/applicability_v3.py:190:        "required_predictors",
+github_release/code/allomeq_rag/applicability_v3.py:192:        "All required predictors are available."
+github_release/code/allomeq_rag/applicability_v3.py:200:def evaluate_basic_applicability(
+github_release/code/allomeq_rag/applicability_v3.py:202:    query_component: Any,
+github_release/code/allomeq_rag/applicability_v3.py:203:    equation_component: Any,
+github_release/code/allomeq_rag/applicability_v3.py:211:        check_component(
+github_release/code/allomeq_rag/applicability_v3.py:212:            query_component,
+github_release/code/allomeq_rag/applicability_v3.py:213:            equation_component,
+github_release/code/allomeq_rag/applicability_v3.py:215:        check_required_predictors(
+github_release/code/allomeq_rag/applicability_v3.py:219:        check_measurement_range(
+github_release/code/allomeq_rag/applicability_v3.py:226:        "applicable": all(c.passed for c in checks),
+github_release/code/allomeq_rag/applicability_v3.py:232:# Species/taxonomy and geographic compatibility
+github_release/code/allomeq_rag/applicability_v3.py:246:    The applicability gate does not infer taxonomy or geography itself.
+github_release/code/allomeq_rag/applicability_v3.py:264:def check_species_taxonomy(
+github_release/code/allomeq_rag/applicability_v3.py:269:    Check species/taxonomic compatibility.
+github_release/code/allomeq_rag/applicability_v3.py:272:    species/taxonomy matching layer. This function performs only
+github_release/code/allomeq_rag/applicability_v3.py:277:        "species/taxonomy",
+github_release/code/allomeq_rag/applicability_v3.py:282:            "species_taxonomy",
+github_release/code/allomeq_rag/applicability_v3.py:284:            "Species/taxonomy compatibility could not be established."
+github_release/code/allomeq_rag/applicability_v3.py:289:            "species_taxonomy",
+github_release/code/allomeq_rag/applicability_v3.py:291:            f"Species/taxonomy compatibility score {score:.3f} "
+github_release/code/allomeq_rag/applicability_v3.py:296:        "species_taxonomy",
+github_release/code/allomeq_rag/applicability_v3.py:298:        f"Species/taxonomy compatibility score {score:.3f} "
+github_release/code/allomeq_rag/applicability_v3.py:303:def check_geography(
+github_release/code/allomeq_rag/applicability_v3.py:308:    Check geographic compatibility.
+github_release/code/allomeq_rag/applicability_v3.py:310:    compatibility_score must be generated upstream by the geographic
+github_release/code/allomeq_rag/applicability_v3.py:316:        "geography",
+github_release/code/allomeq_rag/applicability_v3.py:321:            "geography",
+github_release/code/allomeq_rag/applicability_v3.py:328:            "geography",
+github_release/code/allomeq_rag/applicability_v3.py:335:        "geography",
+github_release/code/allomeq_rag/applicability_v3.py:342:def evaluate_applicability(
+github_release/code/allomeq_rag/applicability_v3.py:344:    species_compatibility_score: Optional[float],
+github_release/code/allomeq_rag/applicability_v3.py:345:    geography_compatibility_score: Optional[float],
+github_release/code/allomeq_rag/applicability_v3.py:346:    query_component: Any,
+github_release/code/allomeq_rag/applicability_v3.py:347:    equation_component: Any,
+github_release/code/allomeq_rag/applicability_v3.py:352:    species_threshold: float = SPECIES_COMPATIBILITY_THRESHOLD,
+github_release/code/allomeq_rag/applicability_v3.py:353:    geography_threshold: float = GEOGRAPHY_COMPATIBILITY_THRESHOLD,
+github_release/code/allomeq_rag/applicability_v3.py:356:    Evaluate the five deterministic applicability constraints:
+github_release/code/allomeq_rag/applicability_v3.py:358:    1. species/taxonomy compatibility
+github_release/code/allomeq_rag/applicability_v3.py:359:    2. geographic compatibility
+github_release/code/allomeq_rag/applicability_v3.py:360:    3. component compatibility
+github_release/code/allomeq_rag/applicability_v3.py:361:    4. required-predictor availability
+github_release/code/allomeq_rag/applicability_v3.py:362:    5. documented measurement range
+github_release/code/allomeq_rag/applicability_v3.py:364:    A candidate is applicable only when all five checks pass.
+github_release/code/allomeq_rag/applicability_v3.py:368:        check_species_taxonomy(
+github_release/code/allomeq_rag/applicability_v3.py:369:            species_compatibility_score,
+github_release/code/allomeq_rag/applicability_v3.py:370:            species_threshold,
+github_release/code/allomeq_rag/applicability_v3.py:372:        check_geography(
+github_release/code/allomeq_rag/applicability_v3.py:373:            geography_compatibility_score,
+github_release/code/allomeq_rag/applicability_v3.py:374:            geography_threshold,
+github_release/code/allomeq_rag/applicability_v3.py:376:        check_component(
+github_release/code/allomeq_rag/applicability_v3.py:377:            query_component,
+github_release/code/allomeq_rag/applicability_v3.py:378:            equation_component,
+github_release/code/allomeq_rag/applicability_v3.py:380:        check_required_predictors(
+github_release/code/allomeq_rag/applicability_v3.py:384:        check_measurement_range(
+github_release/code/allomeq_rag/applicability_v3.py:393:        "applicable": len(failed) == 0,
+github_release/code/allomeq_rag/applicability_v3.py:397:            "species_taxonomy": float(species_threshold),
+github_release/code/allomeq_rag/applicability_v3.py:398:            "geography": float(geography_threshold),
+github_release/code/allomeq_rag/applicability_v3.py:403:def check_measurement_range(
+github_release/code/allomeq_rag/applicability_v3.py:408:    Evaluate the documented DBH range using the historically
+github_release/code/allomeq_rag/applicability_v3.py:409:    validated range parser.
+github_release/code/allomeq_rag/applicability_v3.py:411:    OUT_OF_RANGE is a deterministic applicability failure.
+github_release/code/allomeq_rag/applicability_v3.py:421:    result = check_dbh_range(
+github_release/code/allomeq_rag/applicability_v3.py:428:            "measurement_range",
+github_release/code/allomeq_rag/applicability_v3.py:435:            "measurement_range",
+github_release/code/allomeq_rag/applicability_v3.py:447:        "measurement_range",
+github_release/code/allomeq_rag/compatibility.py:11:2. The historical taxonomy cache covers only a subset of FEDB tree types.
+github_release/code/allomeq_rag/compatibility.py:12:3. Historical geographic resources provide strong location coverage, but
+github_release/code/allomeq_rag/compatibility.py:17:manuscript while refusing to infer unavailable taxonomy/geography metadata.
+github_release/code/allomeq_rag/compatibility.py:20:confused with the final explicit applicability gate.
+github_release/code/allomeq_rag/compatibility.py:33:    EXACT_SPECIES = "exact_species"
+github_release/code/allomeq_rag/compatibility.py:42:    ADJACENT_GEOGRAPHIC_ZONE = "adjacent_geographic_zone"
+github_release/code/allomeq_rag/compatibility.py:67:        exact species = 1.0
+github_release/code/allomeq_rag/compatibility.py:124:def geographic_score(
+github_release/code/allomeq_rag/compatibility.py:128:    Manuscript generalized geographic similarity.
+github_release/code/allomeq_rag/compatibility.py:134:        adjacent geographic zone   = 0.7
+github_release/code/allomeq_rag/compatibility.py:174:            f"Unsupported geographic relation: {relation}"
+github_release/code/allomeq_rag/compatibility.py:196:def passes_species_discovery(
+github_release/code/allomeq_rag/compatibility.py:204:def passes_geography_discovery(
+github_release/code/allomeq_rag/compatibility.py:207:    return geographic_score(
+github_release/code/allomeq_rag/applicability.py:2:Deterministic applicability checks for AllomEq-RAG.
+github_release/code/allomeq_rag/applicability.py:9:1. component compatibility
+github_release/code/allomeq_rag/applicability.py:10:2. required-predictor availability
+github_release/code/allomeq_rag/applicability.py:11:3. documented measurement-range checking
+github_release/code/allomeq_rag/applicability.py:13:Taxonomic/species and geographic compatibility are intentionally
+github_release/code/allomeq_rag/applicability.py:41:def normalize_component(value: Any) -> str:
+github_release/code/allomeq_rag/applicability.py:42:    """Normalize common biomass-component aliases."""
+github_release/code/allomeq_rag/applicability.py:87:def check_component(
+github_release/code/allomeq_rag/applicability.py:88:    query_component: Any,
+github_release/code/allomeq_rag/applicability.py:89:    equation_component: Any,
+github_release/code/allomeq_rag/applicability.py:92:    q = normalize_component(query_component)
+github_release/code/allomeq_rag/applicability.py:93:    e = normalize_component(equation_component)
+github_release/code/allomeq_rag/applicability.py:97:            "component",
+github_release/code/allomeq_rag/applicability.py:99:            "Query component is missing."
+github_release/code/allomeq_rag/applicability.py:104:            "component",
+github_release/code/allomeq_rag/applicability.py:106:            "Equation component metadata is missing."
+github_release/code/allomeq_rag/applicability.py:111:            "component",
+github_release/code/allomeq_rag/applicability.py:117:        "component",
+github_release/code/allomeq_rag/applicability.py:124:    """Normalize predictor-variable metadata."""
+github_release/code/allomeq_rag/applicability.py:160:def check_required_predictors(
+github_release/code/allomeq_rag/applicability.py:170:            "required_predictors",
+github_release/code/allomeq_rag/applicability.py:172:            "Equation predictor metadata is missing."
+github_release/code/allomeq_rag/applicability.py:179:            "required_predictors",
+github_release/code/allomeq_rag/applicability.py:181:            "Missing required predictor(s): "
+github_release/code/allomeq_rag/applicability.py:186:        "required_predictors",
+github_release/code/allomeq_rag/applicability.py:188:        "All required predictors are available."
+github_release/code/allomeq_rag/applicability.py:192:def parse_documented_range(
+github_release/code/allomeq_rag/applicability.py:196:    Parse a documented DBH/diameter range from common size_class text.
+github_release/code/allomeq_rag/applicability.py:238:def check_measurement_range(
+github_release/code/allomeq_rag/applicability.py:245:            "measurement_range",
+github_release/code/allomeq_rag/applicability.py:250:    documented = parse_documented_range(size_class)
+github_release/code/allomeq_rag/applicability.py:254:            "measurement_range",
+github_release/code/allomeq_rag/applicability.py:256:            "No parseable documented DBH range is available."
+github_release/code/allomeq_rag/applicability.py:264:            "measurement_range",
+github_release/code/allomeq_rag/applicability.py:267:            f"range [{low:g}, {high:g}] cm."
+github_release/code/allomeq_rag/applicability.py:271:        "measurement_range",
+github_release/code/allomeq_rag/applicability.py:274:        f"range [{low:g}, {high:g}] cm."
+github_release/code/allomeq_rag/applicability.py:278:def evaluate_basic_applicability(
+github_release/code/allomeq_rag/applicability.py:280:    query_component: Any,
+github_release/code/allomeq_rag/applicability.py:281:    equation_component: Any,
+github_release/code/allomeq_rag/applicability.py:289:        check_component(
+github_release/code/allomeq_rag/applicability.py:290:            query_component,
+github_release/code/allomeq_rag/applicability.py:291:            equation_component,
+github_release/code/allomeq_rag/applicability.py:293:        check_required_predictors(
+github_release/code/allomeq_rag/applicability.py:297:        check_measurement_range(
+github_release/code/allomeq_rag/applicability.py:304:        "applicable": all(c.passed for c in checks),
+github_release/code/allomeq_rag/applicability.py:310:# Species/taxonomy and geographic compatibility
+github_release/code/allomeq_rag/applicability.py:324:    The applicability gate does not infer taxonomy or geography itself.
+github_release/code/allomeq_rag/applicability.py:342:def check_species_taxonomy(
+github_release/code/allomeq_rag/applicability.py:347:    Check species/taxonomic compatibility.
+github_release/code/allomeq_rag/applicability.py:350:    species/taxonomy matching layer. This function performs only
+github_release/code/allomeq_rag/applicability.py:355:        "species/taxonomy",
+github_release/code/allomeq_rag/applicability.py:360:            "species_taxonomy",
+github_release/code/allomeq_rag/applicability.py:362:            "Species/taxonomy compatibility could not be established."
+github_release/code/allomeq_rag/applicability.py:367:            "species_taxonomy",
+github_release/code/allomeq_rag/applicability.py:369:            f"Species/taxonomy compatibility score {score:.3f} "
+github_release/code/allomeq_rag/applicability.py:374:        "species_taxonomy",
+github_release/code/allomeq_rag/applicability.py:376:        f"Species/taxonomy compatibility score {score:.3f} "
+github_release/code/allomeq_rag/applicability.py:381:def check_geography(
+github_release/code/allomeq_rag/applicability.py:386:    Check geographic compatibility.
+github_release/code/allomeq_rag/applicability.py:388:    compatibility_score must be generated upstream by the geographic
+github_release/code/allomeq_rag/applicability.py:394:        "geography",
+github_release/code/allomeq_rag/applicability.py:399:            "geography",
+github_release/code/allomeq_rag/applicability.py:406:            "geography",
+github_release/code/allomeq_rag/applicability.py:413:        "geography",
+github_release/code/allomeq_rag/applicability.py:420:def evaluate_applicability(
+github_release/code/allomeq_rag/applicability.py:422:    species_compatibility_score: Optional[float],
+github_release/code/allomeq_rag/applicability.py:423:    geography_compatibility_score: Optional[float],
+github_release/code/allomeq_rag/applicability.py:424:    query_component: Any,
+github_release/code/allomeq_rag/applicability.py:425:    equation_component: Any,
+github_release/code/allomeq_rag/applicability.py:430:    species_threshold: float = SPECIES_COMPATIBILITY_THRESHOLD,
+github_release/code/allomeq_rag/applicability.py:431:    geography_threshold: float = GEOGRAPHY_COMPATIBILITY_THRESHOLD,
+github_release/code/allomeq_rag/applicability.py:434:    Evaluate the five deterministic applicability constraints:
+github_release/code/allomeq_rag/applicability.py:436:    1. species/taxonomy compatibility
+github_release/code/allomeq_rag/applicability.py:437:    2. geographic compatibility
+github_release/code/allomeq_rag/applicability.py:438:    3. component compatibility
+github_release/code/allomeq_rag/applicability.py:439:    4. required-predictor availability
+github_release/code/allomeq_rag/applicability.py:440:    5. documented measurement range
+github_release/code/allomeq_rag/applicability.py:442:    A candidate is applicable only when all five checks pass.
+github_release/code/allomeq_rag/applicability.py:446:        check_species_taxonomy(
+github_release/code/allomeq_rag/applicability.py:447:            species_compatibility_score,
+github_release/code/allomeq_rag/applicability.py:448:            species_threshold,
+github_release/code/allomeq_rag/applicability.py:450:        check_geography(
+github_release/code/allomeq_rag/applicability.py:451:            geography_compatibility_score,
+github_release/code/allomeq_rag/applicability.py:452:            geography_threshold,
+github_release/code/allomeq_rag/applicability.py:454:        check_component(
+github_release/code/allomeq_rag/applicability.py:455:            query_component,
+github_release/code/allomeq_rag/applicability.py:456:            equation_component,
+github_release/code/allomeq_rag/applicability.py:458:        check_required_predictors(
+github_release/code/allomeq_rag/applicability.py:462:        check_measurement_range(
+github_release/code/allomeq_rag/applicability.py:471:        "applicable": len(failed) == 0,
+github_release/code/allomeq_rag/applicability.py:475:            "species_taxonomy": float(species_threshold),
+github_release/code/allomeq_rag/applicability.py:476:            "geography": float(geography_threshold),
+github_release/code/allomeq_rag/applicability_basic_v1.py:2:Deterministic applicability checks for AllomEq-RAG.
+github_release/code/allomeq_rag/applicability_basic_v1.py:9:1. component compatibility
+github_release/code/allomeq_rag/applicability_basic_v1.py:10:2. required-predictor availability
+github_release/code/allomeq_rag/applicability_basic_v1.py:11:3. documented measurement-range checking
+github_release/code/allomeq_rag/applicability_basic_v1.py:13:Taxonomic/species and geographic compatibility are intentionally
+github_release/code/allomeq_rag/applicability_basic_v1.py:41:def normalize_component(value: Any) -> str:
+github_release/code/allomeq_rag/applicability_basic_v1.py:42:    """Normalize common biomass-component aliases."""
+github_release/code/allomeq_rag/applicability_basic_v1.py:87:def check_component(
+github_release/code/allomeq_rag/applicability_basic_v1.py:88:    query_component: Any,
+github_release/code/allomeq_rag/applicability_basic_v1.py:89:    equation_component: Any,
+github_release/code/allomeq_rag/applicability_basic_v1.py:92:    q = normalize_component(query_component)
+github_release/code/allomeq_rag/applicability_basic_v1.py:93:    e = normalize_component(equation_component)
+github_release/code/allomeq_rag/applicability_basic_v1.py:97:            "component",
+github_release/code/allomeq_rag/applicability_basic_v1.py:99:            "Query component is missing."
+github_release/code/allomeq_rag/applicability_basic_v1.py:104:            "component",
+github_release/code/allomeq_rag/applicability_basic_v1.py:106:            "Equation component metadata is missing."
+github_release/code/allomeq_rag/applicability_basic_v1.py:111:            "component",
+github_release/code/allomeq_rag/applicability_basic_v1.py:117:        "component",
+github_release/code/allomeq_rag/applicability_basic_v1.py:124:    """Normalize predictor-variable metadata."""
+github_release/code/allomeq_rag/applicability_basic_v1.py:160:def check_required_predictors(
+github_release/code/allomeq_rag/applicability_basic_v1.py:170:            "required_predictors",
+github_release/code/allomeq_rag/applicability_basic_v1.py:172:            "Equation predictor metadata is missing."
+github_release/code/allomeq_rag/applicability_basic_v1.py:179:            "required_predictors",
+github_release/code/allomeq_rag/applicability_basic_v1.py:181:            "Missing required predictor(s): "
+github_release/code/allomeq_rag/applicability_basic_v1.py:186:        "required_predictors",
+github_release/code/allomeq_rag/applicability_basic_v1.py:188:        "All required predictors are available."
+github_release/code/allomeq_rag/applicability_basic_v1.py:192:def parse_documented_range(
+github_release/code/allomeq_rag/applicability_basic_v1.py:196:    Parse a documented DBH/diameter range from common size_class text.
+github_release/code/allomeq_rag/applicability_basic_v1.py:238:def check_measurement_range(
+github_release/code/allomeq_rag/applicability_basic_v1.py:245:            "measurement_range",
+github_release/code/allomeq_rag/applicability_basic_v1.py:250:    documented = parse_documented_range(size_class)
+github_release/code/allomeq_rag/applicability_basic_v1.py:254:            "measurement_range",
+github_release/code/allomeq_rag/applicability_basic_v1.py:256:            "No parseable documented DBH range is available."
+github_release/code/allomeq_rag/applicability_basic_v1.py:264:            "measurement_range",
+github_release/code/allomeq_rag/applicability_basic_v1.py:267:            f"range [{low:g}, {high:g}] cm."
+github_release/code/allomeq_rag/applicability_basic_v1.py:271:        "measurement_range",
+github_release/code/allomeq_rag/applicability_basic_v1.py:274:        f"range [{low:g}, {high:g}] cm."
+github_release/code/allomeq_rag/applicability_basic_v1.py:278:def evaluate_basic_applicability(
+github_release/code/allomeq_rag/applicability_basic_v1.py:280:    query_component: Any,
+github_release/code/allomeq_rag/applicability_basic_v1.py:281:    equation_component: Any,
+github_release/code/allomeq_rag/applicability_basic_v1.py:289:        check_component(
+github_release/code/allomeq_rag/applicability_basic_v1.py:290:            query_component,
+github_release/code/allomeq_rag/applicability_basic_v1.py:291:            equation_component,
+github_release/code/allomeq_rag/applicability_basic_v1.py:293:        check_required_predictors(
+github_release/code/allomeq_rag/applicability_basic_v1.py:297:        check_measurement_range(
+github_release/code/allomeq_rag/applicability_basic_v1.py:304:        "applicable": all(c.passed for c in checks),
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:2:Final manuscript-aligned reconstructed applicability gate for AllomEq-RAG.
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:9:The final applicability decision is based on five explicit constraints:
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:11:1. taxonomic/species compatibility
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:12:2. geographic compatibility
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:13:3. biomass-component compatibility
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:14:4. required-predictor availability
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:15:5. documented measurement-range compatibility
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:19:Any explicit FAIL       -> FAIL
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:20:All five explicit PASS  -> PASS
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:21:Otherwise               -> UNRESOLVED
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:23:Generalized taxonomy/geography similarity used during candidate discovery
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:24:must not be substituted for the final explicit applicability decision.
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:31:from .predictor_adapter import (
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:33:    check_required_predictors,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:36:from .range_adapter import (
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:38:    check_dbh_range,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:43:    PASS = "pass"
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:44:    FAIL = "fail"
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:45:    UNRESOLVED = "unresolved"
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:69:def explicit_species_constraint(
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:74:    Final species/taxonomic applicability evidence.
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:91:            name="species",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:92:            status=GateStatus.PASS,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:94:                "Explicit taxonomic/species compatibility established."
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:100:            name="species",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:101:            status=GateStatus.FAIL,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:103:                "Explicit taxonomic/species incompatibility established."
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:108:        name="species",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:109:        status=GateStatus.UNRESOLVED,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:111:            "Taxonomic/species compatibility could not be "
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:117:def explicit_geography_constraint(
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:124:            name="geography",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:125:            status=GateStatus.PASS,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:127:                "Explicit geographic compatibility established."
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:133:            name="geography",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:134:            status=GateStatus.FAIL,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:136:                "Explicit geographic incompatibility established."
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:141:        name="geography",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:142:        status=GateStatus.UNRESOLVED,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:150:def component_constraint(
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:151:    query_component: object,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:152:    equation_component: object,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:155:    Conservative exact normalized component check.
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:158:    must be provided by a separately documented upstream component mapper.
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:161:    if query_component is None or equation_component is None:
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:163:            name="component",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:164:            status=GateStatus.UNRESOLVED,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:165:            reason="Biomass-component information is incomplete.",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:168:    q = str(query_component).strip()
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:169:    e = str(equation_component).strip()
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:173:            name="component",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:174:            status=GateStatus.UNRESOLVED,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:175:            reason="Biomass-component information is empty.",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:180:            name="component",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:181:            status=GateStatus.PASS,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:182:            reason="Biomass components match exactly.",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:186:        name="component",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:187:        status=GateStatus.FAIL,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:189:            f"Biomass-component mismatch: query={q!r}, "
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:199:def predictor_constraint(
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:205:    result = check_required_predictors(
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:213:            name="predictors",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:214:            status=GateStatus.PASS,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:218:    # Current conservative adapter intentionally does not infer FAIL
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:222:            name="predictors",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:223:            status=GateStatus.FAIL,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:228:        name="predictors",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:229:        status=GateStatus.UNRESOLVED,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:238:def measurement_range_constraint(
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:243:    Uses the exact historical DBH-range parser wrapped by the public
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:244:    three-state range adapter.
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:247:    result = check_dbh_range(
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:254:            name="measurement_range",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:255:            status=GateStatus.PASS,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:261:            name="measurement_range",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:262:            status=GateStatus.FAIL,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:267:        name="measurement_range",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:268:        status=GateStatus.UNRESOLVED,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:283:            "The final applicability gate requires exactly "
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:290:        "species",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:291:        "geography",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:292:        "component",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:293:        "predictors",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:294:        "measurement_range",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:300:            "species, geography, component, predictors, "
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:301:            "measurement_range."
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:307:        if c.status == GateStatus.FAIL
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:313:        if c.status == GateStatus.UNRESOLVED
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:318:            status=GateStatus.FAIL,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:324:                "At least one explicit applicability constraint failed."
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:330:            status=GateStatus.UNRESOLVED,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:342:        status=GateStatus.PASS,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:348:            "All five explicit applicability constraints passed."
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:357:def evaluate_applicability(
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:359:    species_compatible: Optional[bool],
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:360:    geography_compatible: Optional[bool],
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:361:    query_component: object,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:362:    equation_component: object,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:368:    species_reason: Optional[str] = None,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:369:    geography_reason: Optional[str] = None,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:373:        explicit_species_constraint(
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:374:            species_compatible,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:375:            species_reason,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:377:        explicit_geography_constraint(
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:378:            geography_compatible,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:379:            geography_reason,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:381:        component_constraint(
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:382:            query_component,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:383:            equation_component,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:385:        predictor_constraint(
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:390:        measurement_range_constraint(
+github_release/code/allomeq_rag/range_adapter_conservative_v1.py:2:Measurement-range adapter for the manuscript-aligned AllomEq-RAG
+github_release/code/allomeq_rag/range_adapter_conservative_v1.py:5:The DBH range parser preserves the historical parsing rules used in
+github_release/code/allomeq_rag/range_adapter_conservative_v1.py:12:NOT_DOCUMENTED means that no machine-checkable DBH range could be
+github_release/code/allomeq_rag/range_adapter_conservative_v1.py:18:    parse_d_range()
+github_release/code/allomeq_rag/range_adapter_conservative_v1.py:52:def parse_dbh_range(
+github_release/code/allomeq_rag/range_adapter_conservative_v1.py:56:    Parse DBH range from real FEDB size_class metadata.
+github_release/code/allomeq_rag/range_adapter_conservative_v1.py:61:    such as stand age or tree height are not treated as DBH ranges.
+github_release/code/allomeq_rag/range_adapter_conservative_v1.py:88:        # DBH range: 5.1-21.6 cm
+github_release/code/allomeq_rag/range_adapter_conservative_v1.py:90:        r"\bDBH\b[范围range：:=\s]*"
+github_release/code/allomeq_rag/range_adapter_conservative_v1.py:133:def check_dbh_range(
+github_release/code/allomeq_rag/range_adapter_conservative_v1.py:138:    Evaluate DBH against documented range metadata.
+github_release/code/allomeq_rag/range_adapter_conservative_v1.py:143:        a documented DBH range exists and DBH is inside it.
+github_release/code/allomeq_rag/range_adapter_conservative_v1.py:146:        a documented DBH range exists and DBH is outside it.
+github_release/code/allomeq_rag/range_adapter_conservative_v1.py:149:        query DBH is absent, or no machine-checkable DBH range can be
+github_release/code/allomeq_rag/range_adapter_conservative_v1.py:167:    documented = parse_dbh_range(size_class)
+github_release/code/allomeq_rag/range_adapter_conservative_v1.py:177:                "No machine-checkable documented DBH range "
+github_release/code/allomeq_rag/range_adapter_conservative_v1.py:194:                f"range [{low:g}, {high:g}] cm."
+github_release/code/allomeq_rag/range_adapter_conservative_v1.py:206:            f"range [{low:g}, {high:g}] cm."
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:2:Deterministic applicability checks for AllomEq-RAG.
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:9:1. component compatibility
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:10:2. required-predictor availability
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:11:3. documented measurement-range checking
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:13:Taxonomic/species and geographic compatibility are intentionally
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:23:from allomeq_rag.range_adapter import (
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:25:    check_dbh_range,
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:45:def normalize_component(value: Any) -> str:
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:46:    """Normalize common biomass-component aliases."""
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:91:def check_component(
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:92:    query_component: Any,
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:93:    equation_component: Any,
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:96:    q = normalize_component(query_component)
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:97:    e = normalize_component(equation_component)
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:101:            "component",
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:103:            "Query component is missing."
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:108:            "component",
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:110:            "Equation component metadata is missing."
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:115:            "component",
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:121:        "component",
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:128:    """Normalize predictor-variable metadata."""
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:164:def check_required_predictors(
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:174:            "required_predictors",
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:176:            "Equation predictor metadata is missing."
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:183:            "required_predictors",
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:185:            "Missing required predictor(s): "
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:190:        "required_predictors",
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:192:        "All required predictors are available."
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:200:def evaluate_basic_applicability(
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:202:    query_component: Any,
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:203:    equation_component: Any,
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:211:        check_component(
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:212:            query_component,
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:213:            equation_component,
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:215:        check_required_predictors(
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:219:        check_measurement_range(
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:226:        "applicable": all(c.passed for c in checks),
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:232:# Species/taxonomy and geographic compatibility
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:246:    The applicability gate does not infer taxonomy or geography itself.
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:264:def check_species_taxonomy(
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:269:    Check species/taxonomic compatibility.
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:272:    species/taxonomy matching layer. This function performs only
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:277:        "species/taxonomy",
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:282:            "species_taxonomy",
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:284:            "Species/taxonomy compatibility could not be established."
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:289:            "species_taxonomy",
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:291:            f"Species/taxonomy compatibility score {score:.3f} "
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:296:        "species_taxonomy",
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:298:        f"Species/taxonomy compatibility score {score:.3f} "
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:303:def check_geography(
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:308:    Check geographic compatibility.
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:310:    compatibility_score must be generated upstream by the geographic
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:316:        "geography",
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:321:            "geography",
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:328:            "geography",
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:335:        "geography",
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:342:def evaluate_applicability(
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:344:    species_compatibility_score: Optional[float],
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:345:    geography_compatibility_score: Optional[float],
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:346:    query_component: Any,
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:347:    equation_component: Any,
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:352:    species_threshold: float = SPECIES_COMPATIBILITY_THRESHOLD,
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:353:    geography_threshold: float = GEOGRAPHY_COMPATIBILITY_THRESHOLD,
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:356:    Evaluate the five deterministic applicability constraints:
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:358:    1. species/taxonomy compatibility
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:359:    2. geographic compatibility
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:360:    3. component compatibility
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:361:    4. required-predictor availability
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:362:    5. documented measurement range
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:364:    A candidate is applicable only when all five checks pass.
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:368:        check_species_taxonomy(
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:369:            species_compatibility_score,
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:370:            species_threshold,
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:372:        check_geography(
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:373:            geography_compatibility_score,
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:374:            geography_threshold,
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:376:        check_component(
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:377:            query_component,
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:378:            equation_component,
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:380:        check_required_predictors(
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:384:        check_measurement_range(
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:393:        "applicable": len(failed) == 0,
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:397:            "species_taxonomy": float(species_threshold),
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:398:            "geography": float(geography_threshold),
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:403:def check_measurement_range(
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:408:    Evaluate the documented DBH range using the historically
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:409:    validated range parser.
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:411:    OUT_OF_RANGE is a deterministic applicability failure.
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:421:    result = check_dbh_range(
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:428:            "measurement_range",
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:435:            "measurement_range",
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:447:        "measurement_range",
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:2:Deterministic applicability checks for AllomEq-RAG.
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:9:1. component compatibility
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:10:2. required-predictor availability
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:11:3. documented measurement-range checking
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:13:Taxonomic/species and geographic compatibility are intentionally
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:41:def normalize_component(value: Any) -> str:
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:42:    """Normalize common biomass-component aliases."""
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:87:def check_component(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:88:    query_component: Any,
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:89:    equation_component: Any,
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:92:    q = normalize_component(query_component)
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:93:    e = normalize_component(equation_component)
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:97:            "component",
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:99:            "Query component is missing."
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:104:            "component",
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:106:            "Equation component metadata is missing."
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:111:            "component",
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:117:        "component",
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:124:    """Normalize predictor-variable metadata."""
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:160:def check_required_predictors(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:170:            "required_predictors",
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:172:            "Equation predictor metadata is missing."
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:179:            "required_predictors",
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:181:            "Missing required predictor(s): "
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:186:        "required_predictors",
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:188:        "All required predictors are available."
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:192:def parse_documented_range(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:196:    Parse a documented DBH/diameter range from common size_class text.
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:238:def check_measurement_range(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:245:            "measurement_range",
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:250:    documented = parse_documented_range(size_class)
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:254:            "measurement_range",
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:256:            "No parseable documented DBH range is available."
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:264:            "measurement_range",
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:267:            f"range [{low:g}, {high:g}] cm."
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:271:        "measurement_range",
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:274:        f"range [{low:g}, {high:g}] cm."
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:278:def evaluate_basic_applicability(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:280:    query_component: Any,
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:281:    equation_component: Any,
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:289:        check_component(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:290:            query_component,
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:291:            equation_component,
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:293:        check_required_predictors(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:297:        check_measurement_range(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:304:        "applicable": all(c.passed for c in checks),
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:310:# Species/taxonomy and geographic compatibility
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:324:    The applicability gate does not infer taxonomy or geography itself.
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:342:def check_species_taxonomy(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:347:    Check species/taxonomic compatibility.
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:350:    species/taxonomy matching layer. This function performs only
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:355:        "species/taxonomy",
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:360:            "species_taxonomy",
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:362:            "Species/taxonomy compatibility could not be established."
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:367:            "species_taxonomy",
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:369:            f"Species/taxonomy compatibility score {score:.3f} "
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:374:        "species_taxonomy",
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:376:        f"Species/taxonomy compatibility score {score:.3f} "
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:381:def check_geography(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:386:    Check geographic compatibility.
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:388:    compatibility_score must be generated upstream by the geographic
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:394:        "geography",
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:399:            "geography",
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:406:            "geography",
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:413:        "geography",
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:420:def evaluate_applicability(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:422:    species_compatibility_score: Optional[float],
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:423:    geography_compatibility_score: Optional[float],
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:424:    query_component: Any,
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:425:    equation_component: Any,
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:430:    species_threshold: float = SPECIES_COMPATIBILITY_THRESHOLD,
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:431:    geography_threshold: float = GEOGRAPHY_COMPATIBILITY_THRESHOLD,
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:434:    Evaluate the five deterministic applicability constraints:
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:436:    1. species/taxonomy compatibility
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:437:    2. geographic compatibility
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:438:    3. component compatibility
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:439:    4. required-predictor availability
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:440:    5. documented measurement range
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:442:    A candidate is applicable only when all five checks pass.
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:446:        check_species_taxonomy(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:447:            species_compatibility_score,
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:448:            species_threshold,
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:450:        check_geography(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:451:            geography_compatibility_score,
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:452:            geography_threshold,
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:454:        check_component(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:455:            query_component,
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:456:            equation_component,
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:458:        check_required_predictors(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:462:        check_measurement_range(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:471:        "applicable": len(failed) == 0,
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:475:            "species_taxonomy": float(species_threshold),
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:476:            "geography": float(geography_threshold),
+github_release/code/allomeq_rag/scoring.py:7:    raw range: 0--1000
+github_release/code/allomeq_rag/scoring.py:11:    cosine similarity range: -1--1
+github_release/code/allomeq_rag/scoring.py:98:    print("PASS: manuscript-defined AllomEq-RAG scoring")
+
+========== RETRIEVAL / EMBEDDING ==========
+github_release/code/allomeq_rag/applicability_final.py:23:Generalized taxonomy/geography similarity used during candidate discovery
+github_release/code/allomeq_rag/applicability_final.py:85:    Candidate-discovery similarity must be resolved upstream and must not
+github_release/code/allomeq_rag/applicability_final.py:346:        action="candidate_may_be_recommended",
+github_release/code/allomeq_rag/applicability_v3.py:364:    A candidate is applicable only when all five checks pass.
+github_release/code/allomeq_rag/compatibility.py:19:Generalized matching is used for candidate discovery. It must not be
+github_release/code/allomeq_rag/compatibility.py:65:    Manuscript generalized taxonomic similarity:
+github_release/code/allomeq_rag/compatibility.py:96:                "no similarity score was inferred."
+github_release/code/allomeq_rag/compatibility.py:113:            f"Taxonomic generalized similarity={score:.1f}; "
+github_release/code/allomeq_rag/compatibility.py:114:            f"candidate-discovery threshold="
+github_release/code/allomeq_rag/compatibility.py:128:    Manuscript generalized geographic similarity.
+github_release/code/allomeq_rag/compatibility.py:168:                "no similarity score was inferred."
+github_release/code/allomeq_rag/compatibility.py:185:            f"Geographic generalized similarity={score:.1f}; "
+github_release/code/allomeq_rag/compatibility.py:186:            f"candidate-discovery threshold="
+github_release/code/allomeq_rag/applicability.py:442:    A candidate is applicable only when all five checks pass.
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:23:Generalized taxonomy/geography similarity used during candidate discovery
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:85:    Candidate-discovery similarity must be resolved upstream and must not
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:346:        action="candidate_may_be_recommended",
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:364:    A candidate is applicable only when all five checks pass.
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:442:    A candidate is applicable only when all five checks pass.
+github_release/code/allomeq_rag/scoring.py:11:    cosine similarity range: -1--1
+github_release/code/allomeq_rag/scoring.py:12:    S_dense_norm = (cosine_similarity + 1) / 2
+github_release/code/allomeq_rag/scoring.py:40:def normalize_dense_score(cosine_similarity: Number) -> float:
+github_release/code/allomeq_rag/scoring.py:41:    """Map cosine similarity from [-1, 1] to [0, 1]."""
+github_release/code/allomeq_rag/scoring.py:42:    cosine_similarity = float(cosine_similarity)
+github_release/code/allomeq_rag/scoring.py:44:    if not -1.0 <= cosine_similarity <= 1.0:
+github_release/code/allomeq_rag/scoring.py:46:            "cosine similarity must be in [-1, 1], "
+github_release/code/allomeq_rag/scoring.py:47:            f"got {cosine_similarity}"
+github_release/code/allomeq_rag/scoring.py:50:    return (cosine_similarity + 1.0) / 2.0
+github_release/code/allomeq_rag/scoring.py:55:    cosine_similarity: Number,
+github_release/code/allomeq_rag/scoring.py:65:    s_dense_norm = normalize_dense_score(cosine_similarity)
+github_release/code/biomass_expert_manuscript.py:41:from transformers import AutoModelForCausalLM, AutoTokenizer
+github_release/code/biomass_expert_manuscript.py:42:from sentence_transformers import SentenceTransformer
+github_release/code/biomass_expert_manuscript.py:607:def retrieve(slots, top_k=5, return_scores=False):
+github_release/code/biomass_expert_manuscript.py:639:        q_vec = emb.encode([sp], normalize_embeddings=True)[0]
+github_release/code/biomass_expert_manuscript.py:642:        if return_scores: return [(db[i], float(s)) for i,s in ranked[:top_k]]
+github_release/code/biomass_expert_manuscript.py:643:        return [db[i] for i,_ in ranked[:top_k]]
+github_release/code/biomass_expert_manuscript.py:668:    q_vec     = emb.encode([q_text.strip()], normalize_embeddings=True)[0]
+github_release/code/biomass_expert_manuscript.py:670:    cand_vecs = emb.encode(cand_texts, normalize_embeddings=True)
+github_release/code/biomass_expert_manuscript.py:674:    if return_scores: return [(db[i], float(s)) for i,s in ranked[:top_k]]
+github_release/code/biomass_expert_manuscript.py:675:    return [db[i] for i,_ in ranked[:top_k]]
+github_release/code/biomass_expert_manuscript.py:699:def check_diameter_type(question, slots, top_candidates):
+github_release/code/biomass_expert_manuscript.py:700:    if not slots or not top_candidates: return None
+github_release/code/biomass_expert_manuscript.py:706:    top_eq = top_candidates[0]
+github_release/code/biomass_expert_manuscript.py:749:def quality_ctrl_by_llm(question, candidates):
+github_release/code/biomass_expert_manuscript.py:751:    if not candidates: return '', ''
+github_release/code/biomass_expert_manuscript.py:756:    sorted_cands = sorted(candidates, key=_qs, reverse=True)
+github_release/code/biomass_expert_manuscript.py:765:        for cand in candidates:
+github_release/code/biomass_expert_manuscript.py:767:        for cand in candidates:
+github_release/code/biomass_expert_manuscript.py:770:    return candidates[0].get('equation','') if candidates else '', answer
+github_release/code/biomass_expert_manuscript.py:773:    scored = retrieve(slots, top_k=5, return_scores=True)
+github_release/code/biomass_expert_manuscript.py:795:        top = retrieve(sp_slots, top_k=3)
+github_release/code/biomass_expert_manuscript.py:816:        top = retrieve(comp_slots, top_k=3)
+github_release/code/biomass_expert_manuscript.py:824:    candidates = retrieve(slots, top_k=5)
+github_release/code/biomass_expert_manuscript.py:825:    if not candidates:
+github_release/code/biomass_expert_manuscript.py:828:        recommended, answer = quality_ctrl_by_llm(question, candidates)
+github_release/code/biomass_expert_manuscript.py:830:        cand_text = '\n'.join([build_rich_eq_context(r, idx=i+1) for i, r in enumerate(candidates[:5])])
+github_release/code/biomass_expert_manuscript.py:839:            for cand in candidates:
+github_release/code/biomass_expert_manuscript.py:843:                for cand in candidates:
+github_release/code/biomass_expert_manuscript.py:846:        if not recommended: recommended = candidates[0].get('equation','') if candidates else ''
+github_release/code/biomass_expert_manuscript.py:847:    all_eqs = [recommended]+[r.get('equation','') for r in candidates if r.get('equation','')!=recommended]
+github_release/code/biomass_expert_manuscript.py:848:    return {'intent':'reasoning','candidates':[r.get('equation','') for r in candidates],
+github_release/code/biomass_expert_manuscript.py:914:all_vecs  = emb.encode(all_texts, batch_size=256, show_progress_bar=True, normalize_embeddings=True)
+github_release/code/biomass_expert_manuscript.py:994:        scored=retrieve(slots,top_k=5,return_scores=True)
+
+========== RUNNER / PREDICTION ==========
+github_release/code/allomeq_rag/predictor_adapter.py:2:Manuscript-aligned predictor adapter for AllomEq-RAG.
+github_release/code/allomeq_rag/predictor_adapter.py:10:3. Do not treat arbitrary benchmark `_calc_params` keys as predictors.
+github_release/code/allomeq_rag/predictor_adapter.py:45:# Canonical predictor vocabulary
+github_release/code/allomeq_rag/predictor_adapter.py:114:# converted formulas, or other non-predictor material.
+github_release/code/allomeq_rag/predictor_adapter.py:144:    Return a canonical predictor when the mapping is known.
+github_release/code/allomeq_rag/predictor_adapter.py:177:def required_predictors_from_fedb(
+github_release/code/allomeq_rag/predictor_adapter.py:182:    predictor requirements.
+github_release/code/allomeq_rag/predictor_adapter.py:225:# User / benchmark supplied predictors
+github_release/code/allomeq_rag/predictor_adapter.py:228:def _looks_non_predictor_key(
+github_release/code/allomeq_rag/predictor_adapter.py:240:def supplied_predictors_from_calc_params(
+github_release/code/allomeq_rag/predictor_adapter.py:244:    Extract only recognized predictor keys from benchmark
+github_release/code/allomeq_rag/predictor_adapter.py:248:    user predictors.
+github_release/code/allomeq_rag/predictor_adapter.py:263:        if _looks_non_predictor_key(s):
+github_release/code/allomeq_rag/predictor_adapter.py:278:def supplied_predictors_from_question(
+github_release/code/allomeq_rag/predictor_adapter.py:342:def collect_supplied_predictors(
+github_release/code/allomeq_rag/predictor_adapter.py:349:            supplied_predictors_from_calc_params(
+github_release/code/allomeq_rag/predictor_adapter.py:355:            supplied_predictors_from_question(
+github_release/code/allomeq_rag/predictor_adapter.py:366:def check_required_predictors(
+github_release/code/allomeq_rag/predictor_adapter.py:372:    requirement = required_predictors_from_fedb(
+github_release/code/allomeq_rag/predictor_adapter.py:376:    supplied = collect_supplied_predictors(
+github_release/code/allomeq_rag/predictor_adapter.py:382:    # deterministic applicability decision.
+github_release/code/allomeq_rag/predictor_adapter.py:413:                "predictors are supplied."
+github_release/code/allomeq_rag/predictor_adapter.py:419:    # that the user omitted the predictor. If neither structured
+github_release/code/allomeq_rag/predictor_adapter.py:429:            "One or more required predictors were not observed "
+github_release/code/allomeq_rag/applicability_final.py:9:The final applicability decision is based on five explicit constraints:
+github_release/code/allomeq_rag/applicability_final.py:14:4. required-predictor availability
+github_release/code/allomeq_rag/applicability_final.py:24:must not be substituted for the final explicit applicability decision.
+github_release/code/allomeq_rag/applicability_final.py:31:from .predictor_adapter import (
+github_release/code/allomeq_rag/applicability_final.py:33:    check_required_predictors,
+github_release/code/allomeq_rag/applicability_final.py:199:def predictor_constraint(
+github_release/code/allomeq_rag/applicability_final.py:205:    result = check_required_predictors(
+github_release/code/allomeq_rag/applicability_final.py:213:            name="predictors",
+github_release/code/allomeq_rag/applicability_final.py:222:            name="predictors",
+github_release/code/allomeq_rag/applicability_final.py:228:        name="predictors",
+github_release/code/allomeq_rag/applicability_final.py:293:        "predictors",
+github_release/code/allomeq_rag/applicability_final.py:300:            "species, geography, component, predictors, "
+github_release/code/allomeq_rag/applicability_final.py:385:        predictor_constraint(
+github_release/code/allomeq_rag/applicability_v3.py:10:2. required-predictor availability
+github_release/code/allomeq_rag/applicability_v3.py:128:    """Normalize predictor-variable metadata."""
+github_release/code/allomeq_rag/applicability_v3.py:164:def check_required_predictors(
+github_release/code/allomeq_rag/applicability_v3.py:174:            "required_predictors",
+github_release/code/allomeq_rag/applicability_v3.py:176:            "Equation predictor metadata is missing."
+github_release/code/allomeq_rag/applicability_v3.py:183:            "required_predictors",
+github_release/code/allomeq_rag/applicability_v3.py:185:            "Missing required predictor(s): "
+github_release/code/allomeq_rag/applicability_v3.py:190:        "required_predictors",
+github_release/code/allomeq_rag/applicability_v3.py:192:        "All required predictors are available."
+github_release/code/allomeq_rag/applicability_v3.py:215:        check_required_predictors(
+github_release/code/allomeq_rag/applicability_v3.py:361:    4. required-predictor availability
+github_release/code/allomeq_rag/applicability_v3.py:380:        check_required_predictors(
+github_release/code/allomeq_rag/applicability.py:10:2. required-predictor availability
+github_release/code/allomeq_rag/applicability.py:124:    """Normalize predictor-variable metadata."""
+github_release/code/allomeq_rag/applicability.py:160:def check_required_predictors(
+github_release/code/allomeq_rag/applicability.py:170:            "required_predictors",
+github_release/code/allomeq_rag/applicability.py:172:            "Equation predictor metadata is missing."
+github_release/code/allomeq_rag/applicability.py:179:            "required_predictors",
+github_release/code/allomeq_rag/applicability.py:181:            "Missing required predictor(s): "
+github_release/code/allomeq_rag/applicability.py:186:        "required_predictors",
+github_release/code/allomeq_rag/applicability.py:188:        "All required predictors are available."
+github_release/code/allomeq_rag/applicability.py:293:        check_required_predictors(
+github_release/code/allomeq_rag/applicability.py:439:    4. required-predictor availability
+github_release/code/allomeq_rag/applicability.py:458:        check_required_predictors(
+github_release/code/allomeq_rag/applicability_basic_v1.py:10:2. required-predictor availability
+github_release/code/allomeq_rag/applicability_basic_v1.py:124:    """Normalize predictor-variable metadata."""
+github_release/code/allomeq_rag/applicability_basic_v1.py:160:def check_required_predictors(
+github_release/code/allomeq_rag/applicability_basic_v1.py:170:            "required_predictors",
+github_release/code/allomeq_rag/applicability_basic_v1.py:172:            "Equation predictor metadata is missing."
+github_release/code/allomeq_rag/applicability_basic_v1.py:179:            "required_predictors",
+github_release/code/allomeq_rag/applicability_basic_v1.py:181:            "Missing required predictor(s): "
+github_release/code/allomeq_rag/applicability_basic_v1.py:186:        "required_predictors",
+github_release/code/allomeq_rag/applicability_basic_v1.py:188:        "All required predictors are available."
+github_release/code/allomeq_rag/applicability_basic_v1.py:293:        check_required_predictors(
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:9:The final applicability decision is based on five explicit constraints:
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:14:4. required-predictor availability
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:24:must not be substituted for the final explicit applicability decision.
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:31:from .predictor_adapter import (
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:33:    check_required_predictors,
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:199:def predictor_constraint(
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:205:    result = check_required_predictors(
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:213:            name="predictors",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:222:            name="predictors",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:228:        name="predictors",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:293:        "predictors",
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:300:            "species, geography, component, predictors, "
+github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py:385:        predictor_constraint(
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:10:2. required-predictor availability
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:128:    """Normalize predictor-variable metadata."""
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:164:def check_required_predictors(
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:174:            "required_predictors",
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:176:            "Equation predictor metadata is missing."
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:183:            "required_predictors",
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:185:            "Missing required predictor(s): "
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:190:        "required_predictors",
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:192:        "All required predictors are available."
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:215:        check_required_predictors(
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:361:    4. required-predictor availability
+github_release/code/allomeq_rag/applicability_v3_before_compatibility.py:380:        check_required_predictors(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:10:2. required-predictor availability
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:124:    """Normalize predictor-variable metadata."""
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:160:def check_required_predictors(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:170:            "required_predictors",
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:172:            "Equation predictor metadata is missing."
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:179:            "required_predictors",
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:181:            "Missing required predictor(s): "
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:186:        "required_predictors",
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:188:        "All required predictors are available."
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:293:        check_required_predictors(
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:439:    4. required-predictor availability
+github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py:458:        check_required_predictors(
+github_release/code/evaluation/build_522_evaluator_ready.py:19:    "benchmark_522_evaluator_ready.jsonl"
+github_release/code/evaluation/build_522_evaluator_ready.py:23:# Load benchmark
+github_release/code/evaluation/build_522_evaluator_ready.py:155:# Every applicable benchmark ID must occur
+github_release/code/evaluation/build_522_evaluator_ready.py:242:    "FORMAL_REJECTION_LABEL =",
+github_release/code/evaluation/manuscript_522.py:3:Manuscript-aligned evaluator for the 522-query equation benchmark.
+github_release/code/evaluation/manuscript_522.py:11:Ground-truth applicability is defined by the frozen benchmark field:
+github_release/code/evaluation/manuscript_522.py:24:This evaluator does not fabricate or reconstruct model predictions.
+github_release/code/evaluation/manuscript_522.py:58:    Split benchmark using ONLY requires_rejection.
+github_release/code/evaluation/manuscript_522.py:72:def validate_522_benchmark(
+github_release/code/evaluation/manuscript_522.py:76:    Validate the frozen manuscript benchmark invariants.
+github_release/code/evaluation/manuscript_522.py:112:def normalize_prediction_status(
+github_release/code/evaluation/manuscript_522.py:116:    Normalize system decision into:
+github_release/code/evaluation/manuscript_522.py:118:        ANSWER
+github_release/code/evaluation/manuscript_522.py:119:        REJECT
+github_release/code/evaluation/manuscript_522.py:131:        "REJECT",
+github_release/code/evaluation/manuscript_522.py:132:        "REJECTED",
+github_release/code/evaluation/manuscript_522.py:139:        "ANSWER",
+github_release/code/evaluation/manuscript_522.py:140:        "ANSWERED",
+github_release/code/evaluation/manuscript_522.py:154:        return "REJECT"
+github_release/code/evaluation/manuscript_522.py:157:        return "ANSWER"
+github_release/code/evaluation/manuscript_522.py:163:        f"Unknown prediction status: {value!r}"
+github_release/code/evaluation/manuscript_522.py:169:    predictions: Dict[str, Dict[str, Any]],
+github_release/code/evaluation/manuscript_522.py:173:    Compute rejection-decision confusion counts.
+github_release/code/evaluation/manuscript_522.py:175:    Positive class = benchmark requires rejection.
+github_release/code/evaluation/manuscript_522.py:186:    validate_522_benchmark(cases)
+github_release/code/evaluation/manuscript_522.py:196:        pred = predictions.get(tid, {})
+github_release/code/evaluation/manuscript_522.py:197:        status = normalize_prediction_status(
+github_release/code/evaluation/manuscript_522.py:204:        pred_reject = status == "REJECT"
+github_release/code/evaluation/manuscript_522.py:261:        "decision_accuracy": accuracy,
+github_release/code/evaluation/manuscript_522_v2.py:2:Manuscript-aligned evaluator for the 522-query AllomEq-RAG benchmark.
+github_release/code/evaluation/manuscript_522_v2.py:95:    """Formal benchmark label."""
+github_release/code/evaluation/manuscript_522_v2.py:103:def validate_benchmark_split(cases: Iterable[dict]) -> dict:
+github_release/code/evaluation/manuscript_522_v2.py:158:def classify_decision(
+github_release/code/evaluation/manuscript_522_v2.py:161:    predicted_status: str,
+github_release/code/evaluation/manuscript_522_v2.py:162:    predicted_equation: Any = None,
+github_release/code/evaluation/manuscript_522_v2.py:166:    Convert one system decision to TP/FP/FN/TN.
+github_release/code/evaluation/manuscript_522_v2.py:168:    predicted_status:
+github_release/code/evaluation/manuscript_522_v2.py:169:        ANSWER
+github_release/code/evaluation/manuscript_522_v2.py:170:        REJECT
+github_release/code/evaluation/manuscript_522_v2.py:174:        ANSWER counts as TP only when predicted_equation belongs to
+github_release/code/evaluation/manuscript_522_v2.py:178:        ANSWER is FP.
+github_release/code/evaluation/manuscript_522_v2.py:179:        REJECT or UNRESOLVED is TN.
+github_release/code/evaluation/manuscript_522_v2.py:186:    They must be supplied by the benchmark/evaluation layer.
+github_release/code/evaluation/manuscript_522_v2.py:189:    status = str(predicted_status).strip().upper()
+github_release/code/evaluation/manuscript_522_v2.py:192:        "ANSWER",
+github_release/code/evaluation/manuscript_522_v2.py:193:        "REJECT",
+github_release/code/evaluation/manuscript_522_v2.py:199:            f"Unknown predicted_status: {predicted_status!r}"
+github_release/code/evaluation/manuscript_522_v2.py:204:        if status != "ANSWER":
+github_release/code/evaluation/manuscript_522_v2.py:209:                "Applicable ANSWER requires an explicit "
+github_release/code/evaluation/manuscript_522_v2.py:217:        predicted = normalize_equation_id(
+github_release/code/evaluation/manuscript_522_v2.py:218:            predicted_equation
+github_release/code/evaluation/manuscript_522_v2.py:221:        if predicted is not None and predicted in acceptable:
+github_release/code/evaluation/manuscript_522_v2.py:227:    if status == "ANSWER":
+github_release/code/evaluation/manuscript_522_v2.py:264:    They are NOT generated predictions and must not be used as a
+github_release/code/evaluation/manuscript_522_v2.py:265:    substitute for rerunning the 522-query system.
+github_release/code/evaluation/build_reference_manifest_fixed.py:107:        "benchmark_equation": case.get(
+github_release/code/evaluation/build_reference_manifest.py:107:        "benchmark_equation": case.get(
+github_release/code/biomass_expert_manuscript.py:47:# Large model/checkpoint assets and the formal benchmark are not bundled
+github_release/code/biomass_expert_manuscript.py:72:        / "benchmark_522.json"
+
+========== ENVIRONMENT VARIABLES ==========
+github_release/code/biomass_expert_manuscript.py:52:MODEL_PATH = os.environ.get(
+github_release/code/biomass_expert_manuscript.py:53:    "FIQS_MODEL_PATH",
+github_release/code/biomass_expert_manuscript.py:57:EQ_PATH = os.environ.get(
+github_release/code/biomass_expert_manuscript.py:67:TEST_PATH = os.environ.get(
+github_release/code/biomass_expert_manuscript.py:76:EMB_PATH = os.environ.get(
+github_release/code/biomass_expert_manuscript.py:905:_tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH, trust_remote_code=True)
+github_release/code/biomass_expert_manuscript.py:906:_model     = AutoModelForCausalLM.from_pretrained(MODEL_PATH, trust_remote_code=True,
+
+========== PYTHON COMPILE ==========
+COMPILE_EXIT=0
+
+========== CRITICAL HASHES ==========
+8a0042e7de4d05ac43abfcb5832b93cb8a97b10979376ca340900ed315bdf954  github_release/code/allomeq_rag/applicability.py
+d8160e7c69ac673663627d2edd82fdb1d5b9d84c302d4c0e1dbbabd1cbeebd38  github_release/code/allomeq_rag/applicability_basic_v1.py
+c0f6adea91fd3b04d656a0966a9d8c0df7852b2cdea9cd30cb2ac44a1812142b  github_release/code/allomeq_rag/applicability_final.py
+fd10dbfb66e5cdad4f3faaab48f0ee4fb1bd2a08b70d7f0812dcb224905992ee  github_release/code/allomeq_rag/applicability_final_v1_argument_order_bug.py
+8a0042e7de4d05ac43abfcb5832b93cb8a97b10979376ca340900ed315bdf954  github_release/code/allomeq_rag/applicability_v2_before_range_adapter.py
+16dfdfca7c5ebaa254718d8be8af8fcd2e5a5c403092d16221b83d63bc938671  github_release/code/allomeq_rag/applicability_v3.py
+16dfdfca7c5ebaa254718d8be8af8fcd2e5a5c403092d16221b83d63bc938671  github_release/code/allomeq_rag/applicability_v3_before_compatibility.py
+fe5928d6f52f1c5e756594e99158f4f900bbf1905769c09eab000d8500002c19  github_release/code/allomeq_rag/compatibility.py
+6fbb0acd1b5720825bda8a0c23b7a371e6c7a591f1b1ebf32e7577cb8e3f125b  github_release/code/allomeq_rag/predictor_adapter.py
+a6f92db530dc302c751d5eff867b5628fb2cc865ddeccd448e46c8653aff30a5  github_release/code/allomeq_rag/range_adapter.py
+a0b37a015853a8c9cd843400f629448f29eb673db602ad8fb86cbeb2b8c88a19  github_release/code/allomeq_rag/range_adapter_conservative_v1.py
+de600fd2b3960882d36aaae9554111f8420046072177761a5067cbc16f2489b3  github_release/code/allomeq_rag/scoring.py
+a64340999066bb75eae0075537891a81b13c6df9a703cf976322d3d37b8dbcfd  github_release/code/evaluation/manuscript_522_v2.py
+d0a925ed54a86d3255ee5b2f5d713a30ad9bad711b66918b8411fbdc769aeb40  github_release/reproducibility/applicable_reference_manifest.jsonl
+a8e560409dcc94469c08ada9dd6c931df41a0312777c2fc21f2c48b39f9515a4  github_release/reproducibility/benchmark_522_evaluator_ready.jsonl
+ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990  <PRIVATE_ROOT>/biomass_expert_v24.py

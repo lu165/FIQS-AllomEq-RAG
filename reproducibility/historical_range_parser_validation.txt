@@ -1,0 +1,330 @@
+============================================================
+1. EXACT HISTORICAL PARSER SOURCE
+============================================================
+    if slots.get('H') is not None and has_var(eq_str,'H'):   s += 2
+    if slots.get('D0') is not None and has_var(eq_str,'D0'): s += 2
+    if slots.get('V') is not None and has_var(eq_str,'V'):   s += 3
+    if slots.get('A') is not None and has_var(eq_str,'A'):   s += 3
+    return s
+
+def parse_d_range(sc):
+    """v23增强：支持真实数据中的多种size_class格式"""
+    if not sc: return None
+    sc_str = str(sc)
+    for pat in [
+        # 格式1：胸径X-Ycm
+        r'\u80f8\u5f84[\u8303\u56f4\uff1a:为]*\s*(\d+\.?\d*)\s*[-\u2013~\uff5e]\s*(\d+\.?\d*)\s*(?:cm|\u5398\u7c73)',
+        # 格式2：胸径X, Ycm（逗号分隔）
+        r'\u80f8\u5f84[\u8303\u56f4\uff1a:为]*\s*(\d+\.?\d*)\s*,\s*(\d+\.?\d*)\s*(?:cm|\u5398\u7c73)',
+        # 格式3：D=X-Ycm
+        r'D\s*[=:\uff1a]\s*(\d+\.?\d*)\s*[-\u2013~\uff5e]\s*(\d+\.?\d*)\s*(?:cm|\u5398\u7c73)',
+        # 格式4：径级X-Y
+        r'\u5f84\u7ea7\s*(\d+\.?\d*)\s*[-\u2013~\uff5e]\s*(\d+\.?\d*)',
+        # 格式5：纯数字X-Ycm
+        r'(\d+\.?\d*)\s*[-\u2013~\uff5e]\s*(\d+\.?\d*)\s*cm',
+        # 格式6：胸径 X Y cm（空格分隔）
+        r'\u80f8\u5f84\s+(\d+\.?\d*)\s+(\d+\.?\d*)\s*(?:cm|\u5398\u7c73)',
+    ]:
+        m = re.search(pat, sc_str, re.IGNORECASE)
+        if m:
+            try:
+                lo, hi = float(m.group(1)), float(m.group(2))
+                # 自动纠正顺序颠倒
+                if lo > hi: lo, hi = hi, lo
+                if lo < hi: return lo, hi
+            except:
+                continue
+    return None
+
+def d_range_score(sc, D):
+
+============================================================
+2. EXACT V24 PARSER SOURCE
+============================================================
+    if slots.get('D0') is not None and has_var(eq_str,'D0'): s += 2
+    if slots.get('V') is not None and has_var(eq_str,'V'):   s += 3
+    if slots.get('A') is not None and has_var(eq_str,'A'):   s += 3
+    return s
+
+def parse_d_range(sc):
+    """v23增强：支持真实数据中的多种size_class格式"""
+    if not sc: return None
+    sc_str = str(sc)
+    for pat in [
+        # 格式1：胸径X-Ycm
+        r'\u80f8\u5f84[\u8303\u56f4\uff1a:为]*\s*(\d+\.?\d*)\s*[-\u2013~\uff5e]\s*(\d+\.?\d*)\s*(?:cm|\u5398\u7c73)',
+        # 格式2：胸径X, Ycm（逗号分隔）
+        r'\u80f8\u5f84[\u8303\u56f4\uff1a:为]*\s*(\d+\.?\d*)\s*,\s*(\d+\.?\d*)\s*(?:cm|\u5398\u7c73)',
+        # 格式3：D=X-Ycm
+        r'D\s*[=:\uff1a]\s*(\d+\.?\d*)\s*[-\u2013~\uff5e]\s*(\d+\.?\d*)\s*(?:cm|\u5398\u7c73)',
+        # 格式4：径级X-Y
+        r'\u5f84\u7ea7\s*(\d+\.?\d*)\s*[-\u2013~\uff5e]\s*(\d+\.?\d*)',
+        # 格式5：纯数字X-Ycm
+        r'(\d+\.?\d*)\s*[-\u2013~\uff5e]\s*(\d+\.?\d*)\s*cm',
+        # 格式6：胸径 X Y cm（空格分隔）
+        r'\u80f8\u5f84\s+(\d+\.?\d*)\s+(\d+\.?\d*)\s*(?:cm|\u5398\u7c73)',
+    ]:
+        m = re.search(pat, sc_str, re.IGNORECASE)
+        if m:
+            try:
+                lo, hi = float(m.group(1)), float(m.group(2))
+                # 自动纠正顺序颠倒
+                if lo > hi: lo, hi = hi, lo
+                if lo < hi: return lo, hi
+            except:
+                continue
+    return None
+
+def d_range_score(sc, D):
+    if D is None: return 0
+
+============================================================
+3. TEST HISTORICAL PARSER ON ALL 7,394 FEDB RECORDS
+============================================================
+FEDB_TOTAL          = 7394
+SIZE_CLASS_PRESENT  = 7221
+SIZE_CLASS_MISSING  = 173
+PARSED              = 5724
+UNPARSED            = 1497
+ERRORS              = 0
+PARSE_RATE_PRESENT = 0.792688 (79.27%)
+PARSE_RATE_ALL     = 0.774141 (77.41%)
+
+===== PARSED EXAMPLES =====
+ID= rag_0001 | RAW= '林龄5-26年, 胸径范围：4.5-24.63cm' | PARSED= (4.5, 24.63)
+ID= rag_0002 | RAW= '林龄5-26年, 胸径范围：4.5-24.63cm' | PARSED= (4.5, 24.63)
+ID= rag_0003 | RAW= '林龄5-26年, 胸径范围：4.5-24.63cm' | PARSED= (4.5, 24.63)
+ID= rag_0004 | RAW= '林龄5-26年, 胸径范围：4.5-24.63cm' | PARSED= (4.5, 24.63)
+ID= rag_0005 | RAW= '林龄5-26年, 胸径范围：4.5-24.63cm' | PARSED= (4.5, 24.63)
+ID= rag_0006 | RAW= '林龄5-26年, 胸径范围：4.5-24.63cm' | PARSED= (4.5, 24.63)
+ID= rag_0007 | RAW= '林龄5-26年, 胸径范围：4.5-24.63cm' | PARSED= (4.5, 24.63)
+ID= rag_0035 | RAW= '小树(胸径1-10cm)' | PARSED= (1.0, 10.0)
+ID= rag_0036 | RAW= '小树(胸径1-10cm)' | PARSED= (1.0, 10.0)
+ID= rag_0037 | RAW= '小树(胸径1-10cm)' | PARSED= (1.0, 10.0)
+ID= rag_0038 | RAW= '小树(胸径1-10cm)' | PARSED= (1.0, 10.0)
+ID= rag_0039 | RAW= '小树(胸径1-10cm)' | PARSED= (1.0, 10.0)
+ID= rag_0040 | RAW= '中树(胸径10-20cm)' | PARSED= (10.0, 20.0)
+ID= rag_0041 | RAW= '中树(胸径10-20cm)' | PARSED= (10.0, 20.0)
+ID= rag_0042 | RAW= '中树(胸径10-20cm)' | PARSED= (10.0, 20.0)
+ID= rag_0043 | RAW= '中树(胸径10-20cm)' | PARSED= (10.0, 20.0)
+ID= rag_0044 | RAW= '中树(胸径10-20cm)' | PARSED= (10.0, 20.0)
+ID= rag_0045 | RAW= '中树(胸径10-20cm)' | PARSED= (10.0, 20.0)
+ID= rag_0263 | RAW= '胸径范围: 5.1-21.6cm; 树高范围: 5.9-20.9m' | PARSED= (5.1, 21.6)
+ID= rag_0264 | RAW= '胸径范围: 5.1-21.6cm; 树高范围: 5.9-20.9m' | PARSED= (5.1, 21.6)
+ID= rag_0265 | RAW= '胸径范围: 5.1-21.6cm; 树高范围: 5.9-20.9m' | PARSED= (5.1, 21.6)
+ID= rag_0266 | RAW= '胸径范围: 5.1-21.6cm; 树高范围: 5.9-20.9m' | PARSED= (5.1, 21.6)
+ID= rag_0267 | RAW= '胸径范围: 5.2-18.3cm' | PARSED= (5.2, 18.3)
+ID= rag_0268 | RAW= '胸径范围: 5.2-18.3cm' | PARSED= (5.2, 18.3)
+ID= rag_0269 | RAW= '胸径范围: 5.2-18.3cm' | PARSED= (5.2, 18.3)
+ID= rag_0270 | RAW= '胸径范围: 5.2-18.3cm' | PARSED= (5.2, 18.3)
+ID= rag_0271 | RAW= '胸径范围: 8.2-25.4cm' | PARSED= (8.2, 25.4)
+ID= rag_0272 | RAW= '胸径范围: 8.2-25.4cm' | PARSED= (8.2, 25.4)
+ID= rag_0273 | RAW= '胸径范围: 8.2-25.4cm' | PARSED= (8.2, 25.4)
+ID= rag_0274 | RAW= '胸径范围: 8.2-25.4cm' | PARSED= (8.2, 25.4)
+ID= rag_0295 | RAW= '胸径范围：1.75-31.7cm' | PARSED= (1.75, 31.7)
+ID= rag_0296 | RAW= '胸径范围：1.75-31.7cm' | PARSED= (1.75, 31.7)
+ID= rag_0297 | RAW= '胸径范围：1.75-31.7cm' | PARSED= (1.75, 31.7)
+ID= rag_0298 | RAW= '胸径范围：1.75-31.7cm' | PARSED= (1.75, 31.7)
+ID= rag_0299 | RAW= '胸径范围：1.75-31.7cm' | PARSED= (1.75, 31.7)
+ID= rag_0300 | RAW= '胸径范围：5.0-32.7cm' | PARSED= (5.0, 32.7)
+ID= rag_0301 | RAW= '胸径范围：5.0-32.7cm' | PARSED= (5.0, 32.7)
+ID= rag_0302 | RAW= '胸径范围：5.0-32.7cm' | PARSED= (5.0, 32.7)
+ID= rag_0303 | RAW= '胸径范围：5.0-32.7cm' | PARSED= (5.0, 32.7)
+ID= rag_0304 | RAW= '胸径范围：5.0-32.7cm' | PARSED= (5.0, 32.7)
+
+===== TOP 100 UNPARSED VALUES =====
+   99	'D≤100cm'
+   87	'未指定'
+   69	'说明: w为生物量(kg), D为胸径(cm), H为树高(m); 对数形式方程,需胸径和树高数据'
+   56	'D≤60cm'
+   33	'胸径≥5cm'
+   27	'说明: W为生物量(kg), D为胸径(cm); 适用于胸径≥5cm的乔木'
+   25	'D≤50cm'
+   25	'D≤70cm'
+   23	'冰川退缩区树种'
+   22	'D≤90cm'
+   21	'人工林'
+   21	'说明: B为单位面积生物量(t/hm²), V为单位面积蓄积量(m³/hm²); 基于2000/2005年森林资源清查'
+   16	'林分类型: 人工林(银中杨、小黑杨、樟子松、落叶松、红松)或天然次生林(山杨、白桦、蒙古栎); 林龄: 中龄林以上(17~53年)'
+   16	'林分类型: 天然次生林(山杨、油松、辽东栎)和人工林(侧柏); 林龄: 幼龄林至过熟林'
+   16	'D≤74cm'
+   15	'针叶树种'
+   15	'说明: W为生物量(kg),V为蓄积量; 三次方程模型'
+   15	'说明: W为生物量(kg), D为胸径(cm); 仅需胸径数据'
+   15	'说明: W为生物量(kg), D为胸径(cm), H为树高(m); 对数形式方程,需胸径和树高数据'
+   15	'D≤40cm'
+   15	'D≤30cm'
+   15	'D≤62cm'
+   14	'适用于广西森林资源连续清查数据'
+   14	'说明: W为生物量(kg),D为胸径，H为树高; 三次方程模型'
+   13	'说明: B为单位面积生物量(t/ha), V为单位面积蓄积量(m³/ha); 适用于乔木林、疏林和散生木; 基于1994/1999/2004年清查数据'
+   13	'说明: B为每公顷生物量(t/hm²), V为每公顷蓄积量(m³/hm²); 需蓄积量数据'
+   11	'适用于安徽省森林资源清查数据'
+   11	'D≤34cm'
+   11	'D≤38cm'
+   11	'D≤115cm'
+   10	'说明: B为生物量(Mg/ha), V为林分蓄积量(m³/ha); 适用于东三省主要森林类型'
+   10	'说明: B为生物量(吨), V为蓄积量(立方米); 需蓄积量数据'
+   10	'D≤20cm'
+    9	'阔叶树种'
+    9	'说明: B为生物量(Mg/hm²), V为蓄积量(m³/hm²); 乔木林'
+    8	'人工林; 林龄: 幼龄林(8年)、中龄林(15年)和成熟林(30年)'
+    8	'说明: Y为生物量, D为基径(cm), H为树高(m); 适用于1.003,幼龄期(3-4年生)'
+    7	'1055株立木'
+    7	'荒漠植被'
+    7	'说明: B_total为树种组总生物量(10⁴t), V_total为树种组总蓄积量(m³)'
+    7	'D≤70cm, H≤32m'
+    7	'D≤82cm'
+    7	'D≤85cm'
+    6	'大树(胸径≥20cm)'
+    6	'说明: B为森林地上生物量, V为林分蓄积量; 基于2016年二类调查数据; 适用于表列优势树种'
+    6	'说明: W_T为地上生物量(kg), D为胸径(cm)'
+    6	'说明: W_R为地下生物量(kg), D为胸径(cm)'
+    6	'说明: WS为树干生物量(kg), D为胸径(cm); 无胸径限制'
+    6	'说明: WB为树枝生物量(kg), D为胸径(cm); 无胸径限制'
+    6	'说明: WL为树叶生物量(kg), D为胸径(cm); 无胸径限制'
+    6	'说明: WU为地下生物量(kg), D为胸径(cm); 无胸径限制'
+    6	'D≤48cm'
+    6	'D≤64cm, H≤30m'
+    6	'D≤32cm'
+    6	'D≤64cm'
+    6	'D≤58cm'
+    5	'幼树(地径<5cm)'
+    5	'幼树(地径<5cm); 地径范围: 2.75-49.70mm; 树高范围: 0.15-5.30m'
+    5	'幼树(地径<5cm); 地径范围: 2.79-48.23mm; 树高范围: 0.50-4.10m'
+    5	'乔木林; 说明: V为单位面积蓄积量(m³/hm²), B为单位面积生物量(t/hm²)'
+    5	'说明: W为地上生物量(kg), D为胸径(cm), H为树高(m); 适用范围胸径≥5cm'
+    5	'说明: W_T为地上生物量(kg), D为胸径(cm), H为树高(m)'
+    5	'说明: W_R为地下生物量(kg), W_T为地上生物量(kg)'
+    5	'树高范围：16.0, 18.0m'
+    5	'D≤58cm, H≤30m'
+    5	'D≤68cm'
+    5	'D≤25cm'
+    5	'D≤72cm'
+    5	'D≤83cm'
+    5	'D≤27cm'
+    5	'D≤147cm'
+    4	'幼树(地径<5cm); 地径范围: 5.87-42.89mm; 树高范围: 0.40-4.20m'
+    4	'幼树(地径<5cm); 地径范围: 0.96-49.29mm; 树高范围: 0.35-5.00m'
+    4	'幼树(地径<5cm); 地径范围: 2.57-48.24mm; 树高范围: 0.18-4.10m'
+    4	'胸径范围: 5 cm ≤ D < 15 cm'
+    4	'胸径范围: D ≥ 15 cm'
+    4	'人工纯林; 株行距: 2m×3m; 林龄: 10年; 郁闭度: 较高'
+    4	'说明: W为生物量(kg), A为林地面积; 三次方程模型'
+    4	'说明: W为生物量(kg),D为胸径，H为树高; 幂函数模型'
+    4	'说明: W_underground为地下生物量(kg), W_aboveground为地上生物量(kg); 适用范围胸径≥5cm'
+    4	'说明: Y为生物量, D为基径(cm); 适用于1.003,幼龄期(3-4年生)'
+    4	'树高范围：0.4, 1.2m'
+    4	'D≤50cm, H≤30m'
+    4	'D≤36cm'
+    4	'D≤42cm'
+    4	'D≤88cm'
+    4	'D≤16cm'
+    4	'D≤37cm'
+    4	'D≤86cm'
+    4	'D≤97cm'
+    4	'D≤39cm'
+    4	'D≤49cm'
+    4	'D≤163cm'
+    4	'D≤179cm'
+    3	'说明: W为生物量(kg), D为胸径，H为树高; 三次方程模型'
+    3	'说明: W为生物量(kg),V为蓄积量; 幂函数模型'
+    3	'说明: Y为生物量, D为基径(cm), H为树高(m); 适用于1.001,幼龄期(3-4年生)'
+    3	'说明: Y为生物量, D为基径(cm), H为树高(m); 适用于1.004,幼龄期(3-4年生)'
+    3	'D≤40cm, H≤30m'
+    3	'D≤34cm, H≤25m'
+
+===== FIRST 80 UNPARSED RECORDS =====
+ID= rag_0008 | species= '华山松' | size_class= '未指定'
+ID= rag_0009 | species= '华山松' | size_class= '未指定'
+ID= rag_0010 | species= '华山松' | size_class= '未指定'
+ID= rag_0011 | species= '华山松' | size_class= '未指定'
+ID= rag_0012 | species= '油松' | size_class= '未指定'
+ID= rag_0013 | species= '油松' | size_class= '未指定'
+ID= rag_0014 | species= '油松' | size_class= '未指定'
+ID= rag_0015 | species= '蒙古栎' | size_class= '未指定'
+ID= rag_0016 | species= '蒙古栎' | size_class= '未指定'
+ID= rag_0017 | species= '蒙古栎' | size_class= '未指定'
+ID= rag_0018 | species= '锐齿槲栎' | size_class= '未指定'
+ID= rag_0019 | species= '锐齿槲栎' | size_class= '未指定'
+ID= rag_0020 | species= '锐齿槲栎' | size_class= '未指定'
+ID= rag_0021 | species= '白桦' | size_class= '未指定'
+ID= rag_0022 | species= '白桦' | size_class= '未指定'
+ID= rag_0023 | species= '白桦' | size_class= '未指定'
+ID= rag_0024 | species= '水曲柳' | size_class= '未指定'
+ID= rag_0025 | species= '水曲柳' | size_class= '未指定'
+ID= rag_0026 | species= '水曲柳' | size_class= '未指定'
+ID= rag_0027 | species= '其他物种' | size_class= '未指定'
+ID= rag_0028 | species= '杉木、马尾松、云南松、湿地松、油松' | size_class= '1055株立木'
+ID= rag_0029 | species= '杉木、马尾松、云南松、湿地松、油松' | size_class= '1055株立木'
+ID= rag_0030 | species= '杉木、马尾松、云南松、湿地松、油松' | size_class= '1055株立木'
+ID= rag_0031 | species= '杉木、马尾松、云南松、湿地松、油松' | size_class= '1055株立木'
+ID= rag_0032 | species= '杉木、马尾松、云南松、湿地松、油松' | size_class= '1055株立木'
+ID= rag_0033 | species= '杉木、马尾松、云南松、湿地松、油松' | size_class= '1055株立木'
+ID= rag_0034 | species= '杉木、马尾松、云南松、湿地松、油松' | size_class= '1055株立木'
+ID= rag_0046 | species= '紫椴' | size_class= '大树(胸径≥20cm)'
+ID= rag_0047 | species= '紫椴' | size_class= '大树(胸径≥20cm)'
+ID= rag_0048 | species= '紫椴' | size_class= '大树(胸径≥20cm)'
+ID= rag_0049 | species= '紫椴' | size_class= '大树(胸径≥20cm)'
+ID= rag_0050 | species= '紫椴' | size_class= '大树(胸径≥20cm)'
+ID= rag_0051 | species= '紫椴' | size_class= '大树(胸径≥20cm)'
+ID= rag_0070 | species= '红松' | size_class= '林分类型: 人工林(银中杨、小黑杨、樟子松、落叶松、红松)或天然次生林(山杨、白桦、蒙古栎); 林龄: 中龄林以上(17~53年)'
+ID= rag_0071 | species= '红松' | size_class= '林分类型: 人工林(银中杨、小黑杨、樟子松、落叶松、红松)或天然次生林(山杨、白桦、蒙古栎); 林龄: 中龄林以上(17~53年)'
+ID= rag_0072 | species= '兴安落叶松' | size_class= '林分类型: 人工林(银中杨、小黑杨、樟子松、落叶松、红松)或天然次生林(山杨、白桦、蒙古栎); 林龄: 中龄林以上(17~53年)'
+ID= rag_0073 | species= '兴安落叶松' | size_class= '林分类型: 人工林(银中杨、小黑杨、樟子松、落叶松、红松)或天然次生林(山杨、白桦、蒙古栎); 林龄: 中龄林以上(17~53年)'
+ID= rag_0074 | species= '樟子松' | size_class= '林分类型: 人工林(银中杨、小黑杨、樟子松、落叶松、红松)或天然次生林(山杨、白桦、蒙古栎); 林龄: 中龄林以上(17~53年)'
+ID= rag_0075 | species= '樟子松' | size_class= '林分类型: 人工林(银中杨、小黑杨、樟子松、落叶松、红松)或天然次生林(山杨、白桦、蒙古栎); 林龄: 中龄林以上(17~53年)'
+ID= rag_0076 | species= '银中杨' | size_class= '林分类型: 人工林(银中杨、小黑杨、樟子松、落叶松、红松)或天然次生林(山杨、白桦、蒙古栎); 林龄: 中龄林以上(17~53年)'
+ID= rag_0077 | species= '银中杨' | size_class= '林分类型: 人工林(银中杨、小黑杨、樟子松、落叶松、红松)或天然次生林(山杨、白桦、蒙古栎); 林龄: 中龄林以上(17~53年)'
+ID= rag_0078 | species= '小黑杨' | size_class= '林分类型: 人工林(银中杨、小黑杨、樟子松、落叶松、红松)或天然次生林(山杨、白桦、蒙古栎); 林龄: 中龄林以上(17~53年)'
+ID= rag_0079 | species= '小黑杨' | size_class= '林分类型: 人工林(银中杨、小黑杨、樟子松、落叶松、红松)或天然次生林(山杨、白桦、蒙古栎); 林龄: 中龄林以上(17~53年)'
+ID= rag_0080 | species= '山杨' | size_class= '林分类型: 人工林(银中杨、小黑杨、樟子松、落叶松、红松)或天然次生林(山杨、白桦、蒙古栎); 林龄: 中龄林以上(17~53年)'
+ID= rag_0081 | species= '山杨' | size_class= '林分类型: 人工林(银中杨、小黑杨、樟子松、落叶松、红松)或天然次生林(山杨、白桦、蒙古栎); 林龄: 中龄林以上(17~53年)'
+ID= rag_0082 | species= '白桦' | size_class= '林分类型: 人工林(银中杨、小黑杨、樟子松、落叶松、红松)或天然次生林(山杨、白桦、蒙古栎); 林龄: 中龄林以上(17~53年)'
+ID= rag_0083 | species= '白桦' | size_class= '林分类型: 人工林(银中杨、小黑杨、樟子松、落叶松、红松)或天然次生林(山杨、白桦、蒙古栎); 林龄: 中龄林以上(17~53年)'
+ID= rag_0084 | species= '蒙古栎' | size_class= '林分类型: 人工林(银中杨、小黑杨、樟子松、落叶松、红松)或天然次生林(山杨、白桦、蒙古栎); 林龄: 中龄林以上(17~53年)'
+ID= rag_0085 | species= '蒙古栎' | size_class= '林分类型: 人工林(银中杨、小黑杨、樟子松、落叶松、红松)或天然次生林(山杨、白桦、蒙古栎); 林龄: 中龄林以上(17~53年)'
+ID= rag_0086 | species= '山杨' | size_class= '林分类型: 天然次生林(山杨、油松、辽东栎)和人工林(侧柏); 林龄: 幼龄林至过熟林'
+ID= rag_0087 | species= '山杨' | size_class= '林分类型: 天然次生林(山杨、油松、辽东栎)和人工林(侧柏); 林龄: 幼龄林至过熟林'
+ID= rag_0088 | species= '山杨' | size_class= '林分类型: 天然次生林(山杨、油松、辽东栎)和人工林(侧柏); 林龄: 幼龄林至过熟林'
+ID= rag_0089 | species= '山杨' | size_class= '林分类型: 天然次生林(山杨、油松、辽东栎)和人工林(侧柏); 林龄: 幼龄林至过熟林'
+ID= rag_0090 | species= '油松' | size_class= '林分类型: 天然次生林(山杨、油松、辽东栎)和人工林(侧柏); 林龄: 幼龄林至过熟林'
+ID= rag_0091 | species= '油松' | size_class= '林分类型: 天然次生林(山杨、油松、辽东栎)和人工林(侧柏); 林龄: 幼龄林至过熟林'
+ID= rag_0092 | species= '油松' | size_class= '林分类型: 天然次生林(山杨、油松、辽东栎)和人工林(侧柏); 林龄: 幼龄林至过熟林'
+ID= rag_0093 | species= '油松' | size_class= '林分类型: 天然次生林(山杨、油松、辽东栎)和人工林(侧柏); 林龄: 幼龄林至过熟林'
+ID= rag_0094 | species= '侧柏' | size_class= '林分类型: 天然次生林(山杨、油松、辽东栎)和人工林(侧柏); 林龄: 幼龄林至过熟林'
+ID= rag_0095 | species= '侧柏' | size_class= '林分类型: 天然次生林(山杨、油松、辽东栎)和人工林(侧柏); 林龄: 幼龄林至过熟林'
+ID= rag_0096 | species= '侧柏' | size_class= '林分类型: 天然次生林(山杨、油松、辽东栎)和人工林(侧柏); 林龄: 幼龄林至过熟林'
+ID= rag_0097 | species= '侧柏' | size_class= '林分类型: 天然次生林(山杨、油松、辽东栎)和人工林(侧柏); 林龄: 幼龄林至过熟林'
+ID= rag_0098 | species= '辽东栎' | size_class= '林分类型: 天然次生林(山杨、油松、辽东栎)和人工林(侧柏); 林龄: 幼龄林至过熟林'
+ID= rag_0099 | species= '辽东栎' | size_class= '林分类型: 天然次生林(山杨、油松、辽东栎)和人工林(侧柏); 林龄: 幼龄林至过熟林'
+ID= rag_0100 | species= '辽东栎' | size_class= '林分类型: 天然次生林(山杨、油松、辽东栎)和人工林(侧柏); 林龄: 幼龄林至过熟林'
+ID= rag_0101 | species= '辽东栎' | size_class= '林分类型: 天然次生林(山杨、油松、辽东栎)和人工林(侧柏); 林龄: 幼龄林至过熟林'
+ID= rag_0102 | species= '白骨壤' | size_class= '树种类型: 白骨壤(Avicennia marina)'
+ID= rag_0103 | species= '榄李' | size_class= '树种类型: 榄李(Laguncularia racemosa)'
+ID= rag_0104 | species= '红树' | size_class= '树种类型: 红树(Rhizophora apiculata)'
+ID= rag_0105 | species= '木榄' | size_class= '树种类型: 木榄(Bruguiera gymnorrhiza)'
+ID= rag_0106 | species= '木果楝' | size_class= '树种类型: 木果楝(Xylocarpus granatum)'
+ID= rag_0107 | species= '白骨壤' | size_class= '树种类型: 白骨壤(Avicennia marina)'
+ID= rag_0108 | species= '木果楝' | size_class= '树种类型: 木果楝(Xylocarpus granatum)'
+ID= rag_0109 | species= '红树' | size_class= '树种类型: 红树(Rhizophora apiculata)'
+ID= rag_0110 | species= '樟子松' | size_class= '针叶树种'
+ID= rag_0111 | species= '樟子松' | size_class= '针叶树种'
+ID= rag_0112 | species= '白桦' | size_class= '阔叶树种'
+ID= rag_0113 | species= '白桦' | size_class= '阔叶树种'
+ID= rag_0114 | species= '白桦' | size_class= '阔叶树种'
+ID= rag_0115 | species= '白桦' | size_class= '阔叶树种'
+ID= rag_0116 | species= '油松' | size_class= '针叶树种'
+
+============================================================
+4. VERIFY 434 / 88 FROM EXPLICIT LABEL
+============================================================
+TOTAL      = 522
+APPLICABLE = 434
+INAPPLICABLE = 88
+PASS: exact 434 applicable + 88 inapplicable
+
+============================================================
+5. ORIGINAL V24 INTEGRITY
+============================================================
+ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990  <PRIVATE_ROOT>/biomass_expert_v24.py

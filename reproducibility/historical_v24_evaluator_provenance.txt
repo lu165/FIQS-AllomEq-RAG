@@ -1,0 +1,18 @@
+HISTORICAL V24 EVALUATOR EXTRACTION PROVENANCE
+================================================================================
+SOURCE=<PRIVATE_ROOT>/biomass_expert_v24.py
+SOURCE_SHA256=ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990
+EXPECTED_SOURCE_SHA256=ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990
+SOURCE_INTEGRITY=True
+OUTPUT=<PROJECT_ROOT>/github_release/code/evaluation/historical_v24_evaluator.py
+OUTPUT_SHA256=d8102684786b0d4b82c3b68dbbab3239880e2ecf2bda8cb9cc49685762a227fb
+EXTRACTED_DEFINITIONS=
+  COMP_TO_STD: True
+  LOC_ALIAS: True
+  _LOC_REV: True
+  normalize_eq: True
+  is_valid_equation: True
+  is_wrong_prem: True
+  loc_canon: True
+  loc_match_score: True
+  build_gold_set: True

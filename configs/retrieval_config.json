@@ -1,0 +1,9 @@
+{
+  "fusion": {
+    "formula": "S_fuse = alpha * S_struct_norm + (1 - alpha) * S_dense_norm",
+    "alpha": 0.3,
+    "structural_weight": 0.3,
+    "dense_weight": 0.7
+  },
+  "description": "Retrieval fusion configuration corresponding to the manuscript."
+}

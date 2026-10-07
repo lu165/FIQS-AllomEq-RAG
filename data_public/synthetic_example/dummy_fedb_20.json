@@ -1,0 +1,693 @@
+{
+  "equations": [
+    {
+      "id": "dummy_0001",
+      "source_dataset": "synthetic_example",
+      "data_quality": "synthetic",
+      "tree_type": "Synthetic species 01",
+      "component": "stem",
+      "equation": "W=0.011*D^2.015*H^0.205",
+      "parameters": {
+        "a": 0.011,
+        "b": 2.015,
+        "c": 0.205
+      },
+      "variables": [
+        "D",
+        "H"
+      ],
+      "source": "Synthetic demonstration record; no external source",
+      "authors": "Synthetic example",
+      "location": "Synthetic region 1",
+      "size_class": "5-10 cm",
+      "altitude": null,
+      "mean_annual_temperature": null,
+      "mean_annual_precipitation": null,
+      "forest_type": null,
+      "stand_origin": null,
+      "equation_chain": null,
+      "tags": [
+        "synthetic",
+        "synthetic_species_01",
+        "stem"
+      ],
+      "quality_score": 0.0,
+      "component_original": "stem"
+    },
+    {
+      "id": "dummy_0002",
+      "source_dataset": "synthetic_example",
+      "data_quality": "synthetic",
+      "tree_type": "Synthetic species 02",
+      "component": "branch",
+      "equation": "W=0.012*D^2.03*H^0.21",
+      "parameters": {
+        "a": 0.012,
+        "b": 2.03,
+        "c": 0.21
+      },
+      "variables": [
+        "D",
+        "H"
+      ],
+      "source": "Synthetic demonstration record; no external source",
+      "authors": "Synthetic example",
+      "location": "Synthetic region 2",
+      "size_class": "5～10 cm",
+      "altitude": null,
+      "mean_annual_temperature": null,
+      "mean_annual_precipitation": null,
+      "forest_type": null,
+      "stand_origin": null,
+      "equation_chain": null,
+      "tags": [
+        "synthetic",
+        "synthetic_species_02",
+        "branch"
+      ],
+      "quality_score": 0.0,
+      "component_original": "branch"
+    },
+    {
+      "id": "dummy_0003",
+      "source_dataset": "synthetic_example",
+      "data_quality": "synthetic",
+      "tree_type": "Synthetic species 03",
+      "component": "leaf",
+      "equation": "W=0.013*D^2.045*H^0.215",
+      "parameters": {
+        "a": 0.013,
+        "b": 2.045,
+        "c": 0.215
+      },
+      "variables": [
+        "D",
+        "H"
+      ],
+      "source": "Synthetic demonstration record; no external source",
+      "authors": "Synthetic example",
+      "location": "Synthetic region 3",
+      "size_class": "胸径5-10cm",
+      "altitude": null,
+      "mean_annual_temperature": null,
+      "mean_annual_precipitation": null,
+      "forest_type": null,
+      "stand_origin": null,
+      "equation_chain": null,
+      "tags": [
+        "synthetic",
+        "synthetic_species_03",
+        "leaf"
+      ],
+      "quality_score": 0.0,
+      "component_original": "leaf"
+    },
+    {
+      "id": "dummy_0004",
+      "source_dataset": "synthetic_example",
+      "data_quality": "synthetic",
+      "tree_type": "Synthetic species 04",
+      "component": "root",
+      "equation": "W=0.014*D^2.06*H^0.22",
+      "parameters": {
+        "a": 0.014,
+        "b": 2.06,
+        "c": 0.22
+      },
+      "variables": [
+        "D",
+        "H"
+      ],
+      "source": "Synthetic demonstration record; no external source",
+      "authors": "Synthetic example",
+      "location": "Synthetic region 4",
+      "size_class": "胸径 5～10 cm",
+      "altitude": null,
+      "mean_annual_temperature": null,
+      "mean_annual_precipitation": null,
+      "forest_type": null,
+      "stand_origin": null,
+      "equation_chain": null,
+      "tags": [
+        "synthetic",
+        "synthetic_species_04",
+        "root"
+      ],
+      "quality_score": 0.0,
+      "component_original": "root"
+    },
+    {
+      "id": "dummy_0005",
+      "source_dataset": "synthetic_example",
+      "data_quality": "synthetic",
+      "tree_type": "Synthetic species 05",
+      "component": "aboveground",
+      "equation": "W=0.015*D^2.075*H^0.225",
+      "parameters": {
+        "a": 0.015,
+        "b": 2.075,
+        "c": 0.225
+      },
+      "variables": [
+        "D",
+        "H"
+      ],
+      "source": "Synthetic demonstration record; no external source",
+      "authors": "Synthetic example",
+      "location": "Synthetic region 5",
+      "size_class": "DBH 5-10 cm",
+      "altitude": null,
+      "mean_annual_temperature": null,
+      "mean_annual_precipitation": null,
+      "forest_type": null,
+      "stand_origin": null,
+      "equation_chain": null,
+      "tags": [
+        "synthetic",
+        "synthetic_species_05",
+        "aboveground"
+      ],
+      "quality_score": 0.0,
+      "component_original": "aboveground"
+    },
+    {
+      "id": "dummy_0006",
+      "source_dataset": "synthetic_example",
+      "data_quality": "synthetic",
+      "tree_type": "Synthetic species 06",
+      "component": "stem",
+      "equation": "W=0.016*D^2.09*H^0.23",
+      "parameters": {
+        "a": 0.016,
+        "b": 2.09,
+        "c": 0.23
+      },
+      "variables": [
+        "D",
+        "H"
+      ],
+      "source": "Synthetic demonstration record; no external source",
+      "authors": "Synthetic example",
+      "location": "Synthetic region 1",
+      "size_class": "5-10 cm",
+      "altitude": null,
+      "mean_annual_temperature": null,
+      "mean_annual_precipitation": null,
+      "forest_type": null,
+      "stand_origin": null,
+      "equation_chain": null,
+      "tags": [
+        "synthetic",
+        "synthetic_species_06",
+        "stem"
+      ],
+      "quality_score": 0.0,
+      "component_original": "stem"
+    },
+    {
+      "id": "dummy_0007",
+      "source_dataset": "synthetic_example",
+      "data_quality": "synthetic",
+      "tree_type": "Synthetic species 07",
+      "component": "branch",
+      "equation": "W=0.017*D^2.105*H^0.235",
+      "parameters": {
+        "a": 0.017,
+        "b": 2.105,
+        "c": 0.235
+      },
+      "variables": [
+        "D",
+        "H"
+      ],
+      "source": "Synthetic demonstration record; no external source",
+      "authors": "Synthetic example",
+      "location": "Synthetic region 2",
+      "size_class": "5～10 cm",
+      "altitude": null,
+      "mean_annual_temperature": null,
+      "mean_annual_precipitation": null,
+      "forest_type": null,
+      "stand_origin": null,
+      "equation_chain": null,
+      "tags": [
+        "synthetic",
+        "synthetic_species_07",
+        "branch"
+      ],
+      "quality_score": 0.0,
+      "component_original": "branch"
+    },
+    {
+      "id": "dummy_0008",
+      "source_dataset": "synthetic_example",
+      "data_quality": "synthetic",
+      "tree_type": "Synthetic species 08",
+      "component": "leaf",
+      "equation": "W=0.018*D^2.12*H^0.24",
+      "parameters": {
+        "a": 0.018,
+        "b": 2.12,
+        "c": 0.24
+      },
+      "variables": [
+        "D",
+        "H"
+      ],
+      "source": "Synthetic demonstration record; no external source",
+      "authors": "Synthetic example",
+      "location": "Synthetic region 3",
+      "size_class": "胸径5-10cm",
+      "altitude": null,
+      "mean_annual_temperature": null,
+      "mean_annual_precipitation": null,
+      "forest_type": null,
+      "stand_origin": null,
+      "equation_chain": null,
+      "tags": [
+        "synthetic",
+        "synthetic_species_08",
+        "leaf"
+      ],
+      "quality_score": 0.0,
+      "component_original": "leaf"
+    },
+    {
+      "id": "dummy_0009",
+      "source_dataset": "synthetic_example",
+      "data_quality": "synthetic",
+      "tree_type": "Synthetic species 09",
+      "component": "root",
+      "equation": "W=0.019*D^2.135*H^0.245",
+      "parameters": {
+        "a": 0.019,
+        "b": 2.135,
+        "c": 0.245
+      },
+      "variables": [
+        "D",
+        "H"
+      ],
+      "source": "Synthetic demonstration record; no external source",
+      "authors": "Synthetic example",
+      "location": "Synthetic region 4",
+      "size_class": "胸径 5～10 cm",
+      "altitude": null,
+      "mean_annual_temperature": null,
+      "mean_annual_precipitation": null,
+      "forest_type": null,
+      "stand_origin": null,
+      "equation_chain": null,
+      "tags": [
+        "synthetic",
+        "synthetic_species_09",
+        "root"
+      ],
+      "quality_score": 0.0,
+      "component_original": "root"
+    },
+    {
+      "id": "dummy_0010",
+      "source_dataset": "synthetic_example",
+      "data_quality": "synthetic",
+      "tree_type": "Synthetic species 10",
+      "component": "aboveground",
+      "equation": "W=0.02*D^2.15*H^0.25",
+      "parameters": {
+        "a": 0.02,
+        "b": 2.15,
+        "c": 0.25
+      },
+      "variables": [
+        "D",
+        "H"
+      ],
+      "source": "Synthetic demonstration record; no external source",
+      "authors": "Synthetic example",
+      "location": "Synthetic region 5",
+      "size_class": "DBH 5-10 cm",
+      "altitude": null,
+      "mean_annual_temperature": null,
+      "mean_annual_precipitation": null,
+      "forest_type": null,
+      "stand_origin": null,
+      "equation_chain": null,
+      "tags": [
+        "synthetic",
+        "synthetic_species_10",
+        "aboveground"
+      ],
+      "quality_score": 0.0,
+      "component_original": "aboveground"
+    },
+    {
+      "id": "dummy_0011",
+      "source_dataset": "synthetic_example",
+      "data_quality": "synthetic",
+      "tree_type": "Synthetic species 11",
+      "component": "stem",
+      "equation": "W=0.021*D^2.165*H^0.255",
+      "parameters": {
+        "a": 0.021,
+        "b": 2.165,
+        "c": 0.255
+      },
+      "variables": [
+        "D",
+        "H"
+      ],
+      "source": "Synthetic demonstration record; no external source",
+      "authors": "Synthetic example",
+      "location": "Synthetic region 1",
+      "size_class": "5-10 cm",
+      "altitude": null,
+      "mean_annual_temperature": null,
+      "mean_annual_precipitation": null,
+      "forest_type": null,
+      "stand_origin": null,
+      "equation_chain": null,
+      "tags": [
+        "synthetic",
+        "synthetic_species_11",
+        "stem"
+      ],
+      "quality_score": 0.0,
+      "component_original": "stem"
+    },
+    {
+      "id": "dummy_0012",
+      "source_dataset": "synthetic_example",
+      "data_quality": "synthetic",
+      "tree_type": "Synthetic species 12",
+      "component": "branch",
+      "equation": "W=0.022*D^2.18*H^0.26",
+      "parameters": {
+        "a": 0.022,
+        "b": 2.18,
+        "c": 0.26
+      },
+      "variables": [
+        "D",
+        "H"
+      ],
+      "source": "Synthetic demonstration record; no external source",
+      "authors": "Synthetic example",
+      "location": "Synthetic region 2",
+      "size_class": "5～10 cm",
+      "altitude": null,
+      "mean_annual_temperature": null,
+      "mean_annual_precipitation": null,
+      "forest_type": null,
+      "stand_origin": null,
+      "equation_chain": null,
+      "tags": [
+        "synthetic",
+        "synthetic_species_12",
+        "branch"
+      ],
+      "quality_score": 0.0,
+      "component_original": "branch"
+    },
+    {
+      "id": "dummy_0013",
+      "source_dataset": "synthetic_example",
+      "data_quality": "synthetic",
+      "tree_type": "Synthetic species 13",
+      "component": "leaf",
+      "equation": "W=0.023*D^2.195*H^0.265",
+      "parameters": {
+        "a": 0.023,
+        "b": 2.195,
+        "c": 0.265
+      },
+      "variables": [
+        "D",
+        "H"
+      ],
+      "source": "Synthetic demonstration record; no external source",
+      "authors": "Synthetic example",
+      "location": "Synthetic region 3",
+      "size_class": "胸径5-10cm",
+      "altitude": null,
+      "mean_annual_temperature": null,
+      "mean_annual_precipitation": null,
+      "forest_type": null,
+      "stand_origin": null,
+      "equation_chain": null,
+      "tags": [
+        "synthetic",
+        "synthetic_species_13",
+        "leaf"
+      ],
+      "quality_score": 0.0,
+      "component_original": "leaf"
+    },
+    {
+      "id": "dummy_0014",
+      "source_dataset": "synthetic_example",
+      "data_quality": "synthetic",
+      "tree_type": "Synthetic species 14",
+      "component": "root",
+      "equation": "W=0.024*D^2.21*H^0.27",
+      "parameters": {
+        "a": 0.024,
+        "b": 2.21,
+        "c": 0.27
+      },
+      "variables": [
+        "D",
+        "H"
+      ],
+      "source": "Synthetic demonstration record; no external source",
+      "authors": "Synthetic example",
+      "location": "Synthetic region 4",
+      "size_class": "胸径 5～10 cm",
+      "altitude": null,
+      "mean_annual_temperature": null,
+      "mean_annual_precipitation": null,
+      "forest_type": null,
+      "stand_origin": null,
+      "equation_chain": null,
+      "tags": [
+        "synthetic",
+        "synthetic_species_14",
+        "root"
+      ],
+      "quality_score": 0.0,
+      "component_original": "root"
+    },
+    {
+      "id": "dummy_0015",
+      "source_dataset": "synthetic_example",
+      "data_quality": "synthetic",
+      "tree_type": "Synthetic species 15",
+      "component": "aboveground",
+      "equation": "W=0.025*D^2.225*H^0.275",
+      "parameters": {
+        "a": 0.025,
+        "b": 2.225,
+        "c": 0.275
+      },
+      "variables": [
+        "D",
+        "H"
+      ],
+      "source": "Synthetic demonstration record; no external source",
+      "authors": "Synthetic example",
+      "location": "Synthetic region 5",
+      "size_class": "DBH 5-10 cm",
+      "altitude": null,
+      "mean_annual_temperature": null,
+      "mean_annual_precipitation": null,
+      "forest_type": null,
+      "stand_origin": null,
+      "equation_chain": null,
+      "tags": [
+        "synthetic",
+        "synthetic_species_15",
+        "aboveground"
+      ],
+      "quality_score": 0.0,
+      "component_original": "aboveground"
+    },
+    {
+      "id": "dummy_0016",
+      "source_dataset": "synthetic_example",
+      "data_quality": "synthetic",
+      "tree_type": "Synthetic species 16",
+      "component": "stem",
+      "equation": "W=0.026*D^2.24*H^0.28",
+      "parameters": {
+        "a": 0.026,
+        "b": 2.24,
+        "c": 0.28
+      },
+      "variables": [
+        "D",
+        "H"
+      ],
+      "source": "Synthetic demonstration record; no external source",
+      "authors": "Synthetic example",
+      "location": "Synthetic region 1",
+      "size_class": "5-10 cm",
+      "altitude": null,
+      "mean_annual_temperature": null,
+      "mean_annual_precipitation": null,
+      "forest_type": null,
+      "stand_origin": null,
+      "equation_chain": null,
+      "tags": [
+        "synthetic",
+        "synthetic_species_16",
+        "stem"
+      ],
+      "quality_score": 0.0,
+      "component_original": "stem"
+    },
+    {
+      "id": "dummy_0017",
+      "source_dataset": "synthetic_example",
+      "data_quality": "synthetic",
+      "tree_type": "Synthetic species 17",
+      "component": "branch",
+      "equation": "W=0.027*D^2.255*H^0.285",
+      "parameters": {
+        "a": 0.027,
+        "b": 2.255,
+        "c": 0.285
+      },
+      "variables": [
+        "D",
+        "H"
+      ],
+      "source": "Synthetic demonstration record; no external source",
+      "authors": "Synthetic example",
+      "location": "Synthetic region 2",
+      "size_class": "5～10 cm",
+      "altitude": null,
+      "mean_annual_temperature": null,
+      "mean_annual_precipitation": null,
+      "forest_type": null,
+      "stand_origin": null,
+      "equation_chain": null,
+      "tags": [
+        "synthetic",
+        "synthetic_species_17",
+        "branch"
+      ],
+      "quality_score": 0.0,
+      "component_original": "branch"
+    },
+    {
+      "id": "dummy_0018",
+      "source_dataset": "synthetic_example",
+      "data_quality": "synthetic",
+      "tree_type": "Synthetic species 18",
+      "component": "leaf",
+      "equation": "W=0.028*D^2.27*H^0.29",
+      "parameters": {
+        "a": 0.028,
+        "b": 2.27,
+        "c": 0.29
+      },
+      "variables": [
+        "D",
+        "H"
+      ],
+      "source": "Synthetic demonstration record; no external source",
+      "authors": "Synthetic example",
+      "location": "Synthetic region 3",
+      "size_class": "胸径5-10cm",
+      "altitude": null,
+      "mean_annual_temperature": null,
+      "mean_annual_precipitation": null,
+      "forest_type": null,
+      "stand_origin": null,
+      "equation_chain": null,
+      "tags": [
+        "synthetic",
+        "synthetic_species_18",
+        "leaf"
+      ],
+      "quality_score": 0.0,
+      "component_original": "leaf"
+    },
+    {
+      "id": "dummy_0019",
+      "source_dataset": "synthetic_example",
+      "data_quality": "synthetic",
+      "tree_type": "Synthetic species 19",
+      "component": "root",
+      "equation": "W=0.029*D^2.285*H^0.295",
+      "parameters": {
+        "a": 0.029,
+        "b": 2.285,
+        "c": 0.295
+      },
+      "variables": [
+        "D",
+        "H"
+      ],
+      "source": "Synthetic demonstration record; no external source",
+      "authors": "Synthetic example",
+      "location": "Synthetic region 4",
+      "size_class": "胸径 5～10 cm",
+      "altitude": null,
+      "mean_annual_temperature": null,
+      "mean_annual_precipitation": null,
+      "forest_type": null,
+      "stand_origin": null,
+      "equation_chain": null,
+      "tags": [
+        "synthetic",
+        "synthetic_species_19",
+        "root"
+      ],
+      "quality_score": 0.0,
+      "component_original": "root"
+    },
+    {
+      "id": "dummy_0020",
+      "source_dataset": "synthetic_example",
+      "data_quality": "synthetic",
+      "tree_type": "Synthetic species 20",
+      "component": "aboveground",
+      "equation": "W=0.03*D^2.3*H^0.3",
+      "parameters": {
+        "a": 0.03,
+        "b": 2.3,
+        "c": 0.3
+      },
+      "variables": [
+        "D",
+        "H"
+      ],
+      "source": "Synthetic demonstration record; no external source",
+      "authors": "Synthetic example",
+      "location": "Synthetic region 5",
+      "size_class": "DBH 5-10 cm",
+      "altitude": null,
+      "mean_annual_temperature": null,
+      "mean_annual_precipitation": null,
+      "forest_type": null,
+      "stand_origin": null,
+      "equation_chain": null,
+      "tags": [
+        "synthetic",
+        "synthetic_species_20",
+        "aboveground"
+      ],
+      "quality_score": 0.0,
+      "component_original": "aboveground"
+    }
+  ],
+  "metadata": {
+    "dataset": "Synthetic FEDB demonstration subset",
+    "record_count": 20,
+    "synthetic": true,
+    "scientific_use": false,
+    "note": "Synthetic records for public smoke testing only; not part of the 7,394-record FEDB.",
+    "dataset_type": "synthetic_example",
+    "size_class_note": "Synthetic DBH ranges for parser/interface smoke testing only; not empirical measurement ranges."
+  }
+}

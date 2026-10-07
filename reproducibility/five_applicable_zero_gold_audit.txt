@@ -1,0 +1,432 @@
+==========================================================================================
+FIVE FORMAL-APPLICABLE / ZERO-HISTORICAL-GOLD CASES
+==========================================================================================
+
+==========================================================================================
+CASE = Q0051
+==========================================================================================
+
+[FULL BENCHMARK RECORD]
+{
+  "_calc_params": {
+    "B": 500.0
+  },
+  "_legacy_equation": "W=B_total*0.4596",
+  "_legacy_expected_result": 229.8,
+  "component": "碳储量",
+  "difficulty": "中等",
+  "equation": "",
+  "eval_type": "multiturn",
+  "expected_result": null,
+  "gen_type": "原有",
+  "group": "广东省公益林示范区_碳储量",
+  "key_points": [
+    "含碳系数0.4596"
+  ],
+  "location": "广东省公益林示范区",
+  "question": "广东公益林示范区有一片马尾松，总生物量估算出来是500吨，碳储量怎么换算？",
+  "source": "《广东省公益林示范区森林碳汇计量》",
+  "test_id": "Q0051",
+  "tree_type": "马尾松",
+  "turns": [
+    {
+      "content": "东北红松林，每公顷蓄积量150立方米，地上生物量大概多少？（位于黑龙江）",
+      "role": "user",
+      "turn": 1
+    },
+    {
+      "calc_params": {
+        "V": 150.0
+      },
+      "equation": "W=0.5723*V + 16.4890",
+      "expected_result": 102.334,
+      "extract_for_next": "B_total",
+      "role": "eval",
+      "tolerance": 0.05,
+      "turn": 1
+    },
+    {
+      "content": "算出来的生物量，碳储量怎么换算？马尾松含碳系数是0.4596",
+      "role": "user",
+      "turn": 2
+    },
+    {
+      "depends_on": {
+        "B_total": "turn_1_result"
+      },
+      "equation": "B_total * 0.4596",
+      "expected_result": 47.0327,
+      "role": "eval",
+      "tolerance": 0.05,
+      "turn": 2
+    }
+  ],
+  "unit": "t"
+}
+
+[CORE FIELDS]
+tree_type = '马尾松'
+location = '广东省公益林示范区'
+component = '碳储量'
+equation = ''
+requires_rejection = None
+expected_result = None
+_legacy_equation = 'W=B_total*0.4596'
+_legacy_expected_result = 229.8
+
+[FEDB DIAGNOSTIC COUNTS]
+EXACT_SPECIES = 403
+EXACT_SPECIES_COMPONENT = 1
+EXACT_SPECIES_COMPONENT_LOCATION = 1
+
+[EXACT SPECIES+COMPONENT+LOCATION]
+{"component": "碳储量", "equation": "W=B_total*0.4596", "id": "rag_0239", "location": "广东省公益林示范区", "size_class": "说明: C_t为碳储量(10⁴t), 含碳系数0.4596", "source": "《广东省公益林示范区森林碳汇计量》", "tree_type": "马尾松", "variables": ["B_total"]}
+
+[EXACT SPECIES+COMPONENT]
+{"component": "碳储量", "equation": "W=B_total*0.4596", "id": "rag_0239", "location": "广东省公益林示范区", "size_class": "说明: C_t为碳储量(10⁴t), 含碳系数0.4596", "source": "《广东省公益林示范区森林碳汇计量》", "tree_type": "马尾松", "variables": ["B_total"]}
+
+==========================================================================================
+CASE = Q0069
+==========================================================================================
+
+[FULL BENCHMARK RECORD]
+{
+  "_calc_params": {
+    "B": 50000.0
+  },
+  "_legacy_equation": "C = B × 0.5225",
+  "_legacy_expected_result": 26125.0,
+  "_loc_inject_note": "精确匹配：注入「云南省」",
+  "component": "碳储量",
+  "difficulty": "中等",
+  "equation": "",
+  "eval_type": "multiturn",
+  "expected_result": null,
+  "gen_type": "原有",
+  "group": "云南省_碳储量转换",
+  "key_points": [
+    "含碳系数0.5225"
+  ],
+  "location": "云南省",
+  "question": "华山松的生物量算出来是50吨，碳储量大概多少？有转换系数吗？（位于云南省）",
+  "source": "《云南省森林碳储量现状与动态分析》",
+  "test_id": "Q0069",
+  "tree_type": "华山松",
+  "turns": [
+    {
+      "content": "云南省的华山松，胸径16厘米，树高12米，地上生物量怎么算？",
+      "role": "user",
+      "turn": 1
+    },
+    {
+      "calc_params": {
+        "D": 16.0,
+        "H": 12.0
+      },
+      "equation": "W=0.03729 * D**1.81348 * H**0.89405",
+      "expected_result": 52.4906,
+      "extract_for_next": "B",
+      "role": "eval",
+      "tolerance": 0.05,
+      "turn": 1
+    },
+    {
+      "content": "这棵树的碳储量大概是多少？华山松含碳系数0.5225",
+      "role": "user",
+      "turn": 2
+    },
+    {
+      "depends_on": {
+        "B": "turn_1_result"
+      },
+      "equation": "B * 0.5225",
+      "expected_result": 27.4263,
+      "role": "eval",
+      "tolerance": 0.05,
+      "turn": 2
+    }
+  ],
+  "unit": "t"
+}
+
+[CORE FIELDS]
+tree_type = '华山松'
+location = '云南省'
+component = '碳储量'
+equation = ''
+requires_rejection = None
+expected_result = None
+_legacy_equation = 'C = B × 0.5225'
+_legacy_expected_result = 26125.0
+
+[FEDB DIAGNOSTIC COUNTS]
+EXACT_SPECIES = 73
+EXACT_SPECIES_COMPONENT = 1
+EXACT_SPECIES_COMPONENT_LOCATION = 1
+
+[EXACT SPECIES+COMPONENT+LOCATION]
+{"component": "碳储量", "equation": "C = B × 0.5225", "id": "rag_0413", "location": "云南省", "size_class": "未指定", "source": "《云南省森林碳储量现状与动态分析》", "tree_type": "华山松", "variables": ["B"]}
+
+[EXACT SPECIES+COMPONENT]
+{"component": "碳储量", "equation": "C = B × 0.5225", "id": "rag_0413", "location": "云南省", "size_class": "未指定", "source": "《云南省森林碳储量现状与动态分析》", "tree_type": "华山松", "variables": ["B"]}
+
+==========================================================================================
+CASE = Q0071
+==========================================================================================
+
+[FULL BENCHMARK RECORD]
+{
+  "_calc_params": {
+    "B": 80000.0
+  },
+  "_legacy_equation": "C = B × 0.5113",
+  "_legacy_expected_result": 40904.0,
+  "component": "碳储量",
+  "difficulty": "中等",
+  "equation": "",
+  "eval_type": "multiturn",
+  "expected_result": null,
+  "gen_type": "原有",
+  "group": "云南省_碳储量转换",
+  "key_points": [
+    "含碳系数0.5113"
+  ],
+  "location": "云南省",
+  "question": "云南松的生物量算出来是80吨，碳储量大概多少？有没有转换系数可以参考？",
+  "source": "《云南省森林碳储量现状与动态分析》",
+  "test_id": "Q0071",
+  "tree_type": "云南松",
+  "turns": [
+    {
+      "content": "云南松，胸径14厘米，树高10米，树冠生物量怎么算？",
+      "role": "user",
+      "turn": 1
+    },
+    {
+      "calc_params": {
+        "D": 14.0,
+        "H": 10.0
+      },
+      "equation": "W=0.08028 * D**2.71779 * H**(-0.81069)",
+      "expected_result": 16.1753,
+      "extract_for_next": "B",
+      "role": "eval",
+      "tolerance": 0.05,
+      "turn": 1
+    },
+    {
+      "content": "算出来的生物量对应碳储量是多少？云南松含碳系数0.5113",
+      "role": "user",
+      "turn": 2
+    },
+    {
+      "depends_on": {
+        "B": "turn_1_result"
+      },
+      "equation": "B * 0.5113",
+      "expected_result": 8.2664,
+      "role": "eval",
+      "tolerance": 0.05,
+      "turn": 2
+    }
+  ],
+  "unit": "t"
+}
+
+[CORE FIELDS]
+tree_type = '云南松'
+location = '云南省'
+component = '碳储量'
+equation = ''
+requires_rejection = None
+expected_result = None
+_legacy_equation = 'C = B × 0.5113'
+_legacy_expected_result = 40904.0
+
+[FEDB DIAGNOSTIC COUNTS]
+EXACT_SPECIES = 49
+EXACT_SPECIES_COMPONENT = 1
+EXACT_SPECIES_COMPONENT_LOCATION = 1
+
+[EXACT SPECIES+COMPONENT+LOCATION]
+{"component": "碳储量", "equation": "C = B × 0.5113", "id": "rag_0414", "location": "云南省", "size_class": "未指定", "source": "《云南省森林碳储量现状与动态分析》", "tree_type": "云南松", "variables": ["B"]}
+
+[EXACT SPECIES+COMPONENT]
+{"component": "碳储量", "equation": "C = B × 0.5113", "id": "rag_0414", "location": "云南省", "size_class": "未指定", "source": "《云南省森林碳储量现状与动态分析》", "tree_type": "云南松", "variables": ["B"]}
+
+==========================================================================================
+CASE = Q0089
+==========================================================================================
+
+[FULL BENCHMARK RECORD]
+{
+  "_calc_params": {
+    "B": 50.0,
+    "W_T": 50.0,
+    "W_above": 50.0
+  },
+  "_legacy_equation": "W_underground = 0.2099 * W_aboveground",
+  "_legacy_expected_result": 10.495,
+  "_loc_inject_note": "精确匹配：注入「广西地区」",
+  "component": "地下生物量",
+  "difficulty": "中等",
+  "equation": "",
+  "eval_type": "multiturn",
+  "expected_result": null,
+  "gen_type": "原有",
+  "group": "广西_比例根",
+  "key_points": [
+    "比例系数0.2099"
+  ],
+  "location": "广西地区",
+  "question": "桉树的地上生物量算出来是50公斤，地下部分大概多重？有经验系数吗？（位于广西地区）",
+  "source": "《广西主要树种立木生物量模型的研建》",
+  "test_id": "Q0089",
+  "tree_type": "桉树",
+  "turns": [
+    {
+      "content": "广西桉树，胸径10厘米，整株地上生物量怎么算？",
+      "role": "user",
+      "turn": 1
+    },
+    {
+      "calc_params": {
+        "D": 10.0
+      },
+      "equation": "W=0.138*D^2.436",
+      "expected_result": 37.6599,
+      "extract_for_next": "W_aboveground",
+      "role": "eval",
+      "tolerance": 0.05,
+      "turn": 1
+    },
+    {
+      "content": "那地下部分大概多重？有经验系数吗？",
+      "role": "user",
+      "turn": 2
+    },
+    {
+      "depends_on": {
+        "W_aboveground": "turn_1_result"
+      },
+      "equation": "W_aboveground * 0.2099",
+      "expected_result": 7.9037,
+      "role": "eval",
+      "tolerance": 0.05,
+      "turn": 2
+    }
+  ],
+  "unit": "kg"
+}
+
+[CORE FIELDS]
+tree_type = '桉树'
+location = '广西地区'
+component = '地下生物量'
+equation = ''
+requires_rejection = None
+expected_result = None
+_legacy_equation = 'W_underground = 0.2099 * W_aboveground'
+_legacy_expected_result = 10.495
+
+[FEDB DIAGNOSTIC COUNTS]
+EXACT_SPECIES = 21
+EXACT_SPECIES_COMPONENT = 0
+EXACT_SPECIES_COMPONENT_LOCATION = 0
+
+[EXACT SPECIES+COMPONENT+LOCATION]
+NONE
+
+[EXACT SPECIES+COMPONENT]
+NONE
+
+==========================================================================================
+CASE = Q0091
+==========================================================================================
+
+[FULL BENCHMARK RECORD]
+{
+  "_calc_params": {
+    "B": 80.0,
+    "W_T": 80.0,
+    "W_above": 80.0
+  },
+  "_legacy_equation": "W_R = W_T / 4.22",
+  "_legacy_expected_result": 18.9573,
+  "_loc_inject_note": "精确匹配：注入「黑龙江」",
+  "component": "地下生物量",
+  "difficulty": "中等",
+  "equation": "",
+  "eval_type": "multiturn",
+  "expected_result": null,
+  "gen_type": "原有",
+  "group": "东北地区_比例根",
+  "key_points": [
+    "比例关系",
+    "根冠比1:4.22"
+  ],
+  "location": "黑龙江",
+  "question": "红松的地上生物量是80公斤，地下部分大概多少？（位于黑龙江）",
+  "source": "《东北地区落叶松林碳储量估算》",
+  "test_id": "Q0091",
+  "tree_type": "红松",
+  "turns": [
+    {
+      "content": "黑龙江的红松，胸径20厘米，地上生物量怎么算？",
+      "role": "user",
+      "turn": 1
+    },
+    {
+      "calc_params": {
+        "D": 20.0
+      },
+      "equation": "W=0.0599 * D^2.5643",
+      "expected_result": 129.9146,
+      "extract_for_next": "W_T",
+      "role": "eval",
+      "tolerance": 0.05,
+      "turn": 1
+    },
+    {
+      "content": "那这棵树地下部分（根系）大概多少千克？",
+      "role": "user",
+      "turn": 2
+    },
+    {
+      "depends_on": {
+        "W_T": "turn_1_result"
+      },
+      "equation": "W_T / 4.22",
+      "expected_result": 30.7855,
+      "role": "eval",
+      "tolerance": 0.05,
+      "turn": 2
+    }
+  ],
+  "unit": "kg"
+}
+
+[CORE FIELDS]
+tree_type = '红松'
+location = '黑龙江'
+component = '地下生物量'
+equation = ''
+requires_rejection = None
+expected_result = None
+_legacy_equation = 'W_R = W_T / 4.22'
+_legacy_expected_result = 18.9573
+
+[FEDB DIAGNOSTIC COUNTS]
+EXACT_SPECIES = 173
+EXACT_SPECIES_COMPONENT = 0
+EXACT_SPECIES_COMPONENT_LOCATION = 0
+
+[EXACT SPECIES+COMPONENT+LOCATION]
+NONE
+
+[EXACT SPECIES+COMPONENT]
+NONE
+
+FOUND_TARGETS = 5
+MISSING_TARGETS = []
+AUDIT_COMPLETE

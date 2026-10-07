@@ -1,0 +1,852 @@
+====================================================================================================
+FILE = <PRIVATE_ROOT>/build_neg_v3_data_driven.py
+SHA256 = f643866969441356bba81110131ba8b545106011767a3453e36275a2d977fe1e
+====================================================================================================
+
+----- HEADER / PATH CONFIGURATION -----
+00001: """
+00002: 负样本构建脚本 v3 —— 数据驱动版
+00003: ================================
+00004: 核心原则：先读库，再构造。所有负样本以真实数据为模板。
+00005: 
+00006: 运行方式：
+00007:     python3 build_neg_v3_data_driven.py
+00008: 
+00009: 输出文件：
+00010:     neg_samples_standalone.json   ← 仅负样本，先单独测试用
+00011:     neg_analysis_report.txt       ← 数据分析报告（方便人工检查）
+00012: """
+00013: 
+00014: import json
+00015: import re
+00016: import random
+00017: from collections import Counter, defaultdict
+00018: 
+00019: # ============================================================
+00020: # 路径配置
+00021: # ============================================================
+00022: TEST_PATH   = "<PRIVATE_ROOT>/最新生物量测试集构建_v6.json"
+00023: EQ_PATH     = "<PRIVATE_ROOT>/林业方程_标准化.json"
+00024: OUT_NEG     = "<PRIVATE_ROOT>/neg_samples_standalone.json"
+00025: OUT_REPORT  = "<PRIVATE_ROOT>/neg_analysis_report.txt"
+00026: 
+00027: random.seed(42)
+00028: 
+00029: 
+00030: # ============================================================
+00031: # STEP 1: 读库 —— 彻底摸清方程库里有什么
+00032: # ============================================================
+00033: def analyze_eq_db(eq_db):
+00034:     """
+00035:     返回：
+00036:       db_pairs      set of (species, region)  —— 库里实际存在的组合
+00037:       db_species    set  库里所有树种
+00038:       db_regions    set  库里所有地区
+00039:       db_comps      set  库里所有组分
+00040:       species_region_map  dict  tree_species -> set(regions)
+00041:       region_species_map  dict  region -> set(species)
+00042:       comp_species_map    dict  component -> set(species)
+00043:     """
+00044:     db_pairs   = set()
+00045:     species_region_map  = defaultdict(set)
+00046:     region_species_map  = defaultdict(set)
+00047:     comp_species_map    = defaultdict(set)
+00048:     comp_region_map     = defaultdict(set)
+00049: 
+00050:     for r in eq_db:
+00051:         sp   = r.get("tree_species", "").strip()
+00052:         reg  = r.get("region", "").strip()
+00053:         comp = r.get("component", "").strip()
+00054:         if sp and reg:
+00055:             db_pairs.add((sp, reg))
+00056:             species_region_map[sp].add(reg)
+00057:             region_species_map[reg].add(sp)
+00058:         if comp and sp:
+00059:             comp_species_map[comp].add(sp)
+00060:         if comp and reg:
+00061:             comp_region_map[comp].add(reg)
+00062: 
+00063:     db_species = set(species_region_map.keys())
+00064:     db_regions = set(region_species_map.keys())
+00065:     db_comps   = set(comp_species_map.keys())
+00066: 
+00067:     return (db_pairs, db_species, db_regions, db_comps,
+00068:             species_region_map, region_species_map,
+00069:             comp_species_map, comp_region_map)
+00070: 
+00071: 
+00072: # ============================================================
+00073: # STEP 2: 读测试集 —— 提取问题模板和参数分布
+00074: # ============================================================
+00075: def analyze_test_set(cases):
+00076:     """
+00077:     分析测试集：
+00078:     - 各组问题的长度/措辞风格
+00079:     - 真实使用的 D/H 范围（作为正常值参考）
+00080:     - 各树种出现频率
+00081:     """
+00082:     # 从问题中抽取 D 值
+00083:     d_values = []
+00084:     h_values = []
+00085:     for c in cases:
+00086:         q = c.get("question", "")
+00087:         d_match = re.findall(r'胸径\s*[为是:：]?\s*(\d+(?:\.\d+)?)\s*(?:cm|厘米|CM)', q)
+00088:         h_match = re.findall(r'树高\s*[为是:：]?\s*(\d+(?:\.\d+)?)\s*(?:m|米|M)', q)
+00089:         d_values.extend(float(x) for x in d_match)
+00090:         h_values.extend(float(x) for x in h_match)
+00091: 
+00092:     # 提取典型 D/H 范围（正常值域）
+00093:     d_normal_range = (min(d_values) if d_values else 5,
+00094:                       max(d_values) if d_values else 60)
+00095:     h_normal_range = (min(h_values) if h_values else 3,
+00096:                       max(h_values) if h_values else 35)
+00097: 
+00098:     # 按 group 分类
+00099:     groups = defaultdict(list)
+00100:     for c in cases:
+00101:         groups[c.get("group", "unknown")].append(c)
+00102: 
+00103:     return groups, d_normal_range, h_normal_range
+00104: 
+00105: 
+00106: # ============================================================
+00107: # STEP 3: 构造 OOD 负样本
+00108: #
+00109: # 策略：从库里找"真实存在"的树种 + "真实不存在的地区"配对，
+00110: #       或者反过来；同时构造完全不在库里的树种问题。
+00111: #       问题措辞以测试集里的真实问题为模板。
+00112: # ============================================================
+00113: def build_ood_samples(cases, db_species, db_regions,
+00114:                       species_region_map, region_species_map, count=12):
+00115:     """
+00116:     OOD 类型：
+00117:       OOD-A: 树种在库 + 地区不在库  → 检索会找到树种匹配但地区完全不对
+00118:       OOD-B: 树种不在库 + 地区在库  → 检索返回同地区无关树种
+00119:       OOD-C: 树种+地区均不在库       → 完全超出知识边界
+00120:     """
+00121:     samples = []
+00122: 
+00123:     # 找几个库里地区（用于措辞自然）
+00124:     real_regions  = sorted(db_regions)[:5]
+00125:     real_species  = sorted(db_species)[:8]
+00126: 
+00127:     # ---- OOD-A: 真实树种 + 不在库的地区 ----
+00128:     # 找一些"常见但不在库里"的地区名
+00129:     candidate_out_regions = ["台湾省", "香港特别行政区", "澳门", "西藏墨脱",
+00130:                               "新加坡", "缅甸北部", "俄罗斯滨海边疆区"]
+00131:     out_regions = [r for r in candidate_out_regions if r not in db_regions]
+00132: 
+00133:     # 从库里随机取真实树种
+00134:     real_sp_list = [sp for sp in db_species if len(sp) >= 2]
+00135:     random.shuffle(real_sp_list)
+00136: 
+00137:     ood_a_templates = [
+00138:         "老师，我在{region}这边测了一棵{species}，胸径{D}厘米，想算一下{comp}，请问有合适的方程吗？",
+00139:         "请问{region}地区的{species}有生物量方程吗？我手头有胸径{D}cm，想估算{comp}重量。",
+00140:         "我在{region}林场工作，测了棵{species}，DBH={D}cm，想查{comp}的方程，有吗？",
+
+----- REQUIRES_REJECTION CONTEXT -----
+
+CONTEXT 141-176
+00141:     ]
+00142: 
+00143:     comps_to_use = ["整株生物量", "干生物量", "枝生物量", "叶生物量", "地上生物量"]
+00144:     d_vals_normal = list(range(8, 42, 3))
+00145: 
+00146:     for i, (sp, out_reg) in enumerate(zip(real_sp_list[:4], out_regions[:4])):
+00147:         tmpl = ood_a_templates[i % len(ood_a_templates)]
+00148:         comp = comps_to_use[i % len(comps_to_use)]
+00149:         D    = random.choice(d_vals_normal)
+00150:         q = tmpl.format(region=out_reg, species=sp, D=D, comp=comp)
+00151:         samples.append({
+00152:             "test_id": f"NEG_OOD_A_{i+1:03d}",
+00153:             "group": "负样本_超出知识边界",
+00154:             "subtype": "OOD-A_species_in_db_region_not",
+00155:             "question": q,
+00156:             "requires_rejection": True,
+00157:             "rejection_reason": f"树种'{sp}'在库中有方程，但地区'{out_reg}'不在方程库覆盖范围内",
+00158:             "template_species": sp,
+00159:             "template_region": out_reg,
+00160:             "equation": "",
+00161:         })
+00162: 
+00163:     # ---- OOD-B: 不在库的树种 + 真实地区 ----
+00164:     candidate_out_species = [
+00165:         "墨脱野芭蕉", "椰子树", "菠萝蜜", "可可树", "红树（秋茄）",
+00166:         "西伯利亚落叶松", "澳大利亚桉", "见血封喉", "棕榈树", "橡胶树（巴西橡胶）"
+00167:     ]
+00168:     out_species = [sp for sp in candidate_out_species if sp not in db_species]
+00169:     real_reg_list = [r for r in db_regions if len(r) >= 2]
+00170:     random.shuffle(real_reg_list)
+00171: 
+00172:     ood_b_templates = [
+00173:         "我在{region}种植了一批{species}，胸径{D}厘米，想估算整株生物量，有方程可以用吗？",
+00174:         "{region}这边有人种{species}，D={D}cm，想算地上生物量，请问方程库里有吗？",
+00175:         "老师，请问{species}在{region}的生物量方程有没有？胸径大约{D}厘米。",
+00176:     ]
+
+CONTEXT 172-207
+00172:     ood_b_templates = [
+00173:         "我在{region}种植了一批{species}，胸径{D}厘米，想估算整株生物量，有方程可以用吗？",
+00174:         "{region}这边有人种{species}，D={D}cm，想算地上生物量，请问方程库里有吗？",
+00175:         "老师，请问{species}在{region}的生物量方程有没有？胸径大约{D}厘米。",
+00176:     ]
+00177: 
+00178:     for i, (out_sp, reg) in enumerate(zip(out_species[:4], real_reg_list[:4])):
+00179:         tmpl = ood_b_templates[i % len(ood_b_templates)]
+00180:         D    = random.choice(d_vals_normal)
+00181:         q = tmpl.format(region=reg, species=out_sp, D=D)
+00182:         samples.append({
+00183:             "test_id": f"NEG_OOD_B_{i+1:03d}",
+00184:             "group": "负样本_超出知识边界",
+00185:             "subtype": "OOD-B_species_not_in_db",
+00186:             "question": q,
+00187:             "requires_rejection": True,
+00188:             "rejection_reason": f"树种'{out_sp}'不在方程库收录范围内（非标准林业用材树种）",
+00189:             "template_species": out_sp,
+00190:             "template_region": reg,
+00191:             "equation": "",
+00192:         })
+00193: 
+00194:     # ---- OOD-C: 树种+地区均不在库 ----
+00195:     ood_c_cases = [
+00196:         ("见血封喉", "西藏墨脱", "整株生物量", 45, 25),
+00197:         ("红树（秋茄）", "广东珠海滨海", "地上生物量", 8, 6),
+00198:         ("椰子树", "海南三亚", "整株生物量", 50, 15),
+00199:         ("西伯利亚落叶松", "俄罗斯滨海边疆区", "干生物量", 38, 28),
+00200:     ]
+00201:     ood_c_templates = [
+00202:         "请问{species}在{region}的{comp}方程有吗？D={D}cm，H={H}m。",
+00203:         "我在{region}调查了一棵{species}，胸径{D}cm，树高{H}m，想算{comp}，有合适的方程吗？",
+00204:     ]
+00205:     for i, (sp, reg, comp, D, H) in enumerate(ood_c_cases):
+00206:         tmpl = ood_c_templates[i % len(ood_c_templates)]
+00207:         q = tmpl.format(species=sp, region=reg, comp=comp, D=D, H=H)
+
+CONTEXT 198-233
+00198:         ("椰子树", "海南三亚", "整株生物量", 50, 15),
+00199:         ("西伯利亚落叶松", "俄罗斯滨海边疆区", "干生物量", 38, 28),
+00200:     ]
+00201:     ood_c_templates = [
+00202:         "请问{species}在{region}的{comp}方程有吗？D={D}cm，H={H}m。",
+00203:         "我在{region}调查了一棵{species}，胸径{D}cm，树高{H}m，想算{comp}，有合适的方程吗？",
+00204:     ]
+00205:     for i, (sp, reg, comp, D, H) in enumerate(ood_c_cases):
+00206:         tmpl = ood_c_templates[i % len(ood_c_templates)]
+00207:         q = tmpl.format(species=sp, region=reg, comp=comp, D=D, H=H)
+00208:         samples.append({
+00209:             "test_id": f"NEG_OOD_C_{i+1:03d}",
+00210:             "group": "负样本_超出知识边界",
+00211:             "subtype": "OOD-C_both_not_in_db",
+00212:             "question": q,
+00213:             "requires_rejection": True,
+00214:             "rejection_reason": f"树种'{sp}'和地区'{reg}'均不在方程库覆盖范围内",
+00215:             "template_species": sp,
+00216:             "template_region": reg,
+00217:             "equation": "",
+00218:         })
+00219: 
+00220:     return samples
+00221: 
+00222: 
+00223: # ============================================================
+00224: # STEP 4: 构造 PARAM 异常负样本
+00225: #
+00226: # 策略：从测试集中找真实问题，提取树种/地区，
+00227: #       注入明显不合理的参数值（超范围、负值、相互矛盾）
+00228: # ============================================================
+00229: def build_param_samples(cases, db_species, species_region_map,
+00230:                         d_normal_range, h_normal_range, count=10):
+00231:     """
+00232:     以真实测试集问题为模板，替换参数为异常值
+00233:     """
+
+CONTEXT 226-261
+00226: # 策略：从测试集中找真实问题，提取树种/地区，
+00227: #       注入明显不合理的参数值（超范围、负值、相互矛盾）
+00228: # ============================================================
+00229: def build_param_samples(cases, db_species, species_region_map,
+00230:                         d_normal_range, h_normal_range, count=10):
+00231:     """
+00232:     以真实测试集问题为模板，替换参数为异常值
+00233:     """
+00234:     samples = []
+00235: 
+00236:     # 找有 D 值的正常问题作为模板
+00237:     template_cases = []
+00238:     for c in cases:
+00239:         q = c.get("question", "")
+00240:         has_d = bool(re.search(r'胸径\s*[为是:：]?\s*\d+', q))
+00241:         no_neg = not c.get("requires_rejection", False)
+00242:         group_ok = "负样本" not in c.get("group", "")
+00243:         if has_d and no_neg and group_ok:
+00244:             template_cases.append(c)
+00245: 
+00246:     random.shuffle(template_cases)
+00247: 
+00248:     # 异常参数类型定义
+00249:     param_mutations = [
+00250:         # (label, 描述, 替换函数)
+00251:         ("PARAM_D_超大", "胸径超出物种合理上限(>300cm)",
+00252:          lambda q: re.sub(r'(胸径\s*[为是:：]?\s*)\d+(\s*(?:cm|厘米|CM))',
+00253:                           r'\g<1>380\2', q, count=1)),
+00254:         ("PARAM_H_超大", "树高超出物种合理上限(>200m)",
+00255:          lambda q: re.sub(r'(树高\s*[为是:：]?\s*)\d+(\s*(?:m|米|M))',
+00256:                           r'\g<1>250\2', q, count=1)),
+00257:         ("PARAM_D_负值", "胸径为负数，物理不可能",
+00258:          lambda q: re.sub(r'(胸径\s*[为是:：]?\s*)\d+(\s*(?:cm|厘米|CM))',
+00259:                           r'\g<1>-15\2', q, count=1)),
+00260:         ("PARAM_D_极小_H_极大", "胸径0.5cm但树高20m，严重不协调",
+00261:          lambda q: re.sub(r'(胸径\s*[为是:：]?\s*)\d+(\s*(?:cm|厘米|CM))',
+
+CONTEXT 275-310
+00275:             q_new = mut_fn(q_orig)
+00276:         except Exception:
+00277:             continue
+00278:         if q_new == q_orig:
+00279:             continue  # 替换没生效，跳过
+00280:         cid = c.get("test_id", f"T{idx}")
+00281:         if cid in used:
+00282:             continue
+00283:         used.add(cid)
+00284: 
+00285:         samples.append({
+00286:             "test_id": f"NEG_PARAM_{idx+1:03d}",
+00287:             "group": "负样本_参数异常",
+00288:             "subtype": mut_label,
+00289:             "question": q_new,
+00290:             "requires_rejection": True,
+00291:             "rejection_reason": mut_desc,
+00292:             "derived_from": cid,  # 追溯来源
+00293:             "original_question": q_orig,  # 方便对比
+00294:             "equation": "",
+00295:         })
+00296:         idx += 1
+00297: 
+00298:     # 补充手写的典型参数异常（若模板替换不足）
+00299:     handcraft_param = [
+00300:         {
+00301:             "test_id": f"NEG_PARAM_{len(samples)+1:03d}",
+00302:             "group": "负样本_参数异常",
+00303:             "subtype": "PARAM_D_H_矛盾",
+00304:             "question": "黑龙江兴安落叶松，胸径200厘米，树高1米，想算整株生物量，用什么方程？",
+00305:             "requires_rejection": True,
+00306:             "rejection_reason": "D=200cm而H=1m，高径比严重失调，参数相互矛盾",
+00307:             "equation": "",
+00308:         },
+00309:         {
+00310:             "test_id": f"NEG_PARAM_{len(samples)+2:03d}",
+
+CONTEXT 290-325
+00290:             "requires_rejection": True,
+00291:             "rejection_reason": mut_desc,
+00292:             "derived_from": cid,  # 追溯来源
+00293:             "original_question": q_orig,  # 方便对比
+00294:             "equation": "",
+00295:         })
+00296:         idx += 1
+00297: 
+00298:     # 补充手写的典型参数异常（若模板替换不足）
+00299:     handcraft_param = [
+00300:         {
+00301:             "test_id": f"NEG_PARAM_{len(samples)+1:03d}",
+00302:             "group": "负样本_参数异常",
+00303:             "subtype": "PARAM_D_H_矛盾",
+00304:             "question": "黑龙江兴安落叶松，胸径200厘米，树高1米，想算整株生物量，用什么方程？",
+00305:             "requires_rejection": True,
+00306:             "rejection_reason": "D=200cm而H=1m，高径比严重失调，参数相互矛盾",
+00307:             "equation": "",
+00308:         },
+00309:         {
+00310:             "test_id": f"NEG_PARAM_{len(samples)+2:03d}",
+00311:             "group": "负样本_参数异常",
+00312:             "subtype": "PARAM_D_负值",
+00313:             "question": "我测了一棵马尾松，胸径是-8厘米，地区在湖南，想查枝生物量方程。",
+00314:             "requires_rejection": True,
+00315:             "rejection_reason": "胸径为负值，物理上不可能，输入无效",
+00316:             "equation": "",
+00317:         },
+00318:         {
+00319:             "test_id": f"NEG_PARAM_{len(samples)+3:03d}",
+00320:             "group": "负样本_参数异常",
+00321:             "subtype": "PARAM_D_超大",
+00322:             "question": "陕西油松，胸径500厘米，树高30米，请问哪个方程估算干生物量最合适？",
+00323:             "requires_rejection": True,
+00324:             "rejection_reason": "油松胸径500cm完全超出现实范围（正常<100cm），参数不合理",
+00325:             "equation": "",
+
+CONTEXT 299-334
+00299:     handcraft_param = [
+00300:         {
+00301:             "test_id": f"NEG_PARAM_{len(samples)+1:03d}",
+00302:             "group": "负样本_参数异常",
+00303:             "subtype": "PARAM_D_H_矛盾",
+00304:             "question": "黑龙江兴安落叶松，胸径200厘米，树高1米，想算整株生物量，用什么方程？",
+00305:             "requires_rejection": True,
+00306:             "rejection_reason": "D=200cm而H=1m，高径比严重失调，参数相互矛盾",
+00307:             "equation": "",
+00308:         },
+00309:         {
+00310:             "test_id": f"NEG_PARAM_{len(samples)+2:03d}",
+00311:             "group": "负样本_参数异常",
+00312:             "subtype": "PARAM_D_负值",
+00313:             "question": "我测了一棵马尾松，胸径是-8厘米，地区在湖南，想查枝生物量方程。",
+00314:             "requires_rejection": True,
+00315:             "rejection_reason": "胸径为负值，物理上不可能，输入无效",
+00316:             "equation": "",
+00317:         },
+00318:         {
+00319:             "test_id": f"NEG_PARAM_{len(samples)+3:03d}",
+00320:             "group": "负样本_参数异常",
+00321:             "subtype": "PARAM_D_超大",
+00322:             "question": "陕西油松，胸径500厘米，树高30米，请问哪个方程估算干生物量最合适？",
+00323:             "requires_rejection": True,
+00324:             "rejection_reason": "油松胸径500cm完全超出现实范围（正常<100cm），参数不合理",
+00325:             "equation": "",
+00326:         },
+00327:     ]
+00328:     samples.extend(handcraft_param)
+00329: 
+00330:     return samples
+00331: 
+00332: 
+00333: # ============================================================
+00334: # STEP 5: 构造 AMBIG 信息严重不足负样本
+
+CONTEXT 308-343
+00308:         },
+00309:         {
+00310:             "test_id": f"NEG_PARAM_{len(samples)+2:03d}",
+00311:             "group": "负样本_参数异常",
+00312:             "subtype": "PARAM_D_负值",
+00313:             "question": "我测了一棵马尾松，胸径是-8厘米，地区在湖南，想查枝生物量方程。",
+00314:             "requires_rejection": True,
+00315:             "rejection_reason": "胸径为负值，物理上不可能，输入无效",
+00316:             "equation": "",
+00317:         },
+00318:         {
+00319:             "test_id": f"NEG_PARAM_{len(samples)+3:03d}",
+00320:             "group": "负样本_参数异常",
+00321:             "subtype": "PARAM_D_超大",
+00322:             "question": "陕西油松，胸径500厘米，树高30米，请问哪个方程估算干生物量最合适？",
+00323:             "requires_rejection": True,
+00324:             "rejection_reason": "油松胸径500cm完全超出现实范围（正常<100cm），参数不合理",
+00325:             "equation": "",
+00326:         },
+00327:     ]
+00328:     samples.extend(handcraft_param)
+00329: 
+00330:     return samples
+00331: 
+00332: 
+00333: # ============================================================
+00334: # STEP 5: 构造 AMBIG 信息严重不足负样本
+00335: #
+00336: # 策略：从真实测试集中截取问题，系统性删除关键字段，
+00337: #       使其达到"无法完成检索"的程度
+00338: # ============================================================
+00339: def build_ambig_samples(cases, db_species, db_regions, count=8):
+00340:     """
+00341:     以真实问题为模板，删除树种/地区/组分 等关键信息
+00342:     """
+00343:     samples = []
+
+CONTEXT 331-366
+00331: 
+00332: 
+00333: # ============================================================
+00334: # STEP 5: 构造 AMBIG 信息严重不足负样本
+00335: #
+00336: # 策略：从真实测试集中截取问题，系统性删除关键字段，
+00337: #       使其达到"无法完成检索"的程度
+00338: # ============================================================
+00339: def build_ambig_samples(cases, db_species, db_regions, count=8):
+00340:     """
+00341:     以真实问题为模板，删除树种/地区/组分 等关键信息
+00342:     """
+00343:     samples = []
+00344:     template_cases = [c for c in cases
+00345:                       if "负样本" not in c.get("group", "")
+00346:                       and not c.get("requires_rejection", False)]
+00347:     random.shuffle(template_cases)
+00348: 
+00349:     # 删除策略
+00350:     def remove_species(q, sp):
+00351:         if sp and sp in q:
+00352:             return q.replace(sp, "一种树")
+00353:         return q
+00354: 
+00355:     def remove_region(q, reg):
+00356:         if reg:
+00357:             for r in [reg, reg[:2]]:  # 省份 + 简称
+00358:                 if r in q:
+00359:                     return q.replace(r, "某地")
+00360:         return q
+00361: 
+00362:     def remove_both(q, sp, reg):
+00363:         q2 = remove_species(q, sp)
+00364:         q3 = remove_region(q2, reg)
+00365:         return q3
+00366: 
+
+CONTEXT 393-428
+00393:         label, desc, transform_fn = strategies[strat_idx % len(strategies)]
+00394:         try:
+00395:             q_new = transform_fn(c)
+00396:         except Exception:
+00397:             strat_idx += 1
+00398:             continue
+00399:         if q_new is None or q_new == c["question"]:
+00400:             strat_idx += 1
+00401:             continue
+00402: 
+00403:         samples.append({
+00404:             "test_id": f"NEG_AMBIG_{idx+1:03d}",
+00405:             "group": "负样本_信息严重不足",
+00406:             "subtype": label,
+00407:             "question": q_new,
+00408:             "requires_rejection": True,
+00409:             "rejection_reason": desc,
+00410:             "derived_from": c.get("test_id", ""),
+00411:             "original_question": c["question"],
+00412:             "equation": "",
+00413:         })
+00414:         idx += 1
+00415:         strat_idx += 1
+00416: 
+00417:     # 补充几条手写的极端不足案例
+00418:     handcraft_ambig = [
+00419:         {
+00420:             "test_id": f"NEG_AMBIG_{len(samples)+1:03d}",
+00421:             "group": "负样本_信息严重不足",
+00422:             "subtype": "AMBIG_missing_all",
+00423:             "question": "帮我找一个生物量方程。",
+00424:             "requires_rejection": True,
+00425:             "rejection_reason": "树种、地区、组分、测量值全部缺失",
+00426:             "equation": "",
+00427:         },
+00428:         {
+
+CONTEXT 409-444
+00409:             "rejection_reason": desc,
+00410:             "derived_from": c.get("test_id", ""),
+00411:             "original_question": c["question"],
+00412:             "equation": "",
+00413:         })
+00414:         idx += 1
+00415:         strat_idx += 1
+00416: 
+00417:     # 补充几条手写的极端不足案例
+00418:     handcraft_ambig = [
+00419:         {
+00420:             "test_id": f"NEG_AMBIG_{len(samples)+1:03d}",
+00421:             "group": "负样本_信息严重不足",
+00422:             "subtype": "AMBIG_missing_all",
+00423:             "question": "帮我找一个生物量方程。",
+00424:             "requires_rejection": True,
+00425:             "rejection_reason": "树种、地区、组分、测量值全部缺失",
+00426:             "equation": "",
+00427:         },
+00428:         {
+00429:             "test_id": f"NEG_AMBIG_{len(samples)+2:03d}",
+00430:             "group": "负样本_信息严重不足",
+00431:             "subtype": "AMBIG_vague_species",
+00432:             "question": "栎树在东北的叶生物量方程有吗？D=18cm。",
+00433:             "requires_rejection": True,
+00434:             "rejection_reason": "栎树属下有辽东栎/蒙古栎/麻栎等多种，树种歧义严重",
+00435:             "equation": "",
+00436:         },
+00437:     ]
+00438:     samples.extend(handcraft_ambig)
+00439:     return samples
+00440: 
+00441: 
+00442: # ============================================================
+00443: # STEP 6: 保存 + 打印数据分析报告
+00444: # ============================================================
+
+CONTEXT 418-453
+00418:     handcraft_ambig = [
+00419:         {
+00420:             "test_id": f"NEG_AMBIG_{len(samples)+1:03d}",
+00421:             "group": "负样本_信息严重不足",
+00422:             "subtype": "AMBIG_missing_all",
+00423:             "question": "帮我找一个生物量方程。",
+00424:             "requires_rejection": True,
+00425:             "rejection_reason": "树种、地区、组分、测量值全部缺失",
+00426:             "equation": "",
+00427:         },
+00428:         {
+00429:             "test_id": f"NEG_AMBIG_{len(samples)+2:03d}",
+00430:             "group": "负样本_信息严重不足",
+00431:             "subtype": "AMBIG_vague_species",
+00432:             "question": "栎树在东北的叶生物量方程有吗？D=18cm。",
+00433:             "requires_rejection": True,
+00434:             "rejection_reason": "栎树属下有辽东栎/蒙古栎/麻栎等多种，树种歧义严重",
+00435:             "equation": "",
+00436:         },
+00437:     ]
+00438:     samples.extend(handcraft_ambig)
+00439:     return samples
+00440: 
+00441: 
+00442: # ============================================================
+00443: # STEP 6: 保存 + 打印数据分析报告
+00444: # ============================================================
+00445: def save_and_report(neg_samples, db_species, db_regions, db_comps,
+00446:                     species_cnt, region_cnt, test_data):
+00447:     report_lines = []
+00448:     report_lines.append("=" * 70)
+00449:     report_lines.append("数据分析报告 —— 负样本构建依据")
+00450:     report_lines.append("=" * 70)
+00451:     report_lines.append(f"\n方程库树种总数: {len(db_species)}")
+00452:     report_lines.append(f"方程库地区总数: {len(db_regions)}")
+00453:     report_lines.append(f"方程库组分集合: {sorted(db_comps)}")
+
+----- FILE I/O / VERSION REFERENCES -----
+00010:     neg_samples_standalone.json   ← 仅负样本，先单独测试用
+00022: TEST_PATH   = "<PRIVATE_ROOT>/最新生物量测试集构建_v6.json"
+00024: OUT_NEG     = "<PRIVATE_ROOT>/neg_samples_standalone.json"
+00156:             "requires_rejection": True,
+00187:             "requires_rejection": True,
+00213:             "requires_rejection": True,
+00241:         no_neg = not c.get("requires_rejection", False)
+00290:             "requires_rejection": True,
+00305:             "requires_rejection": True,
+00314:             "requires_rejection": True,
+00323:             "requires_rejection": True,
+00346:                       and not c.get("requires_rejection", False)]
+00408:             "requires_rejection": True,
+00424:             "requires_rejection": True,
+00433:             "requires_rejection": True,
+00445: def save_and_report(neg_samples, db_species, db_regions, db_comps,
+00462:     report_lines.append(f"构造负样本总计: {len(neg_samples)} 条")
+00463:     type_cnt = Counter(s["group"] for s in neg_samples)
+00471:     for s in neg_samples:
+00483:     with open(OUT_REPORT, "w", encoding="utf-8") as f:
+00487:     # 保存负样本 JSON（带 test_cases 包装，方便直接传给评估脚本）
+00491:             "total": len(neg_samples),
+00494:         "test_cases": neg_samples,
+00496:     with open(OUT_NEG, "w", encoding="utf-8") as f:
+00497:         json.dump(out_obj, f, ensure_ascii=False, indent=2)
+00509:     with open(TEST_PATH, encoding="utf-8") as f:
+00510:         test_data = json.load(f)
+00511:     with open(EQ_PATH, encoding="utf-8") as f:
+00512:         eq_db = json.load(f)
+00514:     cases = test_data["test_cases"]
+
+----- END FILE -----
+
+====================================================================================================
+FILE = <PRIVATE_ROOT>/fix_expected_v2.py
+SHA256 = 641137fabe2c8ce7ae918cc7a1613d4974a8cf3b6aca432d5b34c81ec35e0e76
+====================================================================================================
+
+----- HEADER / PATH CONFIGURATION -----
+00001: import json, re, math
+00002: 
+00003: data = json.load(open('<PRIVATE_ROOT>/最新生物量测试集构建_v3.json'))
+00004: cases = data["test_cases"]
+00005: 
+00006: def extract_params(question, eq):
+00007:     found = {}
+00008: 
+00009:     # ── 胸径 D：支持"大概/约/左右"等模糊词 ──
+00010:     m = re.search(r'胸径[^0-9]{0,4}([0-9.]+)\s*(?:厘米|cm)', question)
+00011:     if m: found['D'] = float(m.group(1))
+00012: 
+00013:     # ── 基径/地径 → D（幼苗/灌木用地径代替胸径）──
+00014:     m = re.search(r'(?:基径|地径)[^0-9]{0,4}([0-9.]+)\s*(?:厘米|cm)', question)
+00015:     if m:
+00016:         found['D'] = float(m.group(1))
+00017:         found['Do'] = float(m.group(1))
+00018: 
+00019:     # ── 树高 H ──
+00020:     m = re.search(r'树高[^0-9]{0,4}([0-9.]+)\s*(?:米|m\b)', question)
+00021:     if m: found['H'] = float(m.group(1))
+00022: 
+00023:     # ── 蓄积量 V ──
+00024:     m = re.search(r'蓄积量[^0-9]{0,4}([0-9.]+)\s*(?:立方米|m³|m3)', question)
+00025:     if m: found['V'] = float(m.group(1))
+00026: 
+00027:     # ── 平方米 → V（灌木/幼树冠幅面积）──
+00028:     m = re.search(r'(?:面积|冠幅)[^0-9]{0,4}([0-9.]+)\s*平方米', question)
+00029:     if m: found['V'] = float(m.group(1))
+00030: 
+00031:     # ── 林龄 A ──
+00032:     m = re.search(r'([0-9.]+)\s*年生', question)
+00033:     if m: found['A'] = float(m.group(1))
+00034: 
+00035:     # ── 已知生物量 B（吨/公斤）──
+00036:     m = re.search(r'生物量[^0-9]{0,6}([0-9.]+)\s*(吨|公斤|kg\b)', question)
+00037:     if m:
+00038:         val = float(m.group(1))
+00039:         if m.group(2) == '吨': val *= 1000  # 统一转kg
+00040:         found['B'] = val
+00041: 
+00042:     # ── W_干+W_枝+W_叶 合计 → 直接给 W_sum ──
+00043:     m = re.search(r'(?:干.{0,4}枝.{0,4}叶|地上部分).{0,10}([0-9.]+)\s*公斤', question)
+00044:     if m: found['W_sum'] = float(m.group(1))
+00045: 
+00046:     # ── 地上生物量 → W_above / W_T ──
+00047:     m = re.search(r'地上(?:生物量|部分)[^0-9]{0,6}([0-9.]+)\s*公斤', question)
+00048:     if m:
+00049:         found['W_above'] = float(m.group(1))
+00050:         found['W_T'] = float(m.group(1))  # Q0091用W_T
+00051: 
+00052:     return found
+00053: 
+00054: def calc(eq, params):
+00055:     if not params: return None
+00056:     expr = eq.split('=', 1)[-1].strip()
+00057: 
+00058:     # 修复 × → *
+00059:     expr = expr.replace('×', '*')
+00060: 
+00061:     # W_干+W_枝+W_叶 合计替换
+00062:     if 'W_sum' in params:
+00063:         expr = re.sub(r'W_干\s*\+\s*W_枝\s*\+\s*W_叶', str(params['W_sum']), expr)
+00064: 
+00065:     # 参数别名替换（长名优先）
+00066:     alias = {
+00067:         'W_aboveground':'W_above','W_underground':'W_root',
+00068:         'B_total':'B','V_total':'V','DBH':'D','HO':'H',
+00069:         'W_T':'W_T','W_R':'W_root',
+00070:         'D0':'Do',
+00071:     }
+00072:     for a, s in alias.items():
+00073:         expr = re.sub(r'\b'+re.escape(a)+r'\b', s, expr)
+00074: 
+00075:     expr = expr.replace('^','**')
+00076:     expr = re.sub(r'\blg\b','math.log10', expr)
+00077:     expr = re.sub(r'\bln\b','math.log', expr)
+00078:     expr = re.sub(r'\bexp\b','math.exp', expr)
+00079:     expr = re.sub(r'10\*\*\(','math.pow(10,', expr)
+00080: 
+00081:     local = {**params, 'math':math}
+00082:     try:
+00083:         return round(float(eval(expr, {"__builtins__":{}}, local)), 4)
+00084:     except:
+00085:         return None
+00086: 
+00087: # 故意不给参数的题（考察模型识别条件不足）
+00088: INTENTIONAL_NO_PARAM = {'Q0045','Q0046','Q0068','Q0306','Q0083','Q0084'}
+00089: 
+00090: filled = skipped = intentional = 0
+00091: still_fail = []
+00092: 
+00093: for q in cases:
+00094:     if q.get('expected_result') is not None:
+00095:         continue
+00096:     if not q.get('equation'):
+00097:         continue
+00098: 
+00099:     tid = q['test_id']
+00100:     if tid in INTENTIONAL_NO_PARAM:
+00101:         q['requires_rejection'] = True
+00102:         q['rejection_reason'] = '题目未提供必要参数，模型应提示条件不足'
+00103:         intentional += 1
+00104:         continue
+00105: 
+00106:     params = extract_params(q['question'], q['equation'])
+00107:     result = calc(q['equation'], params)
+00108: 
+00109:     if result is not None:
+00110:         q['expected_result'] = result
+00111:         q['_calc_params'] = params
+00112:         filled += 1
+00113:     else:
+00114:         still_fail.append({'id': tid, 'eq': q['equation'][:50],
+00115:                            'q': q['question'][:60], 'params': params})
+00116: 
+00117: data["test_cases"] = cases
+00118: json.dump(data, open('<PRIVATE_ROOT>/最新生物量测试集构建_v4.json','w'),
+00119:           ensure_ascii=False, indent=2)
+00120: 
+00121: print(f"本次补全:     {filled} 条")
+00122: print(f"故意无参数:   {intentional} 条 → 已标 requires_rejection=true")
+00123: print(f"仍然失败:     {len(still_fail)} 条\n")
+00124: for t in still_fail:
+00125:     print(f"  [{t['id']}] params={t['params']}")
+00126:     print(f"    方程: {t['eq']}")
+00127:     print(f"    题目: {t['q']}\n")
+00128: print("✅ → <PRIVATE_ROOT>/最新生物量测试集构建_v4.json")
+
+----- REQUIRES_REJECTION CONTEXT -----
+
+CONTEXT 86-121
+00086: 
+00087: # 故意不给参数的题（考察模型识别条件不足）
+00088: INTENTIONAL_NO_PARAM = {'Q0045','Q0046','Q0068','Q0306','Q0083','Q0084'}
+00089: 
+00090: filled = skipped = intentional = 0
+00091: still_fail = []
+00092: 
+00093: for q in cases:
+00094:     if q.get('expected_result') is not None:
+00095:         continue
+00096:     if not q.get('equation'):
+00097:         continue
+00098: 
+00099:     tid = q['test_id']
+00100:     if tid in INTENTIONAL_NO_PARAM:
+00101:         q['requires_rejection'] = True
+00102:         q['rejection_reason'] = '题目未提供必要参数，模型应提示条件不足'
+00103:         intentional += 1
+00104:         continue
+00105: 
+00106:     params = extract_params(q['question'], q['equation'])
+00107:     result = calc(q['equation'], params)
+00108: 
+00109:     if result is not None:
+00110:         q['expected_result'] = result
+00111:         q['_calc_params'] = params
+00112:         filled += 1
+00113:     else:
+00114:         still_fail.append({'id': tid, 'eq': q['equation'][:50],
+00115:                            'q': q['question'][:60], 'params': params})
+00116: 
+00117: data["test_cases"] = cases
+00118: json.dump(data, open('<PRIVATE_ROOT>/最新生物量测试集构建_v4.json','w'),
+00119:           ensure_ascii=False, indent=2)
+00120: 
+00121: print(f"本次补全:     {filled} 条")
+
+CONTEXT 107-128
+00107:     result = calc(q['equation'], params)
+00108: 
+00109:     if result is not None:
+00110:         q['expected_result'] = result
+00111:         q['_calc_params'] = params
+00112:         filled += 1
+00113:     else:
+00114:         still_fail.append({'id': tid, 'eq': q['equation'][:50],
+00115:                            'q': q['question'][:60], 'params': params})
+00116: 
+00117: data["test_cases"] = cases
+00118: json.dump(data, open('<PRIVATE_ROOT>/最新生物量测试集构建_v4.json','w'),
+00119:           ensure_ascii=False, indent=2)
+00120: 
+00121: print(f"本次补全:     {filled} 条")
+00122: print(f"故意无参数:   {intentional} 条 → 已标 requires_rejection=true")
+00123: print(f"仍然失败:     {len(still_fail)} 条\n")
+00124: for t in still_fail:
+00125:     print(f"  [{t['id']}] params={t['params']}")
+00126:     print(f"    方程: {t['eq']}")
+00127:     print(f"    题目: {t['q']}\n")
+00128: print("✅ → <PRIVATE_ROOT>/最新生物量测试集构建_v4.json")
+
+----- FILE I/O / VERSION REFERENCES -----
+00003: data = json.load(open('<PRIVATE_ROOT>/最新生物量测试集构建_v3.json'))
+00004: cases = data["test_cases"]
+00101:         q['requires_rejection'] = True
+00117: data["test_cases"] = cases
+00118: json.dump(data, open('<PRIVATE_ROOT>/最新生物量测试集构建_v4.json','w'),
+00122: print(f"故意无参数:   {intentional} 条 → 已标 requires_rejection=true")
+00128: print("✅ → <PRIVATE_ROOT>/最新生物量测试集构建_v4.json")
+
+----- END FILE -----
+
+====================================================================================================
+AUDIT_COMPLETE
+====================================================================================================

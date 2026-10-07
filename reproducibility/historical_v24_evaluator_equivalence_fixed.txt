@@ -1,0 +1,53 @@
+==========================================================================================
+HISTORICAL V24 EVALUATOR — FIXED EXTRACTION EQUIVALENCE
+==========================================================================================
+
+[INTEGRITY]
+ORIGINAL_SHA256 = ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990
+ORIGINAL_UNCHANGED = True
+FAILED_COPY = <PROJECT_ROOT>/github_release/code/evaluation/historical_v24_evaluator_failed_missing_locrev.py
+NEW_FILE = <PROJECT_ROOT>/github_release/code/evaluation/historical_v24_evaluator.py
+NEW_SHA256 = e33928e223700d05795fd3f2ad7e7a21bdf65dbc23d7c25b273ecd606717de4c
+
+[LOCATION INITIALIZATION]
+HIST_LOC_ALIAS_SIZE = 31
+HIST_LOC_REV_SIZE = 77
+NEW_LOC_ALIAS_SIZE = 31
+NEW_LOC_REV_SIZE = 77
+LOC_REV_EQUAL = True
+
+[FEDB]
+FEDB_TOP_TYPE = dict
+FEDB_TOP_KEYS = ['equations', 'metadata']
+FEDB_RECORD_PATH = $.equations
+FEDB_COUNT = 7394
+FEDB_SHA256 = 2b2ace233067fd4b4ee04a093bde3346fbf8a7aa94e9b63ebe87e23c49b60dab
+
+[BENCHMARK]
+BENCHMARK = <PRIVATE_ROOT>/最新生物量测试集构建_v7_with_neg_原始_20260503_131441.json
+BENCHMARK_RECORD_PATH = $.test_cases
+BENCHMARK_COUNT = 522
+FORMAL_APPLICABLE = 434
+FORMAL_INAPPLICABLE = 88
+
+[EQUIVALENCE]
+NORMALIZE_EQ_TESTED = 7394
+NORMALIZE_EQ_MISMATCH = 0
+LOC_CANON_TESTED = 269
+LOC_CANON_MISMATCH = 0
+LOC_MATCH_SCORE_TESTED = 453
+LOC_MATCH_SCORE_MISMATCH = 0
+GOLD_CASES_TESTED = 522
+GOLD_MISMATCH = 0
+HIST_GOLD_SIZE_DISTRIBUTION = [(0, 87), (1, 150), (2, 68), (3, 32), (4, 28), (5, 28), (6, 27), (7, 3), (8, 12), (9, 7), (10, 7), (11, 1), (12, 9), (13, 7), (14, 6), (15, 2), (16, 4), (17, 1), (18, 4), (19, 1), (20, 6), (21, 4), (22, 3), (29, 6), (30, 1), (32, 1), (36, 1), (37, 2), (41, 2), (54, 6), (55, 5), (75, 1)]
+NEW_GOLD_SIZE_DISTRIBUTION = [(0, 87), (1, 150), (2, 68), (3, 32), (4, 28), (5, 28), (6, 27), (7, 3), (8, 12), (9, 7), (10, 7), (11, 1), (12, 9), (13, 7), (14, 6), (15, 2), (16, 4), (17, 1), (18, 4), (19, 1), (20, 6), (21, 4), (22, 3), (29, 6), (30, 1), (32, 1), (36, 1), (37, 2), (41, 2), (54, 6), (55, 5), (75, 1)]
+
+[VERDICT]
+PRIMITIVE_EQUIVALENCE = True
+GOLD_SET_522_EQUIVALENCE = True
+FINAL_STATUS = PASS
+
+ORIGINAL_SHA256_AFTER = ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990
+ORIGINAL_STILL_UNCHANGED = True
+
+AUDIT_COMPLETE

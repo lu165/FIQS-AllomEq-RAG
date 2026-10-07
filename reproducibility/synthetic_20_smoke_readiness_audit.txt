@@ -1,0 +1,7 @@
+====================================================================================================
+SYNTHETIC EXAMPLE — SMOKE TEST READINESS AUDIT
+====================================================================================================
+
+[1] SYNTHETIC DIRECTORY
+PATH = <PROJECT_ROOT>/github_release/data_public/synthetic_example
+EXISTS = False

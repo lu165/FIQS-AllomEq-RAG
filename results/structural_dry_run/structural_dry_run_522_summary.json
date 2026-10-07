@@ -1,0 +1,51 @@
+{
+  "status": "diagnostic_only_not_manuscript_result",
+  "fedb_records": 7394,
+  "benchmark_cases": 522,
+  "benchmark_labels": {
+    "applicable": 434,
+    "inapplicable": 88
+  },
+  "candidate_match_status": {
+    "no_exact_fedb_equation_match": 207,
+    "unique_exact_fedb_equation_match": 223,
+    "benchmark_equation_missing": 87,
+    "multiple_exact_fedb_equation_matches": 5
+  },
+  "component_status": {
+    "unresolved": 299,
+    "pass": 15,
+    "fail": 208
+  },
+  "predictor_status": {
+    "unresolved": 325,
+    "pass": 197
+  },
+  "measurement_range_status": {
+    "unresolved": 491,
+    "pass": 19,
+    "fail": 12
+  },
+  "diagnostic_gate_status": {
+    "unresolved": 313,
+    "fail": 209
+  },
+  "unresolved_constraints": {
+    "species_final_evidence": 522,
+    "geography_final_evidence": 522,
+    "component": 299,
+    "predictors": 325,
+    "measurement_range": 491
+  },
+  "source_sha256": {
+    "fedb": "2b2ace233067fd4b4ee04a093bde3346fbf8a7aa94e9b63ebe87e23c49b60dab",
+    "benchmark": "c40c5dfe1362f19e13a1963661e3472e973b386fdcd5038715403e5e464ce073"
+  },
+  "notes": [
+    "No LLM/API calls were made.",
+    "No manuscript Safety/Coverage/F1 metrics were computed.",
+    "Species and geography final compatibility were intentionally left UNRESOLVED.",
+    "Generalized discovery similarity was not treated as final applicability evidence.",
+    "Exact benchmark equation strings were used only for diagnostic candidate linkage."
+  ]
+}

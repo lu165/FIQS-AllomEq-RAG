@@ -1,0 +1,499 @@
+============================================================
+STRUCTURAL WEIGHT PROVENANCE AUDIT
+============================================================
+
+========== TARGET NUMBERS ==========
+./eval_seed123_fets_full.py:15:# 已验证：该根目录权重 == best checkpoint-73000
+./eval_seed123_fets_full.py:348:    "best_training_checkpoint": 73000,
+./03_train_mixed_fixed_step3_backup.py:64:    save_steps=1000,               # 改：每1000步保存
+./plot_qlora_training.py:38:    dpi=300
+./fets_revision_analysis/02_calculate_fets_statistics.py:65:for i in range(10000):
+./03_train_qwen25_15b_lora.py:67:    save_steps=1000,               # 改：每1000步保存
+./03_train_qwen25_3b_lora.py:67:    save_steps=1000,               # 改：每1000步保存
+./05_train_mixed_seed123.py:65:    save_steps=1000,               # 改：每1000步保存
+./eval_internlm3_8b_seed123_fets_full.py:15:# 已验证：该根目录权重 == best checkpoint-73000
+./eval_internlm3_8b_seed123_fets_full.py:349:    "best_training_checkpoint": 73000,
+./eval_internlm3_8b_seed42_fets_smoke.py:15:# 已验证：该根目录权重 == best checkpoint-73000
+./eval_internlm3_8b_seed42_fets_smoke.py:349:    "best_training_checkpoint": 73000,
+./03_train_mixed_fixed_broken_backup.py:65:    save_steps=1000,               # 改：每1000步保存
+./data_public/synthetic_example/generate_synthetic_examples.py:16:     "人工更新依靠播种、植苗等人为措施建立新林分；天然更新主要依靠母树种子、萌芽或根蘖等自然过程形成新一代林木。实际经营中应根据立地条件、树种更新特性和经营目标选择适宜方式。"),
+./data_public/synthetic_example/generate_synthetic_examples.py:22:     "样地用于从有限的代表性观测推断较大范围森林资源特征。通过合理的抽样设计，可估计林分蓄积、密度、树种组成等指标，并量化抽样误差。"),
+./data_public/synthetic_example/generate_synthetic_examples.py:30:    ("树木学", "说明树种识别中叶片形态可以提供哪些信息。",
+./data_public/synthetic_example/generate_synthetic_examples.py:31:     "叶序、叶形、叶缘、叶脉、叶尖和叶基等形态特征均可作为树种鉴别依据，但实际鉴定通常还需结合枝、芽、花果以及地理分布等特征综合判断。"),
+./data_public/synthetic_example/generate_synthetic_examples.py:73:     "生物量方程由特定树种、地区、林分条件和样本径阶的数据拟合得到。超出建模样本的树种、地点或尺寸范围使用时，预测误差和外推风险可能显著增加。"),
+./eval_seed42_fets_generate.py:16:# 已确认：根目录 adapter == best checkpoint-73000
+./07_smoke_qlora_seed42.py:66:    save_steps=1000,               # 改：每1000步保存
+./run_equation_benchmark.py:93:    if gen_type == "地区泛化" or "_geo_inject_note" in case:
+./run_equation_benchmark.py:95:    if gen_type == "树种泛化" or "树种" in group:
+./03_train_mixed_fixed.py:65:    save_steps=1000,               # 改：每1000步保存
+./eval_internlm3_8b_seed2024_fets_full.py:15:# 已验证：该根目录权重 == best checkpoint-73000
+./eval_internlm3_8b_seed2024_fets_full.py:349:    "best_training_checkpoint": 73000,
+./eval_internlm3_8b_zeroshot_fets.py:21:# [zero-shot] # 已验证：该根目录权重 == best checkpoint-73000
+./eval_internlm3_8b_zeroshot_fets.py:355:    "best_training_checkpoint": 73000,
+./03_train_internlm3_lora.py:65:    save_steps=1000,               # 改：每1000步保存
+./03_train_qwen25_7b_lora.py:67:    save_steps=1000,               # 改：每1000步保存
+./eval_internlm3_8b_seed42_fets_full.py:15:# 已验证：该根目录权重 == best checkpoint-73000
+./eval_internlm3_8b_seed42_fets_full.py:349:    "best_training_checkpoint": 73000,
+./03_train_internlm3_8b_lora.py:80:    eval_steps=1000,                # 改：每500步评估
+./03_train_internlm3_8b_lora.py:82:    save_steps=1000,               # 改：每1000步保存
+./reviewer_records/seed2024_run/05_train_mixed_seed2024_SNAPSHOT.py:65:    save_steps=1000,               # 改：每1000步保存
+./reviewer_records/7b_seed42/03_train_mixed_fixed.py:65:    save_steps=1000,               # 改：每1000步保存
+./03_train_prefix_fixed_backup_before_device_patch.py:61:    save_steps=1000,               # 改：每1000步保存
+./test_seed123_load.py:8:# 根目录已经确认等于 best checkpoint-73000
+./eval_seed42_fets_full.py:15:# 已验证：该根目录权重 == best checkpoint-73000
+./eval_seed42_fets_full.py:348:    "best_training_checkpoint": 73000,
+./test_seed42_load.py:8:# 根目录已经确认等于 best checkpoint-73000
+./03_train_prefix_fixed.py:61:    save_steps=1000,               # 改：每1000步保存
+./05_train_mixed_seed2024.py:65:    save_steps=1000,               # 改：每1000步保存
+./reproducibility/final_archive/Qwen2.5_1.5B_LoRA/03_train_qwen25_15b_lora.py:67:    save_steps=1000,               # 改：每1000步保存
+./reproducibility/final_archive/Qwen2.5_1.5B_LoRA/seed42/03_train_qwen25_15b_lora.py:67:    save_steps=1000,               # 改：每1000步保存
+./reproducibility/final_archive/Qwen2.5_1.5B_LoRA/seed2024/03_train_qwen25_15b_lora.py:67:    save_steps=1000,               # 改：每1000步保存
+./reproducibility/final_archive/Qwen2.5_1.5B_LoRA/seed123/03_train_qwen25_15b_lora.py:67:    save_steps=1000,               # 改：每1000步保存
+./reproducibility/final_archive/Qwen2.5_3B_LoRA/03_train_qwen25_3b_lora.py:67:    save_steps=1000,               # 改：每1000步保存
+./reproducibility/final_archive/Qwen2.5_3B_LoRA/seed42/03_train_qwen25_3b_lora.py:67:    save_steps=1000,               # 改：每1000步保存
+./reproducibility/final_archive/Qwen2.5_3B_LoRA/seed2024/03_train_qwen25_3b_lora.py:67:    save_steps=1000,               # 改：每1000步保存
+./reproducibility/final_archive/Qwen2.5_3B_LoRA/seed123/03_train_qwen25_3b_lora.py:67:    save_steps=1000,               # 改：每1000步保存
+./reproducibility/final_archive/QLoRA_Qwen1.5_7B_seed2024_final_20260823_071722/train_record/05_train_mixed_seed2024_SNAPSHOT.py:65:    save_steps=1000,               # 改：每1000步保存
+./reproducibility/final_archive/InternLM3_8B_LoRA_three_seed/03_train_internlm3_8b_lora.py:80:    eval_steps=1000,                # 改：每500步评估
+./reproducibility/final_archive/InternLM3_8B_LoRA_three_seed/03_train_internlm3_8b_lora.py:82:    save_steps=1000,               # 改：每1000步保存
+./reproducibility/final_archive/Qwen2.5_7B_LoRA/03_train_qwen25_7b_lora.py:67:    save_steps=1000,               # 改：每1000步保存
+./reproducibility/final_archive/Prefix_Qwen1.5_7B/seed42/code/03_train_prefix_fixed.py:61:    save_steps=1000,               # 改：每1000步保存
+./reproducibility/final_archive/Prefix_Qwen1.5_7B/seed2024/code/03_train_prefix_fixed.py:61:    save_steps=1000,               # 改：每1000步保存
+./reproducibility/final_archive/Prefix_Qwen1.5_7B/seed123/code/03_train_prefix_fixed.py:61:    save_steps=1000,               # 改：每1000步保存
+./reproducibility/corrections/fets_seed_metadata_correction_20260817_004607/original/eval_seed123_fets_full.py:15:# 已验证：该根目录权重 == best checkpoint-73000
+./reproducibility/corrections/fets_seed_metadata_correction_20260817_004607/original/eval_seed123_fets_full.py:341:    "best_training_checkpoint": 73000,
+./reproducibility/corrections/fets_seed_metadata_correction_20260817_004607/original/eval_seed42_fets_full.py:15:# 已验证：该根目录权重 == best checkpoint-73000
+./reproducibility/corrections/fets_seed_metadata_correction_20260817_004607/original/eval_seed42_fets_full.py:341:    "best_training_checkpoint": 73000,
+./reproducibility/corrections/fets_seed_metadata_correction_20260817_004607/corrected/eval_seed123_fets_full.py:15:# 已验证：该根目录权重 == best checkpoint-73000
+./reproducibility/corrections/fets_seed_metadata_correction_20260817_004607/corrected/eval_seed123_fets_full.py:348:    "best_training_checkpoint": 73000,
+./reproducibility/corrections/fets_seed_metadata_correction_20260817_004607/corrected/eval_seed42_fets_full.py:15:# 已验证：该根目录权重 == best checkpoint-73000
+./reproducibility/corrections/fets_seed_metadata_correction_20260817_004607/corrected/eval_seed42_fets_full.py:348:    "best_training_checkpoint": 73000,
+./reproducibility/runs/qlora_long_queue_20260819_054702/seed2024/05_train_mixed_seed2024_SNAPSHOT.py:65:    save_steps=1000,               # 改：每1000步保存
+./reproducibility/runs/qlora_long_queue_20260819_054702/seed123/05_train_mixed_seed123_SNAPSHOT.py:65:    save_steps=1000,               # 改：每1000步保存
+./reproducibility/runs/qlora_seed42_smoke_20260817_021336/07_smoke_qlora_seed42.py:66:    save_steps=1000,               # 改：每1000步保存
+./reproducibility/runs/seed123_fets/eval_seed123_fets_full.py:15:# 已验证：该根目录权重 == best checkpoint-73000
+./reproducibility/runs/seed123_fets/eval_seed123_fets_full.py:341:    "best_training_checkpoint": 73000,
+./reproducibility/runs/qlora_seed42_formal_20260817_021641/03_train_mixed_fixed_SNAPSHOT.py:65:    save_steps=1000,               # 改：每1000步保存
+
+========== SCORE FUNCTIONS ==========
+
+========== HOME HISTORICAL CODE ==========
+<PRIVATE_ROOT>/redesign_tests.py:54:            'query': '樟子松，黑龙江，胸径150cm，树高30m，求地上生物量',
+<PRIVATE_ROOT>/redesign_tests.py:55:            'situation': '树种地区都匹配，但参数超大（胸径150cm）',
+<PRIVATE_ROOT>/redesign_tests.py:56:            'expected_reasoning': '胸径150cm远超一般樟子松方程范围（通常<50cm），应拒绝',
+<PRIVATE_ROOT>/fix_expected.py:44:                    val = val * 10000 / 15
+<PRIVATE_ROOT>/ZhipuAI/chatglm3-6b/modeling_chatglm.py:128:        inv_freq = 1.0 / (10000 ** (torch.arange(0, dim, 2, device=device).to(dtype=dtype) / dim))
+<PRIVATE_ROOT>/ZhipuAI/chatglm3-6b/modeling_chatglm.py:134:            self, seq_len: int, n_elem: int, dtype: torch.dtype, device: torch.device, base: int = 10000
+<PRIVATE_ROOT>/ZhipuAI/chatglm3-6b/modeling_chatglm.py:142:        # $\Theta = {\theta_i = 10000^{\frac{2(i-1)}{d}}, i \in [1, 2, ..., \frac{d}{2}]}$
+<PRIVATE_ROOT>/abl_full.py:317:def _llm_call(messages, max_tokens=150):
+<PRIVATE_ROOT>/abl_full.py:334:_MULTI_COMP_KW = ['\u5e72\u3001\u679d\u3001\u53f6','\u5e72+\u679d+\u53f6','\u5e72\u548c\u679d','\u5404\u7ec4\u5206\u5206\u522b','\u5206\u522b\u4f30\u7b97']
+<PRIVATE_ROOT>/abl_full.py:353:    if re.search(r'(\u6750\u6d4b\u6d4b|\u676d\u6728|\u9531\u6728|\u6c38\u51f7|\u6749\u6728|\u6750\u6a41|\u9e1f\u6728|\u6a61\u6811|\u767d\u6866|\u6768\u6811).{0,5}[\uff0c,\u3001].{0,20}(\u6750\u6d4b\u6d4b|\u676d\u6728|\u9531\u6728|\u6c38\u51f7|\u6749\u6728|\u6750\u6a41|\u9e1f\u6728|\u6a61\u6811|\u767d\u6866|\u6768\u6811)', q):
+<PRIVATE_ROOT>/abl_full.py:357:    if re.search(r'(\u5e72|\u679d|\u53f6|\u6839).{0,3}[\u3001\u548c\u53ca+].{0,3}(\u5e72|\u679d|\u53f6|\u6839)', q): return 'multi_comp'
+<PRIVATE_ROOT>/abl_full.py:489:            if len(val_str) > 150:
+<PRIVATE_ROOT>/abl_full.py:606:    struct_scored = []
+<PRIVATE_ROOT>/abl_full.py:627:        if s > 0: struct_scored.append((i, s))
+<PRIVATE_ROOT>/abl_full.py:628:    struct_scored.sort(key=lambda x: -x[1])
+<PRIVATE_ROOT>/abl_full.py:629:    if not struct_scored:
+<PRIVATE_ROOT>/abl_full.py:636:    cand_idx  = [i for i,_ in struct_scored[:80]]
+<PRIVATE_ROOT>/abl_full.py:638:    struct_arr  = np.array([s for _,s in struct_scored[:80]], dtype=float)
+<PRIVATE_ROOT>/abl_full.py:663:    if D is not None and D > 300:
+<PRIVATE_ROOT>/abl_full.py:664:        return True, '\u80f8\u5f84'+str(D)+'cm\u8d85\u51fa\u7269\u79cd\u5408\u7406\u4e0a\u9650(>300cm)'
+<PRIVATE_ROOT>/abl_full.py:687:    return {'warn':True,'message':'\u6ce8\u610f\uff1a\u60a8\u63d0\u4f9b\u7684\u662f\u57fa\u5f84\uff0c\u8be5\u65b9\u7a0b\u4f7f\u7528\u80f8\u5f84\uff08DBH\uff0c1.3m\u5904\uff09\uff0c\u4e24\u8005\u76f8\u5dee\u7ea615~30%\u3002'}
+<PRIVATE_ROOT>/abl_full.py:1025:    ('\u2500'*32,'\u2500'*5,'\u2500'*7,'\u2500'*7,'\u2500'*7,'\u2500'*8),
+<PRIVATE_ROOT>/abl_full.py:1030:    ('\u2500'*32,'\u2500'*5,'\u2500'*7,'\u2500'*7,'\u2500'*7,'\u2500'*8),
+<PRIVATE_ROOT>/abl_full.py:1060:print('    \u8bc1\u660e\u300c\u6570\u636e-LLM\u5173\u8054\u300d\u662f\u5224\u522b\u8d28\u91cf\u7684\u5173\u952e')
+<PRIVATE_ROOT>/transparent_calculation_display.py:189:                st.progress(score / 1000)
+<PRIVATE_ROOT>/transparent_calculation_display.py:190:                st.caption(f"匹配度: {score}/1000")
+<PRIVATE_ROOT>/batch_estimate_biomass.py:11:  4. 换算：单株生物量(kg) x 每公顷株数 = 每公顷生物量(kg/ha) -> 除以1000转t/ha
+<PRIVATE_ROOT>/batch_estimate_biomass.py:121:        biomass_t_ha = (biomass_kg * stems_per_ha / 1000.0) if pd.notna(stems_per_ha) else None
+<PRIVATE_ROOT>/evaluate_system.py:522:                """多因素评分: 径级400 + 地区300 + 变量150 + 质量150 = 1000"""
+<PRIVATE_ROOT>/evaluate_system.py:532:                    score += 300
+<PRIVATE_ROOT>/evaluate_system.py:538:                    score += max(0, 300 - int(over * 10))
+<PRIVATE_ROOT>/evaluate_system.py:540:                # 2. 地区适配 (300分) - 省级通用优先
+<PRIVATE_ROOT>/evaluate_system.py:546:                        score += 250
+<PRIVATE_ROOT>/evaluate_system.py:560:                            score += 150
+<PRIVATE_ROOT>/evaluate_system.py:564:                    score += 150
+<PRIVATE_ROOT>/evaluate_system.py:566:                # 3. 变量完备性 (150分)
+<PRIVATE_ROOT>/evaluate_system.py:569:                    score += 150
+<PRIVATE_ROOT>/evaluate_system.py:575:                # 4. 方程质量 (150分)
+<PRIVATE_ROOT>/complete_online_search_system.py:151:{search_results[:1000]}
+<PRIVATE_ROOT>/complete_online_search_system.py:205:            response = self.llm.chat(prompt, max_tokens=300)
+<PRIVATE_ROOT>/complete_online_search_system.py:309:                print(f"       {llm_answer['equation'][:150]}")
+<PRIVATE_ROOT>/biomass_expert_v8.py:296:    cands_idx = [i for i, _ in scored[:150]]
+<PRIVATE_ROOT>/biomass_expert_v8.py:297:    rule_arr  = np.array([s for _, s in scored[:150]], dtype=float)
+<PRIVATE_ROOT>/biomass_expert_v8.py:396:    ], max_tokens=150)
+<PRIVATE_ROOT>/forestry_agent_llm_driven.py:167:{text[:1000]}
+<PRIVATE_ROOT>/forestry_agent_llm_driven.py:304:                decision = self.llm.chat(decision_prompt, max_tokens=300)
+<PRIVATE_ROOT>/forestry_agent_llm_driven.py:397:            response = self.llm.chat(prompt, max_tokens=150)
+<PRIVATE_ROOT>/web_search_summary_generator.py:60:            response = self.llm_model.generate(prompt, max_length=1000, temperature=0.3)
+<PRIVATE_ROOT>/abl_x1_no_softsignal.py:317:def _llm_call(messages, max_tokens=150):
+<PRIVATE_ROOT>/abl_x1_no_softsignal.py:334:_MULTI_COMP_KW = ['\u5e72\u3001\u679d\u3001\u53f6','\u5e72+\u679d+\u53f6','\u5e72\u548c\u679d','\u5404\u7ec4\u5206\u5206\u522b','\u5206\u522b\u4f30\u7b97']
+<PRIVATE_ROOT>/abl_x1_no_softsignal.py:353:    if re.search(r'(\u6750\u6d4b\u6d4b|\u676d\u6728|\u9531\u6728|\u6c38\u51f7|\u6749\u6728|\u6750\u6a41|\u9e1f\u6728|\u6a61\u6811|\u767d\u6866|\u6768\u6811).{0,5}[\uff0c,\u3001].{0,20}(\u6750\u6d4b\u6d4b|\u676d\u6728|\u9531\u6728|\u6c38\u51f7|\u6749\u6728|\u6750\u6a41|\u9e1f\u6728|\u6a61\u6811|\u767d\u6866|\u6768\u6811)', q):
+<PRIVATE_ROOT>/abl_x1_no_softsignal.py:357:    if re.search(r'(\u5e72|\u679d|\u53f6|\u6839).{0,3}[\u3001\u548c\u53ca+].{0,3}(\u5e72|\u679d|\u53f6|\u6839)', q): return 'multi_comp'
+<PRIVATE_ROOT>/abl_x1_no_softsignal.py:489:            if len(val_str) > 150:
+<PRIVATE_ROOT>/abl_x1_no_softsignal.py:606:    struct_scored = []
+<PRIVATE_ROOT>/abl_x1_no_softsignal.py:627:        if s > 0: struct_scored.append((i, s))
+<PRIVATE_ROOT>/abl_x1_no_softsignal.py:628:    struct_scored.sort(key=lambda x: -x[1])
+<PRIVATE_ROOT>/abl_x1_no_softsignal.py:629:    if not struct_scored:
+<PRIVATE_ROOT>/abl_x1_no_softsignal.py:636:    cand_idx  = [i for i,_ in struct_scored[:80]]
+<PRIVATE_ROOT>/abl_x1_no_softsignal.py:638:    struct_arr  = np.array([s for _,s in struct_scored[:80]], dtype=float)
+<PRIVATE_ROOT>/abl_x1_no_softsignal.py:663:    if D is not None and D > 300:
+<PRIVATE_ROOT>/abl_x1_no_softsignal.py:664:        return True, '\u80f8\u5f84'+str(D)+'cm\u8d85\u51fa\u7269\u79cd\u5408\u7406\u4e0a\u9650(>300cm)'
+<PRIVATE_ROOT>/abl_x1_no_softsignal.py:687:    return {'warn':True,'message':'\u6ce8\u610f\uff1a\u60a8\u63d0\u4f9b\u7684\u662f\u57fa\u5f84\uff0c\u8be5\u65b9\u7a0b\u4f7f\u7528\u80f8\u5f84\uff08DBH\uff0c1.3m\u5904\uff09\uff0c\u4e24\u8005\u76f8\u5dee\u7ea615~30%\u3002'}
+<PRIVATE_ROOT>/abl_x1_no_softsignal.py:1026:    ('\u2500'*32,'\u2500'*5,'\u2500'*7,'\u2500'*7,'\u2500'*7,'\u2500'*8),
+<PRIVATE_ROOT>/abl_x1_no_softsignal.py:1031:    ('\u2500'*32,'\u2500'*5,'\u2500'*7,'\u2500'*7,'\u2500'*7,'\u2500'*8),
+<PRIVATE_ROOT>/abl_x1_no_softsignal.py:1061:print('    \u8bc1\u660e\u300c\u6570\u636e-LLM\u5173\u8054\u300d\u662f\u5224\u522b\u8d28\u91cf\u7684\u5173\u952e')
+<PRIVATE_ROOT>/extract_typical_cases.py:80:                print(f"实际答案: {case['actual_answer'][:150]}...")
+<PRIVATE_ROOT>/extract_typical_cases.py:93:            print(f"实际答案: {web_case['actual_answer'][:150]}...")
+<PRIVATE_ROOT>/extract_typical_cases.py:170:        print(f"回答: {best.get('answer', 'N/A')[:300]}...")
+<PRIVATE_ROOT>/extract_typical_cases.py:181:        print(f"回答: {good.get('answer', 'N/A')[:300]}...")
+<PRIVATE_ROOT>/extract_typical_cases.py:191:        print(f"回答: {medium.get('answer', 'N/A')[:300]}...")
+<PRIVATE_ROOT>/extract_typical_cases.py:201:        print(f"回答: {low.get('answer', 'N/A')[:300]}...")
+<PRIVATE_ROOT>/extract_typical_cases.py:250:{case.get('detail', 'N/A')[:300]}
+<PRIVATE_ROOT>/extract_typical_cases.py:278:{case.get('detail', 'N/A')[:300]}
+<PRIVATE_ROOT>/extract_typical_cases.py:300:{case.get('detail', 'N/A')[:300]}
+<PRIVATE_ROOT>/location_scorer.py:16:  50-300km    -> 100线性衰减到70分
+<PRIVATE_ROOT>/location_scorer.py:17:  300-800km   -> 70线性衰减到40分
+<PRIVATE_ROOT>/location_scorer.py:59:    if distance_km <= 300:
+<PRIVATE_ROOT>/location_scorer.py:60:        return 100 - (distance_km - 50) / (300 - 50) * (100 - 70)
+<PRIVATE_ROOT>/location_scorer.py:62:        return 70 - (distance_km - 300) / (800 - 300) * (70 - 40)
+<PRIVATE_ROOT>/biomass_expert_v7.py:254:    cands_idx = [i for i,_ in scored[:150]]
+<PRIVATE_ROOT>/biomass_expert_v7.py:255:    rule_arr  = np.array([s for _,s in scored[:150]], dtype=float)
+<PRIVATE_ROOT>/biomass_expert_v7.py:359:    ], max_tokens=150)
+<PRIVATE_ROOT>/replace_function_complete.py:128:            print(f"    [{i}] 评分={score:.1f}/1000", flush=True)
+<PRIVATE_ROOT>/replace_function_complete.py:159:            print(f"       评分={best_score:.0f}/1000", flush=True)
+<PRIVATE_ROOT>/replace_function_complete.py:179:                    print(f"     评分 = {best_score:.0f}/1000", flush=True)
+<PRIVATE_ROOT>/replace_function_complete.py:186:                    print(f"     评分 = {best_score:.0f}/1000", flush=True)
+<PRIVATE_ROOT>/test_qwen_full_v2.py:143:            out=_model.generate(**inp,max_new_tokens=150,do_sample=False,
+<PRIVATE_ROOT>/test_qwen_full_v2.py:260:    cands_idx=[i for i,_ in scored[:150]]
+<PRIVATE_ROOT>/test_qwen_full_v2.py:261:    rule_arr=np.array([s for _,s in scored[:150]],dtype=float)
+<PRIVATE_ROOT>/biomass_expert_v10.py:282:    cands_idx=[i for i,_ in scored[:150]]
+<PRIVATE_ROOT>/biomass_expert_v10.py:283:    rule_arr=np.array([s for _,s in scored[:150]],dtype=float)
+<PRIVATE_ROOT>/biomass_expert_v9_backup_before_prompt_fix.py:237:    cands_idx=[i for i,_ in scored[:150]]
+<PRIVATE_ROOT>/biomass_expert_v9_backup_before_prompt_fix.py:238:    rule_arr=np.array([s for _,s in scored[:150]],dtype=float)
+<PRIVATE_ROOT>/reranker_semantic_version.py:96:    struct_scored = []
+<PRIVATE_ROOT>/reranker_semantic_version.py:127:            struct_scored.append((i, s))
+<PRIVATE_ROOT>/reranker_semantic_version.py:129:    struct_scored.sort(key=lambda x: -x[1])
+<PRIVATE_ROOT>/reranker_semantic_version.py:131:    if not struct_scored:
+<PRIVATE_ROOT>/reranker_semantic_version.py:138:    cand_idx = [i for i, _ in struct_scored[:80]]
+<PRIVATE_ROOT>/reranker_semantic_version.py:139:    struct_arr = np.array([s for _, s in struct_scored[:80]], dtype=float)
+<PRIVATE_ROOT>/biomass_expert_v24.py:292:def _llm_call(messages, max_tokens=150):
+<PRIVATE_ROOT>/biomass_expert_v24.py:309:_MULTI_COMP_KW = ['\u5e72\u3001\u679d\u3001\u53f6','\u5e72+\u679d+\u53f6','\u5e72\u548c\u679d','\u5404\u7ec4\u5206\u5206\u522b','\u5206\u522b\u4f30\u7b97']
+<PRIVATE_ROOT>/biomass_expert_v24.py:328:    if re.search(r'(\u6750\u6d4b\u6d4b|\u676d\u6728|\u9531\u6728|\u6c38\u51f7|\u6749\u6728|\u6750\u6a41|\u9e1f\u6728|\u6a61\u6811|\u767d\u6866|\u6768\u6811).{0,5}[\uff0c,\u3001].{0,20}(\u6750\u6d4b\u6d4b|\u676d\u6728|\u9531\u6728|\u6c38\u51f7|\u6749\u6728|\u6750\u6a41|\u9e1f\u6728|\u6a61\u6811|\u767d\u6866|\u6768\u6811)', q):
+<PRIVATE_ROOT>/biomass_expert_v24.py:332:    if re.search(r'(\u5e72|\u679d|\u53f6|\u6839).{0,3}[\u3001\u548c\u53ca+].{0,3}(\u5e72|\u679d|\u53f6|\u6839)', q): return 'multi_comp'
+<PRIVATE_ROOT>/biomass_expert_v24.py:464:            if len(val_str) > 150:
+<PRIVATE_ROOT>/biomass_expert_v24.py:580:    struct_scored = []
+<PRIVATE_ROOT>/biomass_expert_v24.py:601:        if s > 0: struct_scored.append((i, s))
+<PRIVATE_ROOT>/biomass_expert_v24.py:602:    struct_scored.sort(key=lambda x: -x[1])
+<PRIVATE_ROOT>/biomass_expert_v24.py:603:    if not struct_scored:
+<PRIVATE_ROOT>/biomass_expert_v24.py:619:    if len(struct_scored) < 15 and sp:
+<PRIVATE_ROOT>/biomass_expert_v24.py:622:            seen = {i for i,_ in struct_scored}
+<PRIVATE_ROOT>/biomass_expert_v24.py:628:                        struct_scored.append((i, 3))  # 低分追加
+<PRIVATE_ROOT>/biomass_expert_v24.py:629:    cand_idx  = [i for i,_ in struct_scored[:80]]
+<PRIVATE_ROOT>/biomass_expert_v24.py:631:    struct_arr  = np.array([s for _,s in struct_scored[:80]], dtype=float)
+<PRIVATE_ROOT>/biomass_expert_v24.py:652:    if D is not None and D > 300:
+<PRIVATE_ROOT>/biomass_expert_v24.py:653:        return True, '\u80f8\u5f84'+str(D)+'cm\u8d85\u51fa\u7269\u79cd\u5408\u7406\u4e0a\u9650(>300cm)'
+<PRIVATE_ROOT>/biomass_expert_v24.py:676:    return {'warn':True,'message':'\u6ce8\u610f\uff1a\u60a8\u63d0\u4f9b\u7684\u662f\u57fa\u5f84\uff0c\u8be5\u65b9\u7a0b\u4f7f\u7528\u80f8\u5f84\uff08DBH\uff0c1.3m\u5904\uff09\uff0c\u4e24\u8005\u76f8\u5dee\u7ea615~30%\u3002'}
+<PRIVATE_ROOT>/filter_test_cases.py:211:3. 当前保留了{len(kept_cases)}条样本，距离目标200-250条还差{max(0, 200-len(kept_cases))}条
+<PRIVATE_ROOT>/fix_expected_v2.py:39:        if m.group(2) == '吨': val *= 1000  # 统一转kg
+<PRIVATE_ROOT>/build_neg_v3_data_driven.py:251:        ("PARAM_D_超大", "胸径超出物种合理上限(>300cm)",
+<PRIVATE_ROOT>/build_neg_v3_data_driven.py:256:                          r'\g<1>250\2', q, count=1)),
+<PRIVATE_ROOT>/test_lora_compare.py:219:    cands_idx = [i for i,_ in scored[:150]]
+<PRIVATE_ROOT>/test_lora_compare.py:220:    rule_arr  = np.array([s for _,s in scored[:150]], dtype=float)
+<PRIVATE_ROOT>/candidate_equations_display.py:127:                    max_value=1000,
+<PRIVATE_ROOT>/candidate_equations_display.py:191:        st.markdown("**评分标准（1000分制）：**")
+<PRIVATE_ROOT>/candidate_equations_display.py:196:            ('地区匹配', selection_criteria.get('location_match', 0), 300, '特定地区 > 通用'),
+<PRIVATE_ROOT>/candidate_equations_display.py:197:            ('变量匹配', selection_criteria.get('variable_match', 0), 150, '变量越多越准确'),
+<PRIVATE_ROOT>/candidate_equations_display.py:227:            st.metric("", f"{total_score}/1000", delta=None)
+<PRIVATE_ROOT>/candidate_equations_display.py:229:        st.progress(total_score / 1000)
+<PRIVATE_ROOT>/candidate_equations_display.py:338:            'equation': 'W = 0.038 * D^2.520 * H^0.150',
+<PRIVATE_ROOT>/candidate_equations_display.py:390:        'location_match': 300,  # 地区匹配
+<PRIVATE_ROOT>/location_matcher.py:311:            "大同市": (40.0768, 113.3001),
+<PRIVATE_ROOT>/location_matcher.py:350:            "松原市": (45.1411, 124.8250),
+<PRIVATE_ROOT>/location_matcher.py:376:            "镇江市": (32.1878, 119.4250),
+<PRIVATE_ROOT>/location_matcher.py:377:            "泰州市": (32.4555, 119.9250),
+<PRIVATE_ROOT>/location_matcher.py:548:            "贵阳市": (26.6470, 106.6300),
+<PRIVATE_ROOT>/location_matcher.py:623:            "巴音郭楞蒙古自治州": (41.7641, 86.1500),
+<PRIVATE_ROOT>/location_matcher.py:1141:                'confidence': max(0.5, 1.0 - min_distance / 1000),
+<PRIVATE_ROOT>/improved_scoring_with_tiebreak_fixed.py:127:                sample_bonus = min(float(sample_size) / 1000.0, 0.1) if sample_size else 0
+<PRIVATE_ROOT>/abl_topk_threshold.py:106:def llm_call(messages, max_tokens=150):
+<PRIVATE_ROOT>/abl_topk_threshold.py:120:    ], max_tokens=150)
+<PRIVATE_ROOT>/abl_topk_threshold.py:143:    struct_scored = []
+<PRIVATE_ROOT>/abl_topk_threshold.py:166:        if s>0: struct_scored.append((i,s))
+<PRIVATE_ROOT>/abl_topk_threshold.py:168:    struct_scored.sort(key=lambda x:-x[1])
+<PRIVATE_ROOT>/abl_topk_threshold.py:169:    if not struct_scored:
+<PRIVATE_ROOT>/abl_topk_threshold.py:174:    cand_idx    = [i for i,_ in struct_scored[:80]]
+<PRIVATE_ROOT>/abl_topk_threshold.py:176:    struct_arr  = np.array([s for _,s in struct_scored[:80]], dtype=float)
+<PRIVATE_ROOT>/qa_evaluation_corrected.py:18:    def call_deepseek(self, prompt: str, max_tokens: int = 1000) -> str:
+<PRIVATE_ROOT>/biomass_expert_v17.py:229:        max_tokens=150)   # 增加到150，给diameter_type留空间
+<PRIVATE_ROOT>/biomass_expert_v17.py:394:    def struct_score(r):
+<PRIVATE_ROOT>/biomass_expert_v17.py:414:    struct_scored = [(i, struct_score(r)) for i, r in enumerate(db)]
+<PRIVATE_ROOT>/biomass_expert_v17.py:415:    struct_scored = [(i, s) for i, s in struct_scored if s > 0]
+<PRIVATE_ROOT>/biomass_expert_v17.py:416:    struct_scored.sort(key=lambda x: -x[1])
+<PRIVATE_ROOT>/biomass_expert_v17.py:418:    if not struct_scored:
+<PRIVATE_ROOT>/biomass_expert_v17.py:422:    cand_idx   = [i for i, _ in struct_scored[:80]]
+<PRIVATE_ROOT>/biomass_expert_v17.py:424:    struct_arr = np.array([s for _, s in struct_scored[:80]], dtype=float)
+<PRIVATE_ROOT>/biomass_expert_v17.py:479:    cands_idx = [i for i, _ in scored[:150]]
+<PRIVATE_ROOT>/biomass_expert_v17.py:480:    rule_arr  = np.array([s for _, s in scored[:150]], dtype=float)
+<PRIVATE_ROOT>/biomass_expert_v17.py:525:    if D is not None and D > 300:
+<PRIVATE_ROOT>/biomass_expert_v17.py:526:        return True, f'胸径{D}cm超出物种合理上限(>300cm)'
+<PRIVATE_ROOT>/analyze_fail_details.py:85:# 分类1: 计算误差巨大（>1000%）
+<PRIVATE_ROOT>/analyze_fail_details.py:104:            if error_pct > 1000:
+<PRIVATE_ROOT>/analyze_fail_details.py:118:print(f"  计算误差巨大 (>1000%): {len(huge_errors)} 个")
+<PRIVATE_ROOT>/analyze_fail_details.py:158:                    print(f"      期望值换算: {expect_val} t = {expect_val*1000} kg")
+<PRIVATE_ROOT>/analyze_fail_details.py:159:                    new_error = abs(calc_val - expect_val*1000) / (expect_val*1000) * 100
+<PRIVATE_ROOT>/location_geocode_preprocessing.py:99:            "max_tokens": 3000,
+<PRIVATE_ROOT>/intent_classifier_enhanced.py:373:                    max_new_tokens=150,
+<PRIVATE_ROOT>/FINAL_test_set.py:129:            'query': '黑龙江的樟子松，胸径150cm，树高25m，求生物量',
+<PRIVATE_ROOT>/FINAL_test_set.py:133:                'dbh': '150cm（超大）',
+<PRIVATE_ROOT>/FINAL_test_set.py:137:            'expected': '提醒胸径150cm远超一般樟子松方程范围，谨慎使用'
+<PRIVATE_ROOT>/auto_evaluation.py:48:    QWEN_API_KEY = "sk-8c81cadbeb2e4026a7db1df4336d5150"
+<PRIVATE_ROOT>/auto_evaluation.py:366:                    if 0.001 < value < 100000:
+<PRIVATE_ROOT>/biomass_expert_v91.py:248:    cands_idx=[i for i,_ in scored[:150]]
+<PRIVATE_ROOT>/biomass_expert_v91.py:249:    rule_arr=np.array([s for _,s in scored[:150]],dtype=float)
+<PRIVATE_ROOT>/generate_comprehensive_test_set_v2.py:297:        'query': f"{tree}，{eq['location']}，胸径150cm，树高30m，求地上生物量",
+<PRIVATE_ROOT>/compare_slots.py:23:        "max_tokens": 300,
+<PRIVATE_ROOT>/test_lora_and_full.py:239:    cands_idx = [i for i, _ in scored[:150]]
+<PRIVATE_ROOT>/test_lora_and_full.py:240:    rule_arr  = np.array([s for _, s in scored[:150]], dtype=float)
+<PRIVATE_ROOT>/forestry_agent_robust.py:134:                            "content": r.get('content', '')[:300],
+<PRIVATE_ROOT>/forestry_agent_robust.py:173:{combined[:1500]}
+<PRIVATE_ROOT>/forestry_agent_robust.py:294:                decision = self.llm.chat(decision_prompt, max_tokens=300)
+<PRIVATE_ROOT>/forestry_agent_robust.py:545:            response = self.llm.chat(prompt, max_tokens=150)
+<PRIVATE_ROOT>/BiModel主1.py:3230:                'example': "'150m³/hm²'"
+<PRIVATE_ROOT>/BiModel主1.py:3240:                'example': "'10000m³'"
+<PRIVATE_ROOT>/BiModel主1.py:3670:                'example': '150',
+<PRIVATE_ROOT>/BiModel主1.py:3672:                'hint': "💡 单位面积蓄积量是指每公顷林地的木材蓄积量\n   您可以说：'150立方米每公顷' 或 'V=150m³/hm²'"
+<PRIVATE_ROOT>/BiModel主1.py:5161:                    if value > 1000:
+<PRIVATE_ROOT>/BiModel主1.py:5212:                        area_in_hectares = area_value / 10000
+<PRIVATE_ROOT>/BiModel主1.py:5213:                        params['A'] = area_in_hectares / 10000
+<PRIVATE_ROOT>/BiModel主1.py:5216:                        params['A'] = area_value / 10000
+<PRIVATE_ROOT>/BiModel主1.py:5240:            area_in_hm2 = params['A'] * 10000
+<PRIVATE_ROOT>/BiModel主1.py:7471:                    score += 150
+<PRIVATE_ROOT>/BiModel主1.py:7477:                    score += 150
+<PRIVATE_ROOT>/BiModel主1.py:7495:                            score += 150
+<PRIVATE_ROOT>/BiModel主1.py:7513:                    score -= 300
+<PRIVATE_ROOT>/BiModel主1.py:7514:                    self._log(f"   ✗ 组分不匹配: {component} ≠ {eq.component} (-300)", level=3)
+<PRIVATE_ROOT>/BiModel主1.py:10531:            # 🔥🔥🔥 修复位置1：集成计算返回值（第130-150行）
+<PRIVATE_ROOT>/BiModel主1.py:10866:            # 2b. 通用换算：W = V × 木材密度 × 1000
+<PRIVATE_ROOT>/BiModel主1.py:10868:            W = V * density * 1000   # m³ × g/cm³ × 1000 = kg
+<PRIVATE_ROOT>/BiModel主1.py:11564:        density = 1000  # 假设密度，实际应从数据获取
+<PRIVATE_ROOT>/BiModel主1.py:11565:        biomass_total = biomass_per_tree * density * area / 1000
+<PRIVATE_ROOT>/BiModel主1.py:12507:                                if 0.1 < _val < 100000:
+<PRIVATE_ROOT>/BiModel主1.py:15417:                            b_ha  = round(bpt * N_ha / 1000, 4)
+<PRIVATE_ROOT>/BiModel主1.py:15418:                            b_tot = round(bpt * total / 1000, 4)
+<PRIVATE_ROOT>/BiModel主1.py:15421:                            b_ha = round(bpt * N_ha / 1000, 4)
+<PRIVATE_ROOT>/BiModel主1.py:16696:                biomass_total = biomass * 1000 * area / 1000  # 假设密度1000株/ha
+<PRIVATE_ROOT>/BiModel主1.py:16727:    总生物量基于假设林分密度1000株/公顷计算。
+<PRIVATE_ROOT>/BiModel主1.py:16816:            biomass_total = biomass * 1000 * area / 1000  # 假设密度1000株/ha
+<PRIVATE_ROOT>/BiModel主1.py:16861:    3. 总生物量基于假设林分密度1000株/公顷计算
+<PRIVATE_ROOT>/BiModel主1.py:17935:            print(f"  回答内容: {answer[:150]}")
+<PRIVATE_ROOT>/test_full_qwen.py:160:    cands_idx = [i for i, _ in scored[:150]]
+<PRIVATE_ROOT>/test_full_qwen.py:161:    rule_arr  = np.array([s for _, s in scored[:150]], dtype=float)
+<PRIVATE_ROOT>/abl_abl3_noroute.py:317:def _llm_call(messages, max_tokens=150):
+<PRIVATE_ROOT>/abl_abl3_noroute.py:334:_MULTI_COMP_KW = ['\u5e72\u3001\u679d\u3001\u53f6','\u5e72+\u679d+\u53f6','\u5e72\u548c\u679d','\u5404\u7ec4\u5206\u5206\u522b','\u5206\u522b\u4f30\u7b97']
+<PRIVATE_ROOT>/abl_abl3_noroute.py:353:    if re.search(r'(\u6750\u6d4b\u6d4b|\u676d\u6728|\u9531\u6728|\u6c38\u51f7|\u6749\u6728|\u6750\u6a41|\u9e1f\u6728|\u6a61\u6811|\u767d\u6866|\u6768\u6811).{0,5}[\uff0c,\u3001].{0,20}(\u6750\u6d4b\u6d4b|\u676d\u6728|\u9531\u6728|\u6c38\u51f7|\u6749\u6728|\u6750\u6a41|\u9e1f\u6728|\u6a61\u6811|\u767d\u6866|\u6768\u6811)', q):
+<PRIVATE_ROOT>/abl_abl3_noroute.py:357:    if re.search(r'(\u5e72|\u679d|\u53f6|\u6839).{0,3}[\u3001\u548c\u53ca+].{0,3}(\u5e72|\u679d|\u53f6|\u6839)', q): return 'multi_comp'
+<PRIVATE_ROOT>/abl_abl3_noroute.py:489:            if len(val_str) > 150:
+<PRIVATE_ROOT>/abl_abl3_noroute.py:606:    struct_scored = []
+<PRIVATE_ROOT>/abl_abl3_noroute.py:627:        if s > 0: struct_scored.append((i, s))
+<PRIVATE_ROOT>/abl_abl3_noroute.py:628:    struct_scored.sort(key=lambda x: -x[1])
+<PRIVATE_ROOT>/abl_abl3_noroute.py:629:    if not struct_scored:
+<PRIVATE_ROOT>/abl_abl3_noroute.py:636:    cand_idx  = [i for i,_ in struct_scored[:80]]
+<PRIVATE_ROOT>/abl_abl3_noroute.py:638:    struct_arr  = np.array([s for _,s in struct_scored[:80]], dtype=float)
+<PRIVATE_ROOT>/abl_abl3_noroute.py:663:    if D is not None and D > 300:
+<PRIVATE_ROOT>/abl_abl3_noroute.py:664:        return True, '\u80f8\u5f84'+str(D)+'cm\u8d85\u51fa\u7269\u79cd\u5408\u7406\u4e0a\u9650(>300cm)'
+<PRIVATE_ROOT>/abl_abl3_noroute.py:687:    return {'warn':True,'message':'\u6ce8\u610f\uff1a\u60a8\u63d0\u4f9b\u7684\u662f\u57fa\u5f84\uff0c\u8be5\u65b9\u7a0b\u4f7f\u7528\u80f8\u5f84\uff08DBH\uff0c1.3m\u5904\uff09\uff0c\u4e24\u8005\u76f8\u5dee\u7ea615~30%\u3002'}
+<PRIVATE_ROOT>/abl_abl3_noroute.py:1025:    ('\u2500'*32,'\u2500'*5,'\u2500'*7,'\u2500'*7,'\u2500'*7,'\u2500'*8),
+<PRIVATE_ROOT>/abl_abl3_noroute.py:1030:    ('\u2500'*32,'\u2500'*5,'\u2500'*7,'\u2500'*7,'\u2500'*7,'\u2500'*8),
+<PRIVATE_ROOT>/abl_abl3_noroute.py:1060:print('    \u8bc1\u660e\u300c\u6570\u636e-LLM\u5173\u8054\u300d\u662f\u5224\u522b\u8d28\u91cf\u7684\u5173\u952e')
+<PRIVATE_ROOT>/abl_strong_baseline_fixed.py:6:  Bug-1 [全局]:   struct_score硬读size_class字段 → get_scope_str()兼容多字段名
+<PRIVATE_ROOT>/abl_strong_baseline_fixed.py:112:    原始 struct_score 硬读 size_class，真实方程库字段名可能不同。
+<PRIVATE_ROOT>/abl_strong_baseline_fixed.py:145:def struct_score(r, slots):
+<PRIVATE_ROOT>/abl_strong_baseline_fixed.py:181:def llm_call(messages, max_tokens=150):
+<PRIVATE_ROOT>/abl_strong_baseline_fixed.py:201:    ], max_tokens=150)
+<PRIVATE_ROOT>/abl_strong_baseline_fixed.py:227:    struct_scored = [(i, struct_score(r, slots)) for i, r in enumerate(db)]
+<PRIVATE_ROOT>/abl_strong_baseline_fixed.py:228:    struct_scored = [(i, s) for i, s in struct_scored if s > 0]
+<PRIVATE_ROOT>/abl_strong_baseline_fixed.py:229:    struct_scored.sort(key=lambda x: -x[1])
+<PRIVATE_ROOT>/abl_strong_baseline_fixed.py:231:    if not struct_scored:
+<PRIVATE_ROOT>/abl_strong_baseline_fixed.py:237:    cand_idx    = [i for i, _ in struct_scored[:80]]
+<PRIVATE_ROOT>/abl_strong_baseline_fixed.py:239:    struct_arr  = np.array([s for _, s in struct_scored[:80]], dtype=float)
+<PRIVATE_ROOT>/abl_strong_baseline_fixed.py:353:    scored = [(i, struct_score(r, slots)) for i, r in enumerate(db)]
+<PRIVATE_ROOT>/generate_comprehensive_test_set.py:206:        'query': f"{tree}，{eq['location']}，胸径150cm，树高30m，求地上生物量",
+<PRIVATE_ROOT>/generate_comprehensive_test_set.py:215:            'reasoning_should_mention': ['胸径150cm', '超出', '范围', '谨慎'],
+<PRIVATE_ROOT>/gen_remaining.py:34:        max_tokens=1000,
+<PRIVATE_ROOT>/biomass_expert_v23.py:289:def _llm_call(messages, max_tokens=150):
+<PRIVATE_ROOT>/biomass_expert_v23.py:306:_MULTI_COMP_KW = ['\u5e72\u3001\u679d\u3001\u53f6','\u5e72+\u679d+\u53f6','\u5e72\u548c\u679d','\u5404\u7ec4\u5206\u5206\u522b','\u5206\u522b\u4f30\u7b97']
+<PRIVATE_ROOT>/biomass_expert_v23.py:325:    if re.search(r'(\u6750\u6d4b\u6d4b|\u676d\u6728|\u9531\u6728|\u6c38\u51f7|\u6749\u6728|\u6750\u6a41|\u9e1f\u6728|\u6a61\u6811|\u767d\u6866|\u6768\u6811).{0,5}[\uff0c,\u3001].{0,20}(\u6750\u6d4b\u6d4b|\u676d\u6728|\u9531\u6728|\u6c38\u51f7|\u6749\u6728|\u6750\u6a41|\u9e1f\u6728|\u6a61\u6811|\u767d\u6866|\u6768\u6811)', q):
+<PRIVATE_ROOT>/biomass_expert_v23.py:329:    if re.search(r'(\u5e72|\u679d|\u53f6|\u6839).{0,3}[\u3001\u548c\u53ca+].{0,3}(\u5e72|\u679d|\u53f6|\u6839)', q): return 'multi_comp'
+<PRIVATE_ROOT>/biomass_expert_v23.py:461:            if len(val_str) > 150:
+<PRIVATE_ROOT>/biomass_expert_v23.py:569:    struct_scored = []
+<PRIVATE_ROOT>/biomass_expert_v23.py:590:        if s > 0: struct_scored.append((i, s))
+<PRIVATE_ROOT>/biomass_expert_v23.py:591:    struct_scored.sort(key=lambda x: -x[1])
+<PRIVATE_ROOT>/biomass_expert_v23.py:592:    if not struct_scored:
+<PRIVATE_ROOT>/biomass_expert_v23.py:599:    cand_idx  = [i for i,_ in struct_scored[:80]]
+<PRIVATE_ROOT>/biomass_expert_v23.py:601:    struct_arr  = np.array([s for _,s in struct_scored[:80]], dtype=float)
+<PRIVATE_ROOT>/biomass_expert_v23.py:622:    if D is not None and D > 300:
+<PRIVATE_ROOT>/biomass_expert_v23.py:623:        return True, '\u80f8\u5f84'+str(D)+'cm\u8d85\u51fa\u7269\u79cd\u5408\u7406\u4e0a\u9650(>300cm)'
+<PRIVATE_ROOT>/biomass_expert_v23.py:646:    return {'warn':True,'message':'\u6ce8\u610f\uff1a\u60a8\u63d0\u4f9b\u7684\u662f\u57fa\u5f84\uff0c\u8be5\u65b9\u7a0b\u4f7f\u7528\u80f8\u5f84\uff08DBH\uff0c1.3m\u5904\uff09\uff0c\u4e24\u8005\u76f8\u5dee\u7ea615~30%\u3002'}
+<PRIVATE_ROOT>/biomass_expert_v15.py:118:    'D':  lambda v: v is not None and v > 300,   # 胸径超物理上限
+<PRIVATE_ROOT>/biomass_expert_v15.py:320:    def struct_score(r):
+<PRIVATE_ROOT>/biomass_expert_v15.py:340:    struct_scored = [(i, struct_score(r)) for i, r in enumerate(db)]
+<PRIVATE_ROOT>/biomass_expert_v15.py:341:    struct_scored = [(i, s) for i, s in struct_scored if s > 0]
+<PRIVATE_ROOT>/biomass_expert_v15.py:342:    struct_scored.sort(key=lambda x: -x[1])
+<PRIVATE_ROOT>/biomass_expert_v15.py:344:    if not struct_scored:
+<PRIVATE_ROOT>/biomass_expert_v15.py:348:    cand_idx   = [i for i, _ in struct_scored[:80]]
+<PRIVATE_ROOT>/biomass_expert_v15.py:350:    struct_arr = np.array([s for _, s in struct_scored[:80]], dtype=float)
+<PRIVATE_ROOT>/biomass_expert_v15.py:405:    cands_idx = [i for i, _ in scored[:150]]
+<PRIVATE_ROOT>/biomass_expert_v15.py:406:    rule_arr  = np.array([s for _, s in scored[:150]], dtype=float)
+<PRIVATE_ROOT>/biomass_expert_v15.py:448:    if D is not None and D > 300:
+<PRIVATE_ROOT>/biomass_expert_v15.py:449:        return True, f'胸径{D}cm超出物种合理上限(>300cm)'
+<PRIVATE_ROOT>/build_location_coords.py:75:        print(f"  ❌ 解析失败: {e}\n  响应: {resp[:300]}")
+<PRIVATE_ROOT>/evaluate_v2.py:93:        result['detail'] = f'异常: {e}\n{traceback.format_exc()[:300]}'
+<PRIVATE_ROOT>/baidu_search_fallback.py:241:            response = self.llm.chat(prompt, max_tokens=300)
+<PRIVATE_ROOT>/testbug.py:436:      └─ score('材积方程')    = 低分（-300 惩罚）→ 过滤掉
+<PRIVATE_ROOT>/testbug.py:440:    → 材积方程得 +40分（相似匹配）而非 -300分
+<PRIVATE_ROOT>/testbug.py:586:          return False          # ← 强制不相似，触发 -300 惩罚
+<PRIVATE_ROOT>/test_fix_on_failures.py:173:            out=_model.generate(**inp,max_new_tokens=150,do_sample=False,
+<PRIVATE_ROOT>/test_fix_on_failures.py:221:    cands_idx=[i for i,_ in scored[:150]]
+<PRIVATE_ROOT>/test_fix_on_failures.py:222:    rule_arr=np.array([s for _,s in scored[:150]],dtype=float)
+<PRIVATE_ROOT>/qa_evaluation_backup.py:18:    def call_deepseek(self, prompt: str, max_tokens: int = 1000) -> str:
+<PRIVATE_ROOT>/ablation_eval.py:286:        score -= min(int(over * 5), 150)
+<PRIVATE_ROOT>/abl_reranker_only.py:155:    struct_scored=[]
+<PRIVATE_ROOT>/abl_reranker_only.py:178:        if s>0: struct_scored.append((i,s))
+<PRIVATE_ROOT>/abl_reranker_only.py:180:    struct_scored.sort(key=lambda x:-x[1])
+<PRIVATE_ROOT>/abl_reranker_only.py:181:    if not struct_scored:
+<PRIVATE_ROOT>/abl_reranker_only.py:186:    cand_idx=[i for i,_ in struct_scored[:80]]
+<PRIVATE_ROOT>/abl_reranker_only.py:188:    struct_arr=np.array([s for _,s in struct_scored[:80]],dtype=float)
+<PRIVATE_ROOT>/Evaluator.py:332:        # 单株生物量一般在0.1-1000kg
+<PRIVATE_ROOT>/Evaluator.py:333:        if 0.1 <= biomass <= 1000:
+<PRIVATE_ROOT>/Evaluator.py:335:        elif 0 < biomass < 10000:
+<PRIVATE_ROOT>/app_enhanced.py:256:                    st.progress(score / 1000)
+<PRIVATE_ROOT>/app_enhanced.py:257:                    st.markdown(f"<div class='match-score'>匹配度：{score:.0f}/1000</div>", 
+<PRIVATE_ROOT>/app_enhanced.py:308:                st.metric("匹配度", f"{score:.0f}/1000")
+<PRIVATE_ROOT>/app_enhanced.py:309:                st.progress(score / 1000)
+<PRIVATE_ROOT>/app_enhanced.py:667:    - 1000分制评分系统
+<PRIVATE_ROOT>/LocalModel回答不好.py:518:            'structure_score': self._calculate_structure_score(response)
+<PRIVATE_ROOT>/LocalModel回答不好.py:665:                f.write(resp['full_text'][:1000])
+<PRIVATE_ROOT>/LocalModel回答不好.py:666:                if len(resp['full_text']) > 1000:
+<PRIVATE_ROOT>/LocalModel回答不好.py:710:                    f.write(f"- 结构完整度: {rq['structure_score']}/100\n\n")
+<PRIVATE_ROOT>/LocalModel回答不好.py:813:    def _calculate_structure_score(self, response: str) -> int:
+<PRIVATE_ROOT>/biomass_rag_final_fixed.py:237:            print(f"\n回答: {result.get('response', '')[:150]}...")
+
+========== ORIGINAL V24 ==========
+10:  问题3: judge误拒正样本(Q0274等) — judge看到"径级稍超+地区不同"就拒绝
+11:         缺少树种完全匹配时的豁免逻辑
+18:      规则层：若有精确树种+地区+组分槽位→倾向single
+27:      如"用户表达了跨区域使用意图"、"胸径超出径级范围"
+32:    - 树种完全匹配时，径级稍超不应拒绝（Q0274类）
+55:  tree_species: 树种名（如华山松、落叶松），没有填null
+56:  region: 地区名（如黑龙江、小秦岭），没有填null
+57:  component: 组分（干/枝/叶/根/整株/地上/地下/材积/碳储量/果实），没有填null
+70:  single       — 查找一个具体方程，有明确树种/地区/组分
+71:  multi_sp     — 需要给多个树种分别找方程（含混交林、多树种并列）
+72:  multi_comp   — 需要给多个组分分别找方程（如同时要干+枝+叶）
+81:  "有几个华山松方程，推荐哪个更适合秦岭地区？" → reasoning
+86:# Fix-②+③: judge prompt加few-shot示例（跨区域拒绝 + 广布种采用 + 径级豁免）
+90:1. 树种匹配：必须相同或近缘种
+91:2. 地区适用：同气候带/相邻省份通常可参考；南北跨度极大才不适用
+92:3. 组分匹配：用户要的组分必须与方程组分一致
+93:4. 径级范围：用户胸径超出上限1.5倍以上才拒绝（树种完全匹配时适当宽松）；
+94:   1.3-1.5倍之间属于边界，树种地区匹配时应采用
+95:5. 通用方程：标签含"通用"或地区"全国"的方程适用全国同树种
+103:  - "北京油松D=30cm，方程适用范围5-25cm" → 采用（30/25=1.2倍，未超1.5倍，且树种地区匹配）
+104:  - "四川华山松，用甘肃华山松方程" → 采用（相邻省份同树种）
+108:  - "湖南马尾松，用杉木叶生物量方程算叶量" → 拒绝（树种不匹配）
+109:  - "用整株方程算果实生物量" → 拒绝（组分完全不符）
+124:4. 地区树种匹配度
+125:5. 径级覆盖用户情况
+142:    'dongbei':       ['东北','东北地区','东北林区','东三省','黑龙江','吉林','辽宁','黑龙江省','吉林省','辽宁省'],
+143:    'neimenggu':     ['内蒙古','内蒙古地区','内蒙古自治区','半干旱区','内蒙古林区'],
+146:    'daxinganling':  ['大兴安岭','大兴安岭林区','大兴安岭地区'],
+147:    'qinling':       ['秦岭','陕西秦岭','秦岭地区'],
+171:def loc_match_score(u, e):
+292:def _llm_call(messages, max_tokens=150):
+309:_MULTI_COMP_KW = ['\u5e72\u3001\u679d\u3001\u53f6','\u5e72+\u679d+\u53f6','\u5e72\u548c\u679d','\u5404\u7ec4\u5206\u5206\u522b','\u5206\u522b\u4f30\u7b97']
+325:    # 多树种信号
+327:    # 多树种：问题里有两个不同树种名用顿号/逗号并列
+328:    if re.search(r'(\u6750\u6d4b\u6d4b|\u676d\u6728|\u9531\u6728|\u6c38\u51f7|\u6749\u6728|\u6750\u6a41|\u9e1f\u6728|\u6a61\u6811|\u767d\u6866|\u6768\u6811).{0,5}[\uff0c,\u3001].{0,20}(\u6750\u6d4b\u6d4b|\u676d\u6728|\u9531\u6728|\u6c38\u51f7|\u6749\u6728|\u6750\u6a41|\u9e1f\u6728|\u6a61\u6811|\u767d\u6866|\u6768\u6811)', q):
+330:    # 多组分信号
+332:    if re.search(r'(\u5e72|\u679d|\u53f6|\u6839).{0,3}[\u3001\u548c\u53ca+].{0,3}(\u5e72|\u679d|\u53f6|\u6839)', q): return 'multi_comp'
+340:    # Single高置信度：有精确树种+地区+组分，无推荐词
+398:      location        = applicable_region（适用地区）
+400:      r_squared       = R²（仅22.5%填充，空时用quality_score代替）
+401:      quality_score   = 综合质量分（100%填充，0.7-0.85）
+402:      size_class      = 适用范围（含径级/林龄/说明文字，97.7%填充）
+414:        'tree_type':        '树种',
+415:        'component':        '组分',
+417:        'location':         '适用地区',      # = applicable_region
+418:        'size_class':       '适用范围',       # 含径级/林龄
+419:        'quality_score':    '综合质量分',
+426:        'component_original': '原始组分描述',
+454:        elif key == 'quality_score':
+464:            if len(val_str) > 150:
+484:    # 修复A+B: 胸径超径级信号 — 仅在size_class含明确胸径关键词时触发
+491:            '胸径', 'D=', 'D:', 'DBH', 'dbh', '径级'])
+497:                signals.append(f'用户胸径{D}cm明显超出径级上限{dr[1]}cm（{ratio:.2f}倍）')
+499:                signals.append(f'用户胸径{D}cm稍超径级上限{dr[1]}cm（{ratio:.2f}倍，请判断是否可接受）')
+500:    # 地区不符信号
+505:    if user_loc and eq_loc and loc_match_score(user_loc, eq_loc) == 0 and not is_universal:
+507:    # 组分不符信号
+527:def param_score(eq_str, slots):
+546:        # 格式4：径级X-Y
+564:def d_range_score(sc, D):
+573:def retrieve(slots, top_k=5, return_scores=False):
+580:    struct_scored = []
+587:        loc_s = loc_match_score(loc, eq_loc) if loc else 0
+598:        s += d_range_score(sc, D)
+599:        s += param_score(r.get('equation',''), {'D':D,'H':H,'D0':D0,'V':V,'A':A})
+601:        if s > 0: struct_scored.append((i, s))
+602:    struct_scored.sort(key=lambda x: -x[1])
+603:    if not struct_scored:
+608:        if return_scores: return [(db[i], float(s)) for i,s in ranked[:top_k]]
+612:    # 松科树种 → 追加"松类"/"松杉类"通用方程
+613:    # 询问林分 → 追加tree_type="林分"/"各树种"的方程
+619:    if len(struct_scored) < 15 and sp:
+622:            seen = {i for i,_ in struct_scored}
+624:                if i not in seen and r.get('tree_type','') in (superclass, '松杉类', '全树种'):
+626:                    loc_s = loc_match_score(loc, eq_loc) if loc else 0
+627:                    if loc_s >= 1:  # 至少地区前缀匹配
+628:                        struct_scored.append((i, 3))  # 低分追加
+629:    cand_idx  = [i for i,_ in struct_scored[:80]]
+631:    struct_arr  = np.array([s for _,s in struct_scored[:80]], dtype=float)
+632:    struct_norm = struct_arr / (struct_arr.max()+1e-9)
+638:    final_scores = 0.55 * struct_norm + 0.45 * sims
+639:    ranked = sorted(zip(cand_idx, final_scores.tolist()), key=lambda x: -x[1])
+640:    if return_scores: return [(db[i], float(s)) for i,s in ranked[:top_k]]
+652:    if D is not None and D > 300:
+653:        return True, '\u80f8\u5f84'+str(D)+'cm\u8d85\u51fa\u7269\u79cd\u5408\u7406\u4e0a\u9650(>300cm)'
+676:    return {'warn':True,'message':'\u6ce8\u610f\uff1a\u60a8\u63d0\u4f9b\u7684\u662f\u57fa\u5f84\uff0c\u8be5\u65b9\u7a0b\u4f7f\u7528\u80f8\u5f84\uff08DBH\uff0c1.3m\u5904\uff09\uff0c\u4e24\u8005\u76f8\u5dee\u7ea615~30%\u3002'}
+683:def llm_judge_with_context(question, slots, top1_rec, top1_score, is_gen_branch=False):
+692:    # 有异常信号 → 送judge（不受score阈值约束，充分利用LLM判断力）''
+716:    """v23: 按quality_score预排序，让LLM在有序列表中选最优"""
+718:    # quality_score 100%填充，按此预排序
+720:        try: return float(eq.get('quality_score', 0.75))
+739:    scored = retrieve(slots, top_k=5, return_scores=True)
+740:    if not scored: return {'intent':'single','equations':[],'top1':'','rejected':False}
+741:    top1_rec, top1_score = scored[0]
+742:    diam_check = check_diameter_type(question, slots, [r for r,_ in scored])
+744:    rejected, reason = llm_judge_with_context(question, slots, top1_rec, top1_score, is_gen_branch)
+747:    results = [r for r,_ in scored]
+894:                loc_match_score(loc,re.sub(r'\s+','',r.get('location','')))>=3 and
+960:        scored=retrieve(slots,top_k=5,return_scores=True)
+961:        top1_score=scored[0][1] if scored else 0.0
+962:        top1_rec=scored[0][0] if scored else None
+963:        diam_check=check_diameter_type(q,slots,[r for r,_ in scored] if scored else [])
+971:        if not scored: nat_signals.append('empty_results')
+972:        if top1_score<=0.20: nat_signals.append('low_score('+str(round(top1_score,3))+')')
+976:            llm_rej,llm_reason=llm_judge_with_context(q,slots,top1_rec,top1_score,is_gen_branch=False)
+984:        print('['+str(i+1).zfill(3)+'] '+flag+' '+tid.ljust(22)+' score='+str(round(top1_score,3))+'  '+sig,flush=True)
+1035:print('     location=适用地区, source=参考文献, quality_score=综合质量分(100%填充)')
+1036:print('     r_squared仅22.5%填充，缺失时LLM用quality_score代替')  
+1038:print('  3. quality_ctrl_by_llm(): 按quality_score预排序候选方程')
+1044:print('  修复A: 软信号只在size_class含明确胸径关键词时才产生径级信号')
+1046:print('  修复B: 径级超范围阈值分级 — >1.5倍为强信号，1.3-1.5倍为参考提示')
+1048:print('  修复C: 检索增强——松科/杉科树种自动追加上位类通用方程')
+
+========== INTEGRITY ==========
+ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990  <PRIVATE_ROOT>/biomass_expert_v24.py
+1ba6a628665188c42df379be615dc1f33270ee83f0a85b57933237a52c9e0686  github_release/code/allomeq_rag/structural_score_v1.py
+8a4d06e9faa62c0e42212aa227a0ca7a57e0fc6256f871421fc56701876389da  github_release/code/allomeq_rag/runtime_manuscript_v1.py

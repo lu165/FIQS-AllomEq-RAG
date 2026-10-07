@@ -1,0 +1,494 @@
+==========================================================================================
+FILE = <PRIVATE_ROOT>/abl_full.py
+SHA256 = 3f19692f2ed6aac9d8415c067b3572be4ba41a4766d8a7e8234d0d405b52f599
+==========================================================================================
+
+------------------------------------------------------------------------------
+FUNCTION = build_gold_set
+LINES = 903 - 916
+
+00903: def build_gold_set(case, eq_override=None):
+00904:     sp=re.sub(r'\s+','',case.get('tree_type','') or '')
+00905:     loc=re.sub(r'\s+','',case.get('location','') or '')
+00906:     comp_raw=case.get('component','') or ''; comp_std=COMP_TO_STD.get(comp_raw,comp_raw)
+00907:     eq_src=eq_override or str(case.get('equation','') or ''); primary=normalize_eq(eq_src)
+00908:     if not primary: return set(),''
+00909:     gold_set={primary}
+00910:     if sp and loc and comp_std:
+00911:         for r in db:
+00912:             if (re.sub(r'\s+','',r.get('tree_type',''))==sp and
+00913:                 loc_match_score(loc,re.sub(r'\s+','',r.get('location','')))>=3 and
+00914:                 r.get('component','')==comp_std):
+00915:                 gold_set.add(normalize_eq(r.get('equation','')))
+00916:     return gold_set, primary
+
+------------------------------------------------------------------------------
+FUNCTION = normalize_eq
+LINES = 239 - 254
+
+00239: def normalize_eq(eq):
+00240:     eq = re.sub(r'\s+','',str(eq or ''))
+00241:     eq = eq.replace('\u00b9','^1').replace('\u00b2','^2').replace('\u00b3','^3')
+00242:     eq = eq.replace('^^','^').replace('\u00d7','*').replace('\uff0a','*')
+00243:     eq = eq.replace('\uff08','(').replace('\uff09',')')
+00244:     for pat, repl in [
+00245:         (r'^ln\(W\)=(.+)$',  lambda m: 'W=exp('+m.group(1)+')'),
+00246:         (r'^lnW=(.+)$',      lambda m: 'W=exp('+m.group(1)+')'),
+00247:         (r'^log\(W\)=(.+)$', lambda m: 'W=exp(2.303*('+m.group(1)+'))'),
+00248:         (r'^logW=(.+)$',     lambda m: 'W=exp(2.303*('+m.group(1)+'))'),
+00249:     ]:
+00250:         m = re.match(pat, eq)
+00251:         if m: eq = repl(m)
+00252:     eq = re.sub(r'(\.\d*[1-9])0+\b',r'\1',eq)
+00253:     eq = re.sub(r'\.0+\b','',eq)
+00254:     return eq
+
+------------------------------------------------------------------------------
+BUILD_GOLD_SET_CONTEXT = 883 - 996
+
+00883:     if is_neg: bucket_rejection.append(c)
+00884:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00885:     else: bucket_no_db.append(c)
+00886: print('  \u4e3b\u8bc4\u4f30: '+str(len(bucket_main))+'\u6761  GEN\u5206\u652f: '+str(len(bucket_gen))+'\u6761  legacy_eq: '+str(len(bucket_legacy))+'\u6761')
+00887: print('  \u8d1f\u6837\u672c: '+str(len(bucket_neg))+'\u6761  \u8df3\u8fc7: '+str(len(bucket_rejection)+len(bucket_no_db))+'\u6761  \u5408\u8ba1: '+str(len(all_cases))+'\u6761')
+00888: 
+00889: print('\n[\u521d\u59cb\u5316] \u52a0\u8f7d Qwen \u6a21\u578b...', flush=True)
+00890: _tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH, trust_remote_code=True)
+00891: _model     = AutoModelForCausalLM.from_pretrained(MODEL_PATH, trust_remote_code=True,
+00892:               torch_dtype=torch.float16, device_map='auto')
+00893: _model.eval()
+00894: print('  \u5b8c\u6210\n', flush=True)
+00895: 
+00896: print('[\u521d\u59cb\u5316] \u52a0\u8f7d Embedding \u6a21\u578b...', flush=True)
+00897: emb = SentenceTransformer(EMB_PATH)
+00898: all_texts = ([r.get('location','') for r in db]+[r.get('tree_type','') for r in db]+[r.get('component','') for r in db])
+00899: all_vecs  = emb.encode(all_texts, batch_size=256, show_progress_bar=True, normalize_embeddings=True)
+00900: n=len(db); loc_vecs=all_vecs[0:n]; sp_vecs=all_vecs[n:2*n]; comp_vecs=all_vecs[2*n:3*n]
+00901: print('  \u5b8c\u6210\n', flush=True)
+00902: 
+00903: def build_gold_set(case, eq_override=None):
+00904:     sp=re.sub(r'\s+','',case.get('tree_type','') or '')
+00905:     loc=re.sub(r'\s+','',case.get('location','') or '')
+00906:     comp_raw=case.get('component','') or ''; comp_std=COMP_TO_STD.get(comp_raw,comp_raw)
+00907:     eq_src=eq_override or str(case.get('equation','') or ''); primary=normalize_eq(eq_src)
+00908:     if not primary: return set(),''
+00909:     gold_set={primary}
+00910:     if sp and loc and comp_std:
+00911:         for r in db:
+00912:             if (re.sub(r'\s+','',r.get('tree_type',''))==sp and
+00913:                 loc_match_score(loc,re.sub(r'\s+','',r.get('location','')))>=3 and
+00914:                 r.get('component','')==comp_std):
+00915:                 gold_set.add(normalize_eq(r.get('equation','')))
+00916:     return gold_set, primary
+00917: 
+00918: def run_eval(branch_name, cases, eq_override_field=None, is_gen=False):
+00919:     print('\n'+'='*60+'\n['+branch_name+'] '+str(len(cases))+'\u6761\n'+'='*60)
+00920:     hit1=hit3=hit5=hit_any=skipped=errors=0
+00921:     intent_stats={k:{'total':0,'hit1':0} for k in ('single','multi_sp','multi_comp','reasoning','quality_ctrl')}
+00922:     for i,case in enumerate(cases):
+00923:         tid=case.get('test_id','#'+str(i+1)); label=case.get('group',tid); q=case['question']
+00924:         eq_override=(str(case.get(eq_override_field,'') or '').strip() if eq_override_field else None)
+00925:         gold_set,primary=build_gold_set(case,eq_override=eq_override)
+00926:         if not primary:
+00927:             skipped+=1; print('['+str(i+1).zfill(3)+'] skip '+tid,flush=True); continue
+00928:         try:
+00929:             result=process_question(q,is_gen_branch=is_gen)
+00930:             intent=result.get('intent','single'); rejected=result.get('rejected',False)
+00931:             if rejected:
+00932:                 reason=result.get('reject_reason','')
+00933:                 print('['+str(i+1).zfill(3)+'] \u274c ['+intent+'] '+tid+' | '+label+' [\u62d2:'+reason+']',flush=True)
+00934:                 intent_stats.get(intent,intent_stats['single'])['total']+=1; continue
+00935:             all_eqs=[normalize_eq(e) for e in result.get('equations',[]) if e]
+00936:             if not all_eqs: all_eqs=[normalize_eq(result.get('top1',''))]
+00937:             h1=bool(all_eqs) and all_eqs[0] in gold_set
+00938:             h3=any(e in gold_set for e in all_eqs[:3])
+00939:             h5=any(e in gold_set for e in all_eqs[:5])
+00940:             h_any=any(e in gold_set for e in all_eqs)
+00941:             if h1:   hit1+=1
+00942:             if h3:   hit3+=1
+00943:             if h5:   hit5+=1
+00944:             if h_any: hit_any+=1
+00945:             base=intent if intent in intent_stats else 'single'
+00946:             intent_stats[base]['total']+=1
+00947:             if h1: intent_stats[base]['hit1']+=1
+00948:             mark='\u2705' if h1 else ('\U0001f536' if h_any else '\u274c')
+00949:             warn_tag=' [\u57fa\u5f84]' if result.get('warn_message') else ''
+00950:             print('['+str(i+1).zfill(3)+'] '+mark+' ['+intent+'] '+tid+' | '+label+warn_tag,flush=True)
+00951:         except Exception as e:
+00952:             errors+=1; print('['+str(i+1).zfill(3)+'] \U0001f4a5 '+tid+' | '+str(e),flush=True)
+00953:     n_valid=len(cases)-skipped
+00954:     def pct(x): return str(100*x//(n_valid or 1))+'%'
+00955:     print('\n[\u7ed3\u679c '+branch_name+']\n  \u6709\u6548:'+str(n_valid)+'  \u8df3\u8fc7:'+str(skipped)+'  \u5f02\u5e38:'+str(errors))
+00956:     print('  Hit@1:'+str(hit1)+'/'+str(n_valid)+'('+pct(hit1)+')'
+00957:           '  Hit@3:'+str(hit3)+'/'+str(n_valid)+'('+pct(hit3)+')'
+00958:           '  Hit@5:'+str(hit5)+'/'+str(n_valid)+'('+pct(hit5)+')'
+00959:           '  Hit@any:'+str(hit_any)+'/'+str(n_valid)+'('+pct(hit_any)+')')
+00960:     print('  \u5206\u652f:',end='')
+00961:     for intent,stat in intent_stats.items():
+00962:         if stat['total']==0: continue
+00963:         print(' '+intent+'='+str(stat['hit1'])+'/'+str(stat['total'])+'('+str(100*stat['hit1']//(stat['total'] or 1))+'%)',end='')
+00964:     print()
+00965:     return hit1,hit3,hit5,hit_any,n_valid
+00966: 
+00967: def run_neg_eval(cases):
+00968:     print('\n'+'='*60+'\n[\u8d1f\u6837\u672c\u8bc4\u4f30] '+str(len(cases))+'\u6761\n'+'='*60)
+00969:     rejected_n=0; type_stats={}; fail_cases=[]
+00970:     for i,case in enumerate(cases):
+00971:         tid=case.get('test_id','NEG_'+str(i)); q=case.get('question',''); group=case.get('group','\u672a\u77e5')
+00972:         slots=extract_slots(q); slots=_rescue_slots(q,slots)
+00973:         hard_rej,hard_reason=stage0_hard_reject(q,slots)
+00974:         if hard_rej:
+00975:             rejected_n+=1
+00976:             type_stats.setdefault(group,{'total':0,'rejected':0})
+00977:             type_stats[group]['total']+=1; type_stats[group]['rejected']+=1
+00978:             print('['+str(i+1).zfill(3)+'] \u2705 '+tid.ljust(22)+' code_reject('+hard_reason+')',flush=True); continue
+00979:         scored=retrieve(slots,top_k=5,return_scores=True)
+00980:         top1_score=scored[0][1] if scored else 0.0
+00981:         top1_rec=scored[0][0] if scored else None
+00982:         diam_check=check_diameter_type(q,slots,[r for r,_ in scored] if scored else [])
+00983:         if diam_check and diam_check.get('warn'):
+00984:             rejected_n+=1
+00985:             type_stats.setdefault(group,{'total':0,'rejected':0})
+00986:             type_stats[group]['total']+=1; type_stats[group]['rejected']+=1
+00987:             print('['+str(i+1).zfill(3)+'] \u2705 '+tid.ljust(22)+' diameter_warn',flush=True); continue
+00988:         sp_val=(slots.get('tree_species') or '').strip(); reg_val=(slots.get('region') or '').strip()
+00989:         nat_signals=[]
+00990:         if not scored: nat_signals.append('empty_results')
+00991:         if top1_score<=0.20: nat_signals.append('low_score('+str(round(top1_score,3))+')')
+00992:         if not sp_val and not reg_val: nat_signals.append('both_slots_empty')
+00993:         llm_rej=False; llm_reason=''
+00994:         if not nat_signals and top1_rec:
+00995:             llm_rej,llm_reason=llm_judge_with_context(q,slots,top1_rec,top1_score,is_gen_branch=False)
+00996:         naturally_rejected=len(nat_signals)>0 or llm_rej
+==========================================================================================
+FILE = <PRIVATE_ROOT>/biomass_expert_v24.py
+SHA256 = ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990
+==========================================================================================
+
+------------------------------------------------------------------------------
+FUNCTION = build_gold_set
+LINES = 884 - 897
+
+00884: def build_gold_set(case, eq_override=None):
+00885:     sp=re.sub(r'\s+','',case.get('tree_type','') or '')
+00886:     loc=re.sub(r'\s+','',case.get('location','') or '')
+00887:     comp_raw=case.get('component','') or ''; comp_std=COMP_TO_STD.get(comp_raw,comp_raw)
+00888:     eq_src=eq_override or str(case.get('equation','') or ''); primary=normalize_eq(eq_src)
+00889:     if not primary: return set(),''
+00890:     gold_set={primary}
+00891:     if sp and loc and comp_std:
+00892:         for r in db:
+00893:             if (re.sub(r'\s+','',r.get('tree_type',''))==sp and
+00894:                 loc_match_score(loc,re.sub(r'\s+','',r.get('location','')))>=3 and
+00895:                 r.get('component','')==comp_std):
+00896:                 gold_set.add(normalize_eq(r.get('equation','')))
+00897:     return gold_set, primary
+
+------------------------------------------------------------------------------
+FUNCTION = normalize_eq
+LINES = 214 - 229
+
+00214: def normalize_eq(eq):
+00215:     eq = re.sub(r'\s+','',str(eq or ''))
+00216:     eq = eq.replace('\u00b9','^1').replace('\u00b2','^2').replace('\u00b3','^3')
+00217:     eq = eq.replace('^^','^').replace('\u00d7','*').replace('\uff0a','*')
+00218:     eq = eq.replace('\uff08','(').replace('\uff09',')')
+00219:     for pat, repl in [
+00220:         (r'^ln\(W\)=(.+)$',  lambda m: 'W=exp('+m.group(1)+')'),
+00221:         (r'^lnW=(.+)$',      lambda m: 'W=exp('+m.group(1)+')'),
+00222:         (r'^log\(W\)=(.+)$', lambda m: 'W=exp(2.303*('+m.group(1)+'))'),
+00223:         (r'^logW=(.+)$',     lambda m: 'W=exp(2.303*('+m.group(1)+'))'),
+00224:     ]:
+00225:         m = re.match(pat, eq)
+00226:         if m: eq = repl(m)
+00227:     eq = re.sub(r'(\.\d*[1-9])0+\b',r'\1',eq)
+00228:     eq = re.sub(r'\.0+\b','',eq)
+00229:     return eq
+
+------------------------------------------------------------------------------
+BUILD_GOLD_SET_CONTEXT = 864 - 977
+
+00864:     if is_neg: bucket_rejection.append(c)
+00865:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00866:     else: bucket_no_db.append(c)
+00867: print('  \u4e3b\u8bc4\u4f30: '+str(len(bucket_main))+'\u6761  GEN\u5206\u652f: '+str(len(bucket_gen))+'\u6761  legacy_eq: '+str(len(bucket_legacy))+'\u6761')
+00868: print('  \u8d1f\u6837\u672c: '+str(len(bucket_neg))+'\u6761  \u8df3\u8fc7: '+str(len(bucket_rejection)+len(bucket_no_db))+'\u6761  \u5408\u8ba1: '+str(len(all_cases))+'\u6761')
+00869: 
+00870: print('\n[\u521d\u59cb\u5316] \u52a0\u8f7d Qwen \u6a21\u578b...', flush=True)
+00871: _tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH, trust_remote_code=True)
+00872: _model     = AutoModelForCausalLM.from_pretrained(MODEL_PATH, trust_remote_code=True,
+00873:               torch_dtype=torch.float16, device_map='auto')
+00874: _model.eval()
+00875: print('  \u5b8c\u6210\n', flush=True)
+00876: 
+00877: print('[\u521d\u59cb\u5316] \u52a0\u8f7d Embedding \u6a21\u578b...', flush=True)
+00878: emb = SentenceTransformer(EMB_PATH)
+00879: all_texts = ([r.get('location','') for r in db]+[r.get('tree_type','') for r in db]+[r.get('component','') for r in db])
+00880: all_vecs  = emb.encode(all_texts, batch_size=256, show_progress_bar=True, normalize_embeddings=True)
+00881: n=len(db); loc_vecs=all_vecs[0:n]; sp_vecs=all_vecs[n:2*n]; comp_vecs=all_vecs[2*n:3*n]
+00882: print('  \u5b8c\u6210\n', flush=True)
+00883: 
+00884: def build_gold_set(case, eq_override=None):
+00885:     sp=re.sub(r'\s+','',case.get('tree_type','') or '')
+00886:     loc=re.sub(r'\s+','',case.get('location','') or '')
+00887:     comp_raw=case.get('component','') or ''; comp_std=COMP_TO_STD.get(comp_raw,comp_raw)
+00888:     eq_src=eq_override or str(case.get('equation','') or ''); primary=normalize_eq(eq_src)
+00889:     if not primary: return set(),''
+00890:     gold_set={primary}
+00891:     if sp and loc and comp_std:
+00892:         for r in db:
+00893:             if (re.sub(r'\s+','',r.get('tree_type',''))==sp and
+00894:                 loc_match_score(loc,re.sub(r'\s+','',r.get('location','')))>=3 and
+00895:                 r.get('component','')==comp_std):
+00896:                 gold_set.add(normalize_eq(r.get('equation','')))
+00897:     return gold_set, primary
+00898: 
+00899: def run_eval(branch_name, cases, eq_override_field=None, is_gen=False):
+00900:     print('\n'+'='*60+'\n['+branch_name+'] '+str(len(cases))+'\u6761\n'+'='*60)
+00901:     hit1=hit3=hit5=hit_any=skipped=errors=0
+00902:     intent_stats={k:{'total':0,'hit1':0} for k in ('single','multi_sp','multi_comp','reasoning','quality_ctrl')}
+00903:     for i,case in enumerate(cases):
+00904:         tid=case.get('test_id','#'+str(i+1)); label=case.get('group',tid); q=case['question']
+00905:         eq_override=(str(case.get(eq_override_field,'') or '').strip() if eq_override_field else None)
+00906:         gold_set,primary=build_gold_set(case,eq_override=eq_override)
+00907:         if not primary:
+00908:             skipped+=1; print('['+str(i+1).zfill(3)+'] skip '+tid,flush=True); continue
+00909:         try:
+00910:             result=process_question(q,is_gen_branch=is_gen)
+00911:             intent=result.get('intent','single'); rejected=result.get('rejected',False)
+00912:             if rejected:
+00913:                 reason=result.get('reject_reason','')
+00914:                 print('['+str(i+1).zfill(3)+'] \u274c ['+intent+'] '+tid+' | '+label+' [\u62d2:'+reason+']',flush=True)
+00915:                 intent_stats.get(intent,intent_stats['single'])['total']+=1; continue
+00916:             all_eqs=[normalize_eq(e) for e in result.get('equations',[]) if e]
+00917:             if not all_eqs: all_eqs=[normalize_eq(result.get('top1',''))]
+00918:             h1=bool(all_eqs) and all_eqs[0] in gold_set
+00919:             h3=any(e in gold_set for e in all_eqs[:3])
+00920:             h5=any(e in gold_set for e in all_eqs[:5])
+00921:             h_any=any(e in gold_set for e in all_eqs)
+00922:             if h1:   hit1+=1
+00923:             if h3:   hit3+=1
+00924:             if h5:   hit5+=1
+00925:             if h_any: hit_any+=1
+00926:             base=intent if intent in intent_stats else 'single'
+00927:             intent_stats[base]['total']+=1
+00928:             if h1: intent_stats[base]['hit1']+=1
+00929:             mark='\u2705' if h1 else ('\U0001f536' if h_any else '\u274c')
+00930:             warn_tag=' [\u57fa\u5f84]' if result.get('warn_message') else ''
+00931:             print('['+str(i+1).zfill(3)+'] '+mark+' ['+intent+'] '+tid+' | '+label+warn_tag,flush=True)
+00932:         except Exception as e:
+00933:             errors+=1; print('['+str(i+1).zfill(3)+'] \U0001f4a5 '+tid+' | '+str(e),flush=True)
+00934:     n_valid=len(cases)-skipped
+00935:     def pct(x): return str(100*x//(n_valid or 1))+'%'
+00936:     print('\n[\u7ed3\u679c '+branch_name+']\n  \u6709\u6548:'+str(n_valid)+'  \u8df3\u8fc7:'+str(skipped)+'  \u5f02\u5e38:'+str(errors))
+00937:     print('  Hit@1:'+str(hit1)+'/'+str(n_valid)+'('+pct(hit1)+')'
+00938:           '  Hit@3:'+str(hit3)+'/'+str(n_valid)+'('+pct(hit3)+')'
+00939:           '  Hit@5:'+str(hit5)+'/'+str(n_valid)+'('+pct(hit5)+')'
+00940:           '  Hit@any:'+str(hit_any)+'/'+str(n_valid)+'('+pct(hit_any)+')')
+00941:     print('  \u5206\u652f:',end='')
+00942:     for intent,stat in intent_stats.items():
+00943:         if stat['total']==0: continue
+00944:         print(' '+intent+'='+str(stat['hit1'])+'/'+str(stat['total'])+'('+str(100*stat['hit1']//(stat['total'] or 1))+'%)',end='')
+00945:     print()
+00946:     return hit1,hit3,hit5,hit_any,n_valid
+00947: 
+00948: def run_neg_eval(cases):
+00949:     print('\n'+'='*60+'\n[\u8d1f\u6837\u672c\u8bc4\u4f30] '+str(len(cases))+'\u6761\n'+'='*60)
+00950:     rejected_n=0; type_stats={}; fail_cases=[]
+00951:     for i,case in enumerate(cases):
+00952:         tid=case.get('test_id','NEG_'+str(i)); q=case.get('question',''); group=case.get('group','\u672a\u77e5')
+00953:         slots=extract_slots(q); slots=_rescue_slots(q,slots)
+00954:         hard_rej,hard_reason=stage0_hard_reject(q,slots)
+00955:         if hard_rej:
+00956:             rejected_n+=1
+00957:             type_stats.setdefault(group,{'total':0,'rejected':0})
+00958:             type_stats[group]['total']+=1; type_stats[group]['rejected']+=1
+00959:             print('['+str(i+1).zfill(3)+'] \u2705 '+tid.ljust(22)+' code_reject('+hard_reason+')',flush=True); continue
+00960:         scored=retrieve(slots,top_k=5,return_scores=True)
+00961:         top1_score=scored[0][1] if scored else 0.0
+00962:         top1_rec=scored[0][0] if scored else None
+00963:         diam_check=check_diameter_type(q,slots,[r for r,_ in scored] if scored else [])
+00964:         if diam_check and diam_check.get('warn'):
+00965:             rejected_n+=1
+00966:             type_stats.setdefault(group,{'total':0,'rejected':0})
+00967:             type_stats[group]['total']+=1; type_stats[group]['rejected']+=1
+00968:             print('['+str(i+1).zfill(3)+'] \u2705 '+tid.ljust(22)+' diameter_warn',flush=True); continue
+00969:         sp_val=(slots.get('tree_species') or '').strip(); reg_val=(slots.get('region') or '').strip()
+00970:         nat_signals=[]
+00971:         if not scored: nat_signals.append('empty_results')
+00972:         if top1_score<=0.20: nat_signals.append('low_score('+str(round(top1_score,3))+')')
+00973:         if not sp_val and not reg_val: nat_signals.append('both_slots_empty')
+00974:         llm_rej=False; llm_reason=''
+00975:         if not nat_signals and top1_rec:
+00976:             llm_rej,llm_reason=llm_judge_with_context(q,slots,top1_rec,top1_score,is_gen_branch=False)
+00977:         naturally_rejected=len(nat_signals)>0 or llm_rej
+==========================================================================================
+FILE = <PROJECT_ROOT>/github_release/code/biomass_expert_manuscript.py
+SHA256 = 81e411286d49b2f1141804fbf0bde70cc6d2c4fa46fd1bc70001fe4e726ef860
+==========================================================================================
+
+------------------------------------------------------------------------------
+FUNCTION = build_gold_set
+LINES = 884 - 897
+
+00884: def build_gold_set(case, eq_override=None):
+00885:     sp=re.sub(r'\s+','',case.get('tree_type','') or '')
+00886:     loc=re.sub(r'\s+','',case.get('location','') or '')
+00887:     comp_raw=case.get('component','') or ''; comp_std=COMP_TO_STD.get(comp_raw,comp_raw)
+00888:     eq_src=eq_override or str(case.get('equation','') or ''); primary=normalize_eq(eq_src)
+00889:     if not primary: return set(),''
+00890:     gold_set={primary}
+00891:     if sp and loc and comp_std:
+00892:         for r in db:
+00893:             if (re.sub(r'\s+','',r.get('tree_type',''))==sp and
+00894:                 loc_match_score(loc,re.sub(r'\s+','',r.get('location','')))>=3 and
+00895:                 r.get('component','')==comp_std):
+00896:                 gold_set.add(normalize_eq(r.get('equation','')))
+00897:     return gold_set, primary
+
+------------------------------------------------------------------------------
+FUNCTION = normalize_eq
+LINES = 214 - 229
+
+00214: def normalize_eq(eq):
+00215:     eq = re.sub(r'\s+','',str(eq or ''))
+00216:     eq = eq.replace('\u00b9','^1').replace('\u00b2','^2').replace('\u00b3','^3')
+00217:     eq = eq.replace('^^','^').replace('\u00d7','*').replace('\uff0a','*')
+00218:     eq = eq.replace('\uff08','(').replace('\uff09',')')
+00219:     for pat, repl in [
+00220:         (r'^ln\(W\)=(.+)$',  lambda m: 'W=exp('+m.group(1)+')'),
+00221:         (r'^lnW=(.+)$',      lambda m: 'W=exp('+m.group(1)+')'),
+00222:         (r'^log\(W\)=(.+)$', lambda m: 'W=exp(2.303*('+m.group(1)+'))'),
+00223:         (r'^logW=(.+)$',     lambda m: 'W=exp(2.303*('+m.group(1)+'))'),
+00224:     ]:
+00225:         m = re.match(pat, eq)
+00226:         if m: eq = repl(m)
+00227:     eq = re.sub(r'(\.\d*[1-9])0+\b',r'\1',eq)
+00228:     eq = re.sub(r'\.0+\b','',eq)
+00229:     return eq
+
+------------------------------------------------------------------------------
+BUILD_GOLD_SET_CONTEXT = 864 - 977
+
+00864:     if is_neg: bucket_rejection.append(c)
+00865:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00866:     else: bucket_no_db.append(c)
+00867: print('  \u4e3b\u8bc4\u4f30: '+str(len(bucket_main))+'\u6761  GEN\u5206\u652f: '+str(len(bucket_gen))+'\u6761  legacy_eq: '+str(len(bucket_legacy))+'\u6761')
+00868: print('  \u8d1f\u6837\u672c: '+str(len(bucket_neg))+'\u6761  \u8df3\u8fc7: '+str(len(bucket_rejection)+len(bucket_no_db))+'\u6761  \u5408\u8ba1: '+str(len(all_cases))+'\u6761')
+00869: 
+00870: print('\n[\u521d\u59cb\u5316] \u52a0\u8f7d Qwen \u6a21\u578b...', flush=True)
+00871: _tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH, trust_remote_code=True)
+00872: _model     = AutoModelForCausalLM.from_pretrained(MODEL_PATH, trust_remote_code=True,
+00873:               torch_dtype=torch.float16, device_map='auto')
+00874: _model.eval()
+00875: print('  \u5b8c\u6210\n', flush=True)
+00876: 
+00877: print('[\u521d\u59cb\u5316] \u52a0\u8f7d Embedding \u6a21\u578b...', flush=True)
+00878: emb = SentenceTransformer(EMB_PATH)
+00879: all_texts = ([r.get('location','') for r in db]+[r.get('tree_type','') for r in db]+[r.get('component','') for r in db])
+00880: all_vecs  = emb.encode(all_texts, batch_size=256, show_progress_bar=True, normalize_embeddings=True)
+00881: n=len(db); loc_vecs=all_vecs[0:n]; sp_vecs=all_vecs[n:2*n]; comp_vecs=all_vecs[2*n:3*n]
+00882: print('  \u5b8c\u6210\n', flush=True)
+00883: 
+00884: def build_gold_set(case, eq_override=None):
+00885:     sp=re.sub(r'\s+','',case.get('tree_type','') or '')
+00886:     loc=re.sub(r'\s+','',case.get('location','') or '')
+00887:     comp_raw=case.get('component','') or ''; comp_std=COMP_TO_STD.get(comp_raw,comp_raw)
+00888:     eq_src=eq_override or str(case.get('equation','') or ''); primary=normalize_eq(eq_src)
+00889:     if not primary: return set(),''
+00890:     gold_set={primary}
+00891:     if sp and loc and comp_std:
+00892:         for r in db:
+00893:             if (re.sub(r'\s+','',r.get('tree_type',''))==sp and
+00894:                 loc_match_score(loc,re.sub(r'\s+','',r.get('location','')))>=3 and
+00895:                 r.get('component','')==comp_std):
+00896:                 gold_set.add(normalize_eq(r.get('equation','')))
+00897:     return gold_set, primary
+00898: 
+00899: def run_eval(branch_name, cases, eq_override_field=None, is_gen=False):
+00900:     print('\n'+'='*60+'\n['+branch_name+'] '+str(len(cases))+'\u6761\n'+'='*60)
+00901:     hit1=hit3=hit5=hit_any=skipped=errors=0
+00902:     intent_stats={k:{'total':0,'hit1':0} for k in ('single','multi_sp','multi_comp','reasoning','quality_ctrl')}
+00903:     for i,case in enumerate(cases):
+00904:         tid=case.get('test_id','#'+str(i+1)); label=case.get('group',tid); q=case['question']
+00905:         eq_override=(str(case.get(eq_override_field,'') or '').strip() if eq_override_field else None)
+00906:         gold_set,primary=build_gold_set(case,eq_override=eq_override)
+00907:         if not primary:
+00908:             skipped+=1; print('['+str(i+1).zfill(3)+'] skip '+tid,flush=True); continue
+00909:         try:
+00910:             result=process_question(q,is_gen_branch=is_gen)
+00911:             intent=result.get('intent','single'); rejected=result.get('rejected',False)
+00912:             if rejected:
+00913:                 reason=result.get('reject_reason','')
+00914:                 print('['+str(i+1).zfill(3)+'] \u274c ['+intent+'] '+tid+' | '+label+' [\u62d2:'+reason+']',flush=True)
+00915:                 intent_stats.get(intent,intent_stats['single'])['total']+=1; continue
+00916:             all_eqs=[normalize_eq(e) for e in result.get('equations',[]) if e]
+00917:             if not all_eqs: all_eqs=[normalize_eq(result.get('top1',''))]
+00918:             h1=bool(all_eqs) and all_eqs[0] in gold_set
+00919:             h3=any(e in gold_set for e in all_eqs[:3])
+00920:             h5=any(e in gold_set for e in all_eqs[:5])
+00921:             h_any=any(e in gold_set for e in all_eqs)
+00922:             if h1:   hit1+=1
+00923:             if h3:   hit3+=1
+00924:             if h5:   hit5+=1
+00925:             if h_any: hit_any+=1
+00926:             base=intent if intent in intent_stats else 'single'
+00927:             intent_stats[base]['total']+=1
+00928:             if h1: intent_stats[base]['hit1']+=1
+00929:             mark='\u2705' if h1 else ('\U0001f536' if h_any else '\u274c')
+00930:             warn_tag=' [\u57fa\u5f84]' if result.get('warn_message') else ''
+00931:             print('['+str(i+1).zfill(3)+'] '+mark+' ['+intent+'] '+tid+' | '+label+warn_tag,flush=True)
+00932:         except Exception as e:
+00933:             errors+=1; print('['+str(i+1).zfill(3)+'] \U0001f4a5 '+tid+' | '+str(e),flush=True)
+00934:     n_valid=len(cases)-skipped
+00935:     def pct(x): return str(100*x//(n_valid or 1))+'%'
+00936:     print('\n[\u7ed3\u679c '+branch_name+']\n  \u6709\u6548:'+str(n_valid)+'  \u8df3\u8fc7:'+str(skipped)+'  \u5f02\u5e38:'+str(errors))
+00937:     print('  Hit@1:'+str(hit1)+'/'+str(n_valid)+'('+pct(hit1)+')'
+00938:           '  Hit@3:'+str(hit3)+'/'+str(n_valid)+'('+pct(hit3)+')'
+00939:           '  Hit@5:'+str(hit5)+'/'+str(n_valid)+'('+pct(hit5)+')'
+00940:           '  Hit@any:'+str(hit_any)+'/'+str(n_valid)+'('+pct(hit_any)+')')
+00941:     print('  \u5206\u652f:',end='')
+00942:     for intent,stat in intent_stats.items():
+00943:         if stat['total']==0: continue
+00944:         print(' '+intent+'='+str(stat['hit1'])+'/'+str(stat['total'])+'('+str(100*stat['hit1']//(stat['total'] or 1))+'%)',end='')
+00945:     print()
+00946:     return hit1,hit3,hit5,hit_any,n_valid
+00947: 
+00948: def run_neg_eval(cases):
+00949:     print('\n'+'='*60+'\n[\u8d1f\u6837\u672c\u8bc4\u4f30] '+str(len(cases))+'\u6761\n'+'='*60)
+00950:     rejected_n=0; type_stats={}; fail_cases=[]
+00951:     for i,case in enumerate(cases):
+00952:         tid=case.get('test_id','NEG_'+str(i)); q=case.get('question',''); group=case.get('group','\u672a\u77e5')
+00953:         slots=extract_slots(q); slots=_rescue_slots(q,slots)
+00954:         hard_rej,hard_reason=stage0_hard_reject(q,slots)
+00955:         if hard_rej:
+00956:             rejected_n+=1
+00957:             type_stats.setdefault(group,{'total':0,'rejected':0})
+00958:             type_stats[group]['total']+=1; type_stats[group]['rejected']+=1
+00959:             print('['+str(i+1).zfill(3)+'] \u2705 '+tid.ljust(22)+' code_reject('+hard_reason+')',flush=True); continue
+00960:         scored=retrieve(slots,top_k=5,return_scores=True)
+00961:         top1_score=scored[0][1] if scored else 0.0
+00962:         top1_rec=scored[0][0] if scored else None
+00963:         diam_check=check_diameter_type(q,slots,[r for r,_ in scored] if scored else [])
+00964:         if diam_check and diam_check.get('warn'):
+00965:             rejected_n+=1
+00966:             type_stats.setdefault(group,{'total':0,'rejected':0})
+00967:             type_stats[group]['total']+=1; type_stats[group]['rejected']+=1
+00968:             print('['+str(i+1).zfill(3)+'] \u2705 '+tid.ljust(22)+' diameter_warn',flush=True); continue
+00969:         sp_val=(slots.get('tree_species') or '').strip(); reg_val=(slots.get('region') or '').strip()
+00970:         nat_signals=[]
+00971:         if not scored: nat_signals.append('empty_results')
+00972:         if top1_score<=0.20: nat_signals.append('low_score('+str(round(top1_score,3))+')')
+00973:         if not sp_val and not reg_val: nat_signals.append('both_slots_empty')
+00974:         llm_rej=False; llm_reason=''
+00975:         if not nat_signals and top1_rec:
+00976:             llm_rej,llm_reason=llm_judge_with_context(q,slots,top1_rec,top1_score,is_gen_branch=False)
+00977:         naturally_rejected=len(nat_signals)>0 or llm_rej
+
+==========================================================================================
+V24 INTEGRITY
+==========================================================================================
+CURRENT = ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990
+EXPECTED = ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990
+UNCHANGED = True
+AUDIT_COMPLETE

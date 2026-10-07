@@ -1,0 +1,999 @@
+========================================================================================
+A. SOURCE INTEGRITY
+========================================================================================
+V24_CURRENT = ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990
+V24_EXPECTED = ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990
+PASS: original v24 unchanged
+
+========================================================================================
+B. REQUIRES_REJECTION x HISTORICAL_IS_NEG
+========================================================================================
+requires_rejection=0     historical_is_neg=0     count=405
+requires_rejection=0     historical_is_neg=1     count=29
+requires_rejection=1     historical_is_neg=0     count=24
+requires_rejection=1     historical_is_neg=1     count=64
+
+LABEL_MISMATCH_TOTAL = 53
+
+========================================================================================
+C. EXACT LABEL MISMATCH CASES
+========================================================================================
+
+----------------------------------------------------------------------------------------
+test_id              = Q0045
+group                = '荒漠植被_乌兰布和'
+requires_rejection    = True
+historical_is_neg     = False
+historical_bucket     = bucket_main
+source               = '《乌兰布和沙漠东北缘荒漠-绿洲过渡带植被地上生物量估算》'
+gen_type             = '原有'
+tree_type            = '白刺'
+component            = '地上生物量'
+location             = '内蒙古'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = None
+question              = '乌兰布和沙漠那边的白刺，想估算地上生物量，有公式吗？（位于内蒙古）'
+
+----------------------------------------------------------------------------------------
+test_id              = Q0046
+group                = '荒漠植被_乌兰布和'
+requires_rejection    = True
+historical_is_neg     = False
+historical_bucket     = bucket_main
+source               = '《乌兰布和沙漠东北缘荒漠-绿洲过渡带植被地上生物量估算》'
+gen_type             = '原有'
+tree_type            = '沙蒿'
+component            = '地上生物量'
+location             = '内蒙古'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = None
+question              = '沙蒿的地上生物量怎么估算？（位于内蒙古）'
+
+----------------------------------------------------------------------------------------
+test_id              = Q0068
+group                = '云南省_林分转换'
+requires_rejection    = True
+historical_is_neg     = False
+historical_bucket     = bucket_main
+source               = '《云南省森林碳储量现状与动态分析》'
+gen_type             = '原有'
+tree_type            = '云南松'
+component            = '生物量'
+location             = '云南省'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = None
+question              = '云南松的林分，每公顷蓄积量80立方米，单位面积生物量多少？'
+
+----------------------------------------------------------------------------------------
+test_id              = Q0083
+group                = '北京妙峰山_灌草'
+requires_rejection    = True
+historical_is_neg     = False
+historical_bucket     = bucket_main
+source               = '《森林生态系统内灌草植被生物量估测方法的研究》'
+gen_type             = '原有'
+tree_type            = '小花溲疏'
+component            = '整株生物量'
+location             = '北京妙峰山林场'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = None
+question              = '北京妙峰山的小花溲疏，林地面积大概2平方米，整株生物量怎么估算？'
+
+----------------------------------------------------------------------------------------
+test_id              = Q0084
+group                = '北京妙峰山_黑枣'
+requires_rejection    = True
+historical_is_neg     = False
+historical_bucket     = bucket_main
+source               = '《森林生态系统内灌草植被生物量估测方法的研究》'
+gen_type             = '原有'
+tree_type            = '黑枣'
+component            = '整株生物量'
+location             = '北京妙峰山林场'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = None
+question              = '黑枣的整株生物量，只知道林地面积是3平方米，有公式吗？（位于北京妙峰山林场）'
+
+----------------------------------------------------------------------------------------
+test_id              = Q0237
+group                = '错误理解_方程链'
+requires_rejection    = True
+historical_is_neg     = False
+historical_bucket     = bucket_rejection
+source               = ''
+gen_type             = '原有'
+tree_type            = '杉木'
+component            = '叶总量'
+location             = '湖南'
+equation_present     = False
+_legacy_equation     = False
+expected_result       = None
+question              = '湖南杉木没有叶生物量方程，能否先算地上部分总量，再减去干材和枝条得到叶量？'
+
+----------------------------------------------------------------------------------------
+test_id              = Q0283
+group                = '边界样本_超大径木'
+requires_rejection    = True
+historical_is_neg     = False
+historical_bucket     = bucket_rejection
+source               = 'biomass_1063'
+gen_type             = '原有'
+tree_type            = '马尾松'
+component            = '干总量'
+location             = '广西'
+equation_present     = False
+_legacy_equation     = False
+expected_result       = None
+question              = '广西马尾松老龄林,胸径45cm,超过方程适用范围(2.0-38.0cm),能否外推?'
+
+----------------------------------------------------------------------------------------
+test_id              = Q0306
+group                = '福建_木麻黄'
+requires_rejection    = True
+historical_is_neg     = False
+historical_bucket     = bucket_main
+source               = '《Hong, Y.C., Xu, W.Q., Ye, G.F., and Zhang, L.H.: Model for estimating biomass of Casuarina equisetifolia planation in coastal region of the southeastern China》'
+gen_type             = '原有'
+tree_type            = '木麻黄'
+component            = '干总量'
+location             = '福建'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = None
+question              = '福建沿海的木麻黄，胸径8厘米，树干生物量怎么算？'
+
+----------------------------------------------------------------------------------------
+test_id              = Q0318
+group                = '负样本_径级不匹配'
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = 'biomass_1935-1940'
+gen_type             = '原有'
+tree_type            = '小黑杨'
+component            = '干材'
+location             = '山西'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '推荐使用19.2-28.2cm径级段方程 W=0.106*D^2.251，因为22cm更接近该段中心值'
+question              = '山西小黑杨，胸径22cm，使用15.1-24.5cm径级段方程，还是使用19.2-28.2cm径级段方程？'
+
+----------------------------------------------------------------------------------------
+test_id              = Q0321
+group                = '负样本_样本量过小'
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = 'biomass_1957-1966'
+gen_type             = '原有'
+tree_type            = '湿地松'
+component            = '枝总量'
+location             = '江西'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '不推荐：样本量仅4且R²=0.4834极低，统计可靠性差，建议寻找样本量更大的方程'
+question              = '江西湿地松方程样本量只有4，可靠吗？'
+
+----------------------------------------------------------------------------------------
+test_id              = Q0346
+group                = '负样本_参数超范围'
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = 'biomass_2062'
+gen_type             = '原有'
+tree_type            = '侧柏'
+component            = '枝总量'
+location             = '江苏'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '不建议使用biomass_2062方程。该方程适用范围为胸径4.5-20.1cm、树高3.3-9.8m，您的参数(D=25cm, H=11m)明显超出上限。外推使用存在较大误差风险，建议寻找大径级侧柏方程。'
+question              = '江苏侧柏，胸径25cm、树高11m，枝生物量？'
+
+----------------------------------------------------------------------------------------
+test_id              = Q0347
+group                = '负样本_小样本量'
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = 'biomass_2097'
+gen_type             = '原有'
+tree_type            = '毛白杨'
+component            = '枝总量'
+location             = '河南'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '可使用biomass_2097方程: W=0.006*D^3.012，但需注意该方程仅基于5个样本，统计可靠性较低。且指数高达3.012，表明生物量随胸径快速增长，外推风险大。建议结合其他方程验证，或说明预测值存在较大不确定性。'
+question              = '河南毛白杨，胸径8cm，枝生物量？注意样本量。'
+
+----------------------------------------------------------------------------------------
+test_id              = Q0363
+group                = '树种泛化_红松_安徽'
+requires_rejection    = True
+historical_is_neg     = False
+historical_bucket     = bucket_rejection
+source               = '林业方程_统一格式.json'
+gen_type             = '树种泛化'
+tree_type            = '红松'
+component            = '干总量'
+location             = '安徽'
+equation_present     = False
+_legacy_equation     = False
+expected_result       = None
+question              = '安徽大别山有一片红松人工林，胸径15厘米，树高12米，想估算树干生物量，但我找不到安徽的红松方程，该怎么办？'
+
+----------------------------------------------------------------------------------------
+test_id              = Q0364
+group                = '树种泛化_白桦_河南'
+requires_rejection    = True
+historical_is_neg     = False
+historical_bucket     = bucket_rejection
+source               = '林业方程_统一格式.json'
+gen_type             = '树种泛化'
+tree_type            = '白桦'
+component            = '全树总量'
+location             = '河南'
+equation_present     = False
+_legacy_equation     = False
+expected_result       = None
+question              = '河南伏牛山海拔1800米处有白桦林，胸径10厘米，想估算整株生物量，河南有白桦的方程吗？'
+
+----------------------------------------------------------------------------------------
+test_id              = Q0365
+group                = '树种泛化_兴安落叶松_湖南'
+requires_rejection    = True
+historical_is_neg     = False
+historical_bucket     = bucket_rejection
+source               = '林业方程_统一格式.json'
+gen_type             = '树种泛化'
+tree_type            = '兴安落叶松'
+component            = '干总量'
+location             = '湖南'
+equation_present     = False
+_legacy_equation     = False
+expected_result       = None
+question              = '湖南张家界景区有一批引种的兴安落叶松，胸径16厘米，树高14米，想估算树干生物量，有方程可用吗？'
+
+----------------------------------------------------------------------------------------
+test_id              = Q0366
+group                = '树种泛化_红松_贵州'
+requires_rejection    = True
+historical_is_neg     = False
+historical_bucket     = bucket_rejection
+source               = '林业方程_统一格式.json'
+gen_type             = '树种泛化'
+tree_type            = '红松'
+component            = '全树总量'
+location             = '贵州'
+equation_present     = False
+_legacy_equation     = False
+expected_result       = None
+question              = '贵州遵义有块红松试验林，胸径18厘米，研究人员想用现有方程估算全树生物量，贵州有红松方程吗？'
+
+----------------------------------------------------------------------------------------
+test_id              = Q0367
+group                = '树种泛化_华北落叶松_云南'
+requires_rejection    = True
+historical_is_neg     = False
+historical_bucket     = bucket_rejection
+source               = '林业方程_统一格式.json'
+gen_type             = '树种泛化'
+tree_type            = '华北落叶松'
+component            = '地上部分总量'
+location             = '云南'
+equation_present     = False
+_legacy_equation     = False
+expected_result       = None
+question              = '云南香格里拉海拔3000米处有华北落叶松造林，胸径10厘米，树高8米，当地没有方程怎么办？'
+
+----------------------------------------------------------------------------------------
+test_id              = Q0368
+group                = '树种泛化_兴安落叶松_浙江'
+requires_rejection    = True
+historical_is_neg     = False
+historical_bucket     = bucket_rejection
+source               = '林业方程_统一格式.json'
+gen_type             = '树种泛化'
+tree_type            = '兴安落叶松'
+component            = '干总量'
+location             = '浙江'
+equation_present     = False
+_legacy_equation     = False
+expected_result       = None
+question              = '浙江某林场引种了兴安落叶松作为观赏林，胸径12厘米，树高10米，能用黑龙江的方程估算干材生物量吗？'
+
+----------------------------------------------------------------------------------------
+test_id              = Q0369
+group                = '地区泛化_马尾松_山西'
+requires_rejection    = True
+historical_is_neg     = False
+historical_bucket     = bucket_rejection
+source               = '林业方程_统一格式.json'
+gen_type             = '地区泛化'
+tree_type            = '马尾松'
+component            = '全树总量'
+location             = '山西'
+equation_present     = False
+_legacy_equation     = False
+expected_result       = None
+question              = '山西运城有片马尾松林，胸径14厘米，树高11米，想估算全树生物量，山西没有马尾松专用方程怎么办？（位于太行山）'
+
+----------------------------------------------------------------------------------------
+test_id              = Q0370
+group                = '地区泛化_杉木_内蒙古'
+requires_rejection    = True
+historical_is_neg     = False
+historical_bucket     = bucket_rejection
+source               = '林业方程_统一格式.json'
+gen_type             = '地区泛化'
+tree_type            = '杉木'
+component            = '干材'
+location             = '内蒙古'
+equation_present     = False
+_legacy_equation     = False
+expected_result       = None
+question              = '内蒙古某林场试种了一批杉木，胸径12厘米，树高10米，内蒙古没有杉木方程，该如何估算干材生物量？（位于呼和浩特）'
+
+----------------------------------------------------------------------------------------
+test_id              = Q0371
+group                = '地区泛化_红松_山东'
+requires_rejection    = True
+historical_is_neg     = False
+historical_bucket     = bucket_rejection
+source               = '林业方程_统一格式.json'
+gen_type             = '地区泛化'
+tree_type            = '红松'
+component            = '干总量'
+location             = '山东'
+equation_present     = False
+_legacy_equation     = False
+expected_result       = None
+question              = '山东泰山有一批红松人工林，胸径18厘米，树高15米，山东有红松生物量方程吗？（位于石家庄）'
+
+----------------------------------------------------------------------------------------
+test_id              = Q0372
+group                = '地区泛化_云南松_四川'
+requires_rejection    = True
+historical_is_neg     = False
+historical_bucket     = bucket_rejection
+source               = '林业方程_统一格式.json'
+gen_type             = '地区泛化'
+tree_type            = '云南松'
+component            = '干材'
+location             = '四川'
+equation_present     = False
+_legacy_equation     = False
+expected_result       = None
+question              = '四川攀枝花有大片云南松，胸径15厘米，树高12米，四川有云南松方程吗？没有的话用哪个省的？（位于雅安）'
+
+----------------------------------------------------------------------------------------
+test_id              = Q0373
+group                = '地区泛化_兴安落叶松_广西'
+requires_rejection    = True
+historical_is_neg     = False
+historical_bucket     = bucket_rejection
+source               = '林业方程_统一格式.json'
+gen_type             = '地区泛化'
+tree_type            = '兴安落叶松'
+component            = '干总量'
+location             = '广西'
+equation_present     = False
+_legacy_equation     = False
+expected_result       = None
+question              = '广西某高校植物园引种了兴安落叶松做研究，胸径16厘米，广西有这个树种的方程吗？能用黑龙江的吗？（位于桂林）'
+
+----------------------------------------------------------------------------------------
+test_id              = Q0374
+group                = '地区泛化_侧柏_云南'
+requires_rejection    = True
+historical_is_neg     = False
+historical_bucket     = bucket_rejection
+source               = '林业方程_统一格式.json'
+gen_type             = '地区泛化'
+tree_type            = '侧柏'
+component            = '干总量'
+location             = '云南'
+equation_present     = False
+_legacy_equation     = False
+expected_result       = None
+question              = '云南昆明附近有人工种植的侧柏，胸径10厘米，云南有侧柏方程吗？能用北京或山西的吗？（位于楚雄）'
+
+----------------------------------------------------------------------------------------
+test_id              = Q0375
+group                = '地区泛化_毛白杨_福建'
+requires_rejection    = True
+historical_is_neg     = False
+historical_bucket     = bucket_rejection
+source               = '林业方程_统一格式.json'
+gen_type             = '地区泛化'
+tree_type            = '毛白杨'
+component            = '全树总量'
+location             = '福建'
+equation_present     = False
+_legacy_equation     = False
+expected_result       = None
+question              = '福建某地引种了毛白杨作为速生林，胸径16厘米，树高14米，福建没有毛白杨方程，能借用哪个省的？（位于南平）'
+
+----------------------------------------------------------------------------------------
+test_id              = Q0376
+group                = '地区泛化_橡胶树_广东'
+requires_rejection    = True
+historical_is_neg     = False
+historical_bucket     = bucket_rejection
+source               = '林业方程_统一格式.json'
+gen_type             = '地区泛化'
+tree_type            = '橡胶树'
+component            = '全树总量'
+location             = '广东'
+equation_present     = False
+_legacy_equation     = False
+expected_result       = None
+question              = '广东湛江有橡胶树种植园，胸径22厘米，想估算整株生物量，广东有橡胶树方程吗？（位于韶关）'
+
+----------------------------------------------------------------------------------------
+test_id              = Q0380
+group                = '意图理解_否定排除'
+requires_rejection    = True
+historical_is_neg     = False
+historical_bucket     = bucket_rejection
+source               = '黑龙江省_碳汇树种'
+gen_type             = '意图理解'
+tree_type            = '红松'
+component            = '地上部分总量'
+location             = '黑龙江'
+equation_present     = False
+_legacy_equation     = False
+expected_result       = None
+question              = '黑龙江红松，胸径20厘米，我不要根系的，不要树皮的，就想知道干材加上枝和叶的总重量'
+
+----------------------------------------------------------------------------------------
+test_id              = Q0382
+group                = '意图理解_比较意图'
+requires_rejection    = True
+historical_is_neg     = False
+historical_bucket     = bucket_rejection
+source               = '湖南_杉木'
+gen_type             = '意图理解'
+tree_type            = '杉木'
+component            = '比较'
+location             = '湖南'
+equation_present     = False
+_legacy_equation     = False
+expected_result       = None
+question              = '湖南的杉木，胸径20厘米，树高15米，算干材和算全树，结果差多少？各占比多少？'
+
+----------------------------------------------------------------------------------------
+test_id              = GEN_错误_0076
+group                = None
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = '自动生成_真实场景_deepseek'
+gen_type             = None
+tree_type            = '急尖长苞冷杉'
+component            = '干皮'
+location             = '西藏'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '需纠错'
+question              = '我在西藏做急尖长苞冷杉的干皮生物量测算，用了公式 W=-2.3216+0.1389*D+0.1037*D^1.8，胸径D取15cm算出来是25.3kg。这个1.8次方的参数和结果应该没问题吧？'
+
+----------------------------------------------------------------------------------------
+test_id              = GEN_错误_0077
+group                = None
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = '自动生成_真实场景_deepseek'
+gen_type             = None
+tree_type            = '加拿大杨I-72'
+component            = '地上部分总量'
+location             = '江苏'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '需纠错'
+question              = '你好，我查资料看到江苏地区的加拿大杨I-72地上部分生物量公式是W=3.2*D^1.39，我用胸径D=15cm计算得到W≈3.2*15^1.39≈3.2*34.5≈110.4kg。这个计算方法和结果正确吗？'
+
+----------------------------------------------------------------------------------------
+test_id              = GEN_错误_0078
+group                = None
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = '自动生成_真实场景_deepseek'
+gen_type             = None
+tree_type            = '油松'
+component            = '地上部分总量'
+location             = '山西'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '需纠错'
+question              = '你好，我在计算山西油松地上部分生物量时，参考了文献中的公式ln(W)=-2.45608+2.42057*ln(D)，但实际操作中我用了ln(W)=-2.45608+2.42057*D（没有取D的对数），因为我觉得直径D直接代入更直观。我这样计算对吗？'
+
+----------------------------------------------------------------------------------------
+test_id              = GEN_错误_0079
+group                = None
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = '自动生成_真实场景_deepseek'
+gen_type             = None
+tree_type            = '小果毛漆树'
+component            = '地上部分总量'
+location             = '湖南'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '需纠错'
+question              = '您好，我在湖南做小果毛漆树地上部分生物量测算，看到文献里有个公式是 ln(W)=0.599963350266612+2.5175*ln(D0)，但我记得之前好像用的是 ln(W)=0.599963350266612+2.5175*ln(D0)+0.1*ln(H)，其中 H 是树高。我这次测了几棵树的胸径 D0 分别是 15cm、20cm、25cm，树高大约都在 8-10 米，用我记忆里这个带树高的公式算出来结果感觉挺合理的。您帮我确认一下，在湖南地区测小果毛漆树地上部分总量，是不是应该用这个带树高 H 的公式更准确？'
+
+----------------------------------------------------------------------------------------
+test_id              = GEN_错误_0080
+group                = None
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = '自动生成_真实场景_deepseek'
+gen_type             = None
+tree_type            = '杉木'
+component            = '干皮'
+location             = '广西'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '需纠错'
+question              = '你好，我计算广西杉木的干皮生物量时，用了公式 lg(W) = -2.0626 + 0.8022 * lg(D^2 * H)，但代入数据后结果偏小。我检查发现公式里 D 用的是胸径（单位厘米），H 用的是树高（单位米），单位应该没问题。会不会是公式中 D 应该用半径而不是直径？或者这个公式其实应该是 lg(W) = -2.0626 + 0.8022 * lg(D * H) 才对？我有点不确定，能帮我确认一下吗？'
+
+----------------------------------------------------------------------------------------
+test_id              = GEN_错误_0081
+group                = None
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = '自动生成_真实场景_deepseek'
+gen_type             = None
+tree_type            = '火炬松'
+component            = '叶总量'
+location             = '江苏'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '需纠错'
+question              = '我计算江苏火炬松的叶总量时，用了公式 ln(W) = -6.7403 + 1.1395 * ln(D * H)，其中 D=25cm，H=15m。我算出来 ln(W) ≈ -1.2，所以 W ≈ 0.3kg。这个算法对吗？'
+
+----------------------------------------------------------------------------------------
+test_id              = GEN_错误_0082
+group                = None
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = '自动生成_真实场景_deepseek'
+gen_type             = None
+tree_type            = '观光木'
+component            = '全树总量'
+location             = '广西'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '需纠错'
+question              = '我在广西做观光木的生物量调查，用胸径D=25cm、树高H=15m的数据，套用公式W=0.0459898371632072*(D^2*H)^0.9计算全树总量，得到约210kg。这个计算流程和参数应该没问题吧？'
+
+----------------------------------------------------------------------------------------
+test_id              = GEN_错误_0083
+group                = None
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = '自动生成_真实场景_deepseek'
+gen_type             = None
+tree_type            = '油松'
+component            = '枝'
+location             = '小秦岭国家级自然保护区'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '需纠错'
+question              = '我在小秦岭国家级自然保护区做油松生物量研究，需要计算枝的生物量。我查到一个公式是 W=exp(2.57733*log(D) - 4.08026)，但同事说应该用 W=exp(2.57733*log(D) - 3.98026)，因为保护区海拔较高需要调整参数。我按同事说的减3.98026算出来结果好像更合理些，这样调整对吗？'
+
+----------------------------------------------------------------------------------------
+test_id              = GEN_错误_0084
+group                = None
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = '自动生成_真实场景_deepseek'
+gen_type             = None
+tree_type            = '湿地松'
+component            = '枝总量'
+location             = '江西'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '需纠错'
+question              = '我在江西测量了一棵湿地松，胸径D=25cm，树高H=15m。我用公式W=1.409549778*(D^2*H)^0.3计算枝总量，算出来大约是42.6kg。这个公式和参数我用对了吗？'
+
+----------------------------------------------------------------------------------------
+test_id              = GEN_错误_0085
+group                = None
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = '自动生成_真实场景_deepseek'
+gen_type             = None
+tree_type            = '油茶'
+component            = '细枝'
+location             = '湖南'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '需纠错'
+question              = '你好，我在湖南做油茶细枝生物量测算，看到文献里有个公式W=0.1304*D0^2.145，我用这个算出来的结果和同事用其他方法测的有差异，但我觉得这个指数2.145更合理，因为之前测其他树种也接近这个值。请问我用这个公式计算湖南油茶细枝生物量是否正确？'
+
+----------------------------------------------------------------------------------------
+test_id              = GEN_错误_0086
+group                = None
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = '自动生成_真实场景_deepseek'
+gen_type             = None
+tree_type            = '合果木'
+component            = '地上部分总量'
+location             = '广西'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '需纠错'
+question              = '你好，我在广西做合果木生物量调查，需要计算地上部分总量。我查到的公式是W=0.1977*D^2.2895，但我记得之前看到过另一个版本是W=0.1977*D^2.3，我觉得用2.3这个整数指数计算起来更方便，而且结果应该差不多吧？我这样简化处理可以吗？'
+
+----------------------------------------------------------------------------------------
+test_id              = GEN_错误_0087
+group                = None
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = '自动生成_真实场景_deepseek'
+gen_type             = None
+tree_type            = '油松'
+component            = '干总量'
+location             = '四川'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '需纠错'
+question              = '您好，我在四川做油松生物量测算时，参考了文献中‘干总量’的公式 ln(W)=-1.64575+0.762568*ln(D^2*H)，但实际计算时我用了 ln(W)=-1.64575+0.762568*ln(D*H)（去掉了D的平方），因为我觉得直径平方可能会高估结果。请问我这样简化计算可以吗？'
+
+----------------------------------------------------------------------------------------
+test_id              = GEN_错误_0088
+group                = None
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = '自动生成_真实场景_deepseek'
+gen_type             = None
+tree_type            = '其他松类'
+component            = '干'
+location             = '福建省'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '需纠错'
+question              = '你好，我在计算福建省其他松类树干生物量时，参考了文献中的公式 W=1.71*D^0.688*H，其中D是胸径（cm），H是树高（m）。我计算了一棵胸径25cm、树高15m的样本，得到 W=1.71*25^0.688*15 ≈ 64.2 kg。这个计算过程和结果正确吗？'
+
+----------------------------------------------------------------------------------------
+test_id              = GEN_错误_0089
+group                = None
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = '自动生成_真实场景_deepseek'
+gen_type             = None
+tree_type            = '思茅松'
+component            = '树桩'
+location             = '云南'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '需纠错'
+question              = '我在云南测量了一棵思茅松的树桩，直径D=30cm。我查到的公式是W=0.0274+0.0009*D^2，算出来W=0.0274+0.0009*900=0.8374kg。这个算法对吗？'
+
+----------------------------------------------------------------------------------------
+test_id              = GEN_错误_0090
+group                = None
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = '自动生成_真实场景_deepseek'
+gen_type             = None
+tree_type            = '杉木'
+component            = '果实'
+location             = '湖南'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '需纠错'
+question              = '你好，我在计算湖南杉木果实生物量时，使用了公式 lg(W) = -3.61329 + 0.68994 * lg(D^2 * H)，其中 D=15cm，H=8m。但我同事说应该用 lg(W) = -3.61329 + 0.68994 * lg(D + H) 来计算，说这样更准确。我算出来的结果是 12.5kg，他算的是 8.3kg。请问我的计算方法和参数选择对吗？'
+
+----------------------------------------------------------------------------------------
+test_id              = GEN_错误_0091
+group                = None
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = '自动生成_真实场景_deepseek'
+gen_type             = None
+tree_type            = '云南金沙江流域云南松'
+component            = 'volume'
+location             = '金沙江流域（丽江、楚雄州、中旬县）'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '需纠错'
+question              = '你好，我在计算云南金沙江流域云南松的材积时，使用了这个公式：V=0.00005829012*(0.97*D_{围})^1.979634*H^0.907152，其中树高H我直接用了实测值。我测得D_{围}=40cm，H=25m，计算出的材积约为0.45m³。请问我这样直接使用实测H值代入公式计算是否正确？'
+
+----------------------------------------------------------------------------------------
+test_id              = GEN_错误_0092
+group                = None
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = '自动生成_真实场景_deepseek'
+gen_type             = None
+tree_type            = '水杉'
+component            = '叶总量'
+location             = '江苏'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '需纠错'
+question              = '你好，我在江苏测量水杉的叶总量时，使用了方程 ln(W) = -2.2778 + 0.4602 * ln(D * H) 来计算。我测得的胸径D=30cm，树高H=20m，代入后算出W约15.2kg。这个公式和计算过程对吗？'
+
+----------------------------------------------------------------------------------------
+test_id              = GEN_错误_0093
+group                = None
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = '自动生成_真实场景_deepseek'
+gen_type             = None
+tree_type            = '日本落叶松'
+component            = '地下部分总量'
+location             = '四川'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '需纠错'
+question              = '你好，我在计算四川地区日本落叶松地下部分生物量时，参考了文献中W=0.0019*(D^2*H)^1.095这个公式（指数是1.095），用胸径D=25cm、树高H=15m的数据算出来约38.6kg。这个计算方法和结果应该没问题吧？'
+
+----------------------------------------------------------------------------------------
+test_id              = GEN_错误_0094
+group                = None
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = '自动生成_真实场景_deepseek'
+gen_type             = None
+tree_type            = '檫木'
+component            = '叶总量'
+location             = '福建'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '需纠错'
+question              = '你好，我在福建做檫木生物量研究，需要计算单株叶总量。我查到的公式是 lg(W) = -3.4494 + 1.1984 * lg(D * H)，其中D是胸径（cm），H是树高（m）。我用D=25cm、H=15m代入计算，得出W≈12.3kg。这个计算方法和结果正确吗？'
+
+----------------------------------------------------------------------------------------
+test_id              = GEN_错误_0095
+group                = None
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = '自动生成_真实场景_deepseek'
+gen_type             = None
+tree_type            = '油松'
+component            = '树皮生物量'
+location             = '河南伏牛山区'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '需纠错'
+question              = '你好，我在计算河南伏牛山区油松的树皮生物量，用的是公式 W_P = 0.010723 * (D²*H)^0.80398。我测量了一棵样木，胸径D=25cm，树高H=12m，代入计算时，我先算D²=625，然后D²*H=7500，接着算(D²*H)^0.80398时，我直接按计算器得到约7500^0.8≈1584.9，再乘以0.010723得到约17.0kg。但同事说我的计算过程可能有问题，想确认一下我这样算对吗？'
+
+----------------------------------------------------------------------------------------
+test_id              = GEN_错误_0096
+group                = None
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = '自动生成_真实场景_deepseek'
+gen_type             = None
+tree_type            = '水杉'
+component            = '枝总量'
+location             = '湖南'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '需纠错'
+question              = '您好，我在湖南测量了一棵水杉，胸径D=25cm，树高H=15m。我用公式W=0.0622883*(D^2*H)^0.6761058计算了它的枝总量，但同事说应该用W=0.0622883*(D^2*H)^0.8761058，因为湖南地区水杉的幂指数需要调整。我查了下资料，好像确实有地区修正系数的说法，所以想确认一下：湖南水杉枝总量计算时，幂指数到底应该是0.6761058还是0.8761058？我的计算过程对吗？'
+
+----------------------------------------------------------------------------------------
+test_id              = GEN_错误_0097
+group                = None
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = '自动生成_真实场景_deepseek'
+gen_type             = None
+tree_type            = '女贞'
+component            = '枝总量'
+location             = '广西'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '需纠错'
+question              = '我在广西测量女贞的枝总量，用公式W=0.084+0.004*(D*H)计算，其中D=8cm，H=5m，算出来是0.244kg，这个算法对吗？'
+
+----------------------------------------------------------------------------------------
+test_id              = GEN_错误_0098
+group                = None
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = '自动生成_真实场景_deepseek'
+gen_type             = None
+tree_type            = '油松'
+component            = '侧根'
+location             = '辽宁'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '需纠错'
+question              = '您好，我在计算辽宁地区油松的侧根生物量时，使用了方程 ln(W) = -2.86945 + 0.487402 * ln(D * H)，其中 D=25cm，H=12m。我算出的 ln(W) 约为 1.82，这样处理正确吗？'
+
+----------------------------------------------------------------------------------------
+test_id              = GEN_错误_0099
+group                = None
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = '自动生成_真实场景_deepseek'
+gen_type             = None
+tree_type            = '樟树'
+component            = '干总量'
+location             = '贵州'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '需纠错'
+question              = '我在贵州测量了一棵樟树，胸径D=25cm，树高H=12m。我用公式W=0.812+0.012*(D*H)计算干总量，得出W≈3.812kg。这个公式和参数用法对吗？'
+
+----------------------------------------------------------------------------------------
+test_id              = GEN_错误_0100
+group                = None
+requires_rejection    = False
+historical_is_neg     = True
+historical_bucket     = bucket_rejection
+source               = '自动生成_真实场景_deepseek'
+gen_type             = None
+tree_type            = '火炬松'
+component            = '树根生物量'
+location             = '青岛市'
+equation_present     = True
+_legacy_equation     = False
+expected_result       = '需纠错'
+question              = '你好，我在计算青岛市火炬松的树根生物量时，参考了文献里的公式 W = 0.0370 * D^2.2974，但我觉得指数部分可能有问题，就改成了 W = 0.0370 * D^2.3 来计算，这样四舍五入后更简洁，结果应该差不多吧？我这样处理对吗？'
+
+========================================================================================
+D. FORMAL NEGATIVE LABEL -> HISTORICAL BUCKET
+========================================================================================
+bucket_main = 6
+bucket_rejection = 82
+
+FORMAL NEGATIVES NOT IN HISTORICAL REJECTION:
+Q0045 bucket= bucket_main historical_is_neg= False group= '荒漠植被_乌兰布和'
+Q0046 bucket= bucket_main historical_is_neg= False group= '荒漠植被_乌兰布和'
+Q0068 bucket= bucket_main historical_is_neg= False group= '云南省_林分转换'
+Q0083 bucket= bucket_main historical_is_neg= False group= '北京妙峰山_灌草'
+Q0084 bucket= bucket_main historical_is_neg= False group= '北京妙峰山_黑枣'
+Q0306 bucket= bucket_main historical_is_neg= False group= '福建_木麻黄'
+
+========================================================================================
+E. FORMAL APPLICABLE -> HISTORICAL REJECTION
+========================================================================================
+COUNT = 41
+Q0225 historical_is_neg= False group= '应用场景_林分调查' equation_present= True expected_result= '可使用地上部分总量方程 + 地下部分总量方程，或者将各组分方程（干材+干皮+枝+叶+地下）相加'
+Q0229 historical_is_neg= False group= '特殊组分_根系分级' equation_present= True expected_result= '使用各径级方程分别计算：大根 W=0.008247048801*D^2.193002731，粗根、中等根、细根依次使用相应方程'
+Q0235 historical_is_neg= False group= '综合场景_混交林' equation_present= True expected_result= '杉木使用杉木专用方程，阔叶树使用湖南通用方程，分别计算后相加得到总生物量'
+Q0260 historical_is_neg= False group= '复杂样本_同地多树种' equation_present= True expected_result= '甜槠用 lg(W)=-0.77107+2.15336*lg(D),青冈用 lg(W)=-0.58154+2.13469*lg(D),石栎用 lg(W)=-0.74957+2.23288*lg(D),分别计算后相加'
+Q0266 historical_is_neg= False group= '复杂样本_组分细分_枝皮' equation_present= True expected_result= '分别使用枝材方程 lg(W)=-1.20193+2.02107*lg(D) 和枝皮方程 lg(W)=-1.3989+1.68828*lg(D),计算后相加得枝总量'
+Q0269 historical_is_neg= False group= '复杂样本_多个地区方程对比' equation_present= True expected_result= '湖南与广西、贵州都相邻,广西方程精度更高(R²=0.989),但最好寻找湖南本地方程;若无本地方程,可谨慎使用广西方程'
+Q0270 historical_is_neg= False group= '应用场景_防护林' equation_present= True expected_result= '分别计算：干材 W=0.025*D^2.655,干皮 W=0.004*D^2.584,枝 W=0.000119*D^3.8569,叶 W=0.001*D^2.709,相加得地上总量'
+Q0278 historical_is_neg= False group= '应用场景_组分占比' equation_present= True expected_result= '分别计算：干 W=0.0159*(D^2*H)^1.0242,枝 W=0.0135*(D^2*H)^0.8839,叶 W=0.0016*(D^2*H)^0.9658,然后计算各自占比'
+Q0282 historical_is_neg= False group= '综合场景_方程更新' equation_present= True expected_result= '推荐使用2013年方程 ln(W)=-2.0627+2.1573*ln(D) (R²=0.9463,n=45),样本量更大,可能是改进研究'
+Q0287 historical_is_neg= False group= '综合场景_多论文对比' equation_present= True expected_result= '推荐甘肃方程：虽然有地域差异,但样本量134远大于北京的6,统计可靠性更高;如果对精度要求极高,建议寻找北京更大样本的研究'
+Q0318 historical_is_neg= True group= '负样本_径级不匹配' equation_present= True expected_result= '推荐使用19.2-28.2cm径级段方程 W=0.106*D^2.251，因为22cm更接近该段中心值'
+Q0321 historical_is_neg= True group= '负样本_样本量过小' equation_present= True expected_result= '不推荐：样本量仅4且R²=0.4834极低，统计可靠性差，建议寻找样本量更大的方程'
+Q0323 historical_is_neg= False group= '复杂场景_方程形式对比' equation_present= True expected_result= '如果有树高数据，推荐双变量方程lg(W)=-1.9929+1.098*lg(D^2*H)；如果只有胸径，使用单变量方程'
+Q0346 historical_is_neg= True group= '负样本_参数超范围' equation_present= True expected_result= '不建议使用biomass_2062方程。该方程适用范围为胸径4.5-20.1cm、树高3.3-9.8m，您的参数(D=25cm, H=11m)明显超出上限。外推使用存在较大误差风险，建议寻找大径级侧柏方程。'
+Q0347 historical_is_neg= True group= '负样本_小样本量' equation_present= True expected_result= '可使用biomass_2097方程: W=0.006*D^3.012，但需注意该方程仅基于5个样本，统计可靠性较低。且指数高达3.012，表明生物量随胸径快速增长，外推风险大。建议结合其他方程验证，或说明预测值存在较大不确定性。'
+Q0354 historical_is_neg= False group= '复杂场景_立地条件' equation_present= True expected_result= '建议使用biomass_2065方程: W=0.0979*(D^2*H)^0.7586，适用于胸径3.8-11.3cm、树高3.1-9.1m的幼龄杉木林。理由: (1)参数范围匹配(D=6cm, H=5m都在范围内); (2)该方程基于间伐研究，反映密度管理后的生长特征; (3)幼龄林生物量分配模式与成熟林不同。计算: W=0.0979*(6²*5)^0.7586=0.0979*180^0.7586≈0.0979*62.5≈6.1kg。'
+GEN_错误_0076 historical_is_neg= True group= None equation_present= True expected_result= '需纠错'
+GEN_错误_0077 historical_is_neg= True group= None equation_present= True expected_result= '需纠错'
+GEN_错误_0078 historical_is_neg= True group= None equation_present= True expected_result= '需纠错'
+GEN_错误_0079 historical_is_neg= True group= None equation_present= True expected_result= '需纠错'
+GEN_错误_0080 historical_is_neg= True group= None equation_present= True expected_result= '需纠错'
+GEN_错误_0081 historical_is_neg= True group= None equation_present= True expected_result= '需纠错'
+GEN_错误_0082 historical_is_neg= True group= None equation_present= True expected_result= '需纠错'
+GEN_错误_0083 historical_is_neg= True group= None equation_present= True expected_result= '需纠错'
+GEN_错误_0084 historical_is_neg= True group= None equation_present= True expected_result= '需纠错'
+GEN_错误_0085 historical_is_neg= True group= None equation_present= True expected_result= '需纠错'
+GEN_错误_0086 historical_is_neg= True group= None equation_present= True expected_result= '需纠错'
+GEN_错误_0087 historical_is_neg= True group= None equation_present= True expected_result= '需纠错'
+GEN_错误_0088 historical_is_neg= True group= None equation_present= True expected_result= '需纠错'
+GEN_错误_0089 historical_is_neg= True group= None equation_present= True expected_result= '需纠错'
+GEN_错误_0090 historical_is_neg= True group= None equation_present= True expected_result= '需纠错'
+GEN_错误_0091 historical_is_neg= True group= None equation_present= True expected_result= '需纠错'
+GEN_错误_0092 historical_is_neg= True group= None equation_present= True expected_result= '需纠错'
+GEN_错误_0093 historical_is_neg= True group= None equation_present= True expected_result= '需纠错'
+GEN_错误_0094 historical_is_neg= True group= None equation_present= True expected_result= '需纠错'
+GEN_错误_0095 historical_is_neg= True group= None equation_present= True expected_result= '需纠错'
+GEN_错误_0096 historical_is_neg= True group= None equation_present= True expected_result= '需纠错'
+GEN_错误_0097 historical_is_neg= True group= None equation_present= True expected_result= '需纠错'
+GEN_错误_0098 historical_is_neg= True group= None equation_present= True expected_result= '需纠错'
+GEN_错误_0099 historical_is_neg= True group= None equation_present= True expected_result= '需纠错'
+GEN_错误_0100 historical_is_neg= True group= None equation_present= True expected_result= '需纠错'
+
+GROUP COUNTS:
+25 ''
+1 '应用场景_林分调查'
+1 '特殊组分_根系分级'
+1 '综合场景_混交林'
+1 '复杂样本_同地多树种'
+1 '复杂样本_组分细分_枝皮'
+1 '复杂样本_多个地区方程对比'
+1 '应用场景_防护林'
+1 '应用场景_组分占比'
+1 '综合场景_方程更新'
+1 '综合场景_多论文对比'
+1 '负样本_径级不匹配'
+1 '负样本_样本量过小'
+1 '复杂场景_方程形式对比'
+1 '负样本_参数超范围'
+1 '负样本_小样本量'
+1 '复杂场景_立地条件'
+
+========================================================================================
+F. REJECTION DIAGNOSTIC FEATURES
+========================================================================================
+historical_is_neg = 93
+missing_equation = 82
+formal_requires_rejection = 82
+missing_group = 25
+other_historical_rule = 12
+
+========================================================================================
+G. GROUP-LEVEL LABEL COMPARISON
+========================================================================================
+group='' n=126 formal_neg=0 historical_neg=25 mismatch=25
+group='荒漠植被_乌兰布和' n=3 formal_neg=2 historical_neg=0 mismatch=2
+group='负样本_参数超范围' n=4 formal_neg=3 historical_neg=4 mismatch=1
+group='云南省_林分转换' n=1 formal_neg=1 historical_neg=0 mismatch=1
+group='北京妙峰山_灌草' n=1 formal_neg=1 historical_neg=0 mismatch=1
+group='北京妙峰山_黑枣' n=1 formal_neg=1 historical_neg=0 mismatch=1
+group='地区泛化_云南松_四川' n=1 formal_neg=1 historical_neg=0 mismatch=1
+group='地区泛化_侧柏_云南' n=1 formal_neg=1 historical_neg=0 mismatch=1
+group='地区泛化_兴安落叶松_广西' n=1 formal_neg=1 historical_neg=0 mismatch=1
+group='地区泛化_杉木_内蒙古' n=1 formal_neg=1 historical_neg=0 mismatch=1
+group='地区泛化_橡胶树_广东' n=1 formal_neg=1 historical_neg=0 mismatch=1
+group='地区泛化_毛白杨_福建' n=1 formal_neg=1 historical_neg=0 mismatch=1
+group='地区泛化_红松_山东' n=1 formal_neg=1 historical_neg=0 mismatch=1
+group='地区泛化_马尾松_山西' n=1 formal_neg=1 historical_neg=0 mismatch=1
+group='意图理解_否定排除' n=1 formal_neg=1 historical_neg=0 mismatch=1
+group='意图理解_比较意图' n=1 formal_neg=1 historical_neg=0 mismatch=1
+group='树种泛化_兴安落叶松_浙江' n=1 formal_neg=1 historical_neg=0 mismatch=1
+group='树种泛化_兴安落叶松_湖南' n=1 formal_neg=1 historical_neg=0 mismatch=1
+group='树种泛化_华北落叶松_云南' n=1 formal_neg=1 historical_neg=0 mismatch=1
+group='树种泛化_白桦_河南' n=1 formal_neg=1 historical_neg=0 mismatch=1
+group='树种泛化_红松_安徽' n=1 formal_neg=1 historical_neg=0 mismatch=1
+group='树种泛化_红松_贵州' n=1 formal_neg=1 historical_neg=0 mismatch=1
+group='福建_木麻黄' n=1 formal_neg=1 historical_neg=0 mismatch=1
+group='负样本_小样本量' n=1 formal_neg=0 historical_neg=1 mismatch=1
+group='负样本_径级不匹配' n=1 formal_neg=0 historical_neg=1 mismatch=1
+group='负样本_样本量过小' n=1 formal_neg=0 historical_neg=1 mismatch=1
+group='边界样本_超大径木' n=1 formal_neg=1 historical_neg=0 mismatch=1
+group='错误理解_方程链' n=1 formal_neg=1 historical_neg=0 mismatch=1
+
+========================================================================================
+H. FINAL ASSERTIONS
+========================================================================================
+PASS: formal negatives = 88
+PASS: historical is_neg markers = 93
+PASS: 6 formal negatives entered bucket_main
+PASS: 41 formal applicable entered bucket_rejection
+PASS: original v24 unchanged
+MISMATCH_CSV = github_release/reproducibility/v24_label_semantics_mismatches.csv
+AUDIT_COMPLETE

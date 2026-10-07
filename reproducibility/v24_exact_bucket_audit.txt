@@ -1,0 +1,106 @@
+================================================================================
+A. SOURCE INTEGRITY
+================================================================================
+V24_CURRENT  = ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990
+V24_EXPECTED = ef8e7fa5ad20c96c71fec08c12d79365f24de9de40ccf8537648f4d01f0eb990
+PASS: original v24 unchanged
+
+================================================================================
+B. EXACT V24 BUCKET SOURCE
+================================================================================
+00846: bucket_main=[]; bucket_gen=[]; bucket_legacy=[]
+00847: bucket_neg=[]; bucket_rejection=[]; bucket_no_db=[]
+00848: for c in all_cases:
+00849:     has_group='group' in c; group=c.get('group','')
+00850:     eq_str=str(c.get('equation','') or '').strip()
+00851:     legacy_eq=str(c.get('_legacy_equation','') or '').strip()
+00852:     if c.get('requires_rejection',False) and '\u8d1f\u6837\u672c' in group:
+00853:         bucket_neg.append(c); continue
+00854:     is_neg='\u8d1f\u6837\u672c' in group or is_wrong_prem(c)
+00855:     if eq_str and not is_valid_equation(eq_str): bucket_rejection.append(c); continue
+00856:     if not has_group:
+00857:         if is_wrong_prem(c): bucket_rejection.append(c)
+00858:         elif eq_str: bucket_gen.append(c)
+00859:         continue
+00860:     if not eq_str:
+00861:         if is_neg: bucket_rejection.append(c)
+00862:         elif legacy_eq: bucket_legacy.append(c)
+00863:         continue
+00864:     if is_neg: bucket_rejection.append(c)
+00865:     elif normalize_eq(eq_str) in db_eq_set: bucket_main.append(c)
+00866:     else: bucket_no_db.append(c)
+00867: print('  \u4e3b\u8bc4\u4f30: '+str(len(bucket_main))+'\u6761  GEN\u5206\u652f: '+str(len(bucket_gen))+'\u6761  legacy_eq: '+str(len(bucket_legacy))+'\u6761')
+00868: print('  \u8d1f\u6837\u672c: '+str(len(bucket_neg))+'\u6761  \u8df3\u8fc7: '+str(len(bucket_rejection)+len(bucket_no_db))+'\u6761  \u5408\u8ba1: '+str(len(all_cases))+'\u6761')
+
+================================================================================
+C. EXACT BUCKET COUNTS
+================================================================================
+bucket_main          = 270
+bucket_gen           = 101
+bucket_legacy        = 5
+bucket_rejection     = 123
+bucket_no_db         = 23
+bucket_neg_marker    = 93
+requires_rejection   = 88
+TOTAL                = 522
+
+================================================================================
+D. LABEL x BUCKET
+================================================================================
+applicable bucket_gen = 101
+applicable bucket_legacy = 5
+applicable bucket_main = 264
+applicable bucket_no_db = 23
+applicable bucket_rejection = 41
+inapplicable bucket_main = 6
+inapplicable bucket_rejection = 82
+
+================================================================================
+E. PRIMARY-NOT-IN-DB APPLICABLE CASES
+================================================================================
+COUNT = 36
+Q0018 bucket= bucket_no_db group= '亚热带常绿阔叶林_粗根'
+Q0019 bucket= bucket_no_db group= '亚热带常绿阔叶林_粗根'
+Q0020 bucket= bucket_no_db group= '亚热带常绿阔叶林_粗根'
+Q0023 bucket= bucket_no_db group= '亚热带常绿阔叶林_粗根'
+Q0024 bucket= bucket_no_db group= '亚热带常绿阔叶林_粗根'
+Q0104 bucket= bucket_no_db group= '喀斯特森林_罗伞'
+Q0132 bucket= bucket_no_db group= '喀斯特森林_黄樟'
+Q0186 bucket= bucket_no_db group= '福建_马尾松'
+Q0188 bucket= bucket_no_db group= '福建_马尾松'
+Q0225 bucket= bucket_rejection group= '应用场景_林分调查'
+Q0229 bucket= bucket_rejection group= '特殊组分_根系分级'
+Q0235 bucket= bucket_rejection group= '综合场景_混交林'
+Q0244 bucket= bucket_no_db group= '内蒙古_油松'
+Q0260 bucket= bucket_rejection group= '复杂样本_同地多树种'
+Q0266 bucket= bucket_rejection group= '复杂样本_组分细分_枝皮'
+Q0269 bucket= bucket_rejection group= '复杂样本_多个地区方程对比'
+Q0270 bucket= bucket_rejection group= '应用场景_防护林'
+Q0278 bucket= bucket_rejection group= '应用场景_组分占比'
+Q0282 bucket= bucket_rejection group= '综合场景_方程更新'
+Q0287 bucket= bucket_rejection group= '综合场景_多论文对比'
+Q0289 bucket= bucket_no_db group= '广东_雷州桉1号'
+Q0299 bucket= bucket_no_db group= '广东_尾巨桉'
+Q0318 bucket= bucket_rejection group= '负样本_径级不匹配'
+Q0322 bucket= bucket_no_db group= '复杂场景_多方程选择'
+Q0323 bucket= bucket_rejection group= '复杂场景_方程形式对比'
+Q0324 bucket= bucket_no_db group= '复杂场景_径级选择'
+Q0326 bucket= bucket_no_db group= '复杂场景_特殊组分'
+Q0327 bucket= bucket_no_db group= '复杂场景_混淆树种'
+Q0333 bucket= bucket_no_db group= '边界情况_径级交界'
+Q0338 bucket= bucket_no_db group= '质量评估_样本量影响'
+Q0350 bucket= bucket_no_db group= '复杂场景_变量选择'
+Q0351 bucket= bucket_no_db group= '复杂场景_方程形式对比'
+Q0352 bucket= bucket_no_db group= '复杂场景_线性方程'
+Q0353 bucket= bucket_no_db group= '复杂场景_径级段选择'
+Q0354 bucket= bucket_rejection group= '复杂场景_立地条件'
+Q0361 bucket= bucket_no_db group= '质量评估_大样本'
+
+================================================================================
+F. FINAL ASSERTIONS
+================================================================================
+PASS: 522 cases assigned exactly once
+PASS: explicit requires_rejection count = 88
+PASS: original v24 unchanged
+CSV = github_release/reproducibility/v24_exact_bucket_assignments.csv
+AUDIT_COMPLETE

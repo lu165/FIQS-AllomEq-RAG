@@ -1,0 +1,23 @@
+FIQS / AllomEq-RAG Release Manifest
+
+Components:
+- FIDF: 115,375 instruction-response pairs
+- FEDB: 7,394 allometric equations
+- FETS: 510 held-out QA benchmark
+- Evaluation benchmark: 522 queries
+
+Core modules:
+- deterministic retriever
+- structural scoring
+- semantic fusion
+- applicability gate
+- evaluation interface
+
+Reproducibility:
+- smoke test available
+- scoring trace available
+- provenance artifacts preserved
+
+Notes:
+- development_artifacts contain historical provenance records.
+- Public execution does not require private paths.
