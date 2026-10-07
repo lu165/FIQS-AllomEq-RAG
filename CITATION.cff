@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+title: "FIQS / AllomEq-RAG: A reproducible retrieval framework for forestry allometric equation question answering"
+
+authors:
+  - family-names: Lu
+    given-names: 
+
+version: "v1.1.2"
+
+date-released: "2026-10-07"
+
+repository-code: "https://github.com/lu165/FIQS-AllomEq-RAG"
+
+doi: "10.5281/zenodo.23205773"
+
+license: MIT
